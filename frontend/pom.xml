@@ -3,20 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>app</artifactId>
-    <groupId>io.gitlab.randyyaj</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>omrs</artifactId>
+    <groupId>com.proship</groupId>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>frontend</artifactId>
+
 
   <build>
     <plugins>
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>1.6</version>
+        <configuration>
+          <!--<installDirectory>target</installDirectory>-->
+          <!--<workingDirectory>target</workingDirectory>-->
+        </configuration>
         <executions>
           <!-- Install our node and npm version to run npm/node scripts-->
           <execution>
@@ -25,10 +30,10 @@
               <goal>install-node-and-npm</goal>
             </goals>
             <configuration>
-              <nodeVersion>v6.9.1</nodeVersion>
-              <npmVersion>3.10.9</npmVersion>
-              <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
-              <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
+              <nodeVersion>v8.7.0</nodeVersion>
+              <npmVersion>5.3.0</npmVersion>
+                <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+             <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
             </configuration>
           </execution>
 
@@ -66,6 +71,7 @@
             <!-- Optional configuration which provides for running any npm command -->
             <configuration>
               <arguments>install</arguments>
+              <!--<installDirectory>target</installDirectory>-->
             </configuration>
           </execution>
 
