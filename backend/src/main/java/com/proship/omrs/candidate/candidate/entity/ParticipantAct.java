@@ -1,14 +1,16 @@
 package com.proship.omrs.candidate.candidate.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.proship.omrs.candidate.group.entity.GroupActMembers;
+import com.proship.omrs.candidate.group.entity.GroupActMemberShard;
 import com.proship.omrs.contract.entity.ContractMainShard;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Where(clause = "active = true and id not in (1,2,2576,2577)")
 public class ParticipantAct {
 
     @Id
@@ -18,11 +20,15 @@ public class ParticipantAct {
             sequenceName = "participant_act_id_sequence"
     )
     private Long id;
-    private Long specialty_type;
+
+    @JsonIgnore
+    private Long specialtyType;
+    @JsonIgnore
     private Long uuid;
+
     private Boolean active;
 
-    @OneToMany
+    @OneToMany(mappedBy = "act")
     private List<ContractMainShard> contractShards;
 
     @ManyToOne
@@ -30,14 +36,14 @@ public class ParticipantAct {
     private Participant participant;
 
     @OneToOne(mappedBy = "participantAct")
-    @Where(clause = "participantActName.nexttransactiontime > current_date")
+    @JsonIgnore
     private ParticipantActName participantActName;
 
 //    @OneToMany
 //    ParticipantActResidency
 
-    @OneToOne(mappedBy = "participantAct")
-    private GroupActMembers group;
+    @ManyToMany(mappedBy = "participantActs")
+    private Set<GroupActMemberShard> bands;
 
     public Long getId() {
         return id;
@@ -47,12 +53,12 @@ public class ParticipantAct {
         this.id = id;
     }
 
-    public Long getSpecialty_type() {
-        return specialty_type;
+    public Long getSpecialtyType() {
+        return specialtyType;
     }
 
-    public void setSpecialty_type(Long specialty_type) {
-        this.specialty_type = specialty_type;
+    public void setSpecialtyType(Long specialtyType) {
+        this.specialtyType = specialtyType;
     }
 
     public Long getUuid() {
@@ -85,5 +91,21 @@ public class ParticipantAct {
 
     public void setParticipantActName(ParticipantActName participantActName) {
         this.participantActName = participantActName;
+    }
+
+    public List<ContractMainShard> getContractShards() {
+        return contractShards;
+    }
+
+    public void setContractShards(List<ContractMainShard> contractShards) {
+        this.contractShards = contractShards;
+    }
+
+    public Set<GroupActMemberShard> getBands() {
+        return bands;
+    }
+
+    public void setBands(Set<GroupActMemberShard> bands) {
+        this.bands = bands;
     }
 }

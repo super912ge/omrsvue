@@ -1,18 +1,32 @@
 package com.proship.omrs.gig.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.proship.omrs.base.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.proship.omrs.base.entity.MainShardEntity;
+import com.proship.omrs.gig.param.RoomSerializer;
+import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
+import com.proship.omrs.venue.entity.Room;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-public class GigMainShard extends BaseEntity{
+@Where(clause = "nexttransactiontime > current_date")
+//@NamedNativeQuery(query = "SELECT gms.* FROM GigMainShard gms where gms.nexttransactiontime> current_date ORDER BY " +
+//        "gms.validendtime DESC LIMIT 1", name = "mostRecentGigShard",resultClass = GigMainShard.class)
+public class GigMainShard extends MainShardEntity{
 
     @Id
-    private Long id  ;
-    private String label  ;
-    private Long room ;
+    private Long id;
+
+    private String label ;
+
+    @JsonSerialize(using = RoomSerializer.class)
+    @ManyToOne
+    @JoinColumn(name = "room")
+    private Room room ;
+
     private Double minSalaryAmount;
     private String minSalaryCurrency;
     private Boolean minSalaryGross;
@@ -20,27 +34,23 @@ public class GigMainShard extends BaseEntity{
     private Integer minSalaryRecurrencePeriodDenominator ;
     private String minSalaryRecurrenceUnit  ;
     private Double maxSalaryAmount;
-    private Double maxSalaryCurrency  ;
+    private String maxSalaryCurrency  ;
     private Boolean maxSalaryGross ;
     private Integer maxSalaryRecurrencePeriodNumerator ;
     private Integer maxSalaryRecurrencePeriodDenominator ;
     private String maxSalaryRecurrenceUnit  ;
-    private Boolean exclusive     ;
+    private Boolean exclusive;
 
     @ManyToOne
     @JoinColumn(name = "responsible")
+    @JsonSerialize(using = UserSerializer.class)
     private User responsible ;
 
-    private Long creatorId  ;
-
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date validstarttime   ;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date validendtime  ;
-
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     private Gig gig ;
 
+    @JsonIgnore
     private Long gigType ;
 
     @Transient
@@ -62,11 +72,11 @@ public class GigMainShard extends BaseEntity{
         this.label = label;
     }
 
-    public Long getRoom() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setRoom(Long room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 
@@ -126,11 +136,11 @@ public class GigMainShard extends BaseEntity{
         this.maxSalaryAmount = maxSalaryAmount;
     }
 
-    public Double getMaxSalaryCurrency() {
+    public String getMaxSalaryCurrency() {
         return maxSalaryCurrency;
     }
 
-    public void setMaxSalaryCurrency(Double maxSalaryCurrency) {
+    public void setMaxSalaryCurrency(String maxSalaryCurrency) {
         this.maxSalaryCurrency = maxSalaryCurrency;
     }
 
@@ -180,30 +190,6 @@ public class GigMainShard extends BaseEntity{
 
     public void setResponsible(User responsible) {
         this.responsible = responsible;
-    }
-
-    public Long getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public Date getValidstarttime() {
-        return validstarttime;
-    }
-
-    public void setValidstarttime(Date validstarttime) {
-        this.validstarttime = validstarttime;
-    }
-
-    public Date getValidendtime() {
-        return validendtime;
-    }
-
-    public void setValidendtime(Date validendtime) {
-        this.validendtime = validendtime;
     }
 
     public Gig getGig() {

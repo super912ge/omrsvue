@@ -1,28 +1,21 @@
 package com.proship.omrs.contract.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 @Entity
-//@Data
-//@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Contract implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Contract [id=" + id + ", specialty_type=" + specialty_type + ", non_ps=" + non_ps + ", uuid=" + uuid
-				+ ", status=" + status + ", contractShard=" + contractMainShard + "]";
+		return "Contract [id=" + id + ", specialty_type=" + specialtyType + ", non_ps=" + nonPs + ", uuid=" + uuid
+				+ ", status=" + contractStatus.getCancel() + ", contractShards=" + contractMainShards + "]";
 	}
 	/**
 	 * 
@@ -31,30 +24,24 @@ public class Contract implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	Long id;
-	
-	Integer specialty_type;
-	
-	Boolean non_ps;
-	
-	Long uuid;
+	private Long id;
+	@JsonIgnore
+	private Integer specialtyType;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="contract")
-	@OrderBy("transactiontime")
-	List<ContractMainShard> contractMainShardList;
+	private Boolean nonPs;
+
+	@JsonIgnore
+	private Long uuid;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "contractId")
+	@OrderBy(value = "validendtime")
+	private List<ContractMainShard> contractMainShards;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy="contract")
-	@OrderBy("transactiontime")
-	List<ContractStatus> contractStatusList;
-	
-	
-	// contract current status 
-	@Transient
-	Boolean status; 
-	
-	@Transient
-	ContractMainShard contractMainShard;
+	@OneToOne( mappedBy="contract",fetch = FetchType.LAZY)
+	private ContractStatus contractStatus;
+
 	
 	Contract(){};
 
@@ -66,20 +53,20 @@ public class Contract implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getSpecialty_type() {
-		return specialty_type;
+	public Integer getSpecialtyType() {
+		return specialtyType;
 	}
 
-	public void setSpecialty_type(Integer specialty_type) {
-		this.specialty_type = specialty_type;
+	public void setSpecialtyType(Integer specialty_type) {
+		this.specialtyType = specialty_type;
 	}
 
-	public Boolean getNon_ps() {
-		return non_ps;
+	public Boolean getNonPs() {
+		return nonPs;
 	}
 
-	public void setNon_ps(Boolean non_ps) {
-		this.non_ps = non_ps;
+	public void setNonPs(Boolean non_ps) {
+		this.nonPs = non_ps;
 	}
 
 	public Long getUuid() {
@@ -90,43 +77,19 @@ public class Contract implements Serializable{
 		this.uuid = uuid;
 	}
 
-	public List<ContractMainShard> getContractShardList() {
-		return contractMainShardList;
+	public List<ContractMainShard> getContractMainShards() {
+		return contractMainShards;
 	}
 
-	public void setContractShardList(List<ContractMainShard> contractShard) {
-		this.contractMainShardList = contractShard;
+	public void setContractMainShards(List<ContractMainShard> contractMainShards) {
+		this.contractMainShards = contractMainShards;
 	}
 
-	public List<ContractStatus> getContractStatusList() {
-		return contractStatusList;
+	public ContractStatus getContractStatus() {
+		return contractStatus;
 	}
 
-	public void setContractStatusList(List<ContractStatus> contractStatusList) {
-		this.contractStatusList = contractStatusList;
+	public void setContractStatus(ContractStatus contractStatus) {
+		this.contractStatus = contractStatus;
 	}
-
-	public Boolean getStatus() {
-		
-		if(contractStatusList!=null&&!contractStatusList.isEmpty())
-		
-		status = contractStatusList.get(contractStatusList.size()-1).getCancel();
-		return status;
-	}
-	public ContractMainShard getContractShard(){
-		
-		
-		if(contractMainShardList!=null && !contractMainShardList.isEmpty()){
-			contractMainShard = contractMainShardList.get(contractMainShardList.size()-1);
-		}
-		return contractMainShard;
-		
-	}
-	public void setContractShard(ContractMainShard shard){
-		 this.contractMainShard = shard;
-	}
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}	
-	
 }

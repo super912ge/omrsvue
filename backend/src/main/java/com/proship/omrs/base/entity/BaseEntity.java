@@ -5,6 +5,7 @@ import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class BaseEntity {
 
 	@JsonIgnore

@@ -1,6 +1,8 @@
 package com.proship.omrs.candidate.candidate.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proship.omrs.candidate.group.entity.GroupActMainShard;
 import com.proship.omrs.candidate.group.entity.GroupActMemberShard;
 import com.proship.omrs.document.certificate.entity.Certificate;
 import com.proship.omrs.document.medical.entity.Medical;
@@ -16,6 +18,7 @@ import java.util.Set;
 
 @Table(name = "participant")
 @Entity
+@Where(clause = "id not in (1,2576)")
 public class Participant{
 
     @Id
@@ -26,8 +29,9 @@ public class Participant{
     )
     private Long id;
 
+    @JsonIgnore
     private Integer specialtyType ;
-
+    @JsonIgnore
     private Long uuid ;
 
     @Transient
@@ -40,14 +44,15 @@ public class Participant{
     @JoinColumn(name = "evaluationId")
     private EvalTag evaluation;
 
-    @OneToMany(mappedBy = "leader")
-    @Where(clause = "band.validendtime > current_date and band.nexttransactiontime > current_date")
-    private Set<GroupActMemberShard> band;
+    @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
+    //@JsonIgnore
+    private Set<GroupActMainShard> groupActMainShards;
 
 //    @OneToMany
 //    private List<ParticipantGender> gender;
 
-    @OneToMany(mappedBy = "participant")
+    @OneToMany(mappedBy = "participant",fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ParticipantAct> participantActList;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -168,14 +173,6 @@ public class Participant{
         this.participantAct = participantAct;
     }
 
-    public Set<GroupActMemberShard> getBand() {
-        return band;
-    }
-
-    public void setBand(Set<GroupActMemberShard> band) {
-        this.band = band;
-    }
-
     public String getName() {
 
         this.name = this.participantAct.getParticipantActName().getName();
@@ -184,5 +181,13 @@ public class Participant{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<GroupActMainShard> getGroupActMainShards() {
+        return groupActMainShards;
+    }
+
+    public void setGroupActMainShards(Set<GroupActMainShard> groupActMainShards) {
+        this.groupActMainShards = groupActMainShards;
     }
 }

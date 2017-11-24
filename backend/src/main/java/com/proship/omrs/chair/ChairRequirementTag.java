@@ -1,5 +1,6 @@
 package com.proship.omrs.chair;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
 import com.proship.omrs.evaluation.entity.EvalTagType;
 import com.proship.omrs.gig.entity.Gig;
@@ -14,7 +15,9 @@ public class ChairRequirementTag extends BaseEntity{
     @Id
     private Long id;
 
+    @JsonIgnore
     private Long uuid;
+
 
     private Long evalTagTypeId;
 
@@ -22,6 +25,7 @@ public class ChairRequirementTag extends BaseEntity{
 //    private Gig gig;
 
     @ManyToOne
+    //@JsonIgnore
     private ChairRequirementTag parent;
 
     @OneToMany(mappedBy = "parent")

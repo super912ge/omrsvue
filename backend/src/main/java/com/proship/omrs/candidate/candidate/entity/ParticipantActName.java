@@ -3,11 +3,13 @@ package com.proship.omrs.candidate.candidate.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "participant_act_name_tts")
+@Where(clause = "nexttransactiontime > current_date")
 public class ParticipantActName extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_name_tts_id_seq")

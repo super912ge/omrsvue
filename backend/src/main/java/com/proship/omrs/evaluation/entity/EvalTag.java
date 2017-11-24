@@ -12,11 +12,11 @@ public class EvalTag extends BaseEntity{
 
     @Id
     private Long id ;
-
+    @JsonIgnore
     private Long uuid ;
-
+    @JsonIgnore
     private Long creatorId ;
-
+    @JsonIgnore
     private Long destroyerId ;
 
     @JsonIgnore

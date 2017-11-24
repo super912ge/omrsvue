@@ -1,59 +1,44 @@
 package com.proship.omrs.contract.entity;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.proship.omrs.base.entity.MainShardEntity;
+import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
+import com.proship.omrs.candidate.candidate.param.ParticipantActSerializer;
+import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.param.GigSerializer;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.proship.omrs.base.entity.BaseEntity;
-import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
-import com.proship.omrs.gig.entity.Gig;
-import com.proship.omrs.jsonviews.UserSerializer;
-import com.proship.omrs.user.entity.User;
-
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="contract_main_shard")
-public class ContractMainShard extends BaseEntity{
+@Where(clause = "nexttransactiontime > current_date")
+public class ContractMainShard extends MainShardEntity{
 	
 	
 	ContractMainShard(){};
 	
 	@Id
-	Long id;
+	private Long id;
+
+	//@JoinColumn(name="contractId")
+	private Long contractId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JsonSerialize(using = ParticipantActSerializer.class)
+    private ParticipantAct act;
 
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="contract_id")
-	Contract contract;
-
-	@ManyToOne
-    ParticipantAct participantAct;
-
-    Long position;
+    private Long position;
 
     @ManyToOne
-    Gig gig;
+    @JsonSerialize(using = GigSerializer.class)
+    private Gig gig;
 
-    @ManyToOne @JoinColumn(name = "pay_id")
-    Pay pay;
-	  
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name="creator_id")
-    @JsonSerialize(using = UserSerializer.class)
-    User creator;
-	  
-    @JsonFormat(pattern="yyyy-MM-dd")
-    Timestamp validstarttime;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    Timestamp validendtime;
-
-
-	Long pay_id;
+    @ManyToOne
+    @JoinColumn(name = "payId")
+    private Pay pay;
 
 
 	public Long getId() {
@@ -66,27 +51,24 @@ public class ContractMainShard extends BaseEntity{
 	}
 
 
-	public Contract getContract() {
-		return contract;
+	public ParticipantAct getAct() {
+		return act;
 	}
 
 
-	public void setContract(Contract contract) {
-		this.contract = contract;
+	public void setAct(ParticipantAct act) {
+		this.act = act;
 	}
 
+    public Long getContractId() {
+        return contractId;
+    }
 
-	public ParticipantAct getParticipantAct() {
-		return participantAct;
-	}
+    public void setContractId(Long contractId) {
+        this.contractId = contractId;
+    }
 
-
-	public void setParticipantAct(ParticipantAct act) {
-		this.participantAct = act;
-	}
-
-
-	public Long getPosition() {
+    public Long getPosition() {
 		return position;
 	}
 
@@ -106,51 +88,11 @@ public class ContractMainShard extends BaseEntity{
 	}
 
 
-	public User getCreator() {
-		return creator;
-	}
-
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-
-	public Timestamp getValidstarttime() {
-		return validstarttime;
-	}
-
-
-	public void setValidstarttime(Timestamp validstarttime) {
-
-		this.validstarttime = validstarttime;
-	}
-
-
-	public Timestamp getValidendtime() {
-		return validendtime;
-	}
-
-
-	public void setValidendtime(Timestamp validendtime) {
-		this.validendtime = validendtime;
-	}
-
-
-	public Long getPay_id() {
-		return pay_id;
-	}
-
-
-	public void setPay_id(Long pay_id) {
-		this.pay_id = pay_id;
-	}
-
 	  @Override
 	public String toString() {
-		return "ContractShard [id=" + id + ", act=" + participantAct + ", position=" + position + ", gig=" + gig
-				+ ", creator=" + creator + ", validstarttime=" + validstarttime + ", validendtime=" + validendtime
-				+ ", pay_id=" + pay_id + "]";
+		return "ContractShard [id=" + id + ", act=" + act + ", position=" + position + ", gig=" + gig
+				+ ", creator=" + super.getCreator() + ", validstarttime=" + super.getValidstarttime()+ ", validendtime="
+                + super.getValidendtime() + ", pay=" + pay.getId() + "]";
 	}
 	
 }

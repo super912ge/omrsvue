@@ -1,9 +1,11 @@
 package com.proship.omrs.candidate.group.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.contract.entity.JobMainShard;
 import org.hibernate.annotations.Where;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.Set;
@@ -11,11 +13,14 @@ import java.util.Set;
 @Entity
 public class Act {
 
+    @Id
     private Long id;
+    @JsonIgnore
     private Integer specialtyType;
+    @JsonIgnore
     private Long uuid;
 
-    @OneToOne
+    @OneToOne(mappedBy = "act")
     @Where(clause = "groupActMainShard.validendtime >current_date and " +
             "groupActMainShard.nexttransactiontime > current_date")
     private GroupActMainShard groupActMainShard;

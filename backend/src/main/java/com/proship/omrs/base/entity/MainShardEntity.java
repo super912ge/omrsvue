@@ -1,9 +1,11 @@
 package com.proship.omrs.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
@@ -12,11 +14,13 @@ import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
 
 @MappedSuperclass
+@Where(clause = "nexttransactiontime > current_date")
 public class MainShardEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="creator_id")
-    @JsonSerialize(using = UserSerializer.class)
+    //@JsonSerialize(using = UserSerializer.class)
+            @JsonIgnore
     User creator;
 
     @JsonFormat(pattern="yyyy-MM-dd")

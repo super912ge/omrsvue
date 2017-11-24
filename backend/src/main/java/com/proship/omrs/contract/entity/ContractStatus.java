@@ -16,10 +16,12 @@ import com.proship.omrs.base.entity.BaseEntity;
 import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Data
 @Table(name = "contract_status_cancel_tts")
+@Where(clause = "nexttransactiontime > current_date")
 public class ContractStatus extends BaseEntity{
 	
 	@Id

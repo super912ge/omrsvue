@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proship.omrs.contract.entity.Contract;
-import com.proship.omrs.contract.entity.ContractShard;
 import com.proship.omrs.contract.entity.ContractStatus;
 //import com.proship.omrs.contract.entity.QContractShard;
 import com.proship.omrs.contract.repository.ContractRepository;
@@ -39,41 +38,41 @@ public class ContractServiceImpl implements ContractService{
 		
 		Contract contract = contractRepo.findOne(id);
 	
-		ContractStatus statusOrig = contract.getContractStatusList().stream()
-				.filter(c->c.getNexttransactiontime()
-						.after(new Timestamp(System.currentTimeMillis())))
-				.collect(Collectors.toList()).get(0);
-
-		
-		
-		if(contract.getStatus()==true){
-			
-			contract.getContractStatusList().remove(statusOrig);
-	
-			ContractStatus status =  new ContractStatus();
-	
-			statusOrig.setNexttransactiontime( new Timestamp(System.currentTimeMillis()));
-	
-			status.setTransactiontime(new Timestamp(System.currentTimeMillis()));
-	
-			status.setCancel(false);
-	
-			status.setContract(contract);	
-	
-			status.setId(null);
-			
-			status.setCreator(statusOrig.getCreator());
-	
-			status.setNexttransactiontime(nextTransactionTime);
-	
-			contractStatusRepo.save(statusOrig);
-		
-			contractStatusRepo.saveAndFlush(status);
-			
-			contract.getContractStatusList().add(statusOrig);
-			
-			contract.getContractStatusList().add(status);
-		}
+//		ContractStatus statusOrig = contract.getContractStatusList().stream()
+//				.filter(c->c.getNexttransactiontime()
+//						.after(new Timestamp(System.currentTimeMillis())))
+//				.collect(Collectors.toList()).get(0);
+//
+//
+//
+//		if(contract.getStatus()==true){
+//
+//			contract.getContractStatusList().remove(statusOrig);
+//
+//			ContractStatus status =  new ContractStatus();
+//
+//			statusOrig.setNexttransactiontime( new Timestamp(System.currentTimeMillis()));
+//
+//			status.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+//
+//			status.setCancel(false);
+//
+//			status.setContract(contract);
+//
+//			status.setId(null);
+//
+//			status.setCreator(statusOrig.getCreator());
+//
+//			status.setNexttransactiontime(nextTransactionTime);
+//
+//			contractStatusRepo.save(statusOrig);
+//
+//			contractStatusRepo.saveAndFlush(status);
+//
+//			contract.getContractStatusList().add(statusOrig);
+//
+//			contract.getContractStatusList().add(status);
+//		}
 
 		return contract;
 	}

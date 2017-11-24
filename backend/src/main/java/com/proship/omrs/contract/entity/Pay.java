@@ -1,10 +1,12 @@
 package com.proship.omrs.contract.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Pay {
 
+    @Id
     private Long id ;
     private Long payeeId ;
     private Double salaryAmount ;

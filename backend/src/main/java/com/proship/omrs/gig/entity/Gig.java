@@ -2,8 +2,11 @@ package com.proship.omrs.gig.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.chair.ChairRequirementTag;
-import com.proship.omrs.contract.entity.Contract;
-import org.hibernate.annotations.Where;
+import com.proship.omrs.contract.entity.ContractMainShard;
+import org.hibernate.annotations.BatchSize;
+import org.springframework.data.jpa.repository.Query;
+
+import javax.jdo.annotations.Value;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -14,34 +17,42 @@ public class Gig {
     @Id
     private Long id;
 
+    @JsonIgnore
     private Integer specialtyType;
 
     @ManyToOne
-    private Gig parent;
+    @JoinColumn(name = "parent_gig_id")
+    private Gig parentGig;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parentGig")
     private List<Gig> children;
 
+    @JsonIgnore
     private Long uuid;
 
     @OneToMany(mappedBy = "gig", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Contract> contracts;
+    private Set<ContractMainShard> contracts;
 
     @OneToOne
-    @JoinColumn(name = "chairRequirementId")
+    @JoinColumn(name = "chairRequirementTagId")
     private ChairRequirementTag chairRequirementTag;
 
-    @OneToOne(mappedBy = "gig")
-    @Where(clause = "nexttransactiontime > current_date")
+    @OneToMany(mappedBy = "gig",fetch = FetchType.LAZY)
+    @OrderBy(value = "validendtime desc")
+    @JsonIgnore
+    private List<GigMainShard> shards;
+
+    @Transient
     private GigMainShard shard;
 
-    @OneToOne(mappedBy = "gig")
-    @Where(clause = "nexttransactiontime > current_date")
+
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "gig",fetch = FetchType.LAZY)
     private GigTerritoryShard territory;
 
-    @OneToOne(mappedBy = "gig")
-    @Where(clause = "nexttransactiontime > current_date")
+    @OneToOne(mappedBy = "gig",fetch = FetchType.LAZY)
     private GigPeriodShard period;
 
     public Long getId() {
@@ -74,5 +85,55 @@ public class Gig {
 
     public void setChairRequirementTag(ChairRequirementTag chairRequirementTag) {
         this.chairRequirementTag = chairRequirementTag;
+    }
+
+    public Gig getParentGig() {
+        return parentGig;
+    }
+
+    public void setParentGig(Gig parentGig) {
+        this.parentGig = parentGig;
+    }
+
+    public List<Gig> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Gig> children) {
+        this.children = children;
+    }
+
+    public Set<ContractMainShard> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<ContractMainShard> contracts) {
+        this.contracts = contracts;
+    }
+
+    public GigMainShard getShard() {
+        this.shard = this.shards.get(0);
+
+        return shard;
+    }
+
+    public void setShard(GigMainShard shard) {
+        this.shard = shard;
+    }
+
+    public GigTerritoryShard getTerritory() {
+        return territory;
+    }
+
+    public void setTerritory(GigTerritoryShard territory) {
+        this.territory = territory;
+    }
+
+    public GigPeriodShard getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(GigPeriodShard period) {
+        this.period = period;
     }
 }

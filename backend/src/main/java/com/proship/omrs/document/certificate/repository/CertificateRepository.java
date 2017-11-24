@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface CertificateRepository extends JpaRepository<Certificate,Long>,
-        QueryDslPredicateExecutor<Certificate>,DocumentRepository {
+        DocumentRepository {
 
 //    @Query("select a.id from Participant a join a.certificateList b on a.id = b.participantId inner join " +
 //            "b.certificate_detail_tts c on b.id = c.certificateId\n" +

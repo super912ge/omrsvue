@@ -16,4 +16,6 @@ public interface ParticipantService {
 
     Set<Long> findParticipantByEvaluation(Set<Long> evaluationIds);
 
+//    Set<Long> findParticipantByGig(Set<Long> gigIds);
+
 }

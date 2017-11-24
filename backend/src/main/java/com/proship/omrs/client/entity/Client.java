@@ -1,7 +1,15 @@
 package com.proship.omrs.client.entity;
 
+import com.proship.omrs.document.seamanBook.entity.SeamansBook;
+import com.proship.omrs.venue.entity.Venue;
+import com.proship.omrs.venue.entity.VenueMainShard;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -12,6 +20,10 @@ public class Client {
     private String name  ;
     private String code ;
     private Boolean active ;
+
+    @OneToMany(mappedBy = "client")
+    @Where(clause = "venues.validendtime > current_date and venues.nexttransactiontime> current_date")
+    private Set<VenueMainShard> venues;
 
     public Long getId() {
         return id;
@@ -51,5 +63,13 @@ public class Client {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<VenueMainShard> getVenues() {
+        return venues;
+    }
+
+    public void setVenues(Set<VenueMainShard> venues) {
+        this.venues = venues;
     }
 }

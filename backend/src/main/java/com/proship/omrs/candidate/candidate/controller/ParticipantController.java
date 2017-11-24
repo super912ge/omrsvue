@@ -2,11 +2,13 @@ package com.proship.omrs.candidate.candidate.controller;
 
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.candidate.entity.Participant;
+import com.proship.omrs.candidate.candidate.param.SearchByGigParam;
 import com.proship.omrs.candidate.repository.ParticipantRepository;
 import com.proship.omrs.candidate.candidate.service.ParticipantService;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.evaluation.param.EvaluationSearchParam;
 import com.proship.omrs.evaluation.service.EvaluationTagService;
+import com.proship.omrs.gig.service.GigService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,8 +37,11 @@ public class ParticipantController extends BaseController<Participant,Long>{
 
     @Autowired
     EvaluationTagService evaluationTagService;
+
+    @Autowired
+    GigService gigService;
     @RequestMapping("/search/document")
-    public ResponseEntity<Set<Long>> searchCandidateIds(@RequestBody Map<String,List<DocumentSearchTerm>> searchMap){
+    public ResponseEntity<Set<Long>> searchCandidateByDocument(@RequestBody Map<String,List<DocumentSearchTerm>> searchMap){
 
         return new ResponseEntity<Set<Long>>(participantService.findParticipantByDocuments(searchMap), HttpStatus.OK);
 
@@ -50,5 +55,13 @@ public class ParticipantController extends BaseController<Participant,Long>{
             return new ResponseEntity<>(participantService.findParticipantByEvaluation(result),HttpStatus.OK);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @RequestMapping("/search/gig")
+    public ResponseEntity<Set<Long>> searchCandidateByGig(@RequestBody SearchByGigParam param){
+
+        Set<Long> results = gigService.findCandidateByGig(param);
+
+        return new ResponseEntity<>(results,HttpStatus.OK);
     }
 }

@@ -1,13 +1,17 @@
 package com.proship.omrs.candidate.group.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.ParticipantSerializer;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.Where;
 
+import javax.persistence.*;
+
+@Entity
+@Where(clause = "validendtime>current_date and nexttransactiontime > current_date")
 public class GroupActMainShard extends MainShardEntity {
 
     @Id
@@ -15,11 +19,12 @@ public class GroupActMainShard extends MainShardEntity {
 
     private String name ;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonSerialize(using = ParticipantSerializer.class)
     private Participant leader;
 
-    @OneToOne(mappedBy = "groupActMainShard")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "act_id")
     private Act act;
 
     public Long getId() {

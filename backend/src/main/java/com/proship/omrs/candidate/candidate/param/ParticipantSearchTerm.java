@@ -10,4 +10,21 @@ public class ParticipantSearchTerm {
 
     private Map<String,List<DocumentSearchTerm>> documentSearchMap;
 
+    private SearchByGigParam param;
+
+    public Map<String, List<DocumentSearchTerm>> getDocumentSearchMap() {
+        return documentSearchMap;
+    }
+
+    public void setDocumentSearchMap(Map<String, List<DocumentSearchTerm>> documentSearchMap) {
+        this.documentSearchMap = documentSearchMap;
+    }
+
+    public SearchByGigParam getParam() {
+        return param;
+    }
+
+    public void setParam(SearchByGigParam param) {
+        this.param = param;
+    }
 }

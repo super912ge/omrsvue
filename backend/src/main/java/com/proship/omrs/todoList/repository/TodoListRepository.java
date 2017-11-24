@@ -8,7 +8,7 @@ import com.proship.omrs.todoList.entity.TodoList;
 
 import java.util.List;
 
-public interface TodoListRepository extends JpaRepository<TodoList,Long>,QueryDslPredicateExecutor<TodoList>{
+public interface TodoListRepository extends JpaRepository<TodoList,Long>{
 
 	List<TodoList> findByUser(User user);
 
