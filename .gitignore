@@ -8,9 +8,10 @@
 .springBeans
 .tern-project
 .factorypath
-/bin/
-/target
+bin/
+target
 backend/src/main/resources/public/
+backend/src/main/resources/static/static/*
 backend/target
 frontend/dist/
 frontend/node/

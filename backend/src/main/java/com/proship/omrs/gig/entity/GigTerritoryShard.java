@@ -1,7 +1,6 @@
 package com.proship.omrs.gig.entity;
 
 import com.proship.omrs.base.entity.BaseEntity;
-import sun.rmi.runtime.Log;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

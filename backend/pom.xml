@@ -127,7 +127,7 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-sql-spring</artifactId>
-            <version>4.1.4</version>
+            <version>${querydsl.version}</version>
         </dependency>
 
 
@@ -154,11 +154,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.proship</groupId>
-            <artifactId>omrs</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
