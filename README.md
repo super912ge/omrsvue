@@ -4,6 +4,9 @@
 
 ## Build Setup
 
+# Maven downloads and installs npm and node.js
+mvn install
+
 ``` bash
 # install dependencies
 npm install
