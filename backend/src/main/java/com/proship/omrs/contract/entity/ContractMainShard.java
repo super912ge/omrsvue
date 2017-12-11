@@ -6,6 +6,8 @@ import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
 import com.proship.omrs.candidate.candidate.param.ParticipantActSerializer;
 import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.entity.Position;
+import com.proship.omrs.gig.entity.PositionMap;
 import com.proship.omrs.gig.param.GigSerializer;
 import org.hibernate.annotations.Where;
 
@@ -31,6 +33,9 @@ public class ContractMainShard extends MainShardEntity{
 
 	@JsonIgnore
     private Long position;
+
+	@Transient
+    private Position rank;
 
     @ManyToOne
     @JsonSerialize(using = GigSerializer.class)
@@ -87,8 +92,18 @@ public class ContractMainShard extends MainShardEntity{
 		this.gig = gig;
 	}
 
+    public Position getRank() {
 
-	  @Override
+	    this.rank = PositionMap.getPosition(position);
+        return rank;
+    }
+
+    public void setRank(Position rank) {
+        this.rank = rank;
+        this.position = rank.getId();
+    }
+
+    @Override
 	public String toString() {
 		return "ContractShard [id=" + id + ", act=" + act + ", position=" + position + ", gig=" + gig
 				+ ", creator=" + super.getCreator() + ", validstarttime=" + super.getValidstarttime()+ ", validendtime="

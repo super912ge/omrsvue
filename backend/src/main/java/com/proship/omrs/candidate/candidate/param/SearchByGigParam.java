@@ -5,6 +5,10 @@ import java.util.Set;
 
 public class SearchByGigParam {
 
+    private Boolean nonPs;
+
+    private Long rank;
+
     private Set<Long> venueIds;
 
     private Set<Long> clientIds;
@@ -33,5 +37,21 @@ public class SearchByGigParam {
 
     public void setGigTypeId(Long gigTypeId) {
         this.gigTypeId = gigTypeId;
+    }
+
+    public Long getRank() {
+        return rank;
+    }
+
+    public void setRank(Long rank) {
+        this.rank = rank;
+    }
+
+    public Boolean getNonPs() {
+        return nonPs;
+    }
+
+    public void setNonPs(Boolean nonPs) {
+        this.nonPs = nonPs;
     }
 }

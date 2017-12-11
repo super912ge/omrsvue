@@ -30,7 +30,7 @@ public class VenueMainShardMap implements InitializingBean {
         VenueMainShard = HashBiMap.create();
 
         for (VenueMainShard venueMainShard : list) {
-            VenueMainShard.put(venueMainShard.getVenue().getId(), venueMainShard);
+            VenueMainShard.put(venueMainShard.getVenueId(), venueMainShard);
         }
 
         logger.info("[evalTagTypeMap][afterPropertiesSet]finish setting " + VenueMainShard.size() + " evalTagType types.");

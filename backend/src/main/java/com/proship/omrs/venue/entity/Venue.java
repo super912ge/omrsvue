@@ -1,5 +1,6 @@
 package com.proship.omrs.venue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -10,17 +11,19 @@ public class Venue {
 
     @Id
     private Long id;
-    
+
+    @JsonIgnore
     private Integer specialtyType;
 
-    @OneToOne(mappedBy = "venue")
+    @OneToOne
+    @JoinColumn(name = "venueId")
     private VenueMainShard venueMainShard;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "venue")
     private Set<Room> rooms;
 
-    @OneToOne(mappedBy = "venue")
+    @OneToOne(mappedBy = "venue",fetch = FetchType.LAZY)
     private VenuePeriodShard venuePeriodShard;
 
     public Long getId() {

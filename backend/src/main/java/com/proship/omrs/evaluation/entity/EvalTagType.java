@@ -1,5 +1,7 @@
 package com.proship.omrs.evaluation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -20,8 +22,10 @@ public class EvalTagType {
 
     private Boolean issearchableby;
 
+    @JsonIgnore
     private Boolean isusegreaterthanquery;
 
+    @JsonIgnore
     private Boolean issingleton;
 
     public Long getId() {
@@ -95,4 +99,6 @@ public class EvalTagType {
     public void setIssingleton(Boolean issingleton) {
         this.issingleton = issingleton;
     }
+
+
 }

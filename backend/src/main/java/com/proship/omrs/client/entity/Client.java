@@ -1,13 +1,12 @@
 package com.proship.omrs.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.seamanBook.entity.SeamansBook;
 import com.proship.omrs.venue.entity.Venue;
 import com.proship.omrs.venue.entity.VenueMainShard;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -16,13 +15,16 @@ public class Client {
 
     @Id
     private Long id  ;
+
+    @JsonIgnore
     private Long uuid  ;
     private String name  ;
     private String code ;
     private Boolean active ;
 
-    @OneToMany(mappedBy = "client")
-    @Where(clause = "venues.validendtime > current_date and venues.nexttransactiontime> current_date")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientId")
+
     private Set<VenueMainShard> venues;
 
     public Long getId() {

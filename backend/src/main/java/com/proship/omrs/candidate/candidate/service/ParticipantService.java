@@ -1,6 +1,8 @@
 package com.proship.omrs.candidate.candidate.service;
 
+import com.proship.omrs.candidate.candidate.param.*;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +20,13 @@ public interface ParticipantService {
 
 //    Set<Long> findParticipantByGig(Set<Long> gigIds);
 
+    Set<Long> findParticipantByName(SearchByNameParam param);
+
+    Set<Long> findParticipantByCountry(SearchByResidencyCitizenshipParam param);
+
+    Set<Long> findParticipantByAvailability(SearchByAvailabilityParam param);
+
+    DisplayCandidateResultParam displayCandidate(Set<Long>ids, Pageable pageable);
+
+    Set<Long> findParticipantByActName(String param);
 }

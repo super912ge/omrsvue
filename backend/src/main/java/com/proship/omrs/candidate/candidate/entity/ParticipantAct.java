@@ -28,7 +28,7 @@ public class ParticipantAct {
 
     private Boolean active;
 
-    @OneToMany(mappedBy = "act")
+    @OneToMany(mappedBy = "act",fetch = FetchType.LAZY)
     private List<ContractMainShard> contractShards;
 
     @ManyToOne
@@ -42,7 +42,7 @@ public class ParticipantAct {
 //    @OneToMany
 //    ParticipantActResidency
 
-    @ManyToMany(mappedBy = "participantActs")
+    @ManyToMany(mappedBy = "participantActs",fetch = FetchType.LAZY)
     private Set<GroupActMemberShard> bands;
 
     public Long getId() {

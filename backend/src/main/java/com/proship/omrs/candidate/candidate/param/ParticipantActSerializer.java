@@ -23,7 +23,7 @@ public class ParticipantActSerializer extends StdSerializer<ParticipantAct>{
     public void serialize(ParticipantAct participantAct, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("id",participantAct.getParticipant().getId());
-        jsonGenerator.writeStringField("name",participantAct.getParticipant().getName());
+        jsonGenerator.writeStringField("actName",participantAct.getParticipantActName().getName());
         jsonGenerator.writeNumberField("participantActId", participantAct.getId());
         jsonGenerator.writeEndObject();
     }

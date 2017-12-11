@@ -2,6 +2,7 @@ package com.proship.omrs.user.controller;
 
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.user.entity.VerificationToken;
+import com.proship.omrs.user.repository.UserRepository;
 import com.proship.omrs.utils.event.OnRegistrationCompleteEvent;
 import com.proship.omrs.user.entity.User;
 import com.proship.omrs.user.service.UserService;
@@ -27,7 +28,7 @@ import java.util.Locale;
 public class UserController extends BaseController<User,Long>{
 
     @Autowired
-    public UserController(CrudRepository<User, Long> repo) {
+    public UserController(UserRepository repo) {
         super(repo);
     }
 

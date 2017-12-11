@@ -9,6 +9,6 @@ import java.util.Set;
 
 public interface VenueMainShardRepository extends JpaRepository<VenueMainShard,Long>{
 
-    @Query("select v.venue.id from VenueMainShard v where v.client.id in (:clientIds)")
+    @Query("select v.venueId from VenueMainShard v where v.clientId in (:clientIds)")
     Set<Long> findByClientId(@Param("clientIds")Set<Long> clientIds);
 }

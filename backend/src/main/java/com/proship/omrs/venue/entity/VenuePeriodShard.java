@@ -1,5 +1,6 @@
 package com.proship.omrs.venue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;
 import org.hibernate.annotations.Where;
 
@@ -19,6 +20,7 @@ public class VenuePeriodShard extends MainShardEntity {
     private Integer endConfidence;
 
     @ManyToOne
+    @JsonIgnore
     private Venue venue;
 
     public Long getId() {

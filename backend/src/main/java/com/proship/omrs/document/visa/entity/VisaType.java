@@ -19,4 +19,15 @@ public class VisaType extends DocumentType{
         this.id = id;
     }
 
+    private String name;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 }

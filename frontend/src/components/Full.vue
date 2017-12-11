@@ -1,11 +1,27 @@
 <template>
 <div class="app">
+
+
     <AppHeader/>
 
-  <AppNav/>
-  <div style="margin: 15px">
-    <router-view></router-view>
-  </div>
+  <el-row>
+
+
+      <AppNav/>
+
+
+
+    <el-col :span="20">
+
+
+
+      <div style="margin: 15px">
+        <router-view></router-view>
+      </div>
+    </el-col>
+
+  </el-row>
+
 
   <user-info/>
 
@@ -32,9 +48,11 @@
   import AppNav from './AppNav.vue'
   import UserInfo from './UserInfo.vue'
   import ElRow from "element-ui/packages/row/src/row";
+  import ElCol from "element-ui/packages/col/src/col";
     export default {
         name: 'full',
         components: {
+          ElCol,
           ElRow,
           AppHeader,
             AppNav,

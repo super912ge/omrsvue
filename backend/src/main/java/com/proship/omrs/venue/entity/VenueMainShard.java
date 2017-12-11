@@ -1,12 +1,12 @@
 package com.proship.omrs.venue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.client.entity.Client;
+import com.proship.omrs.client.entity.ClientMap;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Where(clause = "validendtime> current_date and nexttransactiontime > current_date")
@@ -19,11 +19,16 @@ public class VenueMainShard extends MainShardEntity{
 
     private String type;
 
-    @ManyToOne
-    private Client client;
+    @Transient
+    private String clientCode;
+    private Long clientId;
 
-    @ManyToOne
-    private Venue venue;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private Venue venue;
+
+
+    private Long venueId;
 
     public Long getId() {
         return id;
@@ -49,19 +54,29 @@ public class VenueMainShard extends MainShardEntity{
         this.type = type;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Long client) {
+        this.clientId = client;
     }
 
-    public Venue getVenue() {
-        return venue;
+    public String getClientCode() {
+        this.clientCode = ClientMap.getClient(clientId).getCode();
+        return clientCode;
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = venue;
+    public void setClientCode(String clientCode) {
+        this.clientCode = clientCode;
+    }
+
+    public Long getVenueId() {
+
+        return venueId;
+    }
+
+    public void setVenueId(Long venueId) {
+        this.venueId = venueId;
     }
 }
