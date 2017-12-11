@@ -11,6 +11,7 @@
 /bin/
 /target
 backend/src/main/resources/public/
+backend/src/main/resources/static/*
 backend/target
 frontend/dist/
 frontend/node/
