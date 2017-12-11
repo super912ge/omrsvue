@@ -11,7 +11,7 @@
   "dependencies": {
     "@websanova/vue-auth": "^2.18.3-beta",
     "bootstrap": "^3.3.7",
-    "element-ui": "^1.4.6",
+    "element-ui": "^1.4.11",
     "local-storage": "^1.4.2",
     "localStorage": "^1.0.3",
     "lodash": "^4.17.4",

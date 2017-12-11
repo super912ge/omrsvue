@@ -125,7 +125,7 @@
         }
     }
 </script>
-<style scoped>
+<style slot-scope>
     /*.el-table .complete {*/
         /*background: #c9e5f5;*/
     /*}*/

@@ -4,6 +4,7 @@ package com.proship.omrs.gig.param;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.proship.omrs.client.entity.ClientMap;
 import com.proship.omrs.venue.entity.Room;
 import com.proship.omrs.venue.entity.VenueMainShardMap;
 
@@ -32,10 +33,10 @@ public class RoomSerializer extends StdSerializer<Room> {
                 VenueMainShardMap.getVenueMainShard(room.getVenue()).getName());
 
         jsonGenerator.writeNumberField("clientId",
-                VenueMainShardMap.getVenueMainShard(room.getVenue()).getClient().getId());
+                VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId());
 
         jsonGenerator.writeStringField("clientName",
-                VenueMainShardMap.getVenueMainShard(room.getVenue()).getClient().getName());
+                ClientMap.getClient(VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId()).getName());
 
         jsonGenerator.writeEndObject();
     }

@@ -1,5 +1,6 @@
 package com.proship.omrs.evaluation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
 
 import javax.persistence.Entity;
@@ -15,15 +16,24 @@ public class EvalTagTypeSubtypes implements Serializable{
 
     @Id
     private Long evalTagTypeId;
+
     @Id
+    @JsonIgnore
     private Long creatorId;
+
     @Id
     private Long value;
+
     @Id
+    @JsonIgnore
     private Long destroyerId;
+
     @Id
+    @JsonIgnore
     private Timestamp transactiontime;
+
     @Id
+    @JsonIgnore
     private Timestamp nexttransactiontime;
 
     public Long getEvalTagTypeId() {

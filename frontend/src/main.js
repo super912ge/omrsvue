@@ -7,9 +7,9 @@ import ls from 'localStorage'
 import '../theme/index.css'
 import Element from 'element-ui'
 
-// import VueAuth from '@websanova/vue-auth'
 import VueResource from 'vue-resource';
 import {header_auth,getHeader} from "./env";
+
 
 
 Vue.use(VueResource);

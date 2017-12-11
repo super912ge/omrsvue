@@ -23,12 +23,18 @@ public class EvalTag extends BaseEntity{
     private Long evalTagTypeId;
 
     @Transient
+    @JsonIgnore
     private EvalTagType type;
 
-    @ManyToOne
+    @Transient
+    private Long discriminatorId;
+
+    @Transient
+    private String label;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private EvalTag parent;
-
 
     @OneToMany(mappedBy = "parent")
     private List <EvalTag> children;
@@ -63,6 +69,20 @@ public class EvalTag extends BaseEntity{
         return type;
     }
 
+    public void setType(EvalTagType type) {
+        this.type = type;
+    }
+
+    public Long getDiscriminatorId() {
+
+        this.discriminatorId = EvalTagTypeMap.getEvalTagType(this.evalTagTypeId).getDiscriminatorId();
+        return discriminatorId;
+    }
+
+    public void setDiscriminatorId(Long discriminatorId) {
+        this.discriminatorId = discriminatorId;
+    }
+
     public Long getDestroyerId() {
         return destroyerId;
     }
@@ -94,5 +114,17 @@ public class EvalTag extends BaseEntity{
 
     public void setChildren(List<EvalTag> children) {
         this.children = children;
+    }
+
+    public String getLabel() {
+        if (this.type!=null)
+        this.label = this.type.getLabel();
+        else this.label = EvalTagTypeMap.getEvalTagType(this.evalTagTypeId).getLabel();
+        this.type = getType();
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

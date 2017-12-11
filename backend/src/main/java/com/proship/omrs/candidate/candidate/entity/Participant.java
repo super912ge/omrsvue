@@ -2,6 +2,7 @@ package com.proship.omrs.candidate.candidate.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.candidate.group.entity.GroupActMainShard;
 import com.proship.omrs.candidate.group.entity.GroupActMemberShard;
 import com.proship.omrs.document.certificate.entity.Certificate;
@@ -13,11 +14,18 @@ import com.proship.omrs.evaluation.entity.EvalTag;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Table(name = "participant")
 @Entity
+@JsonInclude(NON_NULL)
+
 @Where(clause = "id not in (1,2576)")
 public class Participant{
 
@@ -33,6 +41,9 @@ public class Participant{
     private Integer specialtyType ;
     @JsonIgnore
     private Long uuid ;
+
+    @OneToOne(mappedBy = "participant")
+    ParticipantNameTts nameTts;
 
     @Transient
     private String name;
@@ -80,10 +91,22 @@ public class Participant{
     @OrderBy("id")
     private List<Visa> visaList;
 
+    @OneToOne(mappedBy = "participant")
+    private ParticipantAvailabilityBts availability;
+
+    @OneToOne(mappedBy = "participant")
+    private ParticipantBirthdayTts participantBirthdayTts;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    private List<ParticipantResidencyOverride> residency;
+
 //    Long actimportflag bigint,
 //    Timestamp act_import_time timestamp without time zone,
 //    act_import_user bigint,
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    @Where(clause = "nexttransactiontime > current_date")
+    private List<ParticipantCitizenshipOverride> citizenship;
 
     public Long getId() {
         return id;
@@ -173,9 +196,17 @@ public class Participant{
         this.participantAct = participantAct;
     }
 
+    public ParticipantNameTts getNameTts() {
+        return nameTts;
+    }
+
+    public void setNameTts(ParticipantNameTts nameTts) {
+        this.nameTts = nameTts;
+    }
+
     public String getName() {
 
-        this.name = this.participantAct.getParticipantActName().getName();
+        this.name = this.nameTts.getFirstName()+" "+nameTts.getOtherName()+" " +nameTts.getLastName();
         return name;
     }
 
@@ -189,5 +220,43 @@ public class Participant{
 
     public void setGroupActMainShards(Set<GroupActMainShard> groupActMainShards) {
         this.groupActMainShards = groupActMainShards;
+    }
+
+    public ParticipantAvailabilityBts getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(ParticipantAvailabilityBts availability) {
+        this.availability = availability;
+    }
+
+    public List<ParticipantResidencyOverride> getResidency() {
+       this.residency =  this.residency.stream().filter(item -> item.getNexttransactiontime()
+               .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList());
+        return residency;
+    }
+
+    public void setResidency(List<ParticipantResidencyOverride> residency) {
+        this.residency = residency;
+    }
+
+    public ParticipantBirthdayTts getParticipantBirthdayTts() {
+        return participantBirthdayTts;
+    }
+
+    public void setParticipantBirthdayTts(ParticipantBirthdayTts participantBirthdayTts) {
+        this.participantBirthdayTts = participantBirthdayTts;
+    }
+
+    public List<ParticipantCitizenshipOverride> getCitizenship() {
+
+       this.citizenship =  citizenship.stream().filter(item->item.getNexttransactiontime()
+                .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList());
+
+        return citizenship;
+    }
+
+    public void setCitizenship(List<ParticipantCitizenshipOverride> citizenship) {
+        this.citizenship = citizenship;
     }
 }

@@ -7,17 +7,14 @@ import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @MappedSuperclass
 @Where(clause = "nexttransactiontime > current_date")
 public class MainShardEntity extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name="creator_id")
     //@JsonSerialize(using = UserSerializer.class)
             @JsonIgnore
