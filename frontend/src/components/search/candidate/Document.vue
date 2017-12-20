@@ -10,8 +10,9 @@
 <el-col :span ="18">
 
 
-  <el-date-picker v-model="validUntilDate" type="date" placeholder="Pick a Date"
-                  format="yyyy/MM/dd" value-format="yyyy-MM-dd" style="width: 180px"></el-date-picker>
+  <el-date-picker v-model="selectedResult.validUntilDate" type="date" placeholder="Pick a Date"
+                  format="yyyy/MM/dd" value-format="yyyy-MM-dd" style="width: 180px"
+                  @change="handleSelect"></el-date-picker>
 
 </el-col>
 
@@ -27,7 +28,7 @@
   </el-col>
 <el-col :span="18">
 
-  <el-select v-model="selectedOption" filterable placeholder="Select" style="width: 180px">
+  <el-select v-model="id" @change="handleSelect" filterable placeholder="Select" style="width: 180px">
     <el-option
       v-for="item in options"
       :key="item.id"
@@ -58,11 +59,26 @@
   props: ['selectType' , 'options'],
 
     data (){
+
       return {
-        selectedOption: null,
-        validUntilDate: null
+        id:null,
+        selectedResult: {
+          id: null,
+          expireDate: null
+        }
       }
 
+    },
+    methods:{
+      handleSelect(){
+
+        console.log('inside document', this.id);
+        if(!this.id){
+
+          this.$emit('documentSelect',{ids:[this.selectedResult.id],expireDate: this.selectedResult.expireDate})
+        }
+
+      }
     }
   }
 

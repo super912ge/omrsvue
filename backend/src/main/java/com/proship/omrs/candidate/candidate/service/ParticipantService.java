@@ -29,4 +29,6 @@ public interface ParticipantService {
     DisplayCandidateResultParam displayCandidate(Set<Long>ids, Pageable pageable);
 
     Set<Long> findParticipantByActName(String param);
+
+    Long findParticipantByActId(Long actId);
 }

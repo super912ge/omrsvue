@@ -6,8 +6,10 @@ import com.proship.omrs.candidate.candidate.entity.*;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import com.proship.omrs.system.country.entity.Country;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,10 +24,15 @@ public class CandidateBrief {
             this.birthDay = participant.getParticipantBirthdayTts().getValue();
         }
         this.name = participant.getName();
-        if (participant.getAvailability()!=null) {
+        if (participant.getAvailability()!=null&& !participant.getAvailability().isEmpty()) {
             DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
-            this.nextAvailableDate = dft.format(participant.getAvailability().getValidstarttime()) + " to "
-                    + dft.format(participant.getAvailability().getValidendtime()) + ". Interest level: " + participant.getAvailability().getLevel();
+            this.nextAvailableDate = new ArrayList<>();
+            for(ParticipantAvailabilityBts participantAvailabilityBts : participant.getAvailability()) {
+                if (participantAvailabilityBts.getValidendtime().after(new Timestamp(System.currentTimeMillis())))
+                this.nextAvailableDate.add(dft.format(participantAvailabilityBts.getValidstarttime()) + " to "
+                        + dft.format(participantAvailabilityBts.getValidendtime()) + ". Interest level: "
+                        + participantAvailabilityBts.getLevel());
+            }
         }
         if (participant.getEvaluation()!=null) {
             this.evaluation = participant.getEvaluation();
@@ -52,7 +59,7 @@ public class CandidateBrief {
 
     private List<String> citizenship;
 
-    private String nextAvailableDate;
+    private List<String> nextAvailableDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDay;
@@ -105,11 +112,11 @@ public class CandidateBrief {
         this.citizenship = citizenship;
     }
 
-    public String getNextAvailableDate() {
+    public List<String> getNextAvailableDate() {
         return nextAvailableDate;
     }
 
-    public void setNextAvailableDate(String nextAvailableDate) {
+    public void setNextAvailableDate(List<String> nextAvailableDate) {
         this.nextAvailableDate = nextAvailableDate;
     }
 

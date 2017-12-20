@@ -91,8 +91,8 @@ public class Participant{
     @OrderBy("id")
     private List<Visa> visaList;
 
-    @OneToOne(mappedBy = "participant")
-    private ParticipantAvailabilityBts availability;
+    @OneToMany(mappedBy = "participant")
+    private List<ParticipantAvailabilityBts> availability;
 
     @OneToOne(mappedBy = "participant")
     private ParticipantBirthdayTts participantBirthdayTts;
@@ -205,8 +205,8 @@ public class Participant{
     }
 
     public String getName() {
-
-        this.name = this.nameTts.getFirstName()+" "+nameTts.getOtherName()+" " +nameTts.getLastName();
+        if(this.nameTts!=null){
+        this.name = this.nameTts.getFirstName()+" "+nameTts.getOtherName()+" " +nameTts.getLastName();}
         return name;
     }
 
@@ -222,11 +222,11 @@ public class Participant{
         this.groupActMainShards = groupActMainShards;
     }
 
-    public ParticipantAvailabilityBts getAvailability() {
+    public List<ParticipantAvailabilityBts> getAvailability() {
         return availability;
     }
 
-    public void setAvailability(ParticipantAvailabilityBts availability) {
+    public void setAvailability(List<ParticipantAvailabilityBts> availability) {
         this.availability = availability;
     }
 

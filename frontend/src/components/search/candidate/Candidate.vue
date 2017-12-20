@@ -8,7 +8,7 @@
     <el-input v-model="candidateId" placeholder="Candidate ID" class="shortInput" @change='handleIdChange'></el-input>
   </el-col>
   <el-col :span="8" style="margin-left: 15px">
-    <el-input v-model="actId" placeholder="Candidate Act ID" class="shortInput"></el-input>
+    <el-input v-model="actId" placeholder="Candidate Act ID" class="shortInput" @change="handleIdChange"></el-input>
   </el-col>
 
 </el-row>
@@ -54,6 +54,8 @@
     </div>
 
   </el-row>
+
+  <!--//Experience-->
   <el-row style="margin-top: 25px">
     <span class="demonstration">Experience</span>
     <div style="margin: 15px 0;"></div>
@@ -63,8 +65,9 @@
         <!--<el-checkbox :indeterminate="isIndeterminateClient" v-model="checkAllClient"-->
                      <!--@change="handleCheckAllChange">Check all</el-checkbox>-->
         <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="checkedClients" style="height: 200px; overflow-y: scroll;">
-          <el-checkbox v-for="client in clients" :label="client.id" :key="client.id"style="margin-left: 5px; width: 200px" @change="handleClientsChange" >{{client.name}}</el-checkbox>
+        <el-checkbox-group v-model="experience.clientIds" style="height: 200px; overflow-y: scroll;">
+          <el-checkbox v-for="client in clients" :label="client.id" :key="client.id"style="margin-left: 5px; width: 200px"
+                       @change="handleExperienceChange" >{{client.name}}</el-checkbox>
         </el-checkbox-group>
 
       </el-collapse-item>
@@ -72,22 +75,25 @@
     </el-collapse>
 
     <div style="margin-top: 15px"></div>
-      <el-collapse style="width: 70%  "  @item-click="fetchVenue">
+      <el-collapse style="width: 70% "  @item-click="fetchVenue">
 
       <el-collapse-item title="Venue">
 
         <!--<el-checkbox :indeterminate="isIndeterminateVenue" v-model="checkAllVenue" @change="handleCheckAllChange">Check all</el-checkbox>-->
         <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="checkedVenues" style="height: 200px; overflow-y:scroll">
-          <el-checkbox v-for="venue in venues" :label="venue.id" :key="venue.id"style="margin-left: 5px; width: 200px">{{venue.name}}  ------  {{venue.clientCode}}</el-checkbox>
+        <el-checkbox-group v-model="experience.venueIds" style="height: 200px; overflow-y:scroll">
+          <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
+                       style="margin-left: 5px; width: 200px"
+                       @change="handleExperienceChange">{{venue.name}}  ------  {{venue.clientCode}}
+          </el-checkbox>
         </el-checkbox-group>
       </el-collapse-item>
     </el-collapse>
   </el-row>
-
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-    <el-select v-model="selectedGigTypes" filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
+    <el-select v-model="experience.gigTypeId"  @change="handleExperienceChange"
+               filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
       <el-option
         v-for="item in gigTypes"
         :key="item.id"
@@ -97,10 +103,10 @@
     </el-select>
 
   </el-row>
-
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-    <el-select v-model="selectedRanking" filterable placeholder="Ranking" style="width: 200px;margin-left: 21px">
+    <el-select v-model="experience.rank" filterable placeholder="Ranking"
+               @change="handleExperienceChange" style="width: 200px;margin-left: 21px">
       <el-option
         v-for="item in rankingTypes"
         :key="item.id"
@@ -110,6 +116,9 @@
     </el-select>
 
   </el-row>
+
+
+  <!--//Location-->
   <el-row style="margin-top: 25px">
     <span class="demonstration">World</span>
     <div style="margin-top: 15px"></div>
@@ -148,13 +157,12 @@
         </el-input>
 
         <el-tree
-
           class="filter-tree"
           :props="treeProps"
-        :load="loadNodeEval"
+          :load="loadNodeEval"
           node-key="id"
-          highlight-current
           show-checkbox
+          @check-change="handleEvalChange"
           lazy
           :filter-node-method="filterNode"
           ref="treeEval"
@@ -168,17 +176,16 @@
 
       <el-tabs type="card" @tab-click="handleDocumentClick">
         <el-tab-pane label="Visa">
-          <document selectType="Type" :options="visaType"></document>
-
+          <document selectType="Type" :options="visaType" @documentSelect = 'handleVisaChange'></document>
         </el-tab-pane>
         <el-tab-pane label="Passport">
-          <document selectType="Country" :options="countries"></document></el-tab-pane>
+          <document selectType="Country" :options="countries" @documentSelect = 'handlePassportChange'></document></el-tab-pane>
         <el-tab-pane label="Seamans Book">
-          <document selectType="Country" :options="countries"></document></el-tab-pane>
+          <document selectType="Country" :options="countries" @documentSelect = 'handleSeamansBookChange'></document></el-tab-pane>
         <el-tab-pane label="Certificate">
-          <document selectType="Type" :options="certificateType"></document></el-tab-pane>
+          <document selectType="Type" :options="certificateType"@documentSelect = 'handleCertificateChange'></document></el-tab-pane>
         <el-tab-pane label="Medical">
-          <document selectType="Type" :options="medicalType"></document></el-tab-pane>
+          <document selectType="Type" :options="medicalType"@documentSelect = 'handleMedicalChange'></document></el-tab-pane>
       </el-tabs>
 
     </el-row>
@@ -198,7 +205,7 @@
 <el-row>
   <div style="margin-top: 20px"></div>
   <display-candidate v-if="showSearchResult" :resultList="candidateList" :pageNumber="totalPage"
-  @on=""></display-candidate>
+  @pageChange="displayCandidate"></display-candidate>
 
 </el-row>
 
@@ -218,7 +225,7 @@
   import DisplayCandidate from './DisplayCandidate.vue'
   import ElCol from "element-ui/packages/col/src/col";
 
-
+  import response from './data/data.js'
   export default {
 
     components: {
@@ -228,7 +235,6 @@
       Document,
       DisplayCandidate},
     data() {
-
       return {
         totalCandidate:0,
         totalPage:0,
@@ -247,25 +253,27 @@
         actId:null,
         availability:null,
         interestLevel:null,
-        checkedClients:[],
         clients:null,
-        isIndeterminateClient: true,
-        checkedVenues:[],
+        isIndeterminateClient: false,
         venues:null,
-        isIndeterminateVenue: true,
+        isIndeterminateVenue: false,
         gigTypes:null,
-        selectedGigTypes:null,
         rankingTypes: null,
-        selectedRanking:null,
         countries: null,
         visaType:null,
         certificateType: null,
         medicalType:null,
         location:{
           residency:null,
-          citizenship:null,
+          citizenship:null
         },
-
+        experience:{
+          gigTypeId:null,
+          clientIds:[],
+          venueIds:[],
+          rank:null,
+          nonPs:null
+        },
         filterText:'',
         treeProps: {
           children: 'children',
@@ -275,7 +283,14 @@
         },
         activeName: 'first',
         showSearchResult: false,
-        candidateListReset:true
+        candidateListReset:true,
+        document:{
+          "certificate":[],
+          "passport":[],
+          "medical":[],
+          "visa":[],
+          "seamansBook":[]
+        }
       }
     },
     watch:{
@@ -284,7 +299,6 @@
       }
     },
     computed:{
-
       candidateIdList:function () {
         let nonNullResultList = [];
 
@@ -298,6 +312,8 @@
           nonNullResultList.push(this.nameResultList);
         }if(this.locationResultList){
           nonNullResultList.push(this.locationResultList);
+        }if(this.experienceResultList){
+          nonNullResultList.push(this.experienceResultList)
         }
         if(nonNullResultList.length==0) return [];
         let resultList = nonNullResultList[0];
@@ -310,20 +326,35 @@
       },
     },
     methods:{
-      displayCandidate(){
-        this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:1,size:20},
+      displayCandidate(pageNumber){
+        if(!_.isNumber(pageNumber))pageNumber = 1;
+        console.log(pageNumber);
+        this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
             {header:getHeader()}).then(response=>{
+              if(response.status===200) {
+                this.candidateList = [];
 
-              console.log(response.data)
-              response.data.resultList.forEach(item=> this.candidateList.push(item))
-            //this.candidateList.push(response.data);
-          this.totalPage = response.data.totalPage *10;
-            this.showSearchResult = true;
+                response.data.resultList.forEach(item => this.candidateList.push(item))
+                this.totalPage = response.data.totalPage * 10;
+                this.showSearchResult = true;
+              }
         })
       },
 
+      searchByDocument(){
+        _.debounce(
+        this.$http.post("http://localhost:8080/candidate/search/document",this.document,{header:getHeader()}).then(
+          response=>{
+            if(response.status === 200){
+              console.log('document',response.data);
+              this.documentResultList = response.data;
+            }
+          }
+        ),1500)()
+      },
+
       handleIdChange(){
-        _.debounce(this.searchById,3000)();
+        _.debounce(this.searchById,1000)();
       },
       searchById(){
 
@@ -333,23 +364,52 @@
 
             [this.candidateId],options,{header:getHeader()}).then(response=>{
 
-              if (response.status ==200){
+              if (response.status ===200){
                 this.idResultList = response.data;
+            }
+          })
+        }
+        if(this.actId && this.actId.trim().length>0){
+          let options = { emulateJSON: true};
+          this.$http.post("http://localhost:8080/candidate/search/actId",
+            this.actId,options,{header:getHeader()}).then(response=>{
+            if (response.status ===200){
+              this.idResultList = response.data;
             };
           })
         }
       },
       handleLocationChange(){
-        console.log('handle location change')
-        _.debounce(this.searchByLocation,3000)();
+        console.log('handle location change');
+        _.debounce(this.searchByLocation,2000)();
+      },
+      handlePassportChange(val){
+        console.log(val);
+        this.document["passport"] = val;
+      },
+      handleVisaChange(val){
+        console.log(val);
+        this.document["visa"] = val;
+      },
+      handleMedicalChange(val){
+        console.log(val);
+        this.document["medical"] = val;
+      },
+      handleSeamansBookChange(val){
+        console.log(val);
+        this.document['seamansBook'] = val;
+      },
+      handleCertificateChange(val){
+        console.log(val);
+        this.document['certificate'] = val;
       },
       searchByLocation(){
 
-        console.log(this.location)
-        if(this.location.citizenship!=null||this.location.residency!=null){
+        console.log(this.location);
+        if(!_.isEmpty(this.location.citizenship)||!_.isEmpty(this.location.residency)){
           this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
            this.location, {header:getHeader() }).then( response => {
-              if (response.status ==200) {
+              if (response.status ===200) {
 
                 this.locationResultList = response.data;
               }
@@ -357,7 +417,7 @@
         }
       },
       handleNameChange(){
-        _.debounce(this.searchByName,2000)();
+        _.debounce(this.searchByName,1500)();
       },
       searchByName(){
         if(this.candidateName.name && this.candidateName.searchType && this.candidateName.name.trim().length>0){
@@ -368,31 +428,40 @@
 
             this.candidateName,{header:getHeader()}).then(response=>{
 
-            if (response.status ==200){
+            if (response.status ===200){
               this.idResultList = response.data;
             };
           })
         }
       },
-
-      handleClientsChange(){
-        console.log(this.checkedClients);
+      handleExperienceChange(){
+        _.debounce(this.searchByExperience,1500)();
       },
+      searchByExperience(){
+        if(!_.isEmpty(this.experience.clientIds)||!_.isEmpty(this.experience.venueIds)||
+        !_.isEmpty(this.experience.gigTypeId)||!_.isEmpty(this.experience.rank)){
+          this.$http.post("http://localhost:8080/candidate/search/gig",
 
+            this.experience, {header:getHeader() }).then( response => {
+            if (response.status === 200) {
+              this.experienceResultList = response.data;
+            }
+          })
+        }
+      },
+      handleEvalChange(){_.debounce(this.searchByEvaluation(),1500)()},
+      searchByEvaluation(){
+
+      },
+      handleDocumentClick(){
+      },
       getChildrenNodes(key, resolve){
-
-        console.log(key)
-
         this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
-          if (response.status == 200) {
-
-            console.log('Eval result: ',response.data)
+          if (response.status === 200) {
             resolve(response.data);
           } else resolve([]);
         })
-
       },
-
       filterNode(value,data){
         if (!value) return true;
         return data.label.indexOf(value) !== -1;
@@ -400,7 +469,7 @@
       },
       loadNodeEval(node, resolve){
 
-        console.log(node.level)
+        console.log(node.level);
           if(node.level===0){
             return resolve([{ id:1,label:'Evaluation'}]);
           }
@@ -410,29 +479,27 @@
               {id: 3, label: 'Non Instrument'},
               {id: 133, label: 'Classification'},
               {id: 4, label: 'Language'},
-            {id: 180, label: 'Presentation'}
+              {id: 180, label: 'Presentation'}
             ])
           }
           if(node.level>1)
           {
            this.getChildrenNodes(node, resolve);
 
-            console.log('eval data',data)
+            console.log('eval data',data);
 
             resolve(data)
           }
 
       },
-
-
       fetchPosition(){
         let positionOptions = JSON.parse(localStorage.getItem("positionOptions"));
         if(!positionOptions){
 
           this.$http.get('http://localhost:8080/position/',{headers: getHeader()}).then(response=> {
 
-            if (response.status == 200) {
-              this.rankingTypes = response.data
+            if (response.status === 200) {
+              this.rankingTypes = response.data;
               positionOptions = response.data;
               localStorage.setItem('positionOptions',JSON.stringify(response.data))
             }
@@ -441,16 +508,15 @@
           this.rankingTypes = positionOptions;
         }
       },
-
       fetchGigType(){
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){
 
           this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
 
-            if (response.status == 200) {
+            if (response.status === 200) {
               gigTypeOptions = response.data;
-              this.gigTypes = response.data
+              this.gigTypes = response.data;
               localStorage.setItem('gigTypeOptions',JSON.stringify(response.data))
             }
           })
@@ -458,19 +524,17 @@
           this.gigTypes = gigTypeOptions;
         }
       },
-
-
       fetchClient(){
 
-        console.log('fetchClient')
+        console.log('fetchClient');
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
           if(!clientOptions){
 
             this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
 
-              if (response.status == 200) {
-                this.clients = response.data
+              if (response.status === 200) {
+                this.clients = response.data;
                 localStorage.setItem('clientOptions',JSON.stringify(response.data))
               }
             })
@@ -479,22 +543,18 @@
           }
         }
       },
-      handleDocumentClick(){
-
-      },
-
       fetchVenue(){
 
-        console.log(this.checkedClients);
+        console.log(this.experience.clientIds);
        let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
 
-          console.log('venueOptions from local storage',venueOptions)
+          console.log('venueOptions from local storage',venueOptions);
 
           if(!venueOptions){
             this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
-              if (response.status == 200) {
+              if (response.status === 200) {
                 venueOptions = response.data;
-                console.log('venueOptions from http request',venueOptions)
+                console.log('venueOptions from http request',venueOptions);
                 localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
               }
             })
@@ -502,25 +562,23 @@
 
         console.log(venueOptions);
 
-        if(!this.checkedClients|| this.checkedClients.length===0) {
-          console.log(this.checkedClients);
+        if(!this.experience.clientIds|| this.experience.clientIds.length===0) {
+          console.log(this.experience.clientIds);
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.checkedClients.includes(venue.clientId));
+          let filteredVenue = venueOptions.filter(venue => this.experience.clientIds.includes(venue.clientId));
           console.log(filteredVenue);
           this.venues = filteredVenue;
         }
       },
-
-
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
-        console.log('country',countryOptions)
+        console.log('country',countryOptions);
         if (!countryOptions){
           this.$http.get('http://localhost:8080/country/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
-              localStorage.setItem('countryOptions', JSON.stringify(countryOptions));
+              localStorage.setItem('countryOptions', JSON.stringify(response.data));
               this.countries = response.data;
             }
           })
@@ -531,9 +589,9 @@
         let visaTypeOptions =  JSON.parse(localStorage.getItem('visaTypeOptions'));
 
         if(!visaTypeOptions) this.$http.get('http://localhost:8080/visaType/',{headers: getHeader()}).then(response=> {
-          if (response.status == 200) {
+          if (response.status === 200) {
 
-            console.log('visa result: ',response.data)
+            console.log('visa result: ',response.data);
             visaTypeOptions = response.data;
             localStorage.setItem('visaTypeOptions',JSON.stringify(visaTypeOptions));
             this.visaType = visaTypeOptions;
@@ -546,9 +604,9 @@
         if(!medicalTypeOptions) {
 
           this.$http.get('http://localhost:8080/medicalType/',{headers: getHeader()}).then(response=> {
-          if (response.status == 200) {
+          if (response.status === 200) {
             medicalTypeOptions = response.data;
-            console.log('medical result: ',response.data)
+            console.log('medical result: ',response.data);
             localStorage.setItem('medicalTypeOptions',JSON.stringify(medicalTypeOptions));
             this.medicalType = medicalTypeOptions;
           }
@@ -557,14 +615,12 @@
 
         else this.medicalType = medicalTypeOptions;
       },
-
-
       fetchCertificateType(){
         let certificateTypeOptions =  JSON.parse(localStorage.getItem('certificateTypeOptions'));
         if(!certificateTypeOptions) this.$http.get('http://localhost:8080/certificateType/',{headers: getHeader()}).then(response=> {
-          if (response.status == 200) {
+          if (response.status === 200) {
             certificateTypeOptions = response.data;
-            console.log('certificate result: ',response.data)
+            console.log('certificate result: ',response.data);
             localStorage.setItem('certificateTypeOptions',JSON.stringify(certificateTypeOptions));
             this.certificateType = certificateTypeOptions;
           }

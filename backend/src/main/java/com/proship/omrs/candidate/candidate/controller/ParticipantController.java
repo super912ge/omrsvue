@@ -3,6 +3,7 @@ package com.proship.omrs.candidate.candidate.controller;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.*;
+import com.proship.omrs.candidate.repository.ParticipantAvailabilityRepository;
 import com.proship.omrs.candidate.repository.ParticipantRepository;
 import com.proship.omrs.candidate.candidate.service.ParticipantService;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
@@ -40,6 +41,8 @@ public class ParticipantController extends BaseController<Participant,Long>{
 
     @Autowired
     GigService gigService;
+
+
     @RequestMapping("/search/document")
     public ResponseEntity<Set<Long>> searchCandidateByDocument(@RequestBody Map<String,List<DocumentSearchTerm>> searchMap){
 
@@ -60,6 +63,14 @@ public class ParticipantController extends BaseController<Participant,Long>{
     public ResponseEntity<Set<Long>> searchCandidateById(@PathVariable(value = "id")Long id){
         Set<Long> result = new HashSet<>();
         if (repo.findOne(id)!=null){
+            result.add(id);
+        }
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+    @RequestMapping("/search/actId/{id}")
+    public ResponseEntity<Set<Long>> searchCandidateByActId(@PathVariable(value = "id")Long id){
+        Set<Long> result = new HashSet<>();
+        if (participantService.findParticipantByActId(id)!=null){
             result.add(id);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);

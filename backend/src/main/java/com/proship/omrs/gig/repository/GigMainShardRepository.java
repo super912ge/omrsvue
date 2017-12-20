@@ -14,7 +14,7 @@ public interface GigMainShardRepository extends JpaRepository<GigMainShard,Long>
             " and g.room.id in :rooms and g.nexttransactiontime > current_date ")
     Set<Long> findGigIdByRoomAndGigType(@Param("rooms")Set<Long> rooms, @Param("gigType") Long gigType);
 
-    @Query("select g.gig.id from GigMainShard g where g.room " +
+    @Query("select g.gig.id from GigMainShard g where g.room.id " +
             " in :rooms and g.nexttransactiontime > current_date ")
     Set<Long> findGigIdByRoom(@Param("rooms")Set<Long> rooms);
 

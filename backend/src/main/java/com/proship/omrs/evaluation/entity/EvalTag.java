@@ -2,12 +2,14 @@ package com.proship.omrs.evaluation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Where(clause = "nexttransactiontime>current_date")
 public class EvalTag extends BaseEntity{
 
     @Id
@@ -81,10 +83,6 @@ public class EvalTag extends BaseEntity{
 
     public void setDiscriminatorId(Long discriminatorId) {
         this.discriminatorId = discriminatorId;
-    }
-
-    public Long getDestroyerId() {
-        return destroyerId;
     }
 
     public void setDestroyerId(Long destroyerId) {

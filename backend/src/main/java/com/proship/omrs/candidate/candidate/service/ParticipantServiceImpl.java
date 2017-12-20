@@ -166,6 +166,11 @@ public class ParticipantServiceImpl implements ParticipantService {
         return participantActNameRepository.findCandidateIdByName(searchPattern);
     }
 
+    @Override
+    public Long findParticipantByActId(Long actId) {
+        return participantRepository.findParticipantByActId(actId);
+    }
+
 
     @Override
     public Set<Long> findParticipantByCountry(SearchByResidencyCitizenshipParam param) {
