@@ -155,11 +155,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.proship</groupId>-->
-            <!--<artifactId>omrs</artifactId>-->
-            <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <dependencyManagement>

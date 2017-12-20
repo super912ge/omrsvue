@@ -1,15 +1,17 @@
 *.iml
 .DS_Store
 .idea
-/.classpath
-/.externalToolBuilders/
-/.project
-/.settings
-/.springBeans
+.classpath
+.externalToolBuilders/
+.project
+.settings
+.springBeans
+.factorypath
 /.tern-project
 /bin/
 /target
 backend/src/main/resources/public/
+backend/src/main/resources/static/*
 backend/target
 frontend/dist/
 frontend/node/
@@ -23,3 +25,4 @@ frontend/yarn-error.log
 frontend/yarn.lock
 security/target/
 selenium-debug.log
+node_modules

@@ -4,10 +4,16 @@
 
 ## Build Setup
 
+``` bash
 # Maven downloads and installs npm and node.js
 mvn install
 
-``` bash
+# The junit5 dependency for the project currently doesn't have a mvn artifact
+# Clone the project to a directory outside the project, then install the compiled jar to your local maven repo
+git clone https://github.com/sbrannen/spring-test-junit5.git
+cd spring-test-junit5
+./gradlew install
+
 # install dependencies
 npm install
 
