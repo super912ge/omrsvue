@@ -1,22 +1,25 @@
 <template>
 <div>
-
 <el-row>
 <el-col  :span="12">
+  <span class="demonstration">Candidate Id or Act Id</span>
+  <div style="margin-top: 15px"></div>
 <el-row>
   <el-col :span="8" >
-    <el-input v-model="candidateId" placeholder="Candidate ID" class="shortInput" @change='handleIdChange'></el-input>
+    <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" @change="handleIdChange"></el-input>
   </el-col>
   <el-col :span="8" style="margin-left: 15px">
-    <el-input v-model="actId" placeholder="Candidate Act ID" class="shortInput" @change="handleIdChange"></el-input>
+    <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
   </el-col>
 
 </el-row>
   <el-row>
     <div style="margin-top: 15px;">
-      <el-input placeholder="Candidate Name" v-model="candidateName.name" class="input-with-select"
+      <span class="demonstration">Candidate Name</span>
+      <div style="margin-top: 15px;"></div>
+      <el-input placeholder="Candidate Name" v-model="criteria.candidateName.name" class="input-with-select"
                 style="width: 70%" @change="handleNameChange">
-        <el-select v-model="candidateName.searchType" slot="prepend" placeholder="select">
+        <el-select v-model="criteria.candidateName.searchType" slot="prepend" placeholder="select">
           <el-option label="First Name" value="FirstName"></el-option>
           <el-option label="Last Name" value="LastName"></el-option>
           <el-option label="Any Match" value="Any"></el-option>
@@ -27,15 +30,15 @@
 <el-row style="margin-top: 25px">
 
   <el-col :span="24">
-
     <div class="block">
       <span class="demonstration">Availability</span>
+      <div style="margin-top: 15px;"></div>
       <el-date-picker style="width: 300px"
-        v-model="availability"
+        v-model="criteria.availability"
         type="daterange"
         range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date">
+        start-placeholder="Start Date"
+        end-placeholder="End Date">
       </el-date-picker>
     </div>
   </el-col>
@@ -45,14 +48,13 @@
   <el-row style="margin-top: 15px">
     <span class="demonstration">Interest Level</span>
     <div style="margin-top: 10px">
-      <el-radio-group v-model="interestLevel" size="small">
+      <el-radio-group v-model="criteria.interestLevel" size="small">
         <el-radio-button label="4" >Hard Negative</el-radio-button>
         <el-radio-button label="3">Soft Negative</el-radio-button>
         <el-radio-button label="2">Soft Positive</el-radio-button>
         <el-radio-button label="1" >Hard Positive</el-radio-button>
       </el-radio-group>
     </div>
-
   </el-row>
 
   <!--//Experience-->
@@ -61,27 +63,19 @@
     <div style="margin: 15px 0;"></div>
     <el-collapse style="width: 70%  "  @item-click="fetchClient">
       <el-collapse-item title="Client" style="font-size: large" >
-
-        <!--<el-checkbox :indeterminate="isIndeterminateClient" v-model="checkAllClient"-->
-                     <!--@change="handleCheckAllChange">Check all</el-checkbox>-->
         <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="experience.clientIds" style="height: 200px; overflow-y: scroll;">
+        <el-checkbox-group v-model="criteria.experience.clientIds" style="height: 200px; overflow-y: scroll;">
           <el-checkbox v-for="client in clients" :label="client.id" :key="client.id"style="margin-left: 5px; width: 200px"
                        @change="handleExperienceChange" >{{client.name}}</el-checkbox>
         </el-checkbox-group>
-
       </el-collapse-item>
-
     </el-collapse>
 
     <div style="margin-top: 15px"></div>
       <el-collapse style="width: 70% "  @item-click="fetchVenue">
-
       <el-collapse-item title="Venue">
-
-        <!--<el-checkbox :indeterminate="isIndeterminateVenue" v-model="checkAllVenue" @change="handleCheckAllChange">Check all</el-checkbox>-->
         <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="experience.venueIds" style="height: 200px; overflow-y:scroll">
+        <el-checkbox-group v-model="criteria.experience.venueIds" style="height: 200px; overflow-y:scroll">
           <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
                        style="margin-left: 5px; width: 200px"
                        @change="handleExperienceChange">{{venue.name}}  ------  {{venue.clientCode}}
@@ -92,7 +86,7 @@
   </el-row>
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-    <el-select v-model="experience.gigTypeId"  @change="handleExperienceChange"
+    <el-select v-model="criteria.experience.gigTypeId"  @change="handleExperienceChange"
                filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
       <el-option
         v-for="item in gigTypes"
@@ -101,11 +95,10 @@
         :value="item.id">
       </el-option>
     </el-select>
-
   </el-row>
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-    <el-select v-model="experience.rank" filterable placeholder="Ranking"
+    <el-select v-model="criteria.experience.rank" filterable placeholder="Ranking"
                @change="handleExperienceChange" style="width: 200px;margin-left: 21px">
       <el-option
         v-for="item in rankingTypes"
@@ -114,16 +107,14 @@
         :value="item.id">
       </el-option>
     </el-select>
-
   </el-row>
-
-
   <!--//Location-->
   <el-row style="margin-top: 25px">
     <span class="demonstration">World</span>
     <div style="margin-top: 15px"></div>
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Residency</span>
-    <el-select v-model="location.residency" filterable placeholder="Residency" style="width: 200px;margin-left: 21px" @change="handleLocationChange">
+    <el-select v-model="criteria.location.residency" filterable placeholder="Residency" style="width: 200px;margin-left: 21px"
+               @change="handleLocationChange">
       <el-option
         v-for="item in countries"
         :key="item.id"
@@ -133,7 +124,8 @@
     </el-select>
     <div style="margin-top: 15px"></div>
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Citizenship</span>
-    <el-select v-model="location.citizenship" filterable placeholder="Citizenship" style="width: 200px;margin-left: 16px" @change="handleLocationChange">
+    <el-select v-model="criteria.location.citizenship" filterable placeholder="Citizenship" style="width: 200px;margin-left: 16px"
+               @change="handleLocationChange">
       <el-option
         v-for="item in countries"
         :key="item.id"
@@ -141,9 +133,7 @@
         :value="item.id">
       </el-option>
     </el-select>
-
   </el-row>
-
 </el-col>
 
   <el-col :span="12">
@@ -153,7 +143,7 @@
         <el-input
           style="margin-top: 15px"
           placeholder="Filter keyword"
-          v-model="filterText">
+          v-model="criteria.filterText">
         </el-input>
 
         <el-tree
@@ -169,11 +159,9 @@
         >
         </el-tree>
       </div>
-
     </el-row>
     <el-row style="margin-top: 25px">
       <span class="demonstration">Documents</span>
-
       <el-tabs type="card" @tab-click="handleDocumentClick">
         <el-tab-pane label="Visa">
           <document selectType="Type" :options="visaType" @documentSelect = 'handleVisaChange'></document>
@@ -187,35 +175,28 @@
         <el-tab-pane label="Medical">
           <document selectType="Type" :options="medicalType"@documentSelect = 'handleMedicalChange'></document></el-tab-pane>
       </el-tabs>
-
     </el-row>
-
-
   </el-col>
-
 </el-row>
   <el-row>
 <div style="margin-top: 20px"></div>
-    <el-col :span="4" :offset="10">
+    <el-col :span="4" :offset="8">
 
       <el-button style="margin: auto" @click="displayCandidate">Display Candidate({{candidateIdList.length}})</el-button>
+    </el-col>
+    <el-col :span="2">
+      <el-button style="margin: auto" @click="reset">Reset</el-button>
     </el-col>
 
   </el-row>
 <el-row>
   <div style="margin-top: 20px"></div>
-  <display-candidate v-if="showSearchResult" :resultList="candidateList" :pageNumber="totalPage"
+  <display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"
   @pageChange="displayCandidate"></display-candidate>
-
 </el-row>
-
 </div>
-
 </template>
-
-
 <script>
-
   import Document from './Document.vue'
   import _ from 'lodash'
   import {getHeader} from '../../../env'
@@ -224,7 +205,6 @@
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button.vue";
   import DisplayCandidate from './DisplayCandidate.vue'
   import ElCol from "element-ui/packages/col/src/col";
-
   import response from './data/data.js'
   export default {
 
@@ -236,23 +216,43 @@
       DisplayCandidate},
     data() {
       return {
-        totalCandidate:0,
-        totalPage:0,
-        nameResultList:null,
-        idResultList:null,
-        locationResultList:null,
-        documentResultList:null,
-        evalResultList:null,
-        experienceResultList:null,
-        candidateList:[],
-        candidateId: '',
-        candidateName:{
-          name:null,
-          searchType:'Any',
+
+        criteria:{
+          candidateId: '',
+          actId:null,
+          candidateName:{
+            name:null,
+            searchType:'Any',
+          },
+          documentRequestSent: true,
+          experience:{
+            gigTypeId:null,
+            clientIds:[],
+            venueIds:[],
+            rank:null,
+            nonPs:null
+          },
+          availability:null,
+          interestLevel:null,
+          document:{},
+          location:{
+            residency:null,
+            citizenship:null
+          },
+          filterText:''
         },
-        actId:null,
-        availability:null,
-        interestLevel:null,
+        result:{
+          totalCandidate:0,
+          totalPage:0,
+          nameResultList:null,
+          idResultList:null,
+          locationResultList:null,
+          documentResultList:null,
+          evalResultList:null,
+          experienceResultList:null,
+          candidateList:[],
+          showSearchResult: false
+        },
         clients:null,
         isIndeterminateClient: false,
         venues:null,
@@ -263,33 +263,11 @@
         visaType:null,
         certificateType: null,
         medicalType:null,
-        location:{
-          residency:null,
-          citizenship:null
-        },
-        experience:{
-          gigTypeId:null,
-          clientIds:[],
-          venueIds:[],
-          rank:null,
-          nonPs:null
-        },
-        filterText:'',
         treeProps: {
           children: 'children',
           label: 'label',
           id:'id',
           disabled:'isSearchable'
-        },
-        activeName: 'first',
-        showSearchResult: false,
-        candidateListReset:true,
-        document:{
-          "certificate":[],
-          "passport":[],
-          "medical":[],
-          "visa":[],
-          "seamansBook":[]
         }
       }
     },
@@ -302,20 +280,20 @@
       candidateIdList:function () {
         let nonNullResultList = [];
 
-        if(this.documentResultList){
-          nonNullResultList.push(this.documentResultList);
-        }if(this.evalResultList){
-          nonNullResultList.push(this.evalResultList);
-        }if(this.idResultList){
-          nonNullResultList.push(this.idResultList);
-        }if(this.nameResultList){
-          nonNullResultList.push(this.nameResultList);
-        }if(this.locationResultList){
-          nonNullResultList.push(this.locationResultList);
-        }if(this.experienceResultList){
-          nonNullResultList.push(this.experienceResultList)
+        if(this.result.documentResultList){
+          nonNullResultList.push(this.result.documentResultList);
+        }if(this.result.evalResultList){
+          nonNullResultList.push(this.result.evalResultList);
+        }if(this.result.idResultList){
+          nonNullResultList.push(this.result.idResultList);
+        }if(this.result.nameResultList){
+          nonNullResultList.push(this.result.nameResultList);
+        }if(this.result.locationResultList){
+          nonNullResultList.push(this.result.locationResultList);
+        }if(this.result.experienceResultList){
+          nonNullResultList.push(this.result.experienceResultList)
         }
-        if(nonNullResultList.length==0) return [];
+        if(nonNullResultList.length===0) return [];
         let resultList = nonNullResultList[0];
         if(nonNullResultList.length>1){
             for(let i=1;i<nonNullResultList.length; i++){
@@ -332,86 +310,115 @@
         this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
             {header:getHeader()}).then(response=>{
               if(response.status===200) {
-                this.candidateList = [];
-
-                response.data.resultList.forEach(item => this.candidateList.push(item))
-                this.totalPage = response.data.totalPage * 10;
-                this.showSearchResult = true;
+                this.result.candidateList = [];
+                response.data.resultList.forEach(item => this.result.candidateList.push(item))
+                this.result.totalPage = response.data.totalPage * 10;
+                this.result.showSearchResult = true;
               }
         })
       },
+      reset(){
+        console.log('reset',this.$data,defaultData());
+//       Object.assign(this.$data,defaultData);
 
+        this.$data.result=defaultData().result;
+        this.$data.criteria = defaultData().criteria;
+//        Object.assign(this.$data, this.$options.data());
+        console.log(this.$data,defaultData());
+      },
       searchByDocument(){
-        _.debounce(
-        this.$http.post("http://localhost:8080/candidate/search/document",this.document,{header:getHeader()}).then(
-          response=>{
-            if(response.status === 200){
-              console.log('document',response.data);
-              this.documentResultList = response.data;
-            }
-          }
-        ),1500)()
+          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{header:getHeader()}).then(
+            response=>{
+              if(response.status === 200){
+                console.log('document',response.data);
+                this.result.documentResultList = response.data;
+              }
+            });
+       this.criteria.documentRequestSent=true;
       },
 
       handleIdChange(){
         _.debounce(this.searchById,1000)();
       },
+      handleActIdChange(){
+        _.debounce(this.searchByActId,1000)();
+      },
       searchById(){
-
-        if(this.candidateId && this.candidateId.trim().length>0){
+        if(this.criteria.candidateId && this.criteria.candidateId.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.post("http://localhost:8080/candidate/search/id",
-
-            [this.candidateId],options,{header:getHeader()}).then(response=>{
+          this.$http.get("http://localhost:8080/candidate/search/id/"+
+            this.criteria.candidateId,options,{header:getHeader()}).then(response=>{
 
               if (response.status ===200){
-                this.idResultList = response.data;
+                this.result.idResultList = response.data;
             }
           })
-        }
-        if(this.actId && this.actId.trim().length>0){
+        }else this.result.idResultList = null;
+      },
+
+      searchByActId(){
+        if(this.criteria.actId && this.criteria.actId.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.post("http://localhost:8080/candidate/search/actId",
-            this.actId,options,{header:getHeader()}).then(response=>{
+          this.$http.get("http://localhost:8080/candidate/search/actId/"+
+            this.criteria.actId,options,{header:getHeader()}).then(response=>{
             if (response.status ===200){
-              this.idResultList = response.data;
+              this.result.idResultList = response.data;
             };
           })
-        }
+        }else this.result.idResultList = null;
       },
       handleLocationChange(){
-        console.log('handle location change');
-        _.debounce(this.searchByLocation,2000)();
+        _.debounce(this.searchByLocation,1500)();
       },
       handlePassportChange(val){
         console.log(val);
-        this.document["passport"] = val;
+        this.criteria.document["passport"]=val;
+        if(this.criteria.documentRequestSent===true){
+          this.criteria.documentRequestSent = false;
+          _.debounce(this.searchByDocument,1500)();
+        }
       },
       handleVisaChange(val){
         console.log(val);
-        this.document["visa"] = val;
+        this.criteria.document["visa"] = val;
+        if(this.criteria.documentRequestSent===true){
+          this.criteria.documentRequestSent = false;
+          _.debounce(this.searchByDocument,1500)();
+        }
       },
       handleMedicalChange(val){
         console.log(val);
-        this.document["medical"] = val;
+        this.criteria.document["medical"] = val;
+        if(this.criteria.documentRequestSent===true){
+          this.criteria.documentRequestSent = false;
+          _.debounce(this.searchByDocument,1500)();
+        }
       },
       handleSeamansBookChange(val){
         console.log(val);
-        this.document['seamansBook'] = val;
+        this.criteria.document['seamansBook'] = val;
+        if(this.criteria.documentRequestSent===true){
+          this.criteria.documentRequestSent = false;
+          _.debounce(this.searchByDocument,1500)();
+        }
       },
       handleCertificateChange(val){
         console.log(val);
-        this.document['certificate'] = val;
+        this.criteria.document['certificate'] = val;
+        if(this.criteria.documentRequestSent===true){
+          this.criteria.documentRequestSent = false;
+          _.debounce(this.searchByDocument,1500)();
+        }
       },
       searchByLocation(){
 
-        console.log(this.location);
-        if(!_.isEmpty(this.location.citizenship)||!_.isEmpty(this.location.residency)){
+        console.log(this.criteria.location);
+        if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
           this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
-           this.location, {header:getHeader() }).then( response => {
+           this.criteria.location, {header:getHeader() }).then( response => {
               if (response.status ===200) {
 
-                this.locationResultList = response.data;
+                this.result.locationResultList = response.data;
               }
             })
         }
@@ -420,16 +427,15 @@
         _.debounce(this.searchByName,1500)();
       },
       searchByName(){
-        if(this.candidateName.name && this.candidateName.searchType && this.candidateName.name.trim().length>0){
+        if(this.criteria.candidateName.name && this.criteria.candidateName.searchType
+          && this.criteria.candidateName.name.trim().length>0){
 
-          this.candidateName.name = this.candidateName.name.replace(/^\s+|\s+$/g, '');
+          this.criteria.candidateName.name = this.criteria.candidateName.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/candidate/search/name",
-
-            this.candidateName,{header:getHeader()}).then(response=>{
-
+            this.criteria.candidateName,{header:getHeader()}).then(response=>{
             if (response.status ===200){
-              this.idResultList = response.data;
+              this.result.idResultList = response.data;
             };
           })
         }
@@ -438,13 +444,13 @@
         _.debounce(this.searchByExperience,1500)();
       },
       searchByExperience(){
-        if(!_.isEmpty(this.experience.clientIds)||!_.isEmpty(this.experience.venueIds)||
-        !_.isEmpty(this.experience.gigTypeId)||!_.isEmpty(this.experience.rank)){
+        if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
+        !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
           this.$http.post("http://localhost:8080/candidate/search/gig",
 
-            this.experience, {header:getHeader() }).then( response => {
+            this.criteria.experience, {header:getHeader() }).then( response => {
             if (response.status === 200) {
-              this.experienceResultList = response.data;
+              this.result.experienceResultList = response.data;
             }
           })
         }
@@ -525,14 +531,12 @@
         }
       },
       fetchClient(){
-
-        console.log('fetchClient');
+        console.log(this.clients)
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
+          console.log(clientOptions)
           if(!clientOptions){
-
             this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
-
               if (response.status === 200) {
                 this.clients = response.data;
                 localStorage.setItem('clientOptions',JSON.stringify(response.data))
@@ -540,16 +544,12 @@
             })
           }else {
             this.clients = clientOptions;
+            console.log(this.clients)
           }
         }
       },
       fetchVenue(){
-
-        console.log(this.experience.clientIds);
        let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
-
-          console.log('venueOptions from local storage',venueOptions);
-
           if(!venueOptions){
             this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
@@ -562,19 +562,19 @@
 
         console.log(venueOptions);
 
-        if(!this.experience.clientIds|| this.experience.clientIds.length===0) {
-          console.log(this.experience.clientIds);
+        if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
+          console.log(this.criteria.experience.clientIds);
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.experience.clientIds.includes(venue.clientId));
+          let filteredVenue = venueOptions.filter(venue => this.criteria.experience.clientIds.includes(venue.clientId));
           console.log(filteredVenue);
           this.venues = filteredVenue;
         }
       },
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
-        console.log('country',countryOptions);
+
         if (!countryOptions){
           this.$http.get('http://localhost:8080/country/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
@@ -602,7 +602,6 @@
       fetchMedicalType(){
         let medicalTypeOptions =  JSON.parse(localStorage.getItem('medicalTypeOptions'));
         if(!medicalTypeOptions) {
-
           this.$http.get('http://localhost:8080/medicalType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             medicalTypeOptions = response.data;
@@ -611,8 +610,6 @@
             this.medicalType = medicalTypeOptions;
           }
         });}
-
-
         else this.medicalType = medicalTypeOptions;
       },
       fetchCertificateType(){
@@ -639,6 +636,42 @@
     }
   }
 
+  const defaultData = function(){return { criteria:{
+    candidateId: '',
+    actId:null,
+    candidateName:{
+      name:null,
+      searchType:'Any',
+    },
+    documentRequestSent: true,
+    experience:{
+      gigTypeId:null,
+      clientIds:[],
+      venueIds:[],
+      rank:null,
+      nonPs:null
+    },
+    availability:null,
+    interestLevel:null,
+    document:{},
+    location:{
+      residency:null,
+      citizenship:null
+    },
+    filterText:''
+  },
+    result:{
+      totalCandidate:0,
+      totalPage:0,
+      nameResultList:null,
+      idResultList:null,
+      locationResultList:null,
+      documentResultList:null,
+      evalResultList:null,
+      experienceResultList:null,
+      candidateList:[],
+      showSearchResult: false
+    }}} ;
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@
 <el-col :span ="18">
 
 
-  <el-date-picker v-model="selectedResult.validUntilDate" type="date" placeholder="Pick a Date"
+  <el-date-picker v-model="expireDate" type="date" placeholder="Pick a Date"
                   format="yyyy/MM/dd" value-format="yyyy-MM-dd" style="width: 180px"
                   @change="handleSelect"></el-date-picker>
 
@@ -62,10 +62,8 @@
 
       return {
         id:null,
-        selectedResult: {
-          id: null,
-          expireDate: null
-        }
+        expireDate: null
+
       }
 
     },
@@ -73,9 +71,9 @@
       handleSelect(){
 
         console.log('inside document', this.id);
-        if(!this.id){
+        if(this.id){
 
-          this.$emit('documentSelect',{ids:[this.selectedResult.id],expireDate: this.selectedResult.expireDate})
+          this.$emit('documentSelect',[{ids:[this.id],expireDate: this.expireDate}])
         }
 
       }
