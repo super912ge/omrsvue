@@ -23,7 +23,7 @@
         <el-form-item label="Role" prop="roles">
             <el-checkbox-group
                     v-model="registerForm.roles" :min="1">
-                <el-checkbox v-for="role in rolesOptions" :label="role.name" :key="role.id">{{role.name}}</el-checkbox>
+                <el-checkbox v-for="role in rolesOptions" :label="role.id" :key="role.id">{{role.name}}</el-checkbox>
             </el-checkbox-group>
         </el-form-item>
 
@@ -100,9 +100,11 @@
                         console.log(this.registerForm);
 
                         const roleList = [];
+
                         this.registerForm.roles.map(item=> {
+                          console.log(item);
                             var obj = {}
-                            obj.id = item.id;
+                            obj.id = item;
                             roleList.push(obj)
 
                         })
