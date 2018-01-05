@@ -1,13 +1,13 @@
 package com.proship.omrs.evaluation.param;
 
+import java.util.List;
+
 public class InstrumentRatingSearchParam {
 
 
     private Long instrumentTypeId;
 
-    private Long ratingTypeId;
-
-    private Long ratingId;
+    private List<InstrumentRating> ratings;
 
     public Long getInstrumentTypeId() {
         return instrumentTypeId;
@@ -17,19 +17,11 @@ public class InstrumentRatingSearchParam {
         this.instrumentTypeId = instrumentTypeId;
     }
 
-    public Long getRatingTypeId() {
-        return ratingTypeId;
+    public List<InstrumentRating> getRatings() {
+        return ratings;
     }
 
-    public void setRatingTypeId(Long ratingTypeId) {
-        this.ratingTypeId = ratingTypeId;
-    }
-
-    public Long getRatingId() {
-        return ratingId;
-    }
-
-    public void setRatingId(Long ratingId) {
-        this.ratingId = ratingId;
+    public void setRatings(List<InstrumentRating> ratings) {
+        this.ratings = ratings;
     }
 }

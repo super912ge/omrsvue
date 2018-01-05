@@ -70,7 +70,6 @@
         </el-checkbox-group>
       </el-collapse-item>
     </el-collapse>
-
     <div style="margin-top: 15px"></div>
       <el-collapse style="width: 70% "  @item-click="fetchVenue">
       <el-collapse-item title="Venue">
@@ -152,6 +151,7 @@
           :load="loadNodeEval"
           node-key="id"
           show-checkbox
+          check-strictly="true"
           @check-change="handleEvalChange"
           lazy
           :filter-node-method="filterNode"
@@ -164,16 +164,16 @@
       <span class="demonstration">Documents</span>
       <el-tabs type="card" @tab-click="handleDocumentClick">
         <el-tab-pane label="Visa">
-          <document selectType="Type" :options="visaType" @documentSelect = 'handleVisaChange'></document>
+          <document selectType="Type" :options="visaType" ref="visa" @documentSelect = 'handleVisaChange'></document>
         </el-tab-pane>
         <el-tab-pane label="Passport">
-          <document selectType="Country" :options="countries" @documentSelect = 'handlePassportChange'></document></el-tab-pane>
+          <document selectType="Country" :options="countries" ref="passport" @documentSelect = 'handlePassportChange'></document></el-tab-pane>
         <el-tab-pane label="Seamans Book">
-          <document selectType="Country" :options="countries" @documentSelect = 'handleSeamansBookChange'></document></el-tab-pane>
+          <document selectType="Country" :options="countries" ref="seamansBook" @documentSelect = 'handleSeamansBookChange'></document></el-tab-pane>
         <el-tab-pane label="Certificate">
-          <document selectType="Type" :options="certificateType"@documentSelect = 'handleCertificateChange'></document></el-tab-pane>
+          <document selectType="Type" :options="certificateType" ref="certificate" @documentSelect = 'handleCertificateChange'></document></el-tab-pane>
         <el-tab-pane label="Medical">
-          <document selectType="Type" :options="medicalType"@documentSelect = 'handleMedicalChange'></document></el-tab-pane>
+          <document selectType="Type" :options="medicalType" ref="medical" @documentSelect = 'handleMedicalChange'></document></el-tab-pane>
       </el-tabs>
     </el-row>
   </el-col>
@@ -239,7 +239,8 @@
             residency:null,
             citizenship:null
           },
-          filterText:''
+          filterText:'',
+          evaluation:null
         },
         result:{
           totalCandidate:0,
@@ -319,12 +320,13 @@
       },
       reset(){
         console.log('reset',this.$data,defaultData());
-//       Object.assign(this.$data,defaultData);
-
         this.$data.result=defaultData().result;
         this.$data.criteria = defaultData().criteria;
-//        Object.assign(this.$data, this.$options.data());
-        console.log(this.$data,defaultData());
+        this.$refs.visa.reset();
+        this.$refs.passport.reset();
+        this.$refs.seamansBook.reset();
+        this.$refs.medical.reset();
+        this.$refs.certificate.reset();
       },
       searchByDocument(){
           this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{header:getHeader()}).then(
@@ -336,7 +338,6 @@
             });
        this.criteria.documentRequestSent=true;
       },
-
       handleIdChange(){
         _.debounce(this.searchById,1000)();
       },
@@ -355,7 +356,6 @@
           })
         }else this.result.idResultList = null;
       },
-
       searchByActId(){
         if(this.criteria.actId && this.criteria.actId.trim().length>0){
           let options = { emulateJSON: true};
@@ -455,9 +455,132 @@
           })
         }
       },
-      handleEvalChange(){_.debounce(this.searchByEvaluation(),1500)()},
-      searchByEvaluation(){
+      handleEvalChange(){
+        console.log('handle eval change');
+        let evalTags = this.$refs.treeEval.getCheckedNodes();
+        console.log('evaltagnodes',evalTags);
 
+        let instrumentCriteria  = [];
+        let nonInstrumentCriteria = [];
+        let languageCriteria = [];
+        let classificationCriteria = [];
+        let presentationCriteria = [];
+
+        let language = null;
+        let classification = null;
+        let nonInstrument = null;
+        let presentation = null;
+        let instrument = null;
+
+        let ratingType = null;
+        let instrumentCriterion = {instrumentTypeId:null, ratings:null};
+        let rating = {ratingTypeId:null,ratingId:null};
+        let ratings = [];
+        let generalSkillCriterion = {skillTypeId: null, ratingId: null};
+
+        for (let i = 0; i< evalTags.length;i++){
+           let item = evalTags[i];
+
+           if(ratingType!== null&&item.parentId===ratingType){
+             rating.ratingId = item.id;
+             ratings.push(rating);
+             rating = {ratingTypeId:null,ratingId:null};
+             ratingType = null;
+             let instrumentCriterionUpdated = instrumentCriteria.pop();
+             instrumentCriterionUpdated.ratings = ratings;
+             instrumentCriteria.push(instrumentCriterionUpdated);
+             console.log(instrumentCriteria,instrumentCriterion,instrumentCriterionUpdated,ratings,instrument);
+             continue;
+           }
+
+
+           if(instrument!== null&&item.parentId===instrument&&item.id!==82){
+             ratingType = item.id;
+             rating.ratingTypeId = ratingType;
+             continue;
+           }
+           if(nonInstrument!==null&&item.parentId===nonInstrument){
+            generalSkillCriterion.ratingId = item.id;
+            nonInstrumentCriteria.pop();
+            nonInstrumentCriteria.push(generalSkillCriterion);
+            nonInstrument = null;
+            continue;
+           }
+          if(presentation!==null&&item.parentId===presentation){
+            generalSkillCriterion.ratingId = item.id;
+            presentationCriteria.pop();
+            presentationCriteria.push(generalSkillCriterion);
+            presentation = null;
+            continue;
+          }
+          if(classification!==null&&item.parentId===classification){
+            generalSkillCriterion.ratingId = item.id;
+            classificationCriteria.pop();
+            classificationCriteria.push(generalSkillCriterion);
+            classification = null;
+            continue;
+          }
+          if(language!==null&&item.parentId===language){
+            generalSkillCriterion.ratingId = item.id;
+            languageCriteria.pop();
+            languageCriteria.push(generalSkillCriterion);
+            language = null ;
+            continue;
+          }
+
+          if(item.parentId === 2){
+            ratings = [];
+            instrumentCriterion.instrumentTypeId = item.id;
+            instrumentCriterion.ratings = null;
+            instrumentCriteria.push(instrumentCriterion);
+            instrument = item.id;
+          }if(item.parentId=== 3){
+            instrument = null;
+            generalSkillCriterion.skillTypeId = item.id;
+            generalSkillCriterion.ratingId = null;
+            nonInstrumentCriteria.push(generalSkillCriterion);
+            nonInstrument = item.id;
+          }if(item.parentId===4){
+            instrument = null;
+            generalSkillCriterion.skillTypeId = item.id;
+            generalSkillCriterion.ratingId = null;
+            languageCriteria.push(generalSkillCriterion);
+            language = item.id;
+          }if(item.parentId===133){
+            instrument = null;
+            generalSkillCriterion.skillTypeId = item.id;
+            generalSkillCriterion.ratingId = null;
+            classificationCriteria.push(generalSkillCriterion);
+            classification = item.id;
+          }if(item.parentId===180){
+            instrument = null;
+            generalSkillCriterion.skillTypeId = item.id;
+            generalSkillCriterion.ratingId = null;
+            presentationCriteria.push(generalSkillCriterion);
+            presentation = item.id;
+          }
+        }
+        this.criteria.evaluation = {
+          instrumentCriteria,
+          nonInstrumentCriteria,
+          presentationCriteria,
+          classificationCriteria,
+          languageCriteria
+        };
+
+        let display =  function () {
+          console.log(this.criteria.evaluation)
+        };
+        _.debounce(this.searchByEvaluation,2500)()
+      },
+      searchByEvaluation(evaluation){
+        this.$http.post("http://localhost:8080/candidate/search/evaluation",
+
+          this.criteria.evaluation, {header:getHeader() }).then( response => {
+          if (response.status === 200) {
+            this.result.evalResultList = response.data;
+          }
+        })
       },
       handleDocumentClick(){
       },
@@ -491,10 +614,6 @@
           if(node.level>1)
           {
            this.getChildrenNodes(node, resolve);
-
-            console.log('eval data',data);
-
-            resolve(data)
           }
 
       },
@@ -651,6 +770,7 @@
       rank:null,
       nonPs:null
     },
+    evaluation:null,
     availability:null,
     interestLevel:null,
     document:{},

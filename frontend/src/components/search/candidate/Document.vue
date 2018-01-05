@@ -70,14 +70,20 @@
     methods:{
       handleSelect(){
 
-        console.log('inside document', this.id);
         if(this.id){
-
           this.$emit('documentSelect',[{ids:[this.id],expireDate: this.expireDate}])
         }
-
+      },
+      reset(){
+        console.log('document reset');
+        Object.assign(this.$data,this.$options.data())
       }
+    },
+    created:function () {
+//      this.$parent.on('reset',this.reset)
     }
+
+
   }
 
 

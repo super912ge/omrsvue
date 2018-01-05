@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class EvalTagType {
@@ -27,6 +28,9 @@ public class EvalTagType {
 
     @JsonIgnore
     private Boolean issingleton;
+
+    @Transient
+    private Long parentId;
 
     public Long getId() {
         return id;
@@ -100,5 +104,11 @@ public class EvalTagType {
         this.issingleton = issingleton;
     }
 
+    public Long getParentId() {
+        return parentId;
+    }
 
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 }

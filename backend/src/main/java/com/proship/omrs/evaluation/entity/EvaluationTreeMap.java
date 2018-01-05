@@ -48,17 +48,20 @@ public class EvaluationTreeMap implements InitializingBean {
         return evalTagTypeTreeMap;
     }
 
-
     private static EvaluationTree getTree(Long id){
         return evalTagTypeTreeMap.get(id);
     }
+
     public static List<EvalTagType> getEvalTagTypeSubtypes(Long id) {
 
         List<EvalTagType> children = new ArrayList<>();
 
-        for (Long childId : evalTagTypeTreeMap.get(id).getChildren())
+        for (Long childId : evalTagTypeTreeMap.get(id).getChildren()){
 
-        children.add(EvalTagTypeMap.getEvalTagType(childId));
+            EvalTagType child = EvalTagTypeMap.getEvalTagType(childId);
+            child.setParentId(id);
+            children.add(child);
+        }
 
         return children;
     }

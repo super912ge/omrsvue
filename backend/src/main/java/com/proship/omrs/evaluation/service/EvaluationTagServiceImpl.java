@@ -2,6 +2,7 @@ package com.proship.omrs.evaluation.service;
 
 import com.proship.omrs.evaluation.param.EvaluationSearchParam;
 import com.proship.omrs.evaluation.param.GeneralRatingParam;
+import com.proship.omrs.evaluation.param.InstrumentRating;
 import com.proship.omrs.evaluation.param.InstrumentRatingSearchParam;
 import com.proship.omrs.evaluation.repository.EvalTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,10 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
         Set<Long>totalSearchSet = new HashSet<>();
 
         int totalCriteria = 0;
+
         Set<Long>instrumentSet = null;
 
-        if (param.getInstrumentCriteria()!=null&& !param.getInstrumentCriteria().isEmpty()){
+        if (param.getInstrumentCriteria()!=null && !param.getInstrumentCriteria().isEmpty()){
 
             instrumentSet = findInstrumentIds(param.getInstrumentCriteria());
 
@@ -35,6 +37,7 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
 
         }
         Set<Long>classificationSet = null;
+
         if (param.getClassificationCriteria()!=null&&!param.getClassificationCriteria().isEmpty()){
 
             classificationSet = findPresentationIdsOrClassificationIds(param.getClassificationCriteria());
@@ -90,23 +93,37 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
     }
 
     private Set<Long>findInstrumentIds(Set<InstrumentRatingSearchParam> param ){
+
         Set<Long> instrumentSet = new HashSet<>();
 
         Boolean add = true;
 
         Set<Long> searchWithoutRatingSet = new HashSet<>();
 
-        for (InstrumentRatingSearchParam p : param){
+        for (InstrumentRatingSearchParam irsp : param){
 
-            if (p.getRatingTypeId()==null||p.getRatingId()==null){
+            if (irsp.getRatings()==null||irsp.getRatings().isEmpty()){
 
-                searchWithoutRatingSet.add(p.getInstrumentTypeId());
+                searchWithoutRatingSet.add(irsp.getInstrumentTypeId());
 
                 continue;
 
             }else {
-                Set<Long> resultSet = repo.findEvalTagIdByMusicalInstrumentSkillRating
-                        (p.getRatingId(), p.getRatingTypeId(), p.getInstrumentTypeId());
+
+                Set<Long> resultSet = null;
+
+                Set<Long> eachResultSet = null;
+
+                for(InstrumentRating rating : irsp.getRatings()){
+
+                     eachResultSet = repo.findEvalTagIdByMusicalInstrumentSkillRating
+
+                            (rating.getRatingId(), rating.getRatingTypeId(), irsp.getInstrumentTypeId());
+
+                     if (resultSet==null) resultSet = eachResultSet;
+
+                    else resultSet.retainAll(eachResultSet);
+                }
 
                 if (add) {
 
@@ -115,9 +132,11 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
                     add = false;
 
                 } else instrumentSet.retainAll(resultSet);
+
             }
         }
         if (!searchWithoutRatingSet.isEmpty()) {
+
             Set<Long> resultSet = repo.findEvalTagIdBySkill(searchWithoutRatingSet, (long) searchWithoutRatingSet.size());
 
             if (add) instrumentSet.addAll(resultSet);
@@ -128,14 +147,21 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
         return instrumentSet;
     }
     private Set<Long> findPresentationIdsOrClassificationIds(Set<GeneralRatingParam> param){
+
         Set<Long>classificationSet = new HashSet<>();
+
         Set<Long> searchWithoutRating = new HashSet<>();
+
         boolean add = true;
+
         for (GeneralRatingParam p : param){
 
             if (p.getRatingId()==null){
+
                 searchWithoutRating.add(p.getSkillTypeId());
+
                 continue;
+
             }else {
                 Set<Long> resultSet = repo.findEvalTagIdByClassificationOrPresentationRating(
                         p.getRatingId(), p.getSkillTypeId()
@@ -150,10 +176,15 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
             }
         }
         if(!searchWithoutRating.isEmpty()){
+
             Set<Long> result = repo.findEvalTagIdBySkill(searchWithoutRating,
+
                 (long)searchWithoutRating.size());
+
             if (add) classificationSet.addAll(result);
+
             else classificationSet.retainAll(result);
+
         }
         return classificationSet;
     }
@@ -186,7 +217,9 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
             }
         }
         if (!searchWithoutRating.isEmpty()) {
+
             Set<Long> result = repo.findEvalTagIdBySkill(searchWithoutRating,
+
                     (long) searchWithoutRating.size());
 
             if (add) languageSet.addAll(result);
