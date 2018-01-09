@@ -3,7 +3,10 @@ import Login from './components/login/Login.vue'
 import Register from './components/register/Register.vue'
 import TodoList from './components/tool/todoList/TodoList.vue'
 import SearchCandidate from './components/search/candidate/Candidate.vue'
-
+import SearchContract from './components/search/contract/Contract.vue'
+import SearchBookingProposal from './components/search/booking proposal/BookingProposal.vue'
+import SearchOpening from './components/search/opening/Opening.vue'
+import SearchGig from './components/search/gig/Gig.vue'
 export const routes = [
     { path: '/', component: Full,
         name:'User Info',
@@ -35,8 +38,8 @@ export const routes = [
             },
             {
                 name: 'Gig',
-                path:'gig',
-                component:SearchCandidate,
+                path: 'gig',
+                component:SearchGig,
                 meta: {
 
                 }
@@ -44,7 +47,7 @@ export const routes = [
             {
                 name: 'Opening',
                 path: 'opening',
-                component:SearchCandidate,
+                component:SearchOpening,
                 meta: {
 
                 }
@@ -52,7 +55,7 @@ export const routes = [
             {
                 name: 'Contract',
                 path: 'contract',
-                component:SearchCandidate,
+                component:SearchContract,
                 meta: {
 
                 }
@@ -60,7 +63,7 @@ export const routes = [
             {
                 name: 'Booking Proposal',
                 path: 'booking proposal',
-                component:SearchCandidate,
+                component:SearchBookingProposal,
                 meta: {
 
                 }
@@ -256,7 +259,7 @@ export const routes = [
             {
                 name:'Incentive',
                 path:'',
-                component: SearchCandidate,
+                component: SearchCandidate, SearchContract,
                 meta:{
 
                 }

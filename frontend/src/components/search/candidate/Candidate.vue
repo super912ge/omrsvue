@@ -597,8 +597,6 @@
 
       },
       loadNodeEval(node, resolve){
-
-        console.log(node.level);
           if(node.level===0){
             return resolve([{ id:1,label:'Evaluation'}]);
           }
