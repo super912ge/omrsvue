@@ -3,7 +3,6 @@ package com.proship.omrs.candidate.candidate.controller;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.*;
-import com.proship.omrs.candidate.repository.ParticipantAvailabilityRepository;
 import com.proship.omrs.candidate.repository.ParticipantRepository;
 import com.proship.omrs.candidate.candidate.service.ParticipantService;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
@@ -53,7 +52,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
     @RequestMapping("/display")
     public ResponseEntity<DisplayCandidateResultParam> listCandidatesByIds(@RequestBody DisplayCandidateParam param) {
 
-        Pageable pageable = new PageRequest(param.getPage(),param.getSize());
+       Pageable pageable = new PageRequest(param.getPage(),param.getSize());
        DisplayCandidateResultParam result = participantService.displayCandidate(param.getIds(),pageable);
 
        return new ResponseEntity<>(result,HttpStatus.OK);

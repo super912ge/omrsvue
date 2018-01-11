@@ -57,7 +57,7 @@ public class UserController extends BaseController<User,Long>{
     }
     @RequestMapping(value = "/registrationConfirm",method = RequestMethod.GET)
     public ResponseEntity<String> confirmRegistration (WebRequest request, @RequestParam("token")String token){
-        Locale locale = request.getLocale();
+        //Locale locale = request.getLocale();
         VerificationToken verificationToken = userService.findToken(token);
         if(verificationToken==null){
             String message = "Bad token";
@@ -73,7 +73,7 @@ public class UserController extends BaseController<User,Long>{
 
         userService.saveRegisteredUser(user);
 
-        return new ResponseEntity<>("Activation succeed.",HttpStatus.OK);
+        return new ResponseEntity<>("Activation succeeded.",HttpStatus.OK);
 
     }
 }

@@ -1,6 +1,6 @@
 package com.proship.omrs.gig.service;
 
-import com.proship.omrs.candidate.candidate.param.SearchByGigParam;
+import com.proship.omrs.candidate.group.param.SearchByGigParam;
 import com.proship.omrs.contract.repository.ContractShardRepository;
 import com.proship.omrs.gig.entity.PositionMap;
 import com.proship.omrs.gig.repository.GigMainShardRepository;
@@ -29,35 +29,9 @@ public class GigServiceImpl implements GigService {
     @Autowired
     VenueMainShardRepository venueMainShardRepository;
     @Override
-    public Set<Long> findCandidateByGig(SearchByGigParam param) {
+    public Set<Long> findCandidateByGig(com.proship.omrs.candidate.candidate.param.SearchByGigParam param) {
 
-        Set<Long> rooms = null;
-
-        if (param.getVenueIds()!=null && !param.getVenueIds().isEmpty() ){
-
-            rooms =  roomRepository.findByVenue(param.getVenueIds());
-
-        }else if(param.getClientIds()!=null && !param.getClientIds().isEmpty()){
-
-            Set<Long> venueIds = venueMainShardRepository.findByClientId(param.getClientIds());
-
-            rooms = roomRepository.findByVenue(venueIds);
-        }
-
-        Set<Long> gigIds = null;
-
-        if (rooms!=null&& !rooms.isEmpty()) {
-
-            if (param.getGigTypeId()!=null)
-
-            gigIds = gigMainShardRepository.findGigIdByRoomAndGigType(rooms,param.getGigTypeId());
-            else
-                gigIds = gigMainShardRepository.findGigIdByRoom(rooms);
-        }
-        if (param.getGigTypeId()!=null&&gigIds==null) {
-
-                gigIds = gigMainShardRepository.findGigIdByGigType(param.getGigTypeId());
-        }
+        Set<Long> gigIds = findGigIdByRoomAndGigType(param);
 
         if (gigIds!= null&& !gigIds.isEmpty()){
 
@@ -66,7 +40,6 @@ public class GigServiceImpl implements GigService {
                 Integer group = PositionMap.getPosition(param.getRank()).getGrouping();
 
                 if(group!=null){
-
 
                     Set<Long> positions = PositionMap.getPositionIdByGroup(group);
                     if (param.getNonPs()!=null&& param.getNonPs()){
@@ -78,7 +51,6 @@ public class GigServiceImpl implements GigService {
                 }
 
                 if (param.getNonPs()!=null && param.getNonPs()) {
-
 
                     Set<BigInteger> rs = contractShardRepository.findParticipantByGigAndRank(gigIds,param.getRank());
                     return rs.stream().map(BigInteger::longValue).collect(toSet());
@@ -101,5 +73,38 @@ public class GigServiceImpl implements GigService {
         }
 
         return null;
+    }
+
+
+    public Set<Long> findGigIdByRoomAndGigType(SearchByGigParam param){
+        Set<Long> rooms = null;
+
+        if (param.getVenueIds()!=null && !param.getVenueIds().isEmpty() ){
+
+            rooms =  roomRepository.findByVenue(param.getVenueIds());
+
+        }else if(param.getClientIds()!=null && !param.getClientIds().isEmpty()){
+
+            Set<Long> venueIds = venueMainShardRepository.findByClientId(param.getClientIds());
+
+            rooms = roomRepository.findByVenue(venueIds);
+        }
+
+        Set<Long> gigIds = null;
+
+        if (rooms!=null&& !rooms.isEmpty()) {
+
+            if (param.getGigTypeId()!=null)
+
+                gigIds = gigMainShardRepository.findGigIdByRoomAndGigType(rooms,param.getGigTypeId());
+            else
+                gigIds = gigMainShardRepository.findGigIdByRoom(rooms);
+        }
+        if (param.getGigTypeId()!=null&&gigIds==null) {
+
+            gigIds = gigMainShardRepository.findGigIdByGigType(param.getGigTypeId());
+        }
+        return gigIds;
+
     }
 }

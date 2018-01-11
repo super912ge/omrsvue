@@ -35,10 +35,10 @@
 
           <el-col :span="24">
             <div class="block">
-              <span class="demonstration">Availability</span>
+              <span class="demonstration">Duration</span>
               <div style="margin-top: 15px;"></div>
               <el-date-picker style="width: 300px"
-                              v-model="criteria.availability"
+                              v-model="criteria.duration"
                               type="daterange"
                               range-separator="To"
                               start-placeholder="Start Date"
@@ -86,18 +86,6 @@
                      filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
             <el-option
               v-for="item in gigTypes"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
-        </el-row>
-        <el-row style="margin-top: 15px">
-          <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-          <el-select v-model="criteria.experience.rank" filterable placeholder="Ranking"
-                     @change="handleExperienceChange" style="width: 200px;margin-left: 21px">
-            <el-option
-              v-for="item in rankingTypes"
               :key="item.id"
               :label="item.name"
               :value="item.id">
@@ -161,6 +149,7 @@
           totalPage:0,
           nameResultList:null,
           experienceResultList:null,
+          sizeResultList:null,
           bandList:[],
           showSearchResult: false
         },
@@ -179,6 +168,9 @@
 
         if(this.result.nameResultList){
           nonNullResultList.push(this.result.nameResultList);
+        }
+        if(this.result.sizeResultList){
+          nonNullResultList.push(this.result.sizeResultList)
         }
         if(this.result.experienceResultList){
           nonNullResultList.push(this.result.experienceResultList)
@@ -212,25 +204,33 @@
         this.$data.result=defaultData().result;
         this.$data.criteria = defaultData().criteria;
       },
-
-
-
       handleNameChange(){
         _.debounce(this.searchByName,1500)();
       },
       searchByName(){
-        if(this.criteria.bandName.name && this.criteria.bandName.searchType
-          && this.criteria.bandName.name.trim().length>0){
-
-          this.criteria.bandName.name = this.criteria.bandName.name.replace(/^\s+|\s+$/g, '');
+        if(this.criteria.band.name && this.criteria.band.searchType
+          && this.criteria.band.name.trim().length>0){
+          this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/band/search/name",
-            this.criteria.bandName,{header:getHeader()}).then(response=>{
+            this.criteria.band.name,{header:getHeader()}).then(response=>{
             if (response.status ===200){
-              this.result.idResultList = response.data;
+              this.result.nameResultList = response.data;
             };
           })
         }
+      },
+      handleSizeChange(){
+        _.debounce(this.searchBySize,1500)();
+      },
+      searchBySize(){
+        let options = { emulateJSON: true};
+        this.$http.post("http://localhost:8080/band/search/size",
+          this.criteria.band.size,{header:getHeader()}).then(response=>{
+          if (response.status ===200){
+            this.result.sizeResultList = response.data;
+          }
+        })
       },
       handleExperienceChange(){
         _.debounce(this.searchByExperience,1500)();
@@ -276,7 +276,6 @@
             })
           }else {
             this.clients = clientOptions;
-
           }
         }
       },
@@ -291,8 +290,6 @@
             }
           })
         }
-
-
         if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
           console.log(this.criteria.experience.clientIds);
           this.venues = venueOptions;
@@ -311,7 +308,8 @@
     }
   }
 
-  const defaultData = function(){return { criteria:{
+  const defaultData = function(){return {
+    criteria:{
     band:{
       name:null,
       size:{
@@ -323,11 +321,8 @@
       gigTypeId:null,
       clientIds:[],
       venueIds:[],
-      rank:null,
-      nonPs:null
     },
-    availability:null,
-    filterText:''
+    duration:null,
   },
     result:{
       totalBand:0,
