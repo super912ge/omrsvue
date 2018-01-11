@@ -1,12 +1,12 @@
 <template>
 <div>
 <el-row>
-<el-col  :span="12">
+<el-col  :span="11" :offset="1">
   <span class="demonstration">Candidate Id or Act Id</span>
   <div style="margin-top: 15px"></div>
 <el-row>
   <el-col :span="8" >
-    <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" @change="handleIdChange"></el-input>
+    <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
   </el-col>
   <el-col :span="8" style="margin-left: 15px">
     <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
@@ -18,7 +18,7 @@
       <span class="demonstration">Candidate Name</span>
       <div style="margin-top: 15px;"></div>
       <el-input placeholder="Candidate Name" v-model="criteria.candidateName.name" class="input-with-select"
-                style="width: 70%" @change="handleNameChange">
+                style="width: 60%; margin-left: 25px" @change="handleNameChange">
         <el-select v-model="criteria.candidateName.searchType" slot="prepend" placeholder="select">
           <el-option label="First Name" value="FirstName"></el-option>
           <el-option label="Last Name" value="LastName"></el-option>
@@ -33,7 +33,7 @@
     <div class="block">
       <span class="demonstration">Availability</span>
       <div style="margin-top: 15px;"></div>
-      <el-date-picker style="width: 300px"
+      <el-date-picker style="width: 300px;margin-left: 25px"
         v-model="criteria.availability"
         type="daterange"
         range-separator="To"
@@ -47,7 +47,7 @@
 
   <el-row style="margin-top: 15px">
     <span class="demonstration">Interest Level</span>
-    <div style="margin-top: 10px">
+    <div style="margin-top: 10px;margin-left: 25px">
       <el-radio-group v-model="criteria.interestLevel" size="small">
         <el-radio-button label="4" >Hard Negative</el-radio-button>
         <el-radio-button label="3">Soft Negative</el-radio-button>
@@ -61,7 +61,7 @@
   <el-row style="margin-top: 25px">
     <span class="demonstration">Experience</span>
     <div style="margin: 15px 0;"></div>
-    <el-collapse style="width: 70%  "  @item-click="fetchClient">
+    <el-collapse style="width:60%  ;margin-left: 25px"  @item-click="fetchClient">
       <el-collapse-item title="Client" style="font-size: large" >
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="criteria.experience.clientIds" style="height: 200px; overflow-y: scroll;">
@@ -71,7 +71,7 @@
       </el-collapse-item>
     </el-collapse>
     <div style="margin-top: 15px"></div>
-      <el-collapse style="width: 70% "  @item-click="fetchVenue">
+      <el-collapse style="width: 60%;margin-left: 25px "  @item-click="fetchVenue">
       <el-collapse-item title="Venue">
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="criteria.experience.venueIds" style="height: 200px; overflow-y:scroll">
@@ -140,12 +140,13 @@
       <span class="demonstration">Evaluation</span>
       <div style="margin-top: 5px">
         <el-input
-          style="margin-top: 15px"
+          style="margin-top: 15px;margin-left: 25px; width: 70%"
           placeholder="Filter keyword"
           v-model="criteria.filterText">
         </el-input>
 
         <el-tree
+          style="margin-left: 25px; width: 70%"
           class="filter-tree"
           :props="treeProps"
           :load="loadNodeEval"

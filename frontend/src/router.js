@@ -7,6 +7,9 @@ import SearchContract from './components/search/contract/Contract.vue'
 import SearchBookingProposal from './components/search/booking proposal/BookingProposal.vue'
 import SearchOpening from './components/search/opening/Opening.vue'
 import SearchGig from './components/search/gig/Gig.vue'
+import SearchBand from './components/search/band/Band.vue'
+import SearchClient from './components/search/client/Client.vue'
+import SearchUser from './components/search/user/User.vue'
 export const routes = [
     { path: '/', component: Full,
         name:'User Info',
@@ -31,7 +34,7 @@ export const routes = [
             {
                 name: 'Band',
                 path: 'band',
-                component:SearchCandidate,
+                component:SearchBand,
                 meta: {
 
                 }
@@ -71,7 +74,7 @@ export const routes = [
             {
                 name: 'Client',
                 path: 'client',
-                component: SearchCandidate,
+                component: SearchClient,
                 meta: {
 
                 }
@@ -79,7 +82,7 @@ export const routes = [
             {
                 name: 'User',
                 path: 'user',
-                component: SearchCandidate,
+                component: SearchUser,
                 meta: {
 
                 }
