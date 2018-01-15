@@ -9,11 +9,7 @@
         label="Act Id"
         width ="100"
       ></el-table-column>
-      <!--<el-table-column-->
-      <!--prop="firstName"-->
-      <!--label="First/Middle Name"-->
-      <!--width="150">-->
-      <!--</el-table-column>-->
+
       <el-table-column
         prop="name"
         label="Name"
@@ -28,7 +24,7 @@
       <el-table-column
         label="Skills"
         width="200" prop="evaluation">
-       <display-candidate-skill slot-scope="scope" :evaluation=scope.row.evaluation></display-candidate-skill>-->
+       <display-candidate-skill slot-scope="scope" :evaluation=scope.row.evaluation></display-candidate-skill>
       </el-table-column>
       <el-table-column
         prop="residency"

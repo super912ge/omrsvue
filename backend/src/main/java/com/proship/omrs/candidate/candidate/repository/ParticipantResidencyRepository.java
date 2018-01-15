@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.repository;
+package com.proship.omrs.candidate.candidate.repository;
 
 import com.proship.omrs.candidate.candidate.entity.ParticipantResidencyOverride;
 import org.springframework.data.jpa.repository.JpaRepository;

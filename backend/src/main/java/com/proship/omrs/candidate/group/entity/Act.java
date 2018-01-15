@@ -4,10 +4,9 @@ package com.proship.omrs.candidate.group.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.contract.entity.JobMainShard;
 import org.hibernate.annotations.Where;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,9 +19,11 @@ public class Act {
     @JsonIgnore
     private Long uuid;
 
-    @OneToOne(mappedBy = "act")
-    @Where(clause = "groupActMainShard.validendtime >current_date and " +
-            "groupActMainShard.nexttransactiontime > current_date")
+    @OneToMany(mappedBy = "act")
+    @OrderBy(value = "validendtime")
+    private List<GroupActMainShard> groupActMainShards;
+
+    @Transient
     private GroupActMainShard groupActMainShard;
 
     @OneToMany(mappedBy = "groupAct")
@@ -58,11 +59,21 @@ public class Act {
     }
 
     public GroupActMainShard getGroupActMainShard() {
+
+        this.groupActMainShard = groupActMainShards.get(groupActMainShards.size()-1);
         return groupActMainShard;
     }
 
     public void setGroupActMainShard(GroupActMainShard groupActMainShard) {
         this.groupActMainShard = groupActMainShard;
+    }
+
+    public List<GroupActMainShard> getGroupActMainShards() {
+        return groupActMainShards;
+    }
+
+    public void setGroupActMainShards(List<GroupActMainShard> groupActMainShards) {
+        this.groupActMainShards = groupActMainShards;
     }
 
     public Set<JobMainShard> getJobMainShards() {

@@ -11,10 +11,10 @@
 
 
 
-            min: <el-input style="margin: 10px; width: 15%" v-model="criteria.band.size.min" placeholder="1" class="shortInput" @change="handleIdChange"></el-input>
+            min: <el-input style="margin: 10px; width: 15%" v-model.number="criteria.band.size.min" placeholder="1" class="shortInput" @change="handleSizeChange"></el-input>
 
 
-            max: <el-input v-model="criteria.band.size.max" placeholder="10" style="width: 15%" class="shortInput" @change="handleActIdChange"></el-input>
+            max: <el-input v-model.number="criteria.band.size.max" placeholder="10" style="width: 15%" class="shortInput" @change="handleSizeChange"></el-input>
 
           </el-row>
 
@@ -118,15 +118,15 @@
   import localStorage from 'localStorage'
   import ElRow from "element-ui/packages/row/src/row";
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button.vue";
-  //  import Displayband from './Displayband.vue'
+  import DisplayBand from './DisplayBand.vue'
   import ElCol from "element-ui/packages/col/src/col";
   export default {
 
     components: {
       ElCol,
       ElButton,
-      ElRow
-//      DisplayBand
+      ElRow,
+      DisplayBand
     },
     data() {
       return {
@@ -173,13 +173,20 @@
           nonNullResultList.push(this.result.sizeResultList)
         }
         if(this.result.experienceResultList){
+
           nonNullResultList.push(this.result.experienceResultList)
+
         }
         if(nonNullResultList.length===0) return [];
+
         let resultList = nonNullResultList[0];
+
         if(nonNullResultList.length>1){
+
           for(let i=1;i<nonNullResultList.length; i++){
+
             resultList = _.intersection(resultList,nonNullResultList[i]);
+
           }
         }
         return resultList;
@@ -205,10 +212,13 @@
         this.$data.criteria = defaultData().criteria;
       },
       handleNameChange(){
+        console.log('band name changed');
         _.debounce(this.searchByName,1500)();
       },
+
       searchByName(){
-        if(this.criteria.band.name && this.criteria.band.searchType
+        console.log(this.criteria.band.name);
+        if(this.criteria.band.name
           && this.criteria.band.name.trim().length>0){
           this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
@@ -237,17 +247,36 @@
       },
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
-          !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
+          !_.isEmpty(this.criteria.experience.gigTypeId)){
           this.$http.post("http://localhost:8080/band/search/gig",
 
             this.criteria.experience, {header:getHeader() }).then( response => {
-            if (response.status === 200) {
-              this.result.experienceResultList = response.data;
+
+              if (response.status === 200) {
+
+                this.result.experienceResultList = response.data;
             }
           })
         }
       },
-
+      displayBand(pageNumber){
+        if(!_.isNumber(pageNumber))pageNumber = 1;
+        console.log('displayBand');
+//        let data = {"resultList":[{"id":3757,"name":"Galaxy Duo","type":"Lounge Band"},{"id":2652,"name":"Jean Mac Trio","type":"Lounge Band"},{"id":2884,"name":"Apassionado","type":"Lounge Band"},{"id":2930,"name":"Digital Hitch","type":"Lounge Band"},{"id":2948,"name":"Band Alaska","type":"Lounge Band"},{"id":4054,"name":"Apollo Duo","type":"Lounge Band"},{"id":4057,"name":"Domino Duo","type":"Party Band"},{"id":4089,"name":"The Great Escape","type":"Lounge Band"},{"id":4379,"name":"Jerry Yuzon","type":"One Man Band"}],"totalPage":1};
+//        this.result.bandList = [];
+//        data.resultList.forEach(item => this.result.bandList.push(item));
+//        this.result.totalPage = data.totalPage * 10;
+//        this.result.showSearchResult = true;
+        this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
+          {header:getHeader()}).then(response=>{
+          if(response.status===200) {
+            this.result.bandList = [];
+            response.data.resultList.forEach(item => this.result.bandList.push(item));
+            this.result.totalPage = response.data.totalPage * 10;
+            this.result.showSearchResult = true;
+          }
+        })
+      },
       fetchGigType(){
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){

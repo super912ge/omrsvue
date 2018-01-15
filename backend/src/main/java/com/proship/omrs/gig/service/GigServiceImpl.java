@@ -77,6 +77,7 @@ public class GigServiceImpl implements GigService {
 
 
     public Set<Long> findGigIdByRoomAndGigType(SearchByGigParam param){
+
         Set<Long> rooms = null;
 
         if (param.getVenueIds()!=null && !param.getVenueIds().isEmpty() ){

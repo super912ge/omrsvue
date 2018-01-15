@@ -1,17 +1,16 @@
 package com.proship.omrs.candidate.group.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.ParticipantSerializer;
-import org.hibernate.annotations.Fetch;
+import com.proship.omrs.gig.entity.BandType;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
-@Where(clause = "validendtime>current_date and nexttransactiontime > current_date")
+@Where(clause = "validendtime > current_date and nexttransactiontime > current_date")
 public class GroupActMainShard extends MainShardEntity {
 
     @Id
@@ -26,6 +25,14 @@ public class GroupActMainShard extends MainShardEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "act_id")
     private Act act;
+
+    @OneToOne
+    @JoinTable(
+            name = "group_act_band_types",
+            joinColumns = {@JoinColumn(name="groupactMainShardId")},
+            inverseJoinColumns = {@JoinColumn(name="bandtypeId")}
+    )
+    BandType bandType;
 
     public Long getId() {
         return id;
@@ -57,5 +64,13 @@ public class GroupActMainShard extends MainShardEntity {
 
     public void setAct(Act act) {
         this.act = act;
+    }
+
+    public BandType getBandType() {
+        return bandType;
+    }
+
+    public void setBandType(BandType bandType) {
+        this.bandType = bandType;
     }
 }

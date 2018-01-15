@@ -55,9 +55,10 @@
 <style scoped>
   .el-tree{
     border: hidden;
+    font-size: 6px;
   }
   .el-tree-node__label {
-    font-size: 14px;
+    font-size: 8px;
   }
 
 </style>

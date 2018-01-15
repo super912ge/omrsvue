@@ -10,7 +10,7 @@ import java.util.Set;
 
 public interface JobMainShardRepository extends JpaRepository<JobMainShard,Long>{
 
-    @Query("select job.groupAct.id from JobMainShard job where job.gig.id in :gigIds")
+    @Query("select distinct job.groupAct.id from JobMainShard job where job.gig.id in :gigIds and job.groupAct.id not in (4002) ")
     List<Long> findGroupIdByGigId(@Param("gigIds")Set<Long> gigIds);
 
 }

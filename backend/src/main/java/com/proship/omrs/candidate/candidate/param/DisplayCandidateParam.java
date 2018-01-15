@@ -1,20 +1,21 @@
 package com.proship.omrs.candidate.candidate.param;
 
+import java.util.List;
 import java.util.Set;
 
 public class DisplayCandidateParam {
 
-    Set<Long> ids;
+    List<Long> ids;
 
     Integer page;
 
     Integer size;
 
-    public Set<Long> getIds() {
+    public List<Long> getIds() {
         return ids;
     }
 
-    public void setIds(Set<Long> ids) {
+    public void setIds(List<Long> ids) {
         this.ids = ids;
     }
 

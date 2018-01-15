@@ -26,7 +26,7 @@ public interface ParticipantService {
 
     Set<Long> findParticipantByAvailability(SearchByAvailabilityParam param);
 
-    DisplayCandidateResultParam displayCandidate(Set<Long>ids, Pageable pageable);
+    DisplayCandidateResultParam displayCandidate(List<Long>ids, Pageable pageable);
 
     Set<Long> findParticipantByActName(String param);
 

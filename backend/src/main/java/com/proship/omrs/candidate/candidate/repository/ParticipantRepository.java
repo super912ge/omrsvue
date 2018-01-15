@@ -1,13 +1,13 @@
-package com.proship.omrs.candidate.repository;
+package com.proship.omrs.candidate.candidate.repository;
 
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ParticipantRepository extends PagingAndSortingRepository<Participant,Long> {
@@ -18,7 +18,7 @@ public interface ParticipantRepository extends PagingAndSortingRepository<Partic
     Set<Long> findParticipantIdByEvaluationId(@Param("ids") Set<Long> ids);
 
     @Query("select p from Participant p where p.id in :ids and p.nameTts.nexttransactiontime >current_date ")
-    Page<Participant> findParticipantByIdIn(@Param("ids")Set<Long> ids, Pageable pageable);
+    Page<Participant> findParticipantByIdIn(@Param("ids")List<Long> ids, Pageable pageable);
 
     @Query("select p.id from Participant p where p.participantAct.id = :id")
     Long findParticipantByActId(@Param("id") Long id);

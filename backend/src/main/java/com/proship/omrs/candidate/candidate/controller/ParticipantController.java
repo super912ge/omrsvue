@@ -3,7 +3,7 @@ package com.proship.omrs.candidate.candidate.controller;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.*;
-import com.proship.omrs.candidate.repository.ParticipantRepository;
+import com.proship.omrs.candidate.candidate.repository.ParticipantRepository;
 import com.proship.omrs.candidate.candidate.service.ParticipantService;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.evaluation.param.EvaluationSearchParam;

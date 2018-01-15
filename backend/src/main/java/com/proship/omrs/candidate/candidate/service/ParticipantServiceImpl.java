@@ -2,7 +2,7 @@ package com.proship.omrs.candidate.candidate.service;
 
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.*;
-import com.proship.omrs.candidate.repository.*;
+import com.proship.omrs.candidate.candidate.repository.*;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.document.base.repository.DocumentRepository;
 import com.proship.omrs.document.certificate.repository.CertificateRepository;
@@ -209,17 +209,18 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
-    public DisplayCandidateResultParam displayCandidate(Set<Long> ids, Pageable pageable) {
+    public DisplayCandidateResultParam displayCandidate(List<Long> ids, Pageable pageable) {
 
        Page<Participant> resultSet =  participantRepository.findParticipantByIdIn(ids,pageable);
 
         DisplayCandidateResultParam result = new DisplayCandidateResultParam();
 
-
        List<CandidateBrief> resultList = resultSet.getContent().stream().map(CandidateBrief::new).collect(Collectors.toList());
 
         result.setResultList(resultList);
+
         result.setTotalPage(resultSet.getTotalPages());
+
        return result;
     }
 
