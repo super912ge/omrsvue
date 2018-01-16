@@ -1,11 +1,6 @@
 <template>
 
-  <el-tree
-    style="font-size: 50%"
-    :data="skills"
-    :props="defaultProps"
-  >
-  </el-tree>
+
 </template>
 
 <script>
@@ -14,8 +9,6 @@
     props:['evaluation'],
     methods: {
       traverse(obj,result) {
-        console.log('this.evaluation',this.evaluation);
-        console.log('object:',obj);
 
         _.forOwn(obj, (val, key) => {
           if (_.isArray(val)) {
@@ -36,7 +29,7 @@
         let skills = [];
         this.traverse(this.evaluation,skills);
 
-        console.log(skills);
+        console.log('skill', skills);
         return skills
       }
     },

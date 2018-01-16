@@ -16,6 +16,6 @@ public interface GroupActMemberShardRepository extends JpaRepository<GroupActMem
     List<Long> findBandBySize(@Param(value = "min") long min, @Param(value = "max") long max);
 
 
-    @Query("select g.participantActs from GroupActMemberShard g where g.act.id = :id")
+    @Query("select distinct g.participantActs from GroupActMemberShard g where g.act.id = :id and g.nexttransactiontime > current_date ")
     List<ParticipantAct>findBandMembers(@Param(value = "id") Long id);
 }
