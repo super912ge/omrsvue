@@ -2,7 +2,7 @@
 <div class="app">
 
 
-    <AppHeader/>
+    <!--<AppHeader/>-->
 
   <el-row>
 
@@ -11,7 +11,7 @@
 
 
 
-    <el-col :span="20">
+    <el-col :offset="1" :span="22">
 
 
 
