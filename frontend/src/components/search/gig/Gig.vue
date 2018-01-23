@@ -4,7 +4,7 @@
       <el-col  :span="11" :offset="1">
 
         <el-row style="margin-top: 25px">
-          <span class="demonstration">Type</span>
+          <span class="demonstration">Gig</span>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
             <el-select v-model="criteria.type.gigTypeId"  @change="handleTypeChange"
@@ -18,16 +18,10 @@
             </el-select>
           </el-row>
           <el-row style="margin-top: 15px">
-            <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-            <el-select v-model="criteria.type.rank" filterable placeholder="Ranking"
-                       @change="handleTypeChange" style="width: 200px;margin-left: 21px">
-              <el-option
-                v-for="item in rankingTypes"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
+            <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Gig Name</span>
+            <el-input placeholder="Gig Name" v-model="criteria.name"
+                      style="width: 45%; margin-left: 10px" @change="handleNameChange">
+            </el-input>
           </el-row>
         </el-row>
         <el-row style="margin-top: 15px">
@@ -50,9 +44,9 @@
               class="filter-tree"
               :props="treeProps"
               :load="loadNodeEval"
-              node-key="id"
-              show-checkbox
-              check-strictly="true"
+              nodeKey="id"
+              showCheckbox
+              checkStrictly="true"
               @check-change="handleReqChange"
               lazy
               :filter-node-method="filterNode"
@@ -63,14 +57,14 @@
         </el-row>
         <!--//Experience-->
         <el-row style="margin-top: 25px">
-          <span class="demonstration">Company</span>
+          <span class="demonstration">Type</span>
           <div style="margin: 15px 0;"></div>
           <el-collapse style="width: 50%; margin-left: 25px "  @item-click="fetchClient">
             <el-collapse-item title="Client" style="font-size: large" >
               <div style="margin: 15px 0;"></div>
-              <el-checkbox-group v-model="criteria.company.clientIds" style="height: 200px; overflow-y: scroll;">
+              <el-checkbox-group v-model="criteria.type.clientIds" style="height: 200px; overflow-y: scroll;">
                 <el-checkbox v-for="client in clients" :label="client.id" :key="client.id"style="margin-left: 5px; width: 200px"
-                             @change="handleCompanyChange" >{{client.name}}</el-checkbox>
+                             @change="handleTypeChange" >{{client.name}}</el-checkbox>
               </el-checkbox-group>
             </el-collapse-item>
           </el-collapse>
@@ -78,23 +72,23 @@
           <el-collapse style="width: 50%; margin-left: 25px "  @item-click="fetchVenue">
             <el-collapse-item title="Venue">
               <div style="margin: 15px 0;"></div>
-              <el-checkbox-group v-model="criteria.company.venueIds" style="height: 200px; overflow-y:scroll">
+              <el-checkbox-group v-model="criteria.type.venueIds" style="height: 200px; overflow-y:scroll">
                 <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
                              style="margin-left: 5px; width: 200px"
-                             @change="handleCompanyChange">{{venue.name}}  ------  {{venue.clientCode}}
+                             @change="handleTypeChange">{{venue.name}}  ------  {{venue.clientCode}}
                 </el-checkbox>
               </el-checkbox-group>
             </el-collapse-item>
           </el-collapse>
           <div style="margin-top: 15px"></div>
           <span class="demonstration" style="margin-left: 25px; font-size: 80%">Room</span>
-          <el-select v-model="criteria.company.room"  @change="handleCompanyChange"
+          <el-select v-model="criteria.type.roomName"  @change="handleTypeChange"
                      filterable placeholder="Select" style="width: 200px;margin-left: 15px">
             <el-option
               v-for="item in rooms"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
+              :key="item"
+              :label="item"
+              :value="item">
             </el-option>
           </el-select>
         </el-row>
@@ -154,7 +148,7 @@
       <div style="margin-top: 20px"></div>
       <el-col :span="4" :offset="8">
 
-        <el-button style="margin: auto" @click="displayGig">Display Gig({{result.gigIdList.length}})</el-button>
+        <el-button style="margin: auto" @click="displayGig">Display Gig({{gigIdList.length}})</el-button>
       </el-col>
       <el-col :span="2">
         <el-button style="margin: auto" @click="reset">Reset</el-button>
@@ -163,8 +157,11 @@
     </el-row>
     <el-row>
       <div style="margin-top: 20px"></div>
-      <!--<display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"-->
-      <!--@pageChange="displayCandidate"></display-candidate>-->
+
+      <display-gig v-if="result.showSearchResult" :resultList="result.gigList" :pageNumber="result.totalPage"
+                   @pageChange="displayGig
+"></display-gig>
+
     </el-row>
   </div>
 </template>
@@ -178,53 +175,48 @@
   import ElCol from "element-ui/packages/col/src/col";
   import ElSelect from "element-ui/packages/select"
   import ElCheckbox from "../../../../node_modules/element-ui/packages/checkbox/src/checkbox.vue";
+  import DisplayGig from "./DisplayGig.vue"
   export default {
 
     components: {
       ElCheckbox,
       ElCol,
       ElButton,
-      ElRow
-
+      ElRow,
+      DisplayGig
     },
     data() {
       return {
         systemUsers: [],
         rooms:[],
-        gigIdList:[],
         criteria: {
           proship:{
             gigId: '',
-            jobId: '',
-            gigId: '',
-            recruiter: null,
             accountManager: null,
             exclusivity:false,
-            projection:false,
-            staffingGap:false
           },
-          candidateName:'',
-          type: {
-            gigTypeId: null,
-            rank: null,
+          requirement: {
             requirement:null,
             grouping:null
           },
-          company:{
+          type:{
             clientIds: [],
             venueIds: [],
+            roomName:null,
+            gigTypeId: null
           },
           duration: null,
+          name:null
         },
         result: {
-          totalCandidate: 0,
+          totalGig: 0,
           totalPage: 0,
           nameResultList: null,
           proshipResultList: null,
-          companyResultList: null,
+          typeResultList: null,
           requirementResultList: null,
+          idResultList:null,
           gigList: [],
-          gigIdList:[],
           showSearchResult: false
         },
         clients: null,
@@ -247,14 +239,10 @@
       }
     },
     computed: {
-      candidateIdList: function () {
+      gigIdList: function () {
         let nonNullResultList = [];
-
-        if (this.result.documentResultList) {
-          nonNullResultList.push(this.result.documentResultList);
-        }
-        if (this.result.evalResultList) {
-          nonNullResultList.push(this.result.evalResultList);
+        if (this.result.typeResultList) {
+          nonNullResultList.push(this.result.typeResultList);
         }
         if (this.result.idResultList) {
           nonNullResultList.push(this.result.idResultList);
@@ -262,12 +250,14 @@
         if (this.result.nameResultList) {
           nonNullResultList.push(this.result.nameResultList);
         }
-        if (this.result.locationResultList) {
-          nonNullResultList.push(this.result.locationResultList);
+
+        if (this.result.requirementResultList) {
+          nonNullResultList.push(this.result.requirementResultList)
+        }if(this.result.proshipResultList){
+          nonNullResultList.push(this.result.proshipResultList);
+          console.log("000",this.result.proshipResultList)
         }
-        if (this.result.experienceResultList) {
-          nonNullResultList.push(this.result.experienceResultList)
-        }
+
         if (nonNullResultList.length === 0) return [];
         let resultList = nonNullResultList[0];
         if (nonNullResultList.length > 1) {
@@ -279,24 +269,114 @@
       },
     },
     methods: {
-      handleNameChange(){},
-      handleReqChange(){},
-      handleTypeChange(){},
+      handleNameChange(){
+
+        _.debounce(this.searchByName,700)();
+      },
+//      handleReqChange(){},
+
+
       reset(){},
-      displayGig(){},
-      handleRecruiterChange(){},
-      handleAccountManagerChange(){},
-      handleGigIdChange(){},
- //     handleGigIdChange(){},
-      handleJobIdChange(){},
-      handleCompanyChange(){},
+
+      searchByName(){
+
+        if(this.criteria.name && this.criteria.name.trim().length>0){
+          let options = { emulateJSON: true};
+          this.$http.get("http://localhost:8080/gig/search/name/"+
+            this.criteria.name,options,{header:getHeader()}).then(response=>{
+
+            if (response.status === 200){
+              this.result.nameResultList = response.data;
+            }
+          })
+        }else this.result.idResultList = null;
+      },
+
+      displayGig(pageNumber){
+        if(!_.isNumber(pageNumber))pageNumber = 1;
+
+        this.$http.post("http://localhost:8080/gig/display",{ids: this.gigIdList, page:pageNumber-1,size:20},
+          {header:getHeader()}).then(response=>{
+          if(response.status === 200) {
+            this.result.gigList = [];
+            response.data.resultList.forEach(item => this.result.gigList.push(item));
+
+            this.result.totalPage = response.data.totalPage * 10;
+            this.result.showSearchResult = true;
+          }
+        });
+
+      },
+      handleAccountManagerChange(){
+        _.debounce(this.searchByAccountManager,500)();
+
+      },
+
+      searchByAccountManager(){
+        if(this.criteria.proship.accountManager){
+          let options = { emulateJSON: true};
+          this.$http.get("http://localhost:8080/gig/search/accountManager/"+
+            this.criteria.proship.accountManager,options,{header:getHeader()}).then(response=>{
+            if (response.status === 200){
+              this.result.proshipResultList = response.data;
+              console.log(this.result.proshipResultList)
+            }
+          })
+        }else this.result.proshipResultList = null;
+      },
+      handleGigIdChange(){
+
+        _.debounce(this.searchById,1000)();
+      },
+
+      searchById(){
+        if(this.criteria.proship.gigId && this.criteria.proship.gigId.trim().length>0){
+          let options = { emulateJSON: true};
+          this.$http.get("http://localhost:8080/gig/search/id/"+
+            this.criteria.proship.gigId,options,{header:getHeader()}).then(response=>{
+
+            if (response.status === 200){
+              this.result.idResultList = response.data;
+            }
+          })
+        }else this.result.idResultList = null;
+      },
+
+      handleJobIdChange(){
+
+        _.debounce(this.searchByJobId,1000);
+      },
+
+      searchByJobId() {
+
+        if(this.criteria.proship.jobId){
+          let options = { emulateJSON: true};
+          this.$http.get("http://localhost:8080/gig/search/jobId/"+
+            this.criteria.proship.jobId,options,{header:getHeader()}).then(response=>{
+
+            if (response.status === 200){
+              this.result.idResultList = response.data;
+            }
+          })
+        }else this.result.idResultList = null;
+      },
+      handleTypeChange(){
+
+        _.debounce(this.searchByType,1000)();
+      },
+      searchByType(){
+        this.$http.post("http://localhost:8080/gig/search/type",
+          this.criteria.type, {header:getHeader() }).then( response => {
+          if (response.status === 200) {
+            this.result.typeResultList = response.data;
+          }
+        })
+      },
       filterNode(value,data){
         if (!value) return true;
         return data.label.indexOf(value) !== -1;
-
       },
       fetchGigType(){
-        console.log('fetchgig')
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){
           this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
@@ -311,11 +391,18 @@
           this.gigTypes = gigTypeOptions;
         }
       },
+      fetchUser(){
+        this.$http.get('http://localhost:8080/user/all',{headers: getHeader()}).then(response=> {
+          if (response.status === 200) {
+            console.log(response.data);
+            this.systemUsers = response.data;
+          }
+        })
+      },
       fetchClient(){
-        console.log(this.clients)
+
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
-          console.log(clientOptions)
           if(!clientOptions){
             this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
@@ -325,7 +412,6 @@
             })
           }else {
             this.clients = clientOptions;
-            console.log(this.clients)
           }
         }
       },
@@ -335,28 +421,27 @@
           this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
             if (response.status === 200) {
               venueOptions = response.data;
-              console.log('venueOptions from http request',venueOptions);
+
               localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
             }
           })
         }
 
-        console.log(venueOptions);
+        if(!this.criteria.type.clientIds|| this.criteria.type.clientIds.length===0) {
 
-        if(!this.criteria.company.clientIds|| this.criteria.company.clientIds.length===0) {
-          console.log(this.criteria.company.clientIds);
+
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.criteria.company.clientIds.includes(venue.clientId));
-          console.log(filteredVenue);
+          let filteredVenue = venueOptions.filter(venue => this.criteria.type.clientIds.includes(venue.clientId));
+
           this.venues = filteredVenue;
         }
       },
       loadNodeEval(node, resolve){
 
         if(node.level===0){
-          return resolve([{ id:1,label:'Evaluation'}]);
+          return resolve([{ id:1,label:'Requirement'}]);
         }
         if(node.level===1){
           return resolve([
@@ -384,15 +469,27 @@
         this.systemUsers = [{id:1,name:'Adam'},{id:'2',name:'JP'}]
       },
       fetchRoom(){
-        this.rooms = [{id:1,name:'Adam'},{id:'2',name:'JP'}]
+        let roomOptions = JSON.parse(localStorage.getItem("roomOptions"));
+        if(!roomOptions){
+          this.$http.get('http://localhost:8080/room/all',{headers: getHeader()}).then(response=> {
+            if (response.status === 200) {
+              roomOptions = response.data;
+              this.gigTypes = response.data;
+              localStorage.setItem('roomOptions',JSON.stringify(response.data));
+            }
+          })
+        }else {
+          this.rooms = roomOptions;
+        }
       }
     },
     created() {
       this.fetchClient();
       this.fetchVenue();
       this.fetchGigType();
-      this.fetchSystemUser();
+//      this.fetchSystemUser();
       this.fetchRoom();
+      this.fetchUser();
     }
   }
 </script>

@@ -21,4 +21,13 @@ public interface GigMainShardRepository extends JpaRepository<GigMainShard,Long>
     @Query("select g.gig.id from GigMainShard g where g.gigType = :gigType " +
             "and g.nexttransactiontime > current_date")
     Set<Long> findGigIdByGigType(@Param("gigType")Long gigType);
+
+
+    @Query("select g.gig.id from GigMainShard g where g.label like :name and g.nexttransactiontime > current_date")
+    Set<Long>findGigIdByName(@Param("name")String name);
+
+
+    @Query("select g.gig.id from GigMainShard g where g.responsible.id = :id and g.nexttransactiontime > current_date" +
+            " and g.validendtime > current_date ")
+    Set<Long>findGigIdByAccountManager(@Param("id")Long id);
 }

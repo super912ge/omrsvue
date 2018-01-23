@@ -34,12 +34,12 @@ public class UserService {
     public User registerNewUser(User user){
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setPassword_hash(user.getPassword());
-        user.setPassword_salt(user.getPassword().substring(0,40));
+        user.setPasswordHash(user.getPassword());
+        user.setPasswordSalt(user.getPassword().substring(0,40));
         user.setUuid(UUID.randomUUID().getLeastSignificantBits());
-        user.setRequisition_mail_recipient(true);
+        user.setRequisitionMailRecipient(true);
         user.setActive(false);
-        user.setIncentive_bracket_setting_id((long)2);
+        user.setIncentiveBracketSettingId((long)2);
 
 //        List<Role> roleList = user.getRoleList();
 

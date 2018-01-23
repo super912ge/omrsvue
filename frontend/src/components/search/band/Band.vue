@@ -217,7 +217,7 @@
       },
 
       searchByName(){
-        console.log(this.criteria.band.name);
+
         if(this.criteria.band.name
           && this.criteria.band.name.trim().length>0){
           this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
@@ -261,7 +261,6 @@
       },
       displayBand(pageNumber){
         if(!_.isNumber(pageNumber))pageNumber = 1;
-        console.log('displayBand');
 //        let data = {"resultList":[{"id":3757,"name":"Galaxy Duo","type":"Lounge Band"},{"id":2652,"name":"Jean Mac Trio","type":"Lounge Band"},{"id":2884,"name":"Apassionado","type":"Lounge Band"},{"id":2930,"name":"Digital Hitch","type":"Lounge Band"},{"id":2948,"name":"Band Alaska","type":"Lounge Band"},{"id":4054,"name":"Apollo Duo","type":"Lounge Band"},{"id":4057,"name":"Domino Duo","type":"Party Band"},{"id":4089,"name":"The Great Escape","type":"Lounge Band"},{"id":4379,"name":"Jerry Yuzon","type":"One Man Band"}],"totalPage":1};
 //        this.result.bandList = [];
 //        data.resultList.forEach(item => this.result.bandList.push(item));

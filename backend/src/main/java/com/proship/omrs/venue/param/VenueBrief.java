@@ -1,18 +1,16 @@
-package com.proship.omrs.venue.entity;
+package com.proship.omrs.venue.param;
 
+public class VenueBrief {
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+    public VenueBrief(Long id, String name ){
+        this.id = id;
 
-@Entity
-public class Room {
+        this.name = name;
+    }
 
-    @Id
     private Long id;
 
     private String name;
-
-    private Long venue;
 
     public Long getId() {
         return id;
@@ -28,13 +26,5 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getVenue() {
-        return venue;
-    }
-
-    public void setVenue(Long venue) {
-        this.venue = venue;
     }
 }

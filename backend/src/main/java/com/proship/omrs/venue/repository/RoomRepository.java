@@ -15,4 +15,13 @@ public interface RoomRepository extends JpaRepository<Room,Long>{
     Set<Long> findByVenue(@Param(value = "venueIds") Set<Long> venueIds);
 
 
+    @Query("select distinct r.name from Room r")
+    List<String>findAllRooms();
+
+    @Query("select r.id from Room r where r.venue in :venueIds and r.name = :room")
+    Set<Long> findByVenueAndRoomName(@Param(value = "venueIds") Set<Long> venueIds, @Param(value = "room") String room);
+
+
+    @Query("select r.id from Room r where r.name = :name")
+    Set<Long>findByRoomName(@Param(value = "name") String room);
 }

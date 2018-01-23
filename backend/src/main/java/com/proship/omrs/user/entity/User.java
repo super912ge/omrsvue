@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
+import com.proship.omrs.gig.entity.GigTerritoryShard;
 import com.proship.omrs.role.entity.Role;
 import com.proship.omrs.role.entity.RoleMap;
 import com.proship.omrs.role.entity.UserRole;
+import org.hibernate.annotations.Where;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,6 +20,7 @@ import com.proship.omrs.todoList.entity.TodoList;
 @Component
 @Access(AccessType.FIELD)
 @Table(name = "system_user")
+@Where(clause = "active = true")
 public class User {
 	
 	@Id
@@ -29,26 +32,30 @@ public class User {
 	private Long id;
 	
 	private String name;
-	private String short_name;
+	private String shortName;
 
 	private String password;
 
-	private String password_salt;
-	private String password_hash;
+	private String passwordSalt;
+	private String passwordHash;
 	private String email;
-	private Long  incentive_bracket_setting_id;
+	private Long  incentiveBracketSettingId;
 	private Boolean active;
 	private Long uuid;
 	private String extension;
-	private String full_name;
-	private Long evaluation_role_id;
+	private String fullName;
+	private Long evaluationRoleId;
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<GigTerritoryShard> gigTerritoryShards;
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     @JoinColumn(name = "userId")
 	private List<UserRole> userRoleList;
 
-	private Boolean requisition_mail_recipient;
+	private Boolean requisitionMailRecipient;
+
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<TodoList> todoList;
@@ -65,85 +72,117 @@ public class User {
 		this.id = id;
 	}
 
-	public String getPassword() {
+    public List<GigTerritoryShard> getGigTerritoryShards() {
+        return gigTerritoryShards;
+    }
+
+    public void setGigTerritoryShards(List<GigTerritoryShard> gigTerritoryShards) {
+        this.gigTerritoryShards = gigTerritoryShards;
+    }
+
+    public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getShort_name() {
-		return short_name;
-	}
-	public void setShort_name(String short_name) {
-		this.short_name = short_name;
-	}
-	public String getPassword_salt() {
-		return password_salt;
-	}
-	public void setPassword_salt(String password_salt) {
-		this.password_salt = password_salt;
-	}
-	public String getPassword_hash() {
-		return password_hash;
-	}
-	public void setPassword_hash(String password_hash) {
-		this.password_hash = password_hash;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public Long getIncentive_bracket_setting_id() {
-		return incentive_bracket_setting_id;
-	}
-	public void setIncentive_bracket_setting_id(Long incentive_bracket_setting_id) {
-		this.incentive_bracket_setting_id = incentive_bracket_setting_id;
-	}
-	public Boolean getActive() {
-		return active;
-	}
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-	public Long getUuid() {
-		return uuid;
-	}
-	public void setUuid(Long uuid) {
-		this.uuid = uuid;
-	}
-	public String getExtension() {
-		return extension;
-	}
-	public void setExtension(String extension) {
-		this.extension = extension;
-	}
-	public String getFull_name() {
-		return full_name;
-	}
-	public void setFull_name(String full_name) {
-		this.full_name = full_name;
-	}
-	public Long getEvaluation_role_id() {
-		return evaluation_role_id;
-	}
-	public void setEvaluation_role_id(Long evaluation_role_id) {
-		this.evaluation_role_id = evaluation_role_id;
-	}
-	public Boolean getRequisition_mail_recipient() {
-		return requisition_mail_recipient;
-	}
-	public void setRequisition_mail_recipient(Boolean requisition_mail_recipient) {
-		this.requisition_mail_recipient = requisition_mail_recipient;
-	}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getIncentiveBracketSettingId() {
+        return incentiveBracketSettingId;
+    }
+
+    public void setIncentiveBracketSettingId(Long incentiveBracketSettingId) {
+        this.incentiveBracketSettingId = incentiveBracketSettingId;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Long getEvaluationRoleId() {
+        return evaluationRoleId;
+    }
+
+    public void setEvaluationRoleId(Long evaluationRoleId) {
+        this.evaluationRoleId = evaluationRoleId;
+    }
+
+    public Boolean getRequisitionMailRecipient() {
+        return requisitionMailRecipient;
+    }
+
+    public void setRequisitionMailRecipient(Boolean requisitionMailRecipient) {
+        this.requisitionMailRecipient = requisitionMailRecipient;
+    }
 
     public List<UserRole> getUserRoleList() {
         return userRoleList;

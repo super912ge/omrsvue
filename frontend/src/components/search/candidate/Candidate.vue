@@ -308,7 +308,7 @@
     methods:{
       displayCandidate(pageNumber){
         if(!_.isNumber(pageNumber))pageNumber = 1;
-        console.log(pageNumber);
+
         this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
             {header:getHeader()}).then(response=>{
               if(response.status===200) {
@@ -320,7 +320,7 @@
         })
       },
       reset(){
-        console.log('reset',this.$data,defaultData());
+
         this.$data.result=defaultData().result;
         this.$data.criteria = defaultData().criteria;
         this.$refs.visa.reset();
@@ -567,10 +567,6 @@
           presentationCriteria,
           classificationCriteria,
           languageCriteria
-        };
-
-        let display =  function () {
-          console.log(this.criteria.evaluation)
         };
         _.debounce(this.searchByEvaluation,2500)()
       },

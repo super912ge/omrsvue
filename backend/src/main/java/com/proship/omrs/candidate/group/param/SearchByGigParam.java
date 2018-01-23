@@ -10,6 +10,8 @@ public class SearchByGigParam {
 
     private Long gigTypeId;
 
+    private String roomName;
+
     public Set<Long> getClientIds() {
         return clientIds;
     }
@@ -32,5 +34,13 @@ public class SearchByGigParam {
 
     public void setGigTypeId(Long gigTypeId) {
         this.gigTypeId = gigTypeId;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }

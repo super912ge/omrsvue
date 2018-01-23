@@ -1,15 +1,27 @@
 package com.proship.omrs.gig.service;
 
+import com.proship.omrs.candidate.candidate.entity.Participant;
+import com.proship.omrs.candidate.candidate.param.CandidateBrief;
+import com.proship.omrs.candidate.candidate.param.DisplayCandidateResultParam;
 import com.proship.omrs.candidate.group.param.SearchByGigParam;
 import com.proship.omrs.contract.repository.ContractShardRepository;
+import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.entity.PositionMap;
+import com.proship.omrs.gig.param.DisplayGigParam;
+import com.proship.omrs.gig.param.DisplayGigResultParam;
+import com.proship.omrs.gig.param.GigBrief;
 import com.proship.omrs.gig.repository.GigMainShardRepository;
+import com.proship.omrs.gig.repository.GigRepository;
 import com.proship.omrs.venue.repository.RoomRepository;
 import com.proship.omrs.venue.repository.VenueMainShardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -28,6 +40,10 @@ public class GigServiceImpl implements GigService {
 
     @Autowired
     VenueMainShardRepository venueMainShardRepository;
+
+    @Autowired
+    GigRepository gigRepository;
+
     @Override
     public Set<Long> findCandidateByGig(com.proship.omrs.candidate.candidate.param.SearchByGigParam param) {
 
@@ -82,13 +98,26 @@ public class GigServiceImpl implements GigService {
 
         if (param.getVenueIds()!=null && !param.getVenueIds().isEmpty() ){
 
+            if (param.getRoomName()==null)
             rooms =  roomRepository.findByVenue(param.getVenueIds());
+
+            else
+                rooms = roomRepository.findByVenueAndRoomName(param.getVenueIds(),param.getRoomName());
 
         }else if(param.getClientIds()!=null && !param.getClientIds().isEmpty()){
 
             Set<Long> venueIds = venueMainShardRepository.findByClientId(param.getClientIds());
 
-            rooms = roomRepository.findByVenue(venueIds);
+            if (param.getRoomName()==null)
+                rooms =  roomRepository.findByVenue(venueIds);
+
+
+            else
+                rooms = roomRepository.findByVenueAndRoomName(venueIds,param.getRoomName());
+
+        }else if(param.getRoomName()!=null){
+
+            rooms = roomRepository.findByRoomName(param.getRoomName().trim());
         }
 
         Set<Long> gigIds = null;
@@ -107,5 +136,41 @@ public class GigServiceImpl implements GigService {
         }
         return gigIds;
 
+    }
+
+    @Override
+    public DisplayGigResultParam displayGig(List<Long>ids, Pageable pageable) {
+
+        Page<Gig> resultSet =  gigRepository.findByIdIn(ids,pageable);
+
+        DisplayGigResultParam result = new DisplayGigResultParam();
+
+        List<GigBrief> resultList = resultSet.getContent().stream().map(GigBrief::new).collect(Collectors.toList());
+
+        result.setResultList(resultList);
+
+        result.setTotalPage(resultSet.getTotalPages());
+
+        return result;
+
+    }
+
+    @Override
+    public Set<Long> findGigIdByName(String name) {
+
+        name = "%"+name.trim()+"%";
+        return gigMainShardRepository.findGigIdByName(name);
+    }
+
+    @Override
+    public Long findGigIdById(Long id) {
+        if( gigRepository.findOne(id)!=null)
+            return id;
+        else return null;
+    }
+
+    @Override
+    public Set<Long> findGigIdByAccountManager(Long id) {
+        return gigMainShardRepository.findGigIdByAccountManager(id);
     }
 }

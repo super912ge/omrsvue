@@ -9,7 +9,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Where(clause = "validendtime> current_date and nexttransactiontime > current_date")
+@Where(clause = " nexttransactiontime > current_date")
 public class VenueMainShard extends MainShardEntity{
 
     @Id
@@ -21,6 +21,7 @@ public class VenueMainShard extends MainShardEntity{
 
     @Transient
     private String clientCode;
+
     private Long clientId;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
@@ -78,5 +79,17 @@ public class VenueMainShard extends MainShardEntity{
 
     public void setVenueId(Long venueId) {
         this.venueId = venueId;
+    }
+
+    @Override
+    public String toString() {
+        return "VenueMainShard{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", clientCode='" + clientCode + '\'' +
+                ", clientId=" + clientId +
+                ", venueId=" + venueId +
+                '}';
     }
 }

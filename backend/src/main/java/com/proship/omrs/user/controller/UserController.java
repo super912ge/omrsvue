@@ -1,7 +1,10 @@
 package com.proship.omrs.user.controller;
 
+import com.google.common.collect.Lists;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.user.entity.VerificationToken;
+import com.proship.omrs.user.param.UserBrief;
+import com.proship.omrs.user.repository.UserBriefRepository;
 import com.proship.omrs.user.repository.UserRepository;
 import com.proship.omrs.utils.event.OnRegistrationCompleteEvent;
 import com.proship.omrs.user.entity.User;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -34,6 +38,9 @@ public class UserController extends BaseController<User,Long>{
 
     @Autowired
     private UserService userService;
+
+
+    @Autowired private UserBriefRepository userBriefRepository;
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
@@ -76,4 +83,11 @@ public class UserController extends BaseController<User,Long>{
         return new ResponseEntity<>("Activation succeeded.",HttpStatus.OK);
 
     }
+
+    @RequestMapping("all")
+    public ResponseEntity<List<UserBrief>> listAllUsers() {
+        Iterable<UserBrief> all = userBriefRepository.findAll();
+        return new ResponseEntity<>(Lists.newArrayList(all),HttpStatus.OK);
+    }
+
 }

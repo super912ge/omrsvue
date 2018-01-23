@@ -19,9 +19,9 @@ public class SetUpBean {
         user.setPassword("password");
         user.setEmail("yge@proship.com");
         user.setActive(true);
-        user.setFull_name("Ms. yiwei");
+        user.setFullName("Ms. yiwei");
 
-        user.setIncentive_bracket_setting_id((long)2);
+        user.setIncentiveBracketSettingId((long)2);
         userService.registerNewUser(user);
 
     }

@@ -38,6 +38,9 @@ public class Gig {
     @JoinColumn(name = "chairRequirementTagId")
     private ChairRequirementTag chairRequirementTag;
 
+    @OneToOne(mappedBy = "gig")
+    private ChairLabelTts chair;
+
     @OneToMany(mappedBy = "gig",fetch = FetchType.LAZY)
     @OrderBy(value = "validendtime desc")
     @JsonIgnore
@@ -45,8 +48,6 @@ public class Gig {
 
     @Transient
     private GigMainShard shard;
-
-
 
     @JsonIgnore
     @OneToOne(mappedBy = "gig",fetch = FetchType.LAZY)
@@ -113,7 +114,6 @@ public class Gig {
 
     public GigMainShard getShard() {
         this.shard = this.shards.get(0);
-
         return shard;
     }
 
@@ -135,5 +135,13 @@ public class Gig {
 
     public void setPeriod(GigPeriodShard period) {
         this.period = period;
+    }
+
+    public ChairLabelTts getChair() {
+        return chair;
+    }
+
+    public void setChair(ChairLabelTts chair) {
+        this.chair = chair;
     }
 }

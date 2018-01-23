@@ -24,7 +24,7 @@ public class VenueMainShardMap implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        logger.info("[evalTagTypeMap][afterPropertiesSet]start");
+        logger.info("[VenueMainShardMap][afterPropertiesSet]start");
         List<VenueMainShard> list = repo.findAll();
 
         VenueMainShard = HashBiMap.create();
@@ -33,7 +33,7 @@ public class VenueMainShardMap implements InitializingBean {
             VenueMainShard.put(venueMainShard.getVenueId(), venueMainShard);
         }
 
-        logger.info("[evalTagTypeMap][afterPropertiesSet]finish setting " + VenueMainShard.size() + " evalTagType types.");
+        logger.info("[VenueMainShardMap][afterPropertiesSet]finish setting " + VenueMainShard.size() + " venues.");
     }
 
     public static Map getVenueMainShards() {
