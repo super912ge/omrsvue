@@ -10,11 +10,14 @@ import SearchGig from './components/search/gig/Gig.vue'
 import SearchBand from './components/search/band/Band.vue'
 import SearchClient from './components/search/client/Client.vue'
 import SearchUser from './components/search/user/User.vue'
+
+import DisplayCandidate from './components/display/candidate/Candidate.vue'
 export const routes = [
-    { path: '/', component: Full,
+    { path: '/',
+      component: Full,
         name:'User Info',
         meta: { requiresAuth: true }
-   },
+    },
     { name: 'Search',
         path: '/search',
         component:Full,
@@ -140,6 +143,54 @@ export const routes = [
             }
         ]
     },
+  {
+    name: 'Display',
+    path: '/display',
+    component:Full,
+    meta: {hidden:true},
+    children: [
+      {
+        name: 'DisplayCandidate',
+        path: 'candidate',
+        component:DisplayCandidate,
+        meta: {
+
+        }
+      },
+      {
+        name: 'DisplayBand',
+        path: 'band',
+        component:SearchCandidate,
+        meta: {
+
+        }
+      },
+      {
+        name: 'DisplayGig',
+        path:'gig',
+        component:SearchCandidate,
+        meta: {
+
+        }
+      },
+      {
+        name: 'DisplayClient',
+        path: 'client',
+        component:SearchCandidate,
+        meta: {
+
+        }
+      },
+      {
+        name: 'DisplayUser',
+        path: 'user',
+        component:SearchCandidate,
+        meta: {
+
+        }
+      }
+    ]
+  },
     {
         name: 'Tool',
         path: '/tool',
@@ -183,7 +234,7 @@ export const routes = [
         },
         children: [
             {
-                name: 'invoice',
+                name: 'Invoice',
                 path: 'invoice',
                 component:SearchCandidate,
                 meta: {

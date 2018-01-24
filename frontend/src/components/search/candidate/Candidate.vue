@@ -33,9 +33,9 @@
     <div class="block">
       <span class="demonstration">Availability</span>
       <div style="margin-top: 15px;"></div>
-      <el-date-picker style="width: 300px;margin-left: 25px"
-        v-model="criteria.availability"
-        type="daterange"
+      <el-date-picker
+        style="margin-left: 25px"
+        v-model="criteria.availability" type="daterange"
         range-separator="To"
         start-placeholder="Start Date"
         end-placeholder="End Date">
@@ -152,7 +152,7 @@
           :load="loadNodeEval"
           node-key="id"
           show-checkbox
-          check-strictly="true"
+          :check-strictly="true"
           @check-change="handleEvalChange"
           lazy
           :filter-node-method="filterNode"
@@ -206,7 +206,9 @@
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button.vue";
   import DisplayCandidate from './DisplayCandidate.vue'
   import ElCol from "element-ui/packages/col/src/col";
+  import ElTree from "element-ui/packages/tree/src/tree.vue"
   import response from './data/data.js'
+  import locale from 'element-ui/lib/locale/lang/en'
   export default {
 
     components: {
@@ -214,6 +216,7 @@
       ElButton,
       ElRow,
       Document,
+      ElTree,
       DisplayCandidate},
     data() {
       return {

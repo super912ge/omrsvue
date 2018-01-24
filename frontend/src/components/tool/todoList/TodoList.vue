@@ -9,7 +9,7 @@
           <edit-todo-list v-if="showDialogEdit" @close = "showDialogEdit = false" v-on:updated="fetchData" :todoItem="todoItem"></edit-todo-list>
             <el-table :align = "alignClass" :data="todoList" style="width: 66%; margin-left: 25%" >
                 <el-table-column type="expand">
-                    <template scope="props">
+                    <template slot-scope="props">
                         <p>Title: {{ props.row.title }}</p>
                         <p>Priority: {{ props.row.priorityId }}</p>
                         <p>Due Date: {{ props.row.dueDate }}</p>
@@ -35,7 +35,7 @@
                 <el-table-column
                         label="Done"
                         prop="done">
-                    <template scope="props">
+                    <template slot-scope="props">
                         <i v-bind:class="{'el-icon-circle-check' : props.row.done}"></i>
                         <i v-bind:class="{'el-icon-check' : !props.row.done}" @click="handleDone(props.$index, props.row)"></i>
                     </template>
@@ -43,7 +43,7 @@
                 </el-table-column>
                 <el-table-column
                         label="Operations">
-                    <template scope="props">
+                    <template slot-scope="props">
 
                           <i class="el-icon-edit" size="small"
                                                 @click="handleEdit(props.$index, props.row)" style="margin-right: 10px"></i>
@@ -125,7 +125,7 @@
         }
     }
 </script>
-<style slot-scope>
+<style scoped>
     /*.el-table .complete {*/
         /*background: #c9e5f5;*/
     /*}*/

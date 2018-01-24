@@ -4,17 +4,18 @@ import VueRouter from 'vue-router'
 import {routes} from './router.js'
 import store from './store/store.js'
 import ls from 'localStorage'
-import '../theme/index.css'
 import Element from 'element-ui'
 
 import VueResource from 'vue-resource';
 import {header_auth,getHeader} from "./env";
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
 
 
 
 Vue.use(VueResource);
-
-Vue.use(Element)
+locale.use(lang);
+Vue.use(Element);
 Vue.use(VueRouter);
 
 
@@ -52,4 +53,4 @@ Vue.http.headers.common['Authorization'] = header_auth;
     } else {
         next() // make sure to always call next()!
     }
-})
+});

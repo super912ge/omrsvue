@@ -11,7 +11,7 @@
 
 
 
-    <el-col :offset="1" :span="22">
+    <el-col  :span="24">
 
 
 
@@ -26,20 +26,6 @@
   <user-info/>
 
 
-    <!--<div class="app-body">-->
-        <!--<Sidebar :navItems="nav"/>-->
-
-        <!--<main class="main">-->
-            <!--<breadcrumb :list="list"/>-->
-            <!--<div class="container-fluid">-->
-
-
-
-            <!--</div>-->
-        <!--</main>-->
-        <!--<AppAside/>-->
-    <!--</div>-->
-    <!--<AppFooter/>-->
 </div>
 </template>
 <script>

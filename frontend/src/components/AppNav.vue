@@ -5,7 +5,8 @@
         <el-col :span="4" style="height: 60px">OMRS</el-col>
 
         <el-col :span="18">
-          <el-menu :default-active="$route.path" theme="dark" router class="el-menu-demo" mode="horizontal">
+          <el-menu :default-active="$route.path" background-color = "rgb(50, 65, 87)"
+                   text-color="white" activeTextColor="blue" router class="el-menu-demo" mode="horizontal">
               <template v-for="route in $router.options.routes" v-if="!route.meta.hidden">
                   <el-menu-item v-if="!route.children || route.children.length == 1" :index="route.path" :key="route.path">
                       {{ route.name }}
@@ -33,6 +34,7 @@
         computed: {
             level1() { // 默认打开所有一级菜单
                 return this.$router.options.routes.map(function(route) {
+                //  let options = route.path.exclude
                     return route.path;
                 });
             }
