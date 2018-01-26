@@ -9,6 +9,8 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.configurers.DefaultLoginPageConfigurer;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -26,6 +28,22 @@ public class OmrsApplication {
 			container.addErrorPages(error404Page);
 			//container
 		});
+	}
+
+
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate() {
+		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+		template.setConnectionFactory(jedisConnectionFactory());
+		return template;
+	}
+
+	@Bean
+	JedisConnectionFactory jedisConnectionFactory() {
+		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
+		jedisConFactory.setHostName("localhost");
+		jedisConFactory.setPort(6379);
+		return jedisConFactory;
 	}
 //    @Bean
 //    public DispatcherServlet dispatcherServlet() {

@@ -1,31 +1,19 @@
 <template>
-  <el-container>
-    <el-aside>Aside</el-aside>
-    <el-main><div class="block">
-      <span class="demonstration">Week</span>
-      <el-date-picker
-        v-model="value3"
-        type="week"
-        format="Week WW"
-        placeholder="Pick a week">
-      </el-date-picker>
-    </div>
-      <div class="block">
-        <span class="demonstration">Month</span>
-        <el-date-picker
-          v-model="value4"
-          type="month"
-          placeholder="Pick a month">
-        </el-date-picker>
-      </div>
-      <div class="block">
-        <span class="demonstration">Year</span>
-        <el-date-picker
-          v-model="value5"
-          type="year"
-          placeholder="Pick a year">
-        </el-date-picker>
-      </div>
+  <el-container style="height: auto">
+    <el-aside class="left">
+      <span>Searching Result</span>
+
+      <ul>
+        <li li v-for="candidate in candidates">
+          {{candidate.name}}
+        </li>
+      </ul>
+
+
+
+    </el-aside>
+    <el-main>
+
     </el-main>
     <el-aside>Video</el-aside>
 
@@ -55,6 +43,11 @@
 <style scoped>
   .el-container{
     width: 100%;
+  }
+  .el-aside .left{
+    width: 15%;
+    background-color: #122b40;
+    text-color:white
   }
   .el-main{
     width:60%
