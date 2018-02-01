@@ -16,8 +16,10 @@ public class ParticipantCitizenship {
     @Id
     private Long id;
 
+    @JsonIgnore
     private Timestamp transactiontime;
 
+    @JsonIgnore
     private Long creatorId;
 
     @JsonIgnore

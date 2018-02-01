@@ -151,7 +151,7 @@ export const routes = [
     children: [
       {
         name: 'DisplayCandidate',
-        path: 'candidate',
+        path: 'candidate/:id',
         component:DisplayCandidate,
         meta: {
 

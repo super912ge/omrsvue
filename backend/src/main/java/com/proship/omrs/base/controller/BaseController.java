@@ -59,7 +59,14 @@ public abstract class BaseController<T, ID extends Serializable> {
 	    @RequestMapping(value="/{id}", method=RequestMethod.GET, produces = {"application/json"})
 	   
 	    public ResponseEntity<T> get(@PathVariable ID id) {
-	         T t = this.repo.findOne(id);
+
+			T t = null;
+
+	    	try {
+				t = this.repo.findOne(id);
+			}catch (Exception e){
+	    		e.printStackTrace();
+			}
 	      
 	         return new ResponseEntity<T>(t,HttpStatus.OK);
 	    }

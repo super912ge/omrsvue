@@ -34,7 +34,8 @@ public class Gig {
     @JsonIgnore
     private Set<ContractMainShard> contracts;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "chairRequirementTagId")
     private ChairRequirementTag chairRequirementTag;
 

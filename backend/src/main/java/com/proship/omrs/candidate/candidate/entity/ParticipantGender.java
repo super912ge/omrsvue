@@ -1,11 +1,14 @@
 package com.proship.omrs.candidate.candidate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "participant_gender_tts")
+@Where(clause = "nexttransactiontime> current_date")
 public class ParticipantGender extends BaseEntity{
 
 
@@ -18,5 +21,24 @@ public class ParticipantGender extends BaseEntity{
 
     private String value;
 
+    @ManyToOne
+    @JsonIgnore
+    private Participant participant;
 
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }
 }

@@ -59,8 +59,8 @@ public class Participant{
     //@JsonIgnore
     private Set<GroupActMainShard> groupActMainShards;
 
-//    @OneToMany
-//    private List<ParticipantGender> gender;
+    @OneToOne(mappedBy = "participant")
+    private ParticipantGender gender;
 
     @OneToMany(mappedBy = "participant",fetch = FetchType.LAZY)
     @JsonIgnore
@@ -100,13 +100,48 @@ public class Participant{
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
     private List<ParticipantResidencyOverride> residency;
 
-//    Long actimportflag bigint,
-//    Timestamp act_import_time timestamp without time zone,
-//    act_import_user bigint,
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    private List<ParticipantHomeAirportOverride> homeAirports;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    private List<ParticipantEventOverride> events;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    private List<ParticipantEvaluationCommentOverride > evaluationComments;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
     @Where(clause = "nexttransactiontime > current_date")
     private List<ParticipantCitizenshipOverride> citizenship;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    @Where(clause = "nexttransactiontime > current_date")
+    private List<ParticipantContactFieldOverride> contactFields;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    @Where(clause = "nexttransactiontime > current_date")
+    private List<ParticipantInfoOverride> infos;
+
+
+
+//    Long actimportflag bigint,
+//    Timestamp act_import_time timestamp without time zone,
+//    act_import_user bigint,
+
+    public List<ParticipantEvaluationCommentOverride> getEvaluationComments() {
+        return evaluationComments;
+    }
+
+    public void setEvaluationComments(List<ParticipantEvaluationCommentOverride> evaluationComments) {
+        this.evaluationComments = evaluationComments;
+    }
+
+    public List<ParticipantContactFieldOverride> getContactFields() {
+        return contactFields;
+    }
+
+    public void setContactFields(List<ParticipantContactFieldOverride> contactFields) {
+        this.contactFields = contactFields;
+    }
 
     public Long getId() {
         return id;
@@ -131,7 +166,13 @@ public class Participant{
     public void setParticipantActList(List<ParticipantAct> participantActList) {
         this.participantActList = participantActList;
     }
+    public List<ParticipantHomeAirportOverride> getHomeAirports() {
+        return homeAirports;
+    }
 
+    public void setHomeAirports(List<ParticipantHomeAirportOverride> homeAirports) {
+        this.homeAirports = homeAirports;
+    }
     public Long getUuid() {
         return uuid;
     }
@@ -258,5 +299,33 @@ public class Participant{
 
     public void setCitizenship(List<ParticipantCitizenshipOverride> citizenship) {
         this.citizenship = citizenship;
+    }
+
+    public List<ParticipantEventOverride> getEvents() {
+
+        this.events =  events.stream().filter(item->item.getNexttransactiontime()
+                .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList());
+
+        return events;
+    }
+
+    public void setEvents(List<ParticipantEventOverride> events) {
+        this.events = events;
+    }
+
+    public List<ParticipantInfoOverride> getInfos() {
+        return infos;
+    }
+
+    public void setInfos(List<ParticipantInfoOverride> infos) {
+        this.infos = infos;
+    }
+
+    public ParticipantGender getGender() {
+        return gender;
+    }
+
+    public void setGender(ParticipantGender gender) {
+        this.gender = gender;
     }
 }

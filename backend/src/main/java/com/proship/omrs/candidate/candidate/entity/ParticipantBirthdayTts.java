@@ -1,5 +1,6 @@
 package com.proship.omrs.candidate.candidate.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.base.entity.BaseEntity;
@@ -18,6 +19,7 @@ public class ParticipantBirthdayTts extends BaseEntity{
     @Id
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date value;
 
     @ManyToOne(fetch = FetchType.LAZY)

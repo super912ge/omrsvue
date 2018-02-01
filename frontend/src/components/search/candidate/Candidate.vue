@@ -671,7 +671,6 @@
             this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 venueOptions = response.data;
-                console.log('venueOptions from http request',venueOptions);
                 localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
               }
             })
@@ -680,12 +679,10 @@
         console.log(venueOptions);
 
         if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
-          console.log(this.criteria.experience.clientIds);
           this.venues = venueOptions;
         }
         else {
           let filteredVenue = venueOptions.filter(venue => this.criteria.experience.clientIds.includes(venue.clientId));
-          console.log(filteredVenue);
           this.venues = filteredVenue;
         }
       },
@@ -708,7 +705,6 @@
         if(!visaTypeOptions) this.$http.get('http://localhost:8080/visaType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
 
-            console.log('visa result: ',response.data);
             visaTypeOptions = response.data;
             localStorage.setItem('visaTypeOptions',JSON.stringify(visaTypeOptions));
             this.visaType = visaTypeOptions;
