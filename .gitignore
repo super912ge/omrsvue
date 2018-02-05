@@ -26,3 +26,4 @@ frontend/yarn.lock
 security/target/
 selenium-debug.log
 node_modules
+/npm-debug.log
