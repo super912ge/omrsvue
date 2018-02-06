@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import {routes} from './router.js'
 import store from './store/store.js'
 import ls from 'localStorage'
+import 'element-theme-default';
 import Element from 'element-ui'
 
 import VueResource from 'vue-resource';
