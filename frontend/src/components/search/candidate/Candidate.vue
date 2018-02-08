@@ -1,18 +1,18 @@
 <template>
 <div>
-<el-row>
-<el-col  :span="11" :offset="1">
-  <span class="demonstration">Candidate Id or Act Id</span>
-  <div style="margin-top: 15px"></div>
-<el-row>
-  <el-col :span="8" >
-    <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
-  </el-col>
-  <el-col :span="8" style="margin-left: 15px">
-    <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
-  </el-col>
+  <el-row>
+    <el-col  :span="11" :offset="1">
+      <span class="demonstration">Candidate Id or Act Id</span>
+      <div style="margin-top: 15px"></div>
+    <el-row>
+      <el-col :span="8" >
+        <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
+      </el-col>
+      <el-col :span="8" style="margin-left: 15px">
+        <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
+    </el-col>
 
-</el-row>
+  </el-row>
   <el-row>
     <div style="margin-top: 15px;">
       <span class="demonstration">Candidate Name</span>
@@ -209,6 +209,8 @@
   import ElTree from "element-ui/packages/tree/src/tree.vue"
   import response from './data/data.js'
   import locale from 'element-ui/lib/locale/lang/en'
+
+  import AppNav from "../../AppNav.vue"
   export default {
 
     components: {
@@ -217,6 +219,7 @@
       ElRow,
       Document,
       ElTree,
+      AppNav,
       DisplayCandidate},
     data() {
       return {
@@ -774,6 +777,8 @@
     },
     filterText:''
   },
+    activeIndex: '1',
+    activeIndex2: '1',
     result:{
       totalCandidate:0,
       totalPage:0,

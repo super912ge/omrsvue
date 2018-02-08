@@ -8,6 +8,7 @@
 
       </el-aside>
       <el-main>
+
         <el-header>
 
           <el-card>
@@ -85,6 +86,7 @@
   import Actions from "./components/Actions.vue";
   import Evaluation from "./components/Evaluation.vue";
   import ElCard from "../../../../node_modules/element-ui/packages/card/src/main.vue";
+  import AppNav from "../../AppNav.vue"
   export default {
     components: {
       ElCard,

@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <el-row>
       <el-col  :span="11" :offset="1">
 
@@ -161,13 +162,15 @@
   import ElCol from "element-ui/packages/col/src/col";
   import ElSelect from "element-ui/packages/select"
   import ElCheckbox from "../../../../node_modules/element-ui/packages/checkbox/src/checkbox.vue";
+
   export default {
 
     components: {
       ElCheckbox,
       ElCol,
       ElButton,
-      ElRow
+      ElRow,
+
 
     },
     data() {
