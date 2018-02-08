@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public interface ContractShardRepository extends JpaRepository<ContractMainShard,Long> {
@@ -81,4 +83,7 @@ public interface ContractShardRepository extends JpaRepository<ContractMainShard
 
 
 
+    List<ContractMainShard> findByNexttransactiontimeAndContractId(Date date,Long ContractId);
+
+    List<ContractMainShard> findByTransactiontimeAndContractId(Date date, Long ContractId);
 }

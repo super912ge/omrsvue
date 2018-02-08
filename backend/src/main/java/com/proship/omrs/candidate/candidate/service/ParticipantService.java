@@ -31,4 +31,6 @@ public interface ParticipantService {
     Set<Long> findParticipantByActName(String param);
 
     Long findParticipantByActId(Long actId);
+
+    CandidateComplete displayCandidateDetail(Long id);
 }

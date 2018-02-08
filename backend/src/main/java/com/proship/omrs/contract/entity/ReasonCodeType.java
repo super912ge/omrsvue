@@ -1,11 +1,13 @@
 package com.proship.omrs.contract.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ReasonCodeType {
     @Id
     private Long id;

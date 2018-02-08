@@ -2,12 +2,14 @@ package com.proship.omrs.contract.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntityTts;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
 @Entity
+@Where(clause = "nexttransactiontime > current_date")
 public class ContractEventDateTts extends BaseEntityTts<Date> {
 
     @Id

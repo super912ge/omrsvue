@@ -29,5 +29,43 @@ public class ParticipantHomeAirportOverride {
     @JoinColumn(name = "id",insertable = false,updatable = false)
     ParticipantHomeAirport participantHomeAirport;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getDestroyer_id() {
+        return destroyer_id;
+    }
+
+    public void setDestroyer_id(Long destroyer_id) {
+        this.destroyer_id = destroyer_id;
+    }
+
+    public Date getNexttransactiontime() {
+        return nexttransactiontime;
+    }
+
+    public void setNexttransactiontime(Date nexttransactiontime) {
+        this.nexttransactiontime = nexttransactiontime;
+    }
+
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }
+
+    public ParticipantHomeAirport getParticipantHomeAirport() {
+        return participantHomeAirport;
+    }
+
+    public void setParticipantHomeAirport(ParticipantHomeAirport participantHomeAirport) {
+        this.participantHomeAirport = participantHomeAirport;
+    }
 }

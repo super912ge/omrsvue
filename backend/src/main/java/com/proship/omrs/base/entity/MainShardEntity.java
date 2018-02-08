@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-@Where(clause = "nexttransactiontime > current_date")
 public class MainShardEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)

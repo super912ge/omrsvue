@@ -13,13 +13,12 @@ import com.proship.omrs.venue.param.VenueBrief;
 
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class GigBrief {
 
+    private  Long id;
 
     private String name;
-
-    private  Long id;
 
     private Client client;
 
@@ -50,11 +49,9 @@ public class GigBrief {
 
         Long venueId = gig.getShard().getRoom().getVenue();
 
+        VenueMainShard venueMainShard =  VenueMainShardMap.getVenueMainShard(venueId);
 
-             VenueMainShard venueMainShard =  VenueMainShardMap.getVenueMainShard(venueId);
-
-             String venueName = venueMainShard.getName();
-
+        String venueName = venueMainShard.getName();
 
         this.venue = new VenueBrief(venueId,venueName);
         this.client = new Client();

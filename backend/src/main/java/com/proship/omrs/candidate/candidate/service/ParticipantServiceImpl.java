@@ -3,6 +3,9 @@ package com.proship.omrs.candidate.candidate.service;
 import com.proship.omrs.candidate.candidate.entity.Participant;
 import com.proship.omrs.candidate.candidate.param.*;
 import com.proship.omrs.candidate.candidate.repository.*;
+import com.proship.omrs.contract.entity.ContractEvent;
+import com.proship.omrs.contract.entity.ContractMainShard;
+import com.proship.omrs.contract.repository.ContractShardRepository;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.document.base.repository.DocumentRepository;
 import com.proship.omrs.document.certificate.repository.CertificateRepository;
@@ -15,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.persistence.Transient;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,6 +54,13 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Autowired
     ParticipantNameTtsRepository participantNameTtsRepository;
+
+    @Autowired
+    ContractShardRepository contractShardRepository;
+
+    @Resource(name = "contractEventCase")
+    private Properties contractEventCase;
+
 
     @Override
     public Set<Long> findParticipantByDocuments(Map<String, List<DocumentSearchTerm>>searchMap) {
@@ -169,6 +181,23 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public Long findParticipantByActId(Long actId) {
         return participantRepository.findParticipantByActId(actId);
+    }
+
+    @Override
+    public CandidateComplete displayCandidateDetail(Long id) {
+
+
+        Participant participant = participantRepository.findOne(id);
+
+        for (ContractMainShard shard : participant.getParticipantAct().getContractShards()){
+            List<ContractEvent> events = shard.getContract().getContractEvents();
+            for (ContractEvent event : events){
+                event.setContractEventCase(this.contractEventCase);
+                event.setContractShardRepository(this.contractShardRepository);
+            }
+        }
+
+        return new CandidateComplete(participant);
     }
 
 

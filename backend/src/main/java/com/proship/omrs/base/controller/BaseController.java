@@ -65,7 +65,8 @@ public abstract class BaseController<T, ID extends Serializable> {
 	    	try {
 				t = this.repo.findOne(id);
 			}catch (Exception e){
-	    		e.printStackTrace();
+
+				e.printStackTrace();
 			}
 	      
 	         return new ResponseEntity<T>(t,HttpStatus.OK);

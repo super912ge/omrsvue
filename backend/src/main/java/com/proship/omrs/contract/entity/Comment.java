@@ -3,6 +3,7 @@ package com.proship.omrs.contract.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Comment {
@@ -15,9 +16,9 @@ public class Comment {
     @OneToOne(mappedBy = "comment")
     private CommentDataShard commentDataShard;
 
-    @OneToOne
+    @OneToMany(mappedBy = "comment")
     @JsonIgnore
-    private ContractEvent contractEvent;
+    private List<ContractEvent> contractEvents;
 
     public Long getId() {
         return id;
@@ -41,5 +42,13 @@ public class Comment {
 
     public void setCommentDataShard(CommentDataShard commentDataShard) {
         this.commentDataShard = commentDataShard;
+    }
+
+    public List<ContractEvent> getContractEvents() {
+        return contractEvents;
+    }
+
+    public void setContractEvents(List<ContractEvent> contractEvents) {
+        this.contractEvents = contractEvents;
     }
 }

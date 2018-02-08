@@ -22,6 +22,7 @@ public class Gig {
 
     @ManyToOne
     @JoinColumn(name = "parent_gig_id")
+    @JsonIgnore
     private Gig parentGig;
 
     @OneToMany(mappedBy = "parentGig")

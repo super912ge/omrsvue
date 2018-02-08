@@ -29,26 +29,41 @@ public class GigSerializer extends StdSerializer<Gig> {
 
         jsonGenerator.writeNumberField("id",gig.getId());
 
-        jsonGenerator.writeNumberField("gigTypeId",gig.getShard().getGigType());
+        jsonGenerator.writeObjectFieldStart("gigType");
 
-        jsonGenerator.writeStringField("gigType", GigTypeMap.getBandType(gig.getShard().getGigType()).getName());
+        jsonGenerator.writeNumberField("id",gig.getShard().getGigType());
+
+        jsonGenerator.writeStringField("name", GigTypeMap.getBandType(gig.getShard().getGigType()).getName());
+
+        jsonGenerator.writeEndObject();
 
         Room room = gig.getShard().getRoom();
 
-        jsonGenerator.writeNumberField("roomId", room.getId());
+        jsonGenerator.writeObjectFieldStart("room");
 
-        jsonGenerator.writeStringField("roomName",room.getName());
+        jsonGenerator.writeNumberField("id", room.getId());
 
-        jsonGenerator.writeNumberField("venueId",room.getVenue());
+        jsonGenerator.writeStringField("name",room.getName());
 
-        jsonGenerator.writeStringField("venueName",
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeObjectFieldStart("venue");
+        jsonGenerator.writeNumberField("id",room.getVenue());
+
+        jsonGenerator.writeStringField("name",
                 VenueMainShardMap.getVenueMainShard(room.getVenue()).getName());
 
-        jsonGenerator.writeNumberField("clientId",
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeObjectFieldStart("client");
+
+        jsonGenerator.writeNumberField("id",
                 VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId());
 
-        jsonGenerator.writeStringField("clientName",
+        jsonGenerator.writeStringField("name",
                 ClientMap.getClient(VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId()).getName());
+
+        jsonGenerator.writeEndObject();
 
         jsonGenerator.writeEndObject();
     }

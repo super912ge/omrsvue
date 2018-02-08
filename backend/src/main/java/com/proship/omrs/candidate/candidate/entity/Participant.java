@@ -1,6 +1,7 @@
 package com.proship.omrs.candidate.candidate.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.candidate.group.entity.GroupActMainShard;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,8 +26,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Table(name = "participant")
 @Entity
-@JsonInclude(NON_NULL)
-
+@JsonInclude(NON_EMPTY)
 @Where(clause = "id not in (1,2576)")
 public class Participant{
 
@@ -42,7 +43,7 @@ public class Participant{
     @JsonIgnore
     private Long uuid ;
 
-    @OneToOne(mappedBy = "participant")
+    @OneToOne(mappedBy = "participant")@JsonIgnore
     ParticipantNameTts nameTts;
 
     @Transient
@@ -95,7 +96,13 @@ public class Participant{
     private List<ParticipantAvailabilityBts> availability;
 
     @OneToOne(mappedBy = "participant")
+    @JsonIgnore
     private ParticipantBirthdayTts participantBirthdayTts;
+
+    @Transient
+    @JsonFormat(pattern = "yyyy-MM-dd")
+
+    private Date  birthDay;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
     private List<ParticipantResidencyOverride> residency;
@@ -141,6 +148,14 @@ public class Participant{
 
     public void setContactFields(List<ParticipantContactFieldOverride> contactFields) {
         this.contactFields = contactFields;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 
     public Long getId() {

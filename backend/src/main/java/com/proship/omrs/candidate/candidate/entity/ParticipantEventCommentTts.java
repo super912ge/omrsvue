@@ -7,7 +7,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Where(clause = "nexttransactiontime> current_date")
+@Where(clause = "nexttransactiontime > current_date")
 public class ParticipantEventCommentTts extends BaseEntityWithCreator{
 
     @Id

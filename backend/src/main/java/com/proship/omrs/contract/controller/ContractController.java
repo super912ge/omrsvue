@@ -60,7 +60,7 @@ public class ContractController extends BaseController<Contract,Long>{
 		 List<Contract> contracts = contractService.findContractByConditions(contract);
 		 
 		 
-		return new ResponseEntity<List<Contract>>(contracts,HttpStatus.OK);
+		return new ResponseEntity<>(contracts,HttpStatus.OK);
 		 
 	 }
 

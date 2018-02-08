@@ -1,27 +1,50 @@
 package com.proship.omrs.contract.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.proship.omrs.contract.repository.ContractShardRepository;
+import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 
+import javax.annotation.Resource;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @Entity
+
+
 public class ContractEvent {
+
+    @Transient
+    ContractShardRepository contractShardRepository;
+
+    @Transient
+    private Properties contractEventCase;
 
     @Id
     private Long id ;
 
     private Long uuid;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @ManyToOne
+    @JoinColumn(name = "commentId")
     private Comment comment;
 
-    private Long entityId ;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "entityId")
+    private Contract contract ;
 
     private Date transactionTime ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creatorId")
+    @JsonSerialize(using = UserSerializer.class)
     private User creator;
 
     @OneToOne(mappedBy = "contractEvent")
@@ -34,10 +57,50 @@ public class ContractEvent {
     private ContractEventFormDateTts contractEventFormDateTts;
 
     @OneToOne(mappedBy = "contractEvent")
-    private ContractEventTerritoryTts contractEventTorritoryTts;
+    private ContractEventTerritoryTts contractEventTerritoryTts;
 
     @OneToOne(mappedBy = "contractEvent")
     private ReasonCode reasonCode;
+
+    @Transient
+    private List<ContractMainShard> previousShards;
+
+    @Transient
+    private String name;
+
+    @Transient
+    private List<ContractMainShard> currentShards;
+
+
+    public List<ContractMainShard> getPreviousShards() {
+
+        String change = (String)contractEventCase.get("CHANGE");
+
+        if (previousShards==null&&change.contains(this.name)){
+            this.previousShards = contractShardRepository.
+                    findByNexttransactiontimeAndContractId(this.transactionTime,this.contract.getId());
+        }
+        return previousShards;
+    }
+
+    public void setPreviousShards(List<ContractMainShard> previousShard) {
+        this.previousShards = previousShard;
+    }
+
+    public List<ContractMainShard> getCurrentShards() {
+
+
+        String change = (String)contractEventCase.get("CHANGE");
+        if (currentShards==null&&change.contains(this.name)){
+            this.currentShards = contractShardRepository.
+                    findByTransactiontimeAndContractId(this.transactionTime,this.contract.getId());
+        }
+        return currentShards;
+    }
+
+    public void setCurrentShards(List<ContractMainShard> currentShard) {
+        this.currentShards = currentShard;
+    }
 
     public Long getId() {
         return id;
@@ -63,12 +126,12 @@ public class ContractEvent {
         this.comment = comment;
     }
 
-    public Long getEntityId() {
-        return entityId;
+    public Contract getContract() {
+        return contract;
     }
 
-    public void setEntityId(Long entityId) {
-        this.entityId = entityId;
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 
     public Date getTransactionTime() {
@@ -111,12 +174,12 @@ public class ContractEvent {
         this.contractEventFormDateTts = contractEventFormDateTts;
     }
 
-    public ContractEventTerritoryTts getContractEventTorritoryTts() {
-        return contractEventTorritoryTts;
+    public ContractEventTerritoryTts getContractEventTerritoryTts() {
+        return contractEventTerritoryTts;
     }
 
-    public void setContractEventTorritoryTts(ContractEventTerritoryTts contractEventTorritoryTts) {
-        this.contractEventTorritoryTts = contractEventTorritoryTts;
+    public void setContractEventTerritoryTts(ContractEventTerritoryTts contractEventTerritoryTts) {
+        this.contractEventTerritoryTts = contractEventTerritoryTts;
     }
 
     public ReasonCode getReasonCode() {
@@ -125,5 +188,31 @@ public class ContractEvent {
 
     public void setReasonCode(ReasonCode reasonCode) {
         this.reasonCode = reasonCode;
+    }
+
+    public String getName() {
+
+        this.name = (String)contractEventCase.get(contractEventCaseTts.getValue());
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ContractShardRepository getContractShardRepository() {
+        return contractShardRepository;
+    }
+
+    public void setContractShardRepository(ContractShardRepository contractShardRepository) {
+        this.contractShardRepository = contractShardRepository;
+    }
+
+    public Properties getContractEventCase() {
+        return contractEventCase;
+    }
+
+    public void setContractEventCase(Properties contractEventCase) {
+        this.contractEventCase = contractEventCase;
     }
 }

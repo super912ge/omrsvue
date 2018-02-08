@@ -32,7 +32,7 @@ public class GroupActMainShard extends MainShardEntity {
             joinColumns = {@JoinColumn(name="groupactMainShardId")},
             inverseJoinColumns = {@JoinColumn(name="bandtypeId")}
     )
-    BandType bandType;
+    private BandType bandType;
 
     public Long getId() {
         return id;

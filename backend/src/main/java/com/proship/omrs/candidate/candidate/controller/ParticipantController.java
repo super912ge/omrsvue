@@ -116,4 +116,9 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(results,HttpStatus.OK);
 
     }
+    @RequestMapping("display/{id}")
+    public ResponseEntity<CandidateComplete> displayCandidateDetail(@PathVariable(value = "id")Long id){
+        CandidateComplete result = participantService.displayCandidateDetail(id);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }

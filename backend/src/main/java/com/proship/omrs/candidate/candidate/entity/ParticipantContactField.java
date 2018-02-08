@@ -1,6 +1,7 @@
 package com.proship.omrs.candidate.candidate.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.system.contact.entity.ContactFieldLabel;
 import com.proship.omrs.system.contact.entity.ContactFieldType;
 
@@ -14,12 +15,14 @@ public class ParticipantContactField {
     @Id
     private Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonIgnore
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date transactiontime ;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "creatorId")
 //    @JsonSerialize(using = UserSerializer.class)
+    @JsonIgnore
     private Long creatorId;
 
     private String value ;

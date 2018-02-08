@@ -1,6 +1,7 @@
 package com.proship.omrs.candidate.candidate.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.candidate.group.entity.GroupActMemberShard;
 import com.proship.omrs.contract.entity.ContractMainShard;
 import org.hibernate.annotations.Where;
@@ -9,8 +10,13 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Entity
 @Where(clause = "active = true and id not in (1,2,2576,2577)")
+@JsonInclude(NON_EMPTY)
+
 public class ParticipantAct {
 
     @Id
@@ -29,6 +35,7 @@ public class ParticipantAct {
     private Boolean active;
 
     @OneToMany(mappedBy = "act",fetch = FetchType.LAZY)
+    @Where(clause = "nexttransactiontime> current_date")
     private List<ContractMainShard> contractShards;
 
     @ManyToOne

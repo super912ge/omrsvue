@@ -2,6 +2,9 @@ package com.proship.omrs.candidate.candidate.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.proship.omrs.jsonviews.UserSerializer;
+import com.proship.omrs.user.entity.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +18,9 @@ public class ParticipantEventTemporal {
     @JsonIgnore
     private Date transactiontime ;
 
-    private Long creatorId;
+    @ManyToOne
+    @JsonSerialize(using = UserSerializer.class)
+    private User creator;
 
     @OneToOne @JoinColumn(name = "participantEventId")
     ParticipantEvent participantEvent;
@@ -37,12 +42,12 @@ public class ParticipantEventTemporal {
         this.transactiontime = transactiontime;
     }
 
-    public Long getCreatorId() {
-        return creatorId;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public ParticipantEvent getParticipantEvent() {
