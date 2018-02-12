@@ -21,6 +21,7 @@ public class ContractBrief {
         this.id = contractMainShard.getContract().getId();
         if(contractMainShard.getContract().getJob()!=null)
         this.jobNumber = contractMainShard.getContract().getJob().getId();
+        if (contractMainShard.getPay()!=null)
         this.salary = contractMainShard.getPay().getSalaryAmount()+contractMainShard.getPay().getSalaryCurrency();
         this.startDate = contractMainShard.getContract().getContractPeriodShard().getValidstarttime();
         this.endDate = contractMainShard.getContract().getContractPeriodShard().getValidendtime();

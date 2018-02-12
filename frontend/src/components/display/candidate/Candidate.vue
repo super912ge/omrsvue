@@ -3,29 +3,37 @@
 
 
     <el-container style="height: auto" v-if="candidate">
-      <el-aside class="left" style="width: 20%">
+      <el-aside class="left" style="width: 15%">
         <search-result></search-result>
 
       </el-aside>
       <el-main>
 
-        <el-header>
+        <el-row>
 
           <el-card>
 
             <el-col :span="3" :offset="1">
-              <img src="/snoop.jpg"/>
+              <img src='./snoop.jpg' style="width: 80px; height: 80px;border-radius: 50%"/>
             </el-col>
 
-            <el-col :span="14">
+            <el-col :span="13" >
+              <ul style=" list-style-type: none;">
 
-              <span>{{candidate.essentials.name}}</span>
-              <span>{{candidate.essentials.primarySkill}}</span>
-              <span>{{candidate.essentials.employeeNumber}}</span>
-              <span>{{candidate.essentials.availableDate}}</span>
+                <li><span>Name: {{candidate.essentials.name}}</span></li>
+                <li><span>Primary Skill: {{candidate.essentials.primarySkill}}</span></li>
+                <li><span>Employee Number: {{candidate.essentials.employeeNumber}}</span></li>
+                <li><span>Available From: 2017-05-08</span></li>
+
+              </ul>
+            </el-col>
+            <el-col :span="3">
+
+              <span style="margin: auto">red flag</span>
             </el-col>
           </el-card>
-        </el-header>
+        </el-row>
+
         <el-row>
           <el-col :span="10">
             <essentials :candidate="candidate.essentials"></essentials>
@@ -53,9 +61,9 @@
           <band></band>
         </el-row>
       </el-main>
-      <el-aside>
+      <el-aside style="width: 20%">
         <el-row>
-          <actions></actions>
+          <actions ></actions>
         </el-row>
         <el-row>
           <evaluation></evaluation>
@@ -71,7 +79,7 @@
 </template>
 
 <script>
-
+//  import profilePic from '/src/components/display/candidate/snoop.jpg'
   import ElRow from "element-ui/packages/row/src/row";
   import {fetchCandidate} from "./api.js"
   import ElCol from "element-ui/packages/col/src/col";

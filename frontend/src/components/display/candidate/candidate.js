@@ -1,5 +1,6 @@
 export default  {
   "essentials": {
+    "name": "Nicolas  Herrera",
     "mainPhone": "011-34-934-519-505",
     "mainMobile": "011-34-654-080-870",
     "email": "nicolas.herrera18@gmail.com",
@@ -246,282 +247,6 @@ export default  {
       "endDate": 1512363600000,
       "events": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          }
-        },
-        {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "ASA",
-          "transactionTime": "2016-10-14"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 95,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 22,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "ROLLBACK_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2016-10-24",
-          "previousStatus": "2017-08-09",
-          "currentStatus": "2017-08-07"
-        },
-        {
-          "eventDate": "2017-04-20",
-          "formDate": "2017-04-20",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 47,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2017-04-20",
-          "previousStatus": "2017-10-28",
-          "currentStatus": "2017-12-04"
-        },
-        {
-          "eventDate": "2017-03-01",
-          "formDate": "2017-03-01",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 121,
-            "reasonCodeMetaType": {
-              "id": 37,
-              "label": "Proship request",
-              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 4
-          },
-          "transactionTime": "2017-03-01",
-          "previousStatus": "2017-08-07",
-          "currentStatus": "2017-09-08"
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32547,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32548,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 82,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 32436,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32440,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
           "eventDate": "2016-10-14",
           "formDate": "2016-10-14",
           "creator": {
@@ -532,82 +257,14 @@ export default  {
           "transactionTime": "2016-10-14"
         },
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
+          "eventDate": "2016-10-14",
+          "formDate": "2016-10-14",
           "creator": {
-            "id": 4,
-            "name": "pduchemin"
+            "id": 9,
+            "name": "mheroux"
           },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
+          "name": "ASA",
+          "transactionTime": "2016-10-14"
         },
         {
           "eventDate": "2016-10-20",
@@ -635,216 +292,29 @@ export default  {
           "currentStatus": "2017-08-09"
         },
         {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
+          "eventDate": "2016-10-20",
+          "formDate": "2016-10-20",
           "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 108,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
+            "id": 9,
+            "name": "mheroux"
           },
           "name": "Disembark",
           "reasonCodeType": {
-            "id": 17,
+            "id": 18,
             "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "id": 10,
+              "label": "Candidate request",
+              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
               "invoiceable": false
             },
             "contractEventCase": "POSTPONE_END",
             "multiselect": false,
             "enabled": true,
-            "order": 2
+            "order": 3
           },
-          "transactionTime": "2017-03-29",
-          "previousStatus": "2017-09-08",
-          "currentStatus": "2017-10-28"
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32439,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32546,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
+          "transactionTime": "2016-10-20",
+          "previousStatus": "2017-07-29",
+          "currentStatus": "2017-08-09"
         },
         {
           "eventDate": "2016-10-20",
@@ -932,21 +402,552 @@ export default  {
           },
           "name": "Disembark",
           "reasonCodeType": {
-            "id": 18,
+            "id": 22,
             "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "ROLLBACK_END",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2016-10-24",
+          "previousStatus": "2017-08-09",
+          "currentStatus": "2017-08-07"
+        },
+        {
+          "eventDate": "2017-03-01",
+          "formDate": "2017-03-01",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 121,
+            "reasonCodeMetaType": {
+              "id": 37,
+              "label": "Proship request",
+              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
               "invoiceable": false
             },
             "contractEventCase": "POSTPONE_END",
             "multiselect": false,
             "enabled": true,
+            "order": 4
+          },
+          "transactionTime": "2017-03-01",
+          "previousStatus": "2017-08-07",
+          "currentStatus": "2017-09-08"
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 17,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "POSTPONE_END",
+            "multiselect": false,
+            "enabled": true,
+            "order": 2
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": "2017-09-08",
+          "currentStatus": "2017-10-28"
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 82,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
             "order": 3
           },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-07-29",
-          "currentStatus": "2017-08-09"
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 32436,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32440,
+            "payeeId": 4617,
+            "salaryAmount": 3000,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 108,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 3
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          },
+          "currentStatus": {
+            "id": 3016,
+            "name": "Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 179,
+              "name": "Pacific Explorer"
+            },
+            "manager": {
+              "id": 26,
+              "name": "Andres Velilla",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2017-05-27",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD"
+          }
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 95,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 3
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 3,
+            "name": "Band Leader",
+            "ordering": 3,
+            "grouping": 1
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 111,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 3016,
+            "name": "Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 179,
+              "name": "Pacific Explorer"
+            },
+            "manager": {
+              "id": 26,
+              "name": "Andres Velilla",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2017-05-27",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD"
+          },
+          "currentStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 111,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
+          "previousStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          },
+          "currentStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 85,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 32439,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32546,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 98,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 98,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 3,
+            "name": "Band Leader",
+            "ordering": 3,
+            "grouping": 1
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 85,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 32547,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32548,
+            "payeeId": 4617,
+            "salaryAmount": 3000,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-04-20",
+          "formDate": "2017-04-20",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 47,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "EXTENSION",
+            "multiselect": false,
+            "enabled": true,
+            "order": 2
+          },
+          "transactionTime": "2017-04-20",
+          "previousStatus": "2017-10-28",
+          "currentStatus": "2017-12-04"
         }
       ]
     },
@@ -976,282 +977,6 @@ export default  {
       "endDate": 1512363600000,
       "events": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          }
-        },
-        {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "ASA",
-          "transactionTime": "2016-10-14"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 95,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 22,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "ROLLBACK_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2016-10-24",
-          "previousStatus": "2017-08-09",
-          "currentStatus": "2017-08-07"
-        },
-        {
-          "eventDate": "2017-04-20",
-          "formDate": "2017-04-20",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 47,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2017-04-20",
-          "previousStatus": "2017-10-28",
-          "currentStatus": "2017-12-04"
-        },
-        {
-          "eventDate": "2017-03-01",
-          "formDate": "2017-03-01",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 121,
-            "reasonCodeMetaType": {
-              "id": 37,
-              "label": "Proship request",
-              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 4
-          },
-          "transactionTime": "2017-03-01",
-          "previousStatus": "2017-08-07",
-          "currentStatus": "2017-09-08"
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32547,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32548,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 82,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 32436,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32440,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
           "eventDate": "2016-10-14",
           "formDate": "2016-10-14",
           "creator": {
@@ -1262,82 +987,14 @@ export default  {
           "transactionTime": "2016-10-14"
         },
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
+          "eventDate": "2016-10-14",
+          "formDate": "2016-10-14",
           "creator": {
-            "id": 4,
-            "name": "pduchemin"
+            "id": 9,
+            "name": "mheroux"
           },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
+          "name": "ASA",
+          "transactionTime": "2016-10-14"
         },
         {
           "eventDate": "2016-10-20",
@@ -1365,216 +1022,29 @@ export default  {
           "currentStatus": "2017-08-09"
         },
         {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
+          "eventDate": "2016-10-20",
+          "formDate": "2016-10-20",
           "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 108,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
+            "id": 9,
+            "name": "mheroux"
           },
           "name": "Disembark",
           "reasonCodeType": {
-            "id": 17,
+            "id": 18,
             "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "id": 10,
+              "label": "Candidate request",
+              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
               "invoiceable": false
             },
             "contractEventCase": "POSTPONE_END",
             "multiselect": false,
             "enabled": true,
-            "order": 2
+            "order": 3
           },
-          "transactionTime": "2017-03-29",
-          "previousStatus": "2017-09-08",
-          "currentStatus": "2017-10-28"
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32439,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32546,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
+          "transactionTime": "2016-10-20",
+          "previousStatus": "2017-07-29",
+          "currentStatus": "2017-08-09"
         },
         {
           "eventDate": "2016-10-20",
@@ -1662,21 +1132,552 @@ export default  {
           },
           "name": "Disembark",
           "reasonCodeType": {
-            "id": 18,
+            "id": 22,
             "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "ROLLBACK_END",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2016-10-24",
+          "previousStatus": "2017-08-09",
+          "currentStatus": "2017-08-07"
+        },
+        {
+          "eventDate": "2017-03-01",
+          "formDate": "2017-03-01",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 121,
+            "reasonCodeMetaType": {
+              "id": 37,
+              "label": "Proship request",
+              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
               "invoiceable": false
             },
             "contractEventCase": "POSTPONE_END",
             "multiselect": false,
             "enabled": true,
+            "order": 4
+          },
+          "transactionTime": "2017-03-01",
+          "previousStatus": "2017-08-07",
+          "currentStatus": "2017-09-08"
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 17,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "POSTPONE_END",
+            "multiselect": false,
+            "enabled": true,
+            "order": 2
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": "2017-09-08",
+          "currentStatus": "2017-10-28"
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 82,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
             "order": 3
           },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-07-29",
-          "currentStatus": "2017-08-09"
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 32436,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32440,
+            "payeeId": 4617,
+            "salaryAmount": 3000,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 108,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 3
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          },
+          "currentStatus": {
+            "id": 3016,
+            "name": "Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 179,
+              "name": "Pacific Explorer"
+            },
+            "manager": {
+              "id": 26,
+              "name": "Andres Velilla",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2017-05-27",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD"
+          }
+        },
+        {
+          "eventDate": "2017-03-29",
+          "formDate": "2017-03-29",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 95,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 3
+          },
+          "transactionTime": "2017-03-29",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 3,
+            "name": "Band Leader",
+            "ordering": 3,
+            "grouping": 1
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 111,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 3016,
+            "name": "Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 179,
+              "name": "Pacific Explorer"
+            },
+            "manager": {
+              "id": 26,
+              "name": "Andres Velilla",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2017-05-27",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD"
+          },
+          "currentStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Gig",
+          "reasonCodeType": {
+            "id": 111,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_GIG_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
+          "previousStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          },
+          "currentStatus": {
+            "id": 2807,
+            "name": "4 Piece Showband",
+            "client": {
+              "id": 6,
+              "code": "P&O"
+            },
+            "venue": {
+              "id": 172,
+              "name": "Pacific Aria"
+            },
+            "manager": {
+              "id": 9,
+              "name": "Martin Heroux",
+              "active": null
+            },
+            "room": "Entire Venue",
+            "type": "Show Band",
+            "startDate": "2015-10-13",
+            "endDate": "10000-01-01",
+            "minSal": "2600.0AUD",
+            "territory": {
+              "id": 67,
+              "name": "Alisha Ruiss",
+              "active": null
+            }
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 85,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 32439,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32546,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 98,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Rank",
+          "reasonCodeType": {
+            "id": 98,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_RANK_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 13,
+            "name": "Sideman",
+            "ordering": 13,
+            "grouping": 2
+          },
+          "currentStatus": {
+            "id": 3,
+            "name": "Band Leader",
+            "ordering": 3,
+            "grouping": 1
+          }
+        },
+        {
+          "eventDate": "2017-04-07",
+          "formDate": "2017-04-07",
+          "creator": {
+            "id": 4,
+            "name": "pduchemin"
+          },
+          "name": "Salary",
+          "reasonCodeType": {
+            "id": 85,
+            "reasonCodeMetaType": {
+              "id": 11,
+              "label": "Office correction",
+              "description": "Correction of data-entry error.",
+              "invoiceable": false
+            },
+            "contractEventCase": "NEW_SALARY_BEFORE",
+            "multiselect": false,
+            "enabled": true,
+            "order": 99
+          },
+          "transactionTime": "2017-04-07",
+          "previousStatus": {
+            "id": 32547,
+            "payeeId": 4617,
+            "salaryAmount": 2850,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          },
+          "currentStatus": {
+            "id": 32548,
+            "payeeId": 4617,
+            "salaryAmount": 3000,
+            "salaryCurrency": "AUD",
+            "gross": false,
+            "salaryRecurrencePeriodNumerator": 1,
+            "salaryRecurrencePeriodDenominator": 1,
+            "salaryRecurrenceUnit": "MONTH"
+          }
+        },
+        {
+          "eventDate": "2017-04-20",
+          "formDate": "2017-04-20",
+          "creator": {
+            "id": 26,
+            "name": "avelilla"
+          },
+          "name": "Disembark",
+          "reasonCodeType": {
+            "id": 47,
+            "reasonCodeMetaType": {
+              "id": 9,
+              "label": "Client request",
+              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
+              "invoiceable": false
+            },
+            "contractEventCase": "EXTENSION",
+            "multiselect": false,
+            "enabled": true,
+            "order": 2
+          },
+          "transactionTime": "2017-04-20",
+          "previousStatus": "2017-10-28",
+          "currentStatus": "2017-12-04"
         }
       ]
     }
