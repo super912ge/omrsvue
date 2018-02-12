@@ -3,7 +3,7 @@
 
 
     <el-container style="height: auto" v-if="candidate">
-      <el-aside class="left">
+      <el-aside class="left" style="width: 20%">
         <search-result></search-result>
 
       </el-aside>
@@ -13,24 +13,24 @@
 
           <el-card>
 
-            <el-col span="3" :offset="1">
-              <image src=""></image>
+            <el-col :span="3" :offset="1">
+              <img src="/snoop.jpg"/>
             </el-col>
 
-            <el-col span="14">
+            <el-col :span="14">
 
               <span>{{candidate.essentials.name}}</span>
-              <span>{{primarySkill}}</span>
+              <span>{{candidate.essentials.primarySkill}}</span>
               <span>{{candidate.essentials.employeeNumber}}</span>
               <span>{{candidate.essentials.availableDate}}</span>
             </el-col>
           </el-card>
         </el-header>
         <el-row>
-          <el-col span="10">
+          <el-col :span="10">
             <essentials :candidate="candidate.essentials"></essentials>
           </el-col>
-          <el-col span="14">
+          <el-col :span="14">
             <notes :notes="candidate.notes"></notes>
           </el-col>
         </el-row>
@@ -87,6 +87,7 @@
   import Evaluation from "./components/Evaluation.vue";
   import ElCard from "../../../../node_modules/element-ui/packages/card/src/main.vue";
   import AppNav from "../../AppNav.vue"
+//  import participant from "candidate.js"
   export default {
     components: {
       ElCard,
@@ -94,9 +95,11 @@
       Documents, SearchResult, Essentials, Actions, Evaluation
     },
     data() {
+
+      console.log('candidate',this.candidate);
       return {
 
-        candidate: null,
+        candidate: {},
         error: null
       };
     },
@@ -111,7 +114,10 @@
         if (err) {
           this.error = err.toString()
         } else {
-          this.candidate = candidate
+
+
+          this.candidate = candidate;
+          console.log('load ', this.candidate);
         }
       }
     },

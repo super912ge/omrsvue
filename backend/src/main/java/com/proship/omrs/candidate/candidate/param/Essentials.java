@@ -17,6 +17,8 @@ public class Essentials {
 
     public Essentials(Participant participant){
 
+        this.name = participant.getName();
+
         this.birthDay = participant.getBirthDay();
 
         this.employeeNumber = participant.getId();
@@ -59,6 +61,8 @@ public class Essentials {
         }
 
     }
+
+    private String name;
 
     private String mainPhone;
 
@@ -179,5 +183,13 @@ public class Essentials {
 
     public void setEmployeeNumber(Long employeeNumber) {
         this.employeeNumber = employeeNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
