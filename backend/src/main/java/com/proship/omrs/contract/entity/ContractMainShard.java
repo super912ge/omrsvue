@@ -120,5 +120,18 @@ public class ContractMainShard extends MainShardEntity{
 				+ ", creator=" + super.getCreator() + ", validstarttime=" + super.getValidstarttime()+ ", validendtime="
                 + super.getValidendtime() + ", pay=" + pay.getId() + "]";
 	}
+
+	@PostLoad
+	public void postLoad(){
+		try {
+			if(this.getAct() != null && this.getAct().getId() == 2 || this.getAct().getId()==1
+					|| this.getAct().getId()==2577 || this.getAct().getId()==2576){
+				setAct(null);
+			}
+		}
+		catch (EntityNotFoundException e){
+			setAct(null);
+		}
+	}
 	
 }

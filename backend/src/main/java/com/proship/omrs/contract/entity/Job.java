@@ -19,7 +19,7 @@ public class Job {
     private Long uuid;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(  name = "Job_Contrats",
+    @JoinTable(  name = "Job_Contracts",
             joinColumns = {@JoinColumn(name="job_id")},
             inverseJoinColumns = {@JoinColumn(name="contract_id")})
     private List<Contract> contracts;
@@ -61,6 +61,14 @@ public class Job {
 
     public void setJobMainShards(Set<JobMainShard> jobMainShard) {
         this.jobMainShards = jobMainShard;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public JobMainShard getShard(){

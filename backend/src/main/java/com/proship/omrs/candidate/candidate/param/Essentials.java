@@ -3,8 +3,10 @@ package com.proship.omrs.candidate.candidate.param;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.candidate.candidate.entity.*;
+import com.proship.omrs.evaluation.entity.EvalTag;
 import com.proship.omrs.system.airport.entity.Airport;
 import com.proship.omrs.system.country.entity.Country;
+import com.proship.omrs.utils.util.Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -34,8 +36,6 @@ public class Essentials {
 
                ParticipantContactField cf = cfo.getParticipantContactField();
 
-
-
                if (cf.getContactFieldType().getId()==2 ){
                    if (cf.getContactFieldLabel()==null || cf.getContactFieldLabel().getId()==1)
                    this.mainPhone = cf.getValue();
@@ -49,6 +49,8 @@ public class Essentials {
                }
            }
         }
+
+        this.primarySkill = Utils.findPrimarySkill(participant.getEvaluation()).getType().getLabel();
 
         if (participant.getHomeAirports()!=null && !participant.getHomeAirports().isEmpty()){
 
@@ -80,6 +82,16 @@ public class Essentials {
     private String criminalCondition;
 
     private Long employeeNumber;
+
+    private String primarySkill;
+
+    public String getPrimarySkill() {
+        return primarySkill;
+    }
+
+    public void setPrimarySkill(String primarySkill) {
+        this.primarySkill = primarySkill;
+    }
 
     public String getMainPhone() {
         return mainPhone;

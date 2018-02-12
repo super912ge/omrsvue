@@ -115,4 +115,5 @@ public class ParticipantAct {
     public void setBands(Set<GroupActMemberShard> bands) {
         this.bands = bands;
     }
+
 }

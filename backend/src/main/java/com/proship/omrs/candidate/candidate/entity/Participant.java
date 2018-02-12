@@ -18,6 +18,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -342,5 +343,24 @@ public class Participant{
 
     public void setGender(ParticipantGender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(this==obj) return true;
+
+        if (! (obj instanceof Participant)) return false;
+
+        Participant participant = (Participant) obj;
+
+
+
+         return this.id == participant.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.id);
     }
 }

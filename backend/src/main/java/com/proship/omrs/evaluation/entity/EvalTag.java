@@ -39,6 +39,7 @@ public class EvalTag extends BaseEntity{
     private EvalTag parent;
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy("id")
     private List <EvalTag> children;
 
     public Long getId() {
