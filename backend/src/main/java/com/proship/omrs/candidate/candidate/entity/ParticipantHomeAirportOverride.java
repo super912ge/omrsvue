@@ -1,5 +1,6 @@
 package com.proship.omrs.candidate.candidate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.system.airport.entity.Airport;
 import com.proship.omrs.user.entity.User;
 import org.hibernate.annotations.Where;
@@ -22,7 +23,9 @@ public class ParticipantHomeAirportOverride {
     private Date nexttransactiontime;
 
 
-    @ManyToOne Participant participant;
+    @ManyToOne
+    @JsonIgnore
+    Participant participant;
 
 
     @ManyToOne

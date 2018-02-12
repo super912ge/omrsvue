@@ -7,7 +7,7 @@ export function fetchCandidate(id,cb) {
 
 
   console.log(id);
-  Vue.http.get("http://localhost:8080/candidate/"+id)
+  Vue.http.get("http://localhost:8080/candidate/display/"+id)
     .then(response=>{
       if(response.status === 200){
         cb(null,response.data);
