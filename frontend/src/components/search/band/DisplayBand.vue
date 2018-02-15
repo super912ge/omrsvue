@@ -46,10 +46,9 @@
     props:['resultList','pageNumber'],
     methods: {
       handleClick() {
-        console.log('click');
+
       },
       handlePageChange(val){
-        console.log('handlePageChange',val)
         this.$emit("pageChange",val)
       },
       displayMembers(row, expanded){

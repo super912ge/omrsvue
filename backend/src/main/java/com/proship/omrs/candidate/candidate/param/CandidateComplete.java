@@ -11,7 +11,6 @@ import com.proship.omrs.contract.entity.ContractMainShard;
 import com.proship.omrs.contract.entity.Job;
 import com.proship.omrs.document.base.param.DocumentBrief;
 import com.proship.omrs.evaluation.entity.EvalTag;
-import org.slf4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class CandidateComplete {
 
     public CandidateComplete(Participant participant){
 
-        this.associates = new ArrayList<>();
+        this.associations = new ArrayList<>();
 
         this.essentials = new Essentials(participant);
 
@@ -32,15 +31,16 @@ public class CandidateComplete {
 
             nonPsContracts = new ArrayList<>();
 
-            Map<Participant,Date> associatesMap = new HashMap<>();
+            Map<Participant,JobDate> associatesMap = new HashMap<>();
+
+            Map<Long,Contract> contractMap = new HashMap<>();
 
             for (ContractMainShard contractMainShard : participant.getParticipantAct().getContractShards()) {
 
-                ContractBrief contractBrief = new ContractBrief(contractMainShard);
 
                 if (contractMainShard.getContract().getNonPs()) {
 
-                    this.nonPsContracts.add(contractBrief);
+                    this.nonPsContracts.add(new ContractBrief(contractMainShard.getContract()));
 
                 }else {
 
@@ -58,33 +58,41 @@ public class CandidateComplete {
 
                                 if (!associate.getId().equals(participant.getId()) && associate.getParticipantAct().getId() != 2) {
 
-                                    if (associate.getId() == 2636){
-                                        System.out.print("association "+associate.getId()+"-----------" );
-                                        System.out.print(associatesMap.get(associate));
-                                    }
-
                                     if (associatesMap.get(associate) != null) {
 
-                                        Date currDate = associatesMap.get(associate);
+                                        Date currDate = associatesMap.get(associate).getStartDate();
 
-                                        if (contract.getContractPeriodShard().getValidendtime().after(currDate)) {
-
-                                            associatesMap.put(associate, contract.getContractPeriodShard().getValidendtime());
+                                        if (contract.getContractPeriodShard().getValidstarttime().after(currDate)) {
+                                            JobDate jobDate = new JobDate();
+                                            jobDate.setContractNumber(contract.getId());
+                                            jobDate.setEndDate(contract.getContractPeriodShard().getValidendtime());
+                                            jobDate.setStartDate(contract.getContractPeriodShard().getValidstarttime());
+                                            jobDate.setJobNumber(job.getId());
+                                            associatesMap.put(associate,jobDate);
                                         }
-                                    } else
-                                        associatesMap.put(associate, contract.getContractPeriodShard().getValidendtime());
+                                    } else {
+                                        JobDate jobDate = new JobDate();
+                                        jobDate.setContractNumber(contract.getId());
+                                        jobDate.setEndDate(contract.getContractPeriodShard().getValidendtime());
+                                        jobDate.setStartDate(contract.getContractPeriodShard().getValidstarttime());
+                                        jobDate.setJobNumber(job.getId());
+                                        associatesMap.put(associate, jobDate);
+                                    }
                                 }
                             }
                         }
                     }
-
-                    this.psContracts.add(contractBrief);}
-
+                    contractMap.computeIfAbsent(contractMainShard.getContract().getId(),key -> contractMainShard.getContract());
+                }
+            }
+            for (Map.Entry<Long,Contract> contract : contractMap.entrySet()){
+                ContractBrief contractBrief = new ContractBrief(contract.getValue());
+                this.psContracts.add(contractBrief);
             }
 
             for (Participant p : associatesMap.keySet()){
-
-                this.associates.add(new Associate(p,associatesMap.get(p)));
+                JobDate jobDate = associatesMap.get(p);
+                this.associations.add(new Association(p,jobDate.startDate,jobDate.endDate,jobDate.contractNumber,jobDate.jobNumber));
             }
         }
         this.notes = participant.getEvents().stream().map(Note::new).collect(Collectors.toList());
@@ -95,7 +103,6 @@ public class CandidateComplete {
         this.identifications = new ArrayList<>();
 
         this.medicals = new ArrayList<>();
-
 
         this.identifications.addAll(document);
 
@@ -122,7 +129,6 @@ public class CandidateComplete {
                 .map(GroupActMemberShard::getAct).collect(Collectors.toSet());
       this.bands = bands.stream().map(BandBrief::new).collect(Collectors.toList());
 
-
     }
 
     private Essentials essentials;
@@ -139,7 +145,7 @@ public class CandidateComplete {
 
     private List<DocumentBrief> medicals;
 
-    private List<Associate> associates;
+    private List<Association> associations;
 
     private List<BandBrief> bands;
 
@@ -201,12 +207,12 @@ public class CandidateComplete {
         this.medicals = medicals;
     }
 
-    public List<Associate> getAssociates() {
-        return associates;
+    public List<Association> getAssociations() {
+        return associations;
     }
 
-    public void setAssociates(List<Associate> associates) {
-        this.associates = associates;
+    public void setAssociations(List<Association> associations) {
+        this.associations = associations;
     }
 
     public List<BandBrief> getBands() {
@@ -223,5 +229,49 @@ public class CandidateComplete {
 
     public void setEvalTag(EvalTag evalTag) {
         this.evalTag = evalTag;
+    }
+
+
+    private class JobDate{
+
+        Date startDate;
+
+        Date endDate;
+
+        Long jobNumber;
+
+        Long contractNumber;
+
+        public Date getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(Date startDate) {
+            this.startDate = startDate;
+        }
+
+        public Date getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(Date endDate) {
+            this.endDate = endDate;
+        }
+
+        public Long getJobNumber() {
+            return jobNumber;
+        }
+
+        public void setJobNumber(Long jobNumber) {
+            this.jobNumber = jobNumber;
+        }
+
+        public Long getContractNumber() {
+            return contractNumber;
+        }
+
+        public void setContractNumber(Long contractNumber) {
+            this.contractNumber = contractNumber;
+        }
     }
 }

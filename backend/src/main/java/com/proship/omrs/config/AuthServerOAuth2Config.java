@@ -125,7 +125,7 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
                 .authorizedGrantTypes("password", "refresh_token")
                 .refreshTokenValiditySeconds(3600 * 24 * 7)
                 .scopes("webapp", "read", "write", "trust")
-                .accessTokenValiditySeconds(3600);
+                .accessTokenValiditySeconds(3600*24);
 
     }
 

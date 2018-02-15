@@ -57,7 +57,7 @@ public class ContractEventBrief {
         if (event.getName().equals("Embark")){
 
             this.previousStatus = sdf.format(event.getPreviousShards().get(0).getValidstarttime());
-            this.currentStatus = sdf.format(event.getCurrentShards().get(0).getValidendtime());
+            this.currentStatus = sdf.format(event.getCurrentShards().get(0).getValidstarttime());
         }
         if(event.getName().equals("Disembark")){
             this.previousStatus = sdf.format(event.getPreviousShards().get(0).getValidendtime());

@@ -7,9 +7,9 @@ import com.proship.omrs.candidate.candidate.param.ParticipantActSerializer;
 import com.proship.omrs.contract.entity.ContractMainShard;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ContractBrief extends com.proship.omrs.candidate.candidate.param.ContractBrief{
+public class ContractShardBrief extends com.proship.omrs.candidate.candidate.param.ContractShardBrief {
 
-    public ContractBrief(ContractMainShard contractMainShard) {
+    public ContractShardBrief(ContractMainShard contractMainShard) {
         super(contractMainShard);
 
         this.act = contractMainShard.getAct();

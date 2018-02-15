@@ -99,1585 +99,1024 @@ export default  {
   ],
   "psContracts": [
     {
-      "id": 21018,
-      "gig": {
-        "id": 2807,
-        "gigType": {
-          "id": 2,
-          "name": "Show Band"
+      "id": 9281,
+      "shards": [
+        {
+          "id": 9281,
+          "gig": {
+            "id": 1314,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 201,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 36,
+              "name": "Golden Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3214.0USD",
+          "startDate": "2006-08-20",
+          "endDate": "2006-10-17",
+          "rank": "Leader"
         },
-        "room": {
-          "id": 560,
-          "name": "Entire Venue"
-        },
-        "venue": {
-          "id": 172,
-          "name": "Pacific Aria"
-        },
-        "client": {
-          "id": 6,
-          "name": "P&O Cruises Australia"
+        {
+          "id": 8962,
+          "gig": {
+            "id": 1216,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 37,
+              "name": "Island Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3259.0USD",
+          "startDate": "2004-04-28",
+          "endDate": "2004-07-10",
+          "rank": "Leader"
         }
-      },
-      "salary": "2600.0AUD",
-      "startDate": 1447218000000,
-      "endDate": 1470628800000,
+      ],
+      "jobNumber": 24,
       "events": [
         {
-          "eventDate": "2015-11-06",
-          "formDate": "2015-11-06",
+          "eventDate": "2006-08-19",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Embark",
-          "reasonCodeType": {
-            "id": 13,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "ROLLBACK_START",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2015-11-06",
-          "comment": "Joining the ship when he gets to Singapore, not the day after.",
-          "previousStatus": "2015-11-12",
-          "currentStatus": "2016-03-18"
-        },
-        {
-          "eventDate": "2015-10-23",
-          "formDate": "2015-10-23",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "ASA",
-          "transactionTime": "2015-10-23"
-        },
-        {
-          "eventDate": "2015-11-23",
-          "formDate": "2015-11-23",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 124,
-            "reasonCodeMetaType": {
-              "id": 37,
-              "label": "Proship request",
-              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 4
-          },
-          "transactionTime": "2015-11-23",
-          "previousStatus": "2016-03-18",
-          "currentStatus": "2016-04-01"
-        },
-        {
-          "eventDate": "2015-10-23",
-          "formDate": "2015-10-23",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
+            "id": 2,
+            "name": "showband-opening-import"
           },
           "name": "Create",
-          "transactionTime": "2015-10-23"
-        },
-        {
-          "eventDate": "2016-01-15",
-          "formDate": "2016-01-15",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 48,
-            "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2016-01-15",
-          "previousStatus": "2016-04-01",
-          "currentStatus": "2016-08-08"
+          "transactionTime": "2011-03-14"
         }
       ]
     },
     {
-      "id": 22152,
-      "gig": {
-        "id": 2807,
-        "gigType": {
-          "id": 2,
-          "name": "Show Band"
-        },
-        "room": {
-          "id": 560,
-          "name": "Entire Venue"
-        },
-        "venue": {
-          "id": 172,
-          "name": "Pacific Aria"
-        },
-        "client": {
-          "id": 6,
-          "name": "P&O Cruises Australia"
+      "id": 8962,
+      "shards": [
+        {
+          "id": 8962,
+          "gig": {
+            "id": 1216,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 37,
+              "name": "Island Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3259.0USD",
+          "startDate": "2004-04-28",
+          "endDate": "2004-07-10",
+          "rank": "Leader"
         }
-      },
-      "salary": "2850.0AUD",
-      "startDate": 1492142400000,
-      "endDate": 1512363600000,
+      ],
+      "jobNumber": 18,
       "events": [
         {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
+          "eventDate": "2004-04-27",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 9,
-            "name": "mheroux"
+            "id": 2,
+            "name": "showband-opening-import"
           },
           "name": "Create",
-          "transactionTime": "2016-10-14"
-        },
-        {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "ASA",
-          "transactionTime": "2016-10-14"
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Embark",
-          "reasonCodeType": {
-            "id": 10,
-            "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_START",
-            "multiselect": false,
-            "enabled": true,
-            "order": 5
-          },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-03-15",
-          "currentStatus": "2017-08-09"
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 18,
-            "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-07-29",
-          "currentStatus": "2017-08-09"
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2016-10-24",
-          "previousStatus": {
-            "id": 2800,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 171,
-              "name": "Pacific Eden"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-09-28",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 78,
-              "name": "Herbert Pieter van Hoogdalem",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 22,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "ROLLBACK_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2016-10-24",
-          "previousStatus": "2017-08-09",
-          "currentStatus": "2017-08-07"
-        },
-        {
-          "eventDate": "2017-03-01",
-          "formDate": "2017-03-01",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 121,
-            "reasonCodeMetaType": {
-              "id": 37,
-              "label": "Proship request",
-              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 4
-          },
-          "transactionTime": "2017-03-01",
-          "previousStatus": "2017-08-07",
-          "currentStatus": "2017-09-08"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 17,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": "2017-09-08",
-          "currentStatus": "2017-10-28"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 82,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 32436,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32440,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 108,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 95,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32439,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32546,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32547,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32548,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-04-20",
-          "formDate": "2017-04-20",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 47,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2017-04-20",
-          "previousStatus": "2017-10-28",
-          "currentStatus": "2017-12-04"
+          "transactionTime": "2011-03-14"
         }
       ]
     },
     {
-      "id": 22152,
-      "gig": {
-        "id": 3016,
-        "gigType": {
-          "id": 2,
-          "name": "Show Band"
-        },
-        "room": {
-          "id": 575,
-          "name": "Entire Venue"
-        },
-        "venue": {
-          "id": 179,
-          "name": "Pacific Explorer"
-        },
-        "client": {
-          "id": 6,
-          "name": "P&O Cruises Australia"
+      "id": 9891,
+      "shards": [
+        {
+          "id": 9891,
+          "gig": {
+            "id": 1215,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 37,
+              "name": "Island Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2011-01-19",
+          "endDate": "2011-05-14",
+          "rank": "Leader"
         }
-      },
-      "salary": "3000.0AUD",
-      "startDate": 1492142400000,
-      "endDate": 1512363600000,
+      ],
+      "jobNumber": 34,
       "events": [
         {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
+          "eventDate": "2010-11-17",
+          "formDate": "2010-11-17",
           "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Create",
-          "transactionTime": "2016-10-14"
-        },
-        {
-          "eventDate": "2016-10-14",
-          "formDate": "2016-10-14",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
+            "id": 2,
+            "name": "showband-opening-import"
           },
           "name": "ASA",
-          "transactionTime": "2016-10-14"
+          "transactionTime": "2011-03-14"
         },
         {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
+          "eventDate": "2010-11-17",
+          "formDate": "2010-11-17",
           "creator": {
-            "id": 9,
-            "name": "mheroux"
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9605,
+      "shards": [
+        {
+          "id": 9605,
+          "gig": {
+            "id": 1210,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 334,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 51,
+              "name": "Diamond Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2008-11-23",
+          "endDate": "2009-04-04",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 30,
+      "events": [
+        {
+          "eventDate": "2008-11-22",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9509,
+      "shards": [
+        {
+          "id": 9509,
+          "gig": {
+            "id": 1463,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 364,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 34,
+              "name": "Emerald"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2008-05-12",
+          "endDate": "2008-09-08",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 29,
+      "events": [
+        {
+          "eventDate": "2008-05-11",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 10054,
+      "shards": [
+        {
+          "id": 10054,
+          "gig": {
+            "id": 1340,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 216,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 35,
+              "name": "Coral Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2011-07-16",
+          "endDate": "2011-11-08",
+          "rank": "Band Leader"
+        }
+      ],
+      "jobNumber": 317,
+      "events": [
+        {
+          "eventDate": "2011-03-18",
+          "formDate": "2011-03-18",
+          "creator": {
+            "id": 5,
+            "name": "gbuckles"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-21"
+        },
+        {
+          "eventDate": "2011-03-18",
+          "formDate": "2011-03-18",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "ASA",
+          "transactionTime": "2011-03-21"
+        }
+      ]
+    },
+    {
+      "id": 12585,
+      "shards": [
+        {
+          "id": 12585,
+          "gig": {
+            "id": 1340,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 216,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 35,
+              "name": "Coral Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3514.0USD",
+          "startDate": "2012-10-28",
+          "endDate": "2013-01-18",
+          "rank": "Band Leader"
+        }
+      ],
+      "jobNumber": 389,
+      "events": [
+        {
+          "eventDate": "2012-10-26",
+          "formDate": "2012-10-26",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Cancel",
+          "transactionTime": "2012-10-26"
+        },
+        {
+          "eventDate": "2012-04-27",
+          "formDate": "2012-04-27",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "ASA",
+          "transactionTime": "2012-04-27"
+        },
+        {
+          "eventDate": "2012-04-27",
+          "formDate": "2012-04-27",
+          "creator": {
+            "id": 5,
+            "name": "gbuckles"
+          },
+          "name": "Create",
+          "transactionTime": "2012-04-27"
+        },
+        {
+          "eventDate": "2012-09-21",
+          "formDate": "2012-09-21",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
           },
           "name": "Embark",
-          "reasonCodeType": {
-            "id": 10,
-            "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_START",
-            "multiselect": false,
-            "enabled": true,
-            "order": 5
-          },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-03-15",
-          "currentStatus": "2017-08-09"
-        },
+          "transactionTime": "2012-09-21",
+          "previousStatus": "2012-09-20",
+          "currentStatus": "2013-01-18"
+        }
+      ]
+    },
+    {
+      "id": 9099,
+      "shards": [
         {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 18,
-            "reasonCodeMetaType": {
-              "id": 10,
-              "label": "Candidate request",
-              "description": "Candidate requested a modification of contract terms. Client and Proship agreed.",
-              "invoiceable": false
+          "id": 9099,
+          "gig": {
+            "id": 1341,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
             },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2016-10-20",
-          "previousStatus": "2017-07-29",
-          "currentStatus": "2017-08-09"
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2016-10-24",
-          "previousStatus": {
-            "id": 2800,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
+            "room": {
+              "id": 216,
+              "name": "Bayou Café"
             },
             "venue": {
-              "id": 171,
-              "name": "Pacific Eden"
+              "id": 35,
+              "name": "Coral Princess"
             },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-09-28",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 78,
-              "name": "Herbert Pieter van Hoogdalem",
-              "active": null
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
             }
           },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
+          "salary": "3214.0USD",
+          "startDate": "2005-05-14",
+          "endDate": "2005-09-20",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 21,
+      "events": [
+        {
+          "eventDate": "2005-05-13",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9485,
+      "shards": [
+        {
+          "id": 9485,
+          "gig": {
+            "id": 1370,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 349,
+              "name": "Wheel House Bar"
             },
             "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
+              "id": 27,
+              "name": "Star Princess"
             },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
             }
-          }
-        },
-        {
-          "eventDate": "2016-10-20",
-          "formDate": "2016-10-20",
-          "creator": {
-            "id": 9,
-            "name": "mheroux"
           },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 22,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
+          "salary": "3414.0USD",
+          "startDate": "2008-03-06",
+          "endDate": "2008-04-22",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 28,
+      "events": [
+        {
+          "eventDate": "2008-03-05",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9325,
+      "shards": [
+        {
+          "id": 9325,
+          "gig": {
+            "id": 1235,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
             },
-            "contractEventCase": "ROLLBACK_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
+            "room": {
+              "id": 335,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 31,
+              "name": "Grand"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
           },
-          "transactionTime": "2016-10-24",
-          "previousStatus": "2017-08-09",
-          "currentStatus": "2017-08-07"
-        },
+          "salary": "3314.0USD",
+          "startDate": "2007-02-03",
+          "endDate": "2007-03-24",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 25,
+      "events": [
         {
-          "eventDate": "2017-03-01",
-          "formDate": "2017-03-01",
+          "eventDate": "2007-02-02",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 26,
-            "name": "avelilla"
+            "id": 2,
+            "name": "showband-opening-import"
           },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 121,
-            "reasonCodeMetaType": {
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9011,
+      "shards": [
+        {
+          "id": 9011,
+          "gig": {
+            "id": 1215,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
               "id": 37,
-              "label": "Proship request",
-              "description": "Proship requested a modification of contract terms. Client and candidate agreed.",
-              "invoiceable": false
+              "name": "Island Princess"
             },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 4
-          },
-          "transactionTime": "2017-03-01",
-          "previousStatus": "2017-08-07",
-          "currentStatus": "2017-09-08"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 17,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "POSTPONE_END",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": "2017-09-08",
-          "currentStatus": "2017-10-28"
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 82,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 32436,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32440,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
-        {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
-          "creator": {
-            "id": 26,
-            "name": "avelilla"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 108,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
             "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
+              "id": 4,
+              "name": "Princess Cruises"
             }
           },
-          "currentStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
-            },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          }
-        },
+          "salary": "3000.0USD",
+          "startDate": "2004-11-20",
+          "endDate": "2005-04-04",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 20,
+      "events": [
         {
-          "eventDate": "2017-03-29",
-          "formDate": "2017-03-29",
+          "eventDate": "2004-11-19",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 26,
-            "name": "avelilla"
+            "id": 2,
+            "name": "showband-opening-import"
           },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 95,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 3
-          },
-          "transactionTime": "2017-03-29",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 11316,
+      "shards": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
+          "id": 11316,
+          "gig": {
+            "id": 1214,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
             },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 3016,
-            "name": "Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
             },
             "venue": {
-              "id": 179,
-              "name": "Pacific Explorer"
+              "id": 37,
+              "name": "Island Princess"
             },
-            "manager": {
-              "id": 26,
-              "name": "Andres Velilla",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2017-05-27",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD"
-          },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
             "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
-            }
-          }
-        },
-        {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Gig",
-          "reasonCodeType": {
-            "id": 111,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_GIG_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "comment": "Disembarks the Aria on 05/26 and joins the Explorer on 05/27",
-          "previousStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
-            },
-            "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
-            },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
+              "id": 4,
+              "name": "Princess Cruises"
             }
           },
-          "currentStatus": {
-            "id": 2807,
-            "name": "4 Piece Showband",
-            "client": {
-              "id": 6,
-              "code": "P&O"
+          "salary": "3514.0USD",
+          "startDate": "2011-12-09",
+          "endDate": "2012-01-15",
+          "rank": "Band Leader"
+        }
+      ],
+      "jobNumber": 352,
+      "events": [
+        {
+          "eventDate": "2011-10-19",
+          "formDate": "2011-10-19",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "ASA",
+          "transactionTime": "2011-10-19"
+        },
+        {
+          "eventDate": "2011-10-19",
+          "formDate": "2011-10-19",
+          "creator": {
+            "id": 5,
+            "name": "gbuckles"
+          },
+          "name": "Create",
+          "transactionTime": "2011-10-19"
+        }
+      ]
+    },
+    {
+      "id": 8981,
+      "shards": [
+        {
+          "id": 8981,
+          "gig": {
+            "id": 1237,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 335,
+              "name": "Wheel House Bar"
             },
             "venue": {
-              "id": 172,
-              "name": "Pacific Aria"
+              "id": 31,
+              "name": "Grand"
             },
-            "manager": {
-              "id": 9,
-              "name": "Martin Heroux",
-              "active": null
-            },
-            "room": "Entire Venue",
-            "type": "Show Band",
-            "startDate": "2015-10-13",
-            "endDate": "10000-01-01",
-            "minSal": "2600.0AUD",
-            "territory": {
-              "id": 67,
-              "name": "Alisha Ruiss",
-              "active": null
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
             }
-          }
+          },
+          "salary": "3000.0USD",
+          "startDate": "2004-08-27",
+          "endDate": "2004-10-31",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 19,
+      "events": [
+        {
+          "eventDate": "2004-08-26",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 11351,
+      "shards": [
+        {
+          "id": 11351,
+          "gig": {
+            "id": 1216,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 37,
+              "name": "Island Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3514.0USD",
+          "startDate": "2012-03-08",
+          "endDate": "2012-08-15",
+          "rank": "Sideman"
+        }
+      ],
+      "jobNumber": 354,
+      "events": [
+        {
+          "eventDate": "2011-10-26",
+          "formDate": "2011-10-26",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "ASA",
+          "transactionTime": "2011-10-26"
         },
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
+          "eventDate": "2011-10-26",
+          "formDate": "2011-10-26",
           "creator": {
-            "id": 4,
-            "name": "pduchemin"
+            "id": 5,
+            "name": "gbuckles"
           },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32439,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32546,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
+          "name": "Create",
+          "transactionTime": "2011-10-26"
+        }
+      ]
+    },
+    {
+      "id": 9432,
+      "shards": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
+          "id": 9432,
+          "gig": {
+            "id": 1215,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
             },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
+            "room": {
+              "id": 214,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 37,
+              "name": "Island Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
           },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          }
-        },
+          "salary": "3314.0USD",
+          "startDate": "2007-10-09",
+          "endDate": "2008-02-06",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 27,
+      "events": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
+          "eventDate": "2007-10-08",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 4,
-            "name": "pduchemin"
+            "id": 2,
+            "name": "showband-opening-import"
           },
-          "name": "Rank",
-          "reasonCodeType": {
-            "id": 98,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
-            },
-            "contractEventCase": "NEW_RANK_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
-          },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 13,
-            "name": "Sideman",
-            "ordering": 13,
-            "grouping": 2
-          },
-          "currentStatus": {
-            "id": 3,
-            "name": "Band Leader",
-            "ordering": 3,
-            "grouping": 1
-          }
-        },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9176,
+      "shards": [
         {
-          "eventDate": "2017-04-07",
-          "formDate": "2017-04-07",
-          "creator": {
-            "id": 4,
-            "name": "pduchemin"
-          },
-          "name": "Salary",
-          "reasonCodeType": {
-            "id": 85,
-            "reasonCodeMetaType": {
-              "id": 11,
-              "label": "Office correction",
-              "description": "Correction of data-entry error.",
-              "invoiceable": false
+          "id": 9176,
+          "gig": {
+            "id": 1339,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
             },
-            "contractEventCase": "NEW_SALARY_BEFORE",
-            "multiselect": false,
-            "enabled": true,
-            "order": 99
+            "room": {
+              "id": 216,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 35,
+              "name": "Coral Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
           },
-          "transactionTime": "2017-04-07",
-          "previousStatus": {
-            "id": 32547,
-            "payeeId": 4617,
-            "salaryAmount": 2850,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          },
-          "currentStatus": {
-            "id": 32548,
-            "payeeId": 4617,
-            "salaryAmount": 3000,
-            "salaryCurrency": "AUD",
-            "gross": false,
-            "salaryRecurrencePeriodNumerator": 1,
-            "salaryRecurrencePeriodDenominator": 1,
-            "salaryRecurrenceUnit": "MONTH"
-          }
-        },
+          "salary": "3214.0USD",
+          "startDate": "2005-11-14",
+          "endDate": "2006-03-14",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 22,
+      "events": [
         {
-          "eventDate": "2017-04-20",
-          "formDate": "2017-04-20",
+          "eventDate": "2005-11-13",
+          "formDate": "2011-03-14",
           "creator": {
-            "id": 26,
-            "name": "avelilla"
+            "id": 2,
+            "name": "showband-opening-import"
           },
-          "name": "Disembark",
-          "reasonCodeType": {
-            "id": 47,
-            "reasonCodeMetaType": {
-              "id": 9,
-              "label": "Client request",
-              "description": "Modification motivated by client preference. Use this reason code when a more precise code is not available.",
-              "invoiceable": false
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9338,
+      "shards": [
+        {
+          "id": 9338,
+          "gig": {
+            "id": 1370,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
             },
-            "contractEventCase": "EXTENSION",
-            "multiselect": false,
-            "enabled": true,
-            "order": 2
+            "room": {
+              "id": 349,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 27,
+              "name": "Star Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
           },
-          "transactionTime": "2017-04-20",
-          "previousStatus": "2017-10-28",
-          "currentStatus": "2017-12-04"
+          "salary": "3214.0USD",
+          "startDate": "2007-04-07",
+          "endDate": "2007-08-10",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 26,
+      "events": [
+        {
+          "eventDate": "2007-04-06",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9243,
+      "shards": [
+        {
+          "id": 9243,
+          "gig": {
+            "id": 1409,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 197,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 38,
+              "name": "Crown Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3214.0USD",
+          "startDate": "2006-05-25",
+          "endDate": "2006-08-07",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 23,
+      "events": [
+        {
+          "eventDate": "2006-05-24",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9692,
+      "shards": [
+        {
+          "id": 9692,
+          "gig": {
+            "id": 1339,
+            "gigType": {
+              "id": 15,
+              "name": "Jazz Band"
+            },
+            "room": {
+              "id": 216,
+              "name": "Bayou Café"
+            },
+            "venue": {
+              "id": 35,
+              "name": "Coral Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2009-10-21",
+          "endDate": "2010-02-20",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 32,
+      "events": [
+        {
+          "eventDate": "2009-10-20",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9821,
+      "shards": [
+        {
+          "id": 9821,
+          "gig": {
+            "id": 1211,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 334,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 51,
+              "name": "Diamond Princess"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2010-07-31",
+          "endDate": "2010-10-20",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 33,
+      "events": [
+        {
+          "eventDate": "2010-07-30",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
+        }
+      ]
+    },
+    {
+      "id": 9661,
+      "shards": [
+        {
+          "id": 9661,
+          "gig": {
+            "id": 1463,
+            "gigType": {
+              "id": 17,
+              "name": "Lounge Band"
+            },
+            "room": {
+              "id": 364,
+              "name": "Wheel House Bar"
+            },
+            "venue": {
+              "id": 34,
+              "name": "Emerald"
+            },
+            "client": {
+              "id": 4,
+              "name": "Princess Cruises"
+            }
+          },
+          "salary": "3414.0USD",
+          "startDate": "2009-05-26",
+          "endDate": "2009-09-03",
+          "rank": "Leader"
+        }
+      ],
+      "jobNumber": 31,
+      "events": [
+        {
+          "eventDate": "2009-05-25",
+          "formDate": "2011-03-14",
+          "creator": {
+            "id": 2,
+            "name": "showband-opening-import"
+          },
+          "name": "Create",
+          "transactionTime": "2011-03-14"
         }
       ]
     }
@@ -1808,5 +1247,75 @@ export default  {
         ]
       }
     ]
-  }
+  },
+  "associations": [
+    {
+      "id": 2913,
+      "name": "Srikanth  Narayanan",
+      "startDate": "2012-10-28",
+      "endDate": "2013-01-18",
+      "primarySkill": "Bass Electric",
+      "language": [
+        "English",
+        "French"
+      ],
+      "contractId": 13688,
+      "jobNumber": 389
+    },
+    {
+      "id": 3577,
+      "name": "John Easton Halsey",
+      "startDate": "2012-10-28",
+      "endDate": "2012-12-01",
+      "primarySkill": "Piano",
+      "language": [
+        "English"
+      ],
+      "contractId": 13546,
+      "jobNumber": 389
+    },
+    {
+      "id": 2636,
+      "name": "David  Durrah",
+      "startDate": "2012-12-01",
+      "endDate": "2013-01-18",
+      "primarySkill": "Piano",
+      "language": [
+        "English"
+      ],
+      "contractId": 12586,
+      "jobNumber": 389
+    },
+    {
+      "id": 2637,
+      "name": "Joseph Patrick Lane",
+      "startDate": "2012-03-08",
+      "endDate": "2012-08-15",
+      "primarySkill": "Bass Electric",
+      "language": [
+        "English"
+      ],
+      "contractId": 11352,
+      "jobNumber": 354
+    },
+    {
+      "id": 3022,
+      "name": "Arthur Joseph Ilardi",
+      "startDate": "2011-01-19",
+      "endDate": "2011-05-14",
+      "primarySkill": "Piano",
+      "language": [
+        "English"
+      ],
+      "contractId": 9889,
+      "jobNumber": 34
+    }
+  ],
+  "bands": [
+    {
+      "id": 2640,
+      "name": "Perry Phillips Trio",
+      "type": "Lounge Band"
+    }
+  ]
 }

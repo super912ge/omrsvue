@@ -3,11 +3,11 @@
 
 
     <el-container style="height: auto" v-if="candidate">
-      <el-aside class="left" style="width: 15%">
+      <el-aside class="left" style="width: 14%">
         <search-result></search-result>
 
       </el-aside>
-      <el-main>
+      <el-main style="padding: 0;">
 
         <el-row>
 
@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="3">
 
-              <span style="margin: auto">red flag</span>
+              <!--<span style="margin: auto">red flag</span>-->
             </el-col>
           </el-card>
         </el-row>
@@ -38,30 +38,33 @@
           <el-col :span="10">
             <essentials :candidate="candidate.essentials"></essentials>
           </el-col>
+
           <el-col :span="14">
             <notes :notes="candidate.notes"></notes>
           </el-col>
         </el-row>
+
+
         <el-row>
           <availability></availability>
         </el-row>
         <el-row>
-          <work-history></work-history>
+          <work-history :psContracts="candidate.psContracts"></work-history>
         </el-row>
         <el-row>
-          <documents></documents>
+          <documents :identities="candidate.identifications" name="Identification Documents"></documents>
         </el-row>
         <el-row>
-          <documents></documents>
+          <documents :identities="candidate.medicals" name="Medical Documents"></documents>
         </el-row>
         <el-row>
-          <association></association>
+          <association :associations="candidate.associations"></association>
         </el-row>
         <el-row>
-          <band></band>
+          <band :band="candidate.bands"></band>
         </el-row>
       </el-main>
-      <el-aside style="width: 20%">
+      <el-aside style="width: 16%">
         <el-row>
           <actions ></actions>
         </el-row>
@@ -107,7 +110,7 @@
       console.log('candidate',this.candidate);
       return {
 
-        candidate: {},
+        candidate: null,
         error: null
       };
     },

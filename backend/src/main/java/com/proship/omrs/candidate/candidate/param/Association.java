@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Associate {
+public class Association {
 
-    public Associate(Participant participant, Date date){
+    public Association(Participant participant, Date startDate,Date endDate, Long contractId, Long jobId){
 
         this.id = participant.getId();
 
@@ -28,7 +28,14 @@ public class Associate {
         this.language = languages.
                 stream().map(EvalTagType::getLabel).collect(Collectors.toList());
 
-        this.workingDate = date;
+        this.startDate = startDate;
+
+        this.endDate = endDate;
+
+        this.contractId = contractId;
+
+        this.jobNumber = jobId;
+
     }
 
     private Long id;
@@ -36,11 +43,18 @@ public class Associate {
     private String name;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date workingDate;
+    private Date startDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
     private String primarySkill;
 
     private List<String> language;
+
+    private Long contractId;
+
+    private Long jobNumber;
 
     public Long getId() {
         return id;
@@ -58,12 +72,20 @@ public class Associate {
         this.name = name;
     }
 
-    public Date getWorkingDate() {
-        return workingDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setWorkingDate(Date workingDate) {
-        this.workingDate = workingDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getPrimarySkill() {
@@ -82,5 +104,19 @@ public class Associate {
         this.language = language;
     }
 
+    public Long getContractId() {
+        return contractId;
+    }
 
+    public void setContractId(Long contractId) {
+        this.contractId = contractId;
+    }
+
+    public Long getJobNumber() {
+        return jobNumber;
+    }
+
+    public void setJobNumber(Long jobNumber) {
+        this.jobNumber = jobNumber;
+    }
 }

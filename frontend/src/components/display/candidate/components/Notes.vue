@@ -1,19 +1,23 @@
 <template>
-  <div>
+  <el-card style="margin-top: 15px">
+    <div slot="header" class="clearfix">
+      <span>Notes</span>
+    </div>
     <el-row>
-      <el-col>
+      <el-col :span="18" style="margin-bottom: 15px">
         <el-input
           type="textarea"
           :rows="3"
           placeholder="Please input"
-          v-model="newNote.text">
+          v-model="newNote.text"
+        style="margin-bottom: 5px;">
         </el-input>
-        <el-button @click="clear">Clear</el-button>
-        <el-button @click="save">Save</el-button>
+        <el-button @click="clear" size="mini">Clear</el-button>
+        <el-button @click="save" size="mini">Save</el-button>
       </el-col>
-      <el-col>
+      <el-col :span="6">
         <el-radio-group v-model="newNote.type">
-          <el-radio :label="1">Process Note</el-radio>
+          <el-radio :label="1" style="margin-left: 10px ">Process Note</el-radio>
           <el-radio :label="2">Availability Note</el-radio>
           <el-radio :label="3">Positive Note</el-radio>
           <el-radio :label="4">Red Flag</el-radio>
@@ -21,36 +25,41 @@
 
       </el-col>
     </el-row>
-
-
-
     <el-table
       :data="Notes"
-      height="250"
-      style="width: 100%">
+      :height="250"
+      size="small"
+      style="width: 100%;">
       <el-table-column
         prop="type"
         label="Type"
-        width="80"
-        :filters="filterTypes" :filter-method="filterType" filter-placement="bottom-end">
+        width="60"
+        :filters="filterTypes" :filter-method="filterHandler" filter-placement="bottom-end"
+      >
+        <template slot-scope="scope">
+          <i v-if="scope.row.type===3" class="el-icon-date"></i>
+          <i v-if="scope.row.type===4" class="el-icon-info"></i>
+          <i v-if="scope.row.type===2" class="el-icon-warning"></i>
+          <i v-if="scope.row.type===1" class="el-icon-success"></i>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="note"
+        prop="text"
         label="Note"
-        width="180">
+        width="320">
       </el-table-column>
 
       <el-table-column
         fixed="right"
         label="Operations"
-        width="100">
+        width="80">
         <template slot-scope="scope">
-          <el-button @click="handleClick" type="text" size="small">Edit</el-button>
-          <el-button type="text" size="small">Delete</el-button>
+          <el-button @click="handleClick" type="text" size="small"><i class="el-icon-edit"></i></el-button>
+          <el-button type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
       </el-table-column>
     </el-table>
-  </div>
+  </el-card>
 
 
 </template>
@@ -65,7 +74,7 @@
       ElButton,
       ElRadio,
       ElCol},
-    props: 'notes',
+    props: ['notes'],
 
     data(){
       return {
@@ -74,16 +83,21 @@
           type:null
         },
         filterTypes:[
-          {text: 'positive',
+          {
+            text: 'positive',
             value:1
           },
-          {text: 'red flag',
+          {
+
+            text: 'red flag',
             value:2
           },
-          {text: 'processing',
+          {
+            text: 'availability',
             value:3
           },
-          {text: 'avalibility',
+          {
+            text: 'process',
             value:4
           }
         ]
@@ -96,11 +110,6 @@
           type : null
         }
       },
-      watched:{
-        Notes(){
-          return this.notes;
-        }
-      },
 
       save(){
         this.$resource.post("candidate/note/add",this.newNote,{header:getHeader()}).then(response=> {
@@ -110,8 +119,47 @@
         })
       },
       filterType(value, row) {
-        return row.tag === value;
+        return row.type === value;
+      },
+      filterHandler(value, row, column) {
+        const property = column['property'];
+        return row[property] === value;
+      },
+      handleClick(){
+
       }
-    }
+    },
+    computed:{
+
+      Notes(){
+
+        console.log(this.notes)
+        return this.notes;
+      }
+    },
   }
 </script>
+<style scoped>
+
+  .el-radio+.el-radio {
+    margin-left: 10px;
+  }
+
+
+.el-table th{
+    padding: 2px 0px;
+    font-size: small;
+  }
+  .el-table th div, .el-table th>.cell {
+    line-height:15px;
+  }
+
+  .cell{
+    padding: 0px;
+    font-size: small;
+  }
+
+  .el-table_1_column_2 .is-leaf{
+    padding: 0;
+  }
+</style>
