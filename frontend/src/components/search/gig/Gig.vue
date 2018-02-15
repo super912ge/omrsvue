@@ -271,7 +271,7 @@
     methods: {
       handleNameChange(){
 
-        _.debounce(this.searchByName,700)();
+        _.debounce(this.searchByName,500)();
       },
 //      handleReqChange(){},
 

@@ -1,6 +1,11 @@
 <template>
 
-
+  <el-tree
+    style="font-size: 50%"
+    :data="skills"
+    :props="defaultProps"
+  >
+  </el-tree>
 </template>
 
 <script>
@@ -45,13 +50,14 @@
 
   }
 </script>
-<style scoped>
+<style scoped="">
   .el-tree{
     border: hidden;
     font-size: 6px;
   }
   .el-tree-node__label {
-    font-size: 8px;
+    font-size: small;
+    height: 20px;
   }
 
 </style>

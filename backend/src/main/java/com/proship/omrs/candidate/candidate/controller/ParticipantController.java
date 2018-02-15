@@ -69,8 +69,10 @@ public class ParticipantController extends BaseController<Participant,Long>{
     @RequestMapping("/search/actId/{id}")
     public ResponseEntity<Set<Long>> searchCandidateByActId(@PathVariable(value = "id")Long id){
         Set<Long> result = new HashSet<>();
-        if (participantService.findParticipantByActId(id)!=null){
-            result.add(id);
+
+        Long candidateId = participantService.findParticipantByActId(id);
+        if (candidateId!=null){
+            result.add(candidateId);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);
     }

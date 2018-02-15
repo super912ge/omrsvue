@@ -15,7 +15,7 @@
           <li><span>Residency: </span>{{residency}}</li>
           <li><span>Citizenship: </span>{{citizenship}}</li>
           <li><span>Date of Birth: </span>{{candidate.birthday}}</li>
-          <li><span>Home Airport: </span>{{candidate.homeAirports[0].name}}</li>
+          <li><span>Home Airport: </span>{{airport}}</li>
           <li><span>Medical Conditions: </span>{{candidate.medicalCondition}}</li>
           <li><span>Criminal Convictions: </span>{{candidate.criminalConviction}}</li>
           <li><span>Employee Number: </span>{{candidate.employeeNumber}}</li>
@@ -34,7 +34,7 @@
     computed:{
       airport(){
         if(this.candidate.homeAirports)
-        return _.map(this.candidate.homeAirports,'name').join(', ')
+          return _.map(this.candidate.homeAirports,'name').join(', ')
         return null;
       },
       residency(){

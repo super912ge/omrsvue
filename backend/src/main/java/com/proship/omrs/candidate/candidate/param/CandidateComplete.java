@@ -85,9 +85,11 @@ public class CandidateComplete {
                     contractMap.computeIfAbsent(contractMainShard.getContract().getId(),key -> contractMainShard.getContract());
                 }
             }
-            for (Map.Entry<Long,Contract> contract : contractMap.entrySet()){
-                ContractBrief contractBrief = new ContractBrief(contract.getValue());
-                this.psContracts.add(contractBrief);
+            if (contractMap.size()>0) {
+                for (Map.Entry<Long, Contract> contract : contractMap.entrySet()) {
+                    ContractBrief contractBrief = new ContractBrief(contract.getValue());
+                    this.psContracts.add(contractBrief);
+                }
             }
 
             for (Participant p : associatesMap.keySet()){

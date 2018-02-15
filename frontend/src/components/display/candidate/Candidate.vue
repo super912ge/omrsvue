@@ -18,7 +18,7 @@
             </el-col>
 
             <el-col :span="13" >
-              <ul style=" list-style-type: none;">
+              <ul style=" list-style-type: none; line-height: 130%">
 
                 <li><span>Name: {{candidate.essentials.name}}</span></li>
                 <li><span>Primary Skill: {{candidate.essentials.primarySkill}}</span></li>

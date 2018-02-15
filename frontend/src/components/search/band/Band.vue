@@ -213,7 +213,7 @@
       },
       handleNameChange(){
         console.log('band name changed');
-        _.debounce(this.searchByName,1500)();
+        _.debounce(this.searchByName,500)();
       },
 
       searchByName(){
@@ -231,7 +231,7 @@
         }
       },
       handleSizeChange(){
-        _.debounce(this.searchBySize,1500)();
+        _.debounce(this.searchBySize,500)();
       },
       searchBySize(){
         let options = { emulateJSON: true};
@@ -243,7 +243,7 @@
         })
       },
       handleExperienceChange(){
-        _.debounce(this.searchByExperience,1500)();
+        _.debounce(this.searchByExperience,500)();
       },
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||

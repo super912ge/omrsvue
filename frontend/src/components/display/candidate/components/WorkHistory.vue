@@ -24,7 +24,7 @@
       <el-table-column
         label="Job#"
         prop="jobNumber"
-        width="45">
+        width="50">
       </el-table-column>
 
       <el-table-column

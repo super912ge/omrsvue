@@ -346,10 +346,10 @@
        this.criteria.documentRequestSent=true;
       },
       handleIdChange(){
-        _.debounce(this.searchById,1000)();
+        _.debounce(this.searchById,300)();
       },
       handleActIdChange(){
-        _.debounce(this.searchByActId,1000)();
+        _.debounce(this.searchByActId,300)();
       },
       searchById(){
         if(this.criteria.candidateId && this.criteria.candidateId.trim().length>0){
@@ -375,51 +375,51 @@
         }else this.result.idResultList = null;
       },
       handleLocationChange(){
-        _.debounce(this.searchByLocation,1500)();
+        _.debounce(this.searchByLocation,500)();
       },
       handlePassportChange(val){
-        console.log(val);
+
         this.criteria.document["passport"]=val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleVisaChange(val){
-        console.log(val);
+
         this.criteria.document["visa"] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleMedicalChange(val){
-        console.log(val);
+
         this.criteria.document["medical"] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleSeamansBookChange(val){
-        console.log(val);
+
         this.criteria.document['seamansBook'] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleCertificateChange(val){
-        console.log(val);
+
         this.criteria.document['certificate'] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       searchByLocation(){
 
-        console.log(this.criteria.location);
+
         if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
           this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
            this.criteria.location, {header:getHeader() }).then( response => {
@@ -431,7 +431,7 @@
         }
       },
       handleNameChange(){
-        _.debounce(this.searchByName,1500)();
+        _.debounce(this.searchByName,500)();
       },
       searchByName(){
         if(this.criteria.candidateName.name && this.criteria.candidateName.searchType
@@ -448,7 +448,7 @@
         }
       },
       handleExperienceChange(){
-        _.debounce(this.searchByExperience,1500)();
+        _.debounce(this.searchByExperience,500)();
       },
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
@@ -463,9 +463,8 @@
         }
       },
       handleEvalChange(){
-        console.log('handle eval change');
+
         let evalTags = this.$refs.treeEval.getCheckedNodes();
-        console.log('evaltagnodes',evalTags);
 
         let instrumentCriteria  = [];
         let nonInstrumentCriteria = [];
@@ -496,7 +495,6 @@
              let instrumentCriterionUpdated = instrumentCriteria.pop();
              instrumentCriterionUpdated.ratings = ratings;
              instrumentCriteria.push(instrumentCriterionUpdated);
-             console.log(instrumentCriteria,instrumentCriterion,instrumentCriterionUpdated,ratings,instrument);
              continue;
            }
 
@@ -574,7 +572,7 @@
           classificationCriteria,
           languageCriteria
         };
-        _.debounce(this.searchByEvaluation,2500)()
+        _.debounce(this.searchByEvaluation,1000)()
       },
       searchByEvaluation(evaluation){
         this.$http.post("http://localhost:8080/candidate/search/evaluation",
@@ -651,10 +649,9 @@
         }
       },
       fetchClient(){
-        console.log(this.clients)
+
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
-          console.log(clientOptions)
           if(!clientOptions){
             this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
@@ -664,7 +661,7 @@
             })
           }else {
             this.clients = clientOptions;
-            console.log(this.clients)
+
           }
         }
       },
@@ -679,7 +676,7 @@
             })
           }
 
-        console.log(venueOptions);
+
 
         if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
           this.venues = venueOptions;
@@ -721,7 +718,7 @@
           this.$http.get('http://localhost:8080/medicalType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             medicalTypeOptions = response.data;
-            console.log('medical result: ',response.data);
+
             localStorage.setItem('medicalTypeOptions',JSON.stringify(medicalTypeOptions));
             this.medicalType = medicalTypeOptions;
           }
@@ -733,7 +730,7 @@
         if(!certificateTypeOptions) this.$http.get('http://localhost:8080/certificateType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             certificateTypeOptions = response.data;
-            console.log('certificate result: ',response.data);
+
             localStorage.setItem('certificateTypeOptions',JSON.stringify(certificateTypeOptions));
             this.certificateType = certificateTypeOptions;
           }
