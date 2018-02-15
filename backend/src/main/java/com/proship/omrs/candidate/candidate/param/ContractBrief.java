@@ -19,6 +19,7 @@ public class ContractBrief {
         for (ContractMainShard contractMainShard : contract.getContractMainShards()) {
             shards.add(new ContractShardBrief(contractMainShard));
         }
+        if (contract.getJob()!=null)
         this.jobNumber = contract.getJob().getId();
 
         this.events = contract.getContractEvents().stream().map(ContractEventBrief::new).collect(Collectors.toList());

@@ -25,8 +25,8 @@ public class ContractShardBrief {
         if (contractMainShard.getPay()!=null) {
             this.salary = contractMainShard.getPay().getSalaryAmount() + contractMainShard.getPay().getSalaryCurrency();
         }
-        this.startDate = contractMainShard.getContract().getContractPeriodShard().getValidstarttime();
-        this.endDate = contractMainShard.getContract().getContractPeriodShard().getValidendtime();
+        this.startDate = contractMainShard.getValidstarttime();
+        this.endDate = contractMainShard.getValidendtime();
         this.gig = contractMainShard.getGig();
 
         this.rank = contractMainShard.getRank().getName();

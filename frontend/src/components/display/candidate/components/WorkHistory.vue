@@ -32,7 +32,7 @@
         width="150"
       >
         <template slot-scope="props" >
-          <div style="height: 100px" v-for="shard in props.row.shards">
+          <div style="min-height: 100px; height: auto" v-for="shard in props.row.shards">
           <p><b>Client:</b> {{shard.gig.client.name }}</p>
           <p><b>Venue:</b> {{ shard.gig.venue.name }}</p>
           <p><b>Room:</b> {{ shard.gig.room.name }}</p>
