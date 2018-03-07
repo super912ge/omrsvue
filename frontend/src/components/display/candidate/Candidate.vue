@@ -82,7 +82,7 @@
 </template>
 
 <script>
-//  import profilePic from '/src/components/display/candidate/snoop.jpg'
+//  import profilePic from '/src/components/display/participant/snoop.jpg'
   import ElRow from "element-ui/packages/row/src/row";
   import {fetchCandidate} from "./api.js"
   import ElCol from "element-ui/packages/col/src/col";
@@ -98,7 +98,7 @@
   import Evaluation from "./components/Evaluation.vue";
   import ElCard from "../../../../node_modules/element-ui/packages/card/src/main.vue";
   import AppNav from "../../AppNav.vue"
-//  import participant from "candidate.js"
+//  import participant from "participant.js"
   export default {
     components: {
       ElCard,

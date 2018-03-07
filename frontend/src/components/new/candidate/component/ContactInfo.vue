@@ -1,0 +1,81 @@
+<template>
+
+  <div style="margin: 10px 10px">
+    <div v-if="confirmed" style="font-size: small">
+
+      <span>{{contactStr}}</span>
+    </div>
+    <div v-else>
+      <el-select v-model="contact.type"  placeholder="Select" size="mini">
+        <el-option v-for="item in contactFieldLabelOptions" :label="item.label" :value="item.id" :key="item.label"></el-option>
+      </el-select>
+      <el-input placeholder="Please input" size="mini" style="width:  350px" v-model="contact.text">
+
+        <el-select v-model="contact.method" slot="prepend"
+                   placeholder="Select" size="mini">
+          <el-option v-for="item in contactFieldTypeOptions"
+                     :label="item.label" :value="item.id" :key="item.label"></el-option>
+        </el-select>
+
+      </el-input>
+      <el-button size="mini" icon="el-icon-check" @click="confirm"></el-button>
+    </div>
+  </div>
+</template>
+<script>
+import _ from 'lodash'
+import {getHeader} from "../../../../env.js"
+  export default {
+
+    data(){
+      return {
+        confirmed: false,
+        contact: {
+          type: '',
+          method: '',
+          text: ''
+        },
+        contactType:null,
+        contactLabel:null,
+        contactFieldTypeOptions: [
+          {id:1, label:"Email"},
+          {id:2, label: "Phone"},
+          {id:3, label: "Mobile"},
+          {id:4, label: "URL"},
+          {id:5, label: "Skype"},
+          {id:6, label: "Fax"}
+        ],
+        contactFieldLabelOptions: [
+          {id: 1, label: "Personal"},
+          {id: 2, label: "Parents"},
+          {id: 3, label: "Spouse"},
+          {id: 4, label: "GF/BF"},
+          {id: 5, label: "Friend"},
+          {id: 6, label: "Work"},
+          {id: 7, label: "Brother"},
+          {id: 8, label: "Sister"},
+          {id: 9, label: "Child"},
+          {id:10, label: "Ship"},
+          {id:11, label: "Father"},
+          {id:12, label: "Mother"}]
+      };
+    },
+    methods:{
+      confirm(){
+        this.confirmed = true;
+        this.$http.post("http://localhost:8080/contact/create",this.contact,{headers:getHeader()}).then(
+          res=>{
+            if(res.status===200){
+              this.$emit('addContact', this.contact);
+            }}
+        );
+      }
+    },
+    computed:{
+      contactStr(){
+        return _.find(this.contactFieldLabelOptions,['id',this.contact.type]).label+
+          " "+_.find(this.contactFieldTypeOptions,['id',this.contact.method]).label+": "+this.contact.text;
+      }
+    }
+  }
+</script>

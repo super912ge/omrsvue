@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -28,6 +29,19 @@ public class Utils {
     }
 
 
+    public static Timestamp getInfiniteTimestamp(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd hh:mm:ss");
+
+        Date parsedTimeStamp = null;
+        try {
+            parsedTimeStamp = dateFormat.parse("10000-01-01 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Timestamp(parsedTimeStamp.getTime());
+    }
     public static EvalTag findPrimarySkill(EvalTag tag){
 
         if (tag.getType().getId()!=1) return null;
@@ -51,7 +65,6 @@ public class Utils {
                 }
             }
         }
-
         return null;
     }
 

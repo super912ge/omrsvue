@@ -3,13 +3,12 @@ package com.proship.omrs.contract.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.base.entity.MainShardEntity;
-import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
-import com.proship.omrs.candidate.candidate.param.ParticipantActSerializer;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct;
+import com.proship.omrs.candidate.participant.param.ParticipantActSerializer;
 import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.entity.Position;
 import com.proship.omrs.gig.entity.PositionMap;
 import com.proship.omrs.gig.param.GigSerializer;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 

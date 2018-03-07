@@ -1,8 +1,7 @@
 package com.proship.omrs.gig.service;
 
-import com.proship.omrs.candidate.candidate.param.SearchByGigParam;
+import com.proship.omrs.candidate.participant.param.SearchByGigParam;
 import com.proship.omrs.gig.param.DisplayGigResultParam;
-import com.proship.omrs.gig.param.GigBrief;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Set;

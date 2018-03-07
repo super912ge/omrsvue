@@ -1,14 +1,7 @@
 package com.proship.omrs.candidate.group.param;
 
-import com.proship.omrs.candidate.candidate.entity.*;
+import com.proship.omrs.candidate.participant.entity.*;
 import com.proship.omrs.evaluation.entity.EvalTag;
-import com.proship.omrs.system.country.entity.Country;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class BandMemberBrief {
 

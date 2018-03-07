@@ -179,23 +179,22 @@
     </el-row>
   </el-col>
 </el-row>
-  <el-row>
-<div style="margin-top: 20px"></div>
-    <el-col :span="4" :offset="8">
+    <el-row>
+      <div style="margin-top: 20px"></div>
+        <el-col :span="4" :offset="8">
 
-      <el-button style="margin: auto" @click="displayCandidate">Display Candidate({{candidateIdList.length}})</el-button>
-    </el-col>
-    <el-col :span="2">
-      <el-button style="margin: auto" @click="reset">Reset</el-button>
-    </el-col>
-
-  </el-row>
-<el-row>
-  <div style="margin-top: 20px"></div>
-  <display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"
-  @pageChange="displayCandidate"></display-candidate>
-</el-row>
-</div>
+          <el-button style="margin: auto" @click="displayCandidate">Display Candidate({{candidateIdList.length}})</el-button>
+        </el-col>
+        <el-col :span="2">
+          <el-button style="margin: auto" @click="reset">Reset</el-button>
+        </el-col>
+    </el-row>
+    <el-row>
+      <div style="margin-top: 20px"></div>
+      <display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"
+      @pageChange="displayCandidate"></display-candidate>
+    </el-row>
+  </div>
 </template>
 <script>
   import Document from './Document.vue'
@@ -316,7 +315,7 @@
         if(!_.isNumber(pageNumber))pageNumber = 1;
 
         this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
-            {header:getHeader()}).then(response=>{
+            {headers:getHeader()}).then(response=>{
               if(response.status===200) {
                 this.result.candidateList = [];
                 response.data.resultList.forEach(item => this.result.candidateList.push(item))
@@ -336,7 +335,7 @@
         this.$refs.certificate.reset();
       },
       searchByDocument(){
-          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{header:getHeader()}).then(
+          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{headers:getHeader()}).then(
             response=>{
               if(response.status === 200){
                 console.log('document',response.data);
@@ -355,7 +354,7 @@
         if(this.criteria.candidateId && this.criteria.candidateId.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/candidate/search/id/"+
-            this.criteria.candidateId,options,{header:getHeader()}).then(response=>{
+            this.criteria.candidateId,options,{headers:getHeader()}).then(response=>{
 
               if (response.status ===200){
                 this.result.idResultList = response.data;
@@ -367,7 +366,7 @@
         if(this.criteria.actId && this.criteria.actId.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/candidate/search/actId/"+
-            this.criteria.actId,options,{header:getHeader()}).then(response=>{
+            this.criteria.actId,options,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
             };
@@ -422,7 +421,7 @@
 
         if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
           this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
-           this.criteria.location, {header:getHeader() }).then( response => {
+           this.criteria.location, {headers:getHeader() }).then( response => {
               if (response.status ===200) {
 
                 this.result.locationResultList = response.data;
@@ -440,7 +439,7 @@
           this.criteria.candidateName.name = this.criteria.candidateName.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/candidate/search/name",
-            this.criteria.candidateName,{header:getHeader()}).then(response=>{
+            this.criteria.candidateName,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
             };
@@ -455,7 +454,7 @@
         !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
           this.$http.post("http://localhost:8080/candidate/search/gig",
 
-            this.criteria.experience, {header:getHeader() }).then( response => {
+            this.criteria.experience, {headers:getHeader() }).then( response => {
             if (response.status === 200) {
               this.result.experienceResultList = response.data;
             }
@@ -577,7 +576,7 @@
       searchByEvaluation(evaluation){
         this.$http.post("http://localhost:8080/candidate/search/evaluation",
 
-          this.criteria.evaluation, {header:getHeader() }).then( response => {
+          this.criteria.evaluation, {headers:getHeader() }).then( response => {
           if (response.status === 200) {
             this.result.evalResultList = response.data;
           }
@@ -586,7 +585,8 @@
       handleDocumentClick(){
       },
       getChildrenNodes(key, resolve){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
+        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()})
+          .then(response=> {
           if (response.status === 200) {
             resolve(response.data);
           } else resolve([]);
@@ -610,11 +610,9 @@
               {id: 180, label: 'Presentation'}
             ])
           }
-          if(node.level>1)
-          {
+          if(node.level>1) {
            this.getChildrenNodes(node, resolve);
           }
-
       },
       fetchPosition(){
         let positionOptions = JSON.parse(localStorage.getItem("positionOptions"));

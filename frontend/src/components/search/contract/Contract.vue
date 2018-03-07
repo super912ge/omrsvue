@@ -201,8 +201,8 @@
     </el-row>
     <el-row>
       <div style="margin-top: 20px"></div>
-      <!--<display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"-->
-                         <!--@pageChange="displayCandidate"></display-candidate>-->
+      <!--<display-participant v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"-->
+                         <!--@pageChange="displayCandidate"></display-participant>-->
     </el-row>
   </div>
 </template>

@@ -197,7 +197,7 @@
         if(!_.isNumber(pageNumber))pageNumber = 1;
         console.log(pageNumber);
         this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
-          {header:getHeader()}).then(response=>{
+          {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
             response.data.resultList.forEach(item => this.result.bandList.push(item));
@@ -223,7 +223,7 @@
           this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/band/search/name",
-            this.criteria.band.name,{header:getHeader()}).then(response=>{
+            this.criteria.band.name,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.nameResultList = response.data;
             };
@@ -236,7 +236,7 @@
       searchBySize(){
         let options = { emulateJSON: true};
         this.$http.post("http://localhost:8080/band/search/size",
-          this.criteria.band.size,{header:getHeader()}).then(response=>{
+          this.criteria.band.size,{headers:getHeader()}).then(response=>{
           if (response.status ===200){
             this.result.sizeResultList = response.data;
           }
@@ -250,7 +250,7 @@
           !_.isEmpty(this.criteria.experience.gigTypeId)){
           this.$http.post("http://localhost:8080/band/search/gig",
 
-            this.criteria.experience, {header:getHeader() }).then( response => {
+            this.criteria.experience, {headers:getHeader() }).then( response => {
 
               if (response.status === 200) {
 
@@ -267,7 +267,7 @@
 //        this.result.totalPage = data.totalPage * 10;
 //        this.result.showSearchResult = true;
         this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
-          {header:getHeader()}).then(response=>{
+          {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
             response.data.resultList.forEach(item => this.result.bandList.push(item));
