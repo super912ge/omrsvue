@@ -1,12 +1,12 @@
 package com.proship.omrs.candidate.info.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.candidate.base.entity.BaseOverrideEntity;
-import com.proship.omrs.candidate.participant.entity.Participant;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Where(clause = "nexttransactiontime > current_date")

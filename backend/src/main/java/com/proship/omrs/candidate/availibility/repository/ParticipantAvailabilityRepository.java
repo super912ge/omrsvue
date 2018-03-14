@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.participant.repository;
+package com.proship.omrs.candidate.availibility.repository;
 
 import com.proship.omrs.candidate.availibility.entity.ParticipantAvailabilityBts;
 import org.springframework.data.jpa.repository.JpaRepository;

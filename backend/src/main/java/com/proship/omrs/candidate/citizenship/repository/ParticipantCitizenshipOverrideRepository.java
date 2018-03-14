@@ -5,6 +5,8 @@ import com.proship.omrs.candidate.citizenship.entity.ParticipantCitizenshipOverr
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 public interface ParticipantCitizenshipOverrideRepository extends
@@ -15,4 +17,9 @@ public interface ParticipantCitizenshipOverrideRepository extends
             " r.participantCitizenship.countryId = :countryId")
     Set<Long> findCandidateIdByCitizenship(@Param("countryId") Long countryId);
 
+    List<ParticipantCitizenshipOverride> findParticipantCitizenshipOverrideByIdIn(List<Long> ids);
+
+    @Query("select r from ParticipantCitizenshipOverride r where r.nexttransactiontime > :date and r.participant.id = :candidate")
+    List<ParticipantCitizenshipOverride> findByParticipantAndAndNexttransactiontimeIsAfter(@Param("candidate")Long id,
+                                                                                         @Param("date") Timestamp date);
 }

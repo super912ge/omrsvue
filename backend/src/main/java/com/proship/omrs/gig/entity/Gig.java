@@ -3,10 +3,6 @@ package com.proship.omrs.gig.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.chair.ChairRequirementTag;
 import com.proship.omrs.contract.entity.ContractMainShard;
-import org.hibernate.annotations.BatchSize;
-import org.springframework.data.jpa.repository.Query;
-
-import javax.jdo.annotations.Value;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;

@@ -4,6 +4,8 @@
     <div v-if="confirmed" style="font-size: small">
 
       <span>{{contactStr}}</span>
+      <el-button size="mini"  icon="el-icon-edit" @click="edit"></el-button>
+      <el-button size="mini" icon="el-icon-delete" @click="deleteContact" ></el-button>
     </div>
     <div v-else>
       <el-select v-model="contact.type"  placeholder="Select" size="mini">
@@ -18,19 +20,25 @@
         </el-select>
 
       </el-input>
+
       <el-button size="mini" icon="el-icon-check" @click="confirm"></el-button>
+      <el-button size="mini" icon="el-icon-delete" @click="deleteContact" ></el-button>
     </div>
   </div>
 </template>
 <script>
 import _ from 'lodash'
 import {getHeader} from "../../../../env.js"
+
   export default {
+
+    props:['candidateId'],
 
     data(){
       return {
         confirmed: false,
         contact: {
+          id: null,
           type: '',
           method: '',
           text: ''
@@ -62,19 +70,51 @@ import {getHeader} from "../../../../env.js"
     },
     methods:{
       confirm(){
-        this.confirmed = true;
-        this.$http.post("http://localhost:8080/contact/create",this.contact,{headers:getHeader()}).then(
-          res=>{
-            if(res.status===200){
-              this.$emit('addContact', this.contact);
-            }}
-        );
+
+        console.log('contactComponent',this.candidateId);
+        if(this.contact.id){
+          this.$http.post("http://localhost:8080/contact/update",this.contact,{headers:getHeader()}).then(
+            res=>{
+              if(res.status===200){
+
+                this.contact.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('editContact', this.contact);
+
+              }}
+          );
+        }
+        else {
+          this.$http.post("http://localhost:8080/contact/create/" + this.candidateId, this.contact, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.contact.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('addContact', this.contact);
+              }
+            }
+          );
+        }
+      },
+      edit(){
+        this.confirmed = false;
+      },
+      deleteContact(){
+        if(this.contact.id) {
+          this.$http.get("http://localhost:8080/contact/delete/" + this.contact.id, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.$emit('deleteContact', this.contact.id);
+              }
+            });
+        }else this.$emit('deleteContact', this.contact.id);
       }
     },
     computed:{
       contactStr(){
         return _.find(this.contactFieldLabelOptions,['id',this.contact.type]).label+
           " "+_.find(this.contactFieldTypeOptions,['id',this.contact.method]).label+": "+this.contact.text;
+//        return null;
       }
     }
   }

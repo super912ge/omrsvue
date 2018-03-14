@@ -3,8 +3,7 @@ package com.proship.omrs.candidate.info.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proship.omrs.candidate.base.entity.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,6 +11,11 @@ public class ParticipantInfoTemporal extends BaseEntity {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_info_temporal_id_seq")
+    @SequenceGenerator(
+            name="participant_info_temporal_id_seq",
+            sequenceName="participant_info_temporal_id_sequence"
+    )
     private Long id;
 
 

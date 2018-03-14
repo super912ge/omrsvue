@@ -3,20 +3,19 @@ package com.proship.omrs.candidate.homeAirport.entity;
 import com.proship.omrs.candidate.base.entity.BaseEntity;
 import com.proship.omrs.system.airport.entity.Airport;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 public class ParticipantHomeAirport extends BaseEntity{
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_home_airport_id_seq")
+    @SequenceGenerator(
+            name="participant_home_airport_id_seq",
+            sequenceName="participant_home_airport_id_sequence"
+    )
     private Long id;
-
-    private Long creatorId;
 
     @ManyToOne
     @JoinColumn(name = "airportId")

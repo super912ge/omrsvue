@@ -1,6 +1,8 @@
 <template>
   <div style="margin: 15px">
-    <div v-if="confirmed" style="font-size: small"> {{residencyStr}}</div>
+    <div v-if="confirmed" style="font-size: small"> <span>{{residencyStr}}</span>
+      <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
+    </div>
 
     <el-transfer v-else
       v-model="residency"
@@ -15,8 +17,9 @@
 </template>
 <script>
   import _ from 'lodash'
+  import {getHeader} from '../../../../env.js'
   export default {
-    props:['countries'],
+    props:['countries','candidateId','type'],
     data() {
       const generateData = _ => {
         const data = [];
@@ -34,23 +37,68 @@
         confirmed:false,
         options: generateData(),
         residency: [],
+        confirmedResidency:[],
         titles: ['Options','Added']
       }
     },
     methods:{
-      confirm(){
-        this.confirmed = true;
-        this.$emit('addResidencyInfo',this.residency);
+      confirm() {
+        if (this.confirmedResidency.length === 0 && this.residency.length !== 0) {
+
+          this.$http.post("http://localhost:8080/" + this.type + "/create/" + this.candidateId, this.residency,
+            {headers: getHeader()}).then(response => {
+
+            if (response.status === 200) {
+              this.confirmedResidency = response.data.result;
+              this.$emit('addResidencyInfo', this.confirmedResidency);
+              this.confirmed = true
+            }
+          })
+        } else if (this.residency.length === 0) {
+            this.$http.get("http://localhost:8080/" + this.type + "/delete/" + this.candidateId, {headers: getHeader()}).then(
+              res => {
+                if (res.status === 200) {
+                  this.confirmedResidency = [];
+                  this.$emit('editResidencyInfo', this.confirmedResidency);
+                  this.confirmed = true;
+                }
+              });
+          }
+          else
+        {
+          this.$http.post("http://localhost:8080/" + this.type + "/update/" + this.candidateId, this.residency,
+            {headers: getHeader()}).then(response => {
+            if (response.status === 200) {
+              this.confirmedResidency = response.data.result;
+              this.$emit('editResidencyInfo', this.confirmedResidency);
+              this.confirmed = true;
+            }
+          })
+        }
       },
       reset(){
         this.residency = [];
+      },
+      edit(){
+        this.confirmed = false;
+      },
+      deleteResidency(){
+        if(this.confirmed) {
+          this.$http.get("http://localhost:8080/"+this.type+"/delete/" + this.candidateId, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.confirmedResidency = [];
+              }
+            });
+        }
       }
     },
     computed:{
       residencyStr(){
         let str = '';
-        this.residency.forEach(id => {
-          str = str+ _.find(this.countries, ['id', id]).name +", ";
+        if(this.confirmedResidency.length===0) return 'No country selected';
+        this.confirmedResidency.forEach(item => {
+          str = str+ item.country.name +", ";
         });
         return str.slice(0,-2);
       }

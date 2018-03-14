@@ -18,7 +18,10 @@ public class Association {
 
         this.name = participant.getName();
 
-        EvalTag primarySkill = Utils.findPrimarySkill(participant.getEvaluation());
+        EvalTag primarySkill = null;
+        if (!participant.getEvaluation().getChildren().isEmpty()) {
+           primarySkill = Utils.findPrimarySkill(participant.getEvaluation());
+        }
 
         if (primarySkill!=null)
         this.primarySkill = primarySkill.getType().getLabel();

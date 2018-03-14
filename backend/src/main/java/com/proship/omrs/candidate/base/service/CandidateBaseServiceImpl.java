@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.sql.Timestamp;
 
-public class CandidateBaseServiceImpl {
+public class CandidateBaseServiceImpl<T extends BaseEntity, D extends BaseOverrideEntity> {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -47,36 +47,25 @@ public class CandidateBaseServiceImpl {
         return participantRepository.findOne(id);
    }
 
-   public BaseEntity getNewBaseEntity(){
+   public T getNewBaseEntity(T t){
 
-       BaseEntity baseEntity = new BaseEntity();
 
-       baseEntity.setCreatorId(getUserId());
 
-       baseEntity.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+       t.setCreatorId(getUserId());
 
-       return baseEntity;
+       t.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+
+       return t;
    }
 
-    public BaseEntityCountry getNewBaseEntityWithCountryId(Long countryId){
+   public D getNewBaseOverrideEntity(D d, Long id){
 
-        BaseEntityCountry baseEntityCountry = (BaseEntityCountry) getNewBaseEntity();
+       d.setDestroyerId(getUserId());
 
-        baseEntityCountry.setCountryId(countryId);
+       d.setParticipant(getParticipant(id));
 
-        return baseEntityCountry;
-    }
+       d.setNexttransactiontime(Utils.getInfiniteTimestamp());
 
-   public BaseOverrideEntity getNewBaseOverrideEntity(Long id){
-
-       BaseOverrideEntity baseOverrideEntity = new BaseOverrideEntity();
-
-       baseOverrideEntity.setDestroyerId(getUserId());
-
-       baseOverrideEntity.setParticipant(getParticipant(id));
-
-       baseOverrideEntity.setNexttransactiontime(Utils.getInfiniteTimestamp());
-
-       return baseOverrideEntity;
+       return d;
    }
 }

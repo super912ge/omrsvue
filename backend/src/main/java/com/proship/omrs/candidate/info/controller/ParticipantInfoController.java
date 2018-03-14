@@ -2,6 +2,7 @@ package com.proship.omrs.candidate.info.controller;
 
 
 import com.proship.omrs.candidate.info.param.CreateInfoParam;
+import com.proship.omrs.candidate.info.param.UpdateInfoParam;
 import com.proship.omrs.candidate.info.service.ParticipantInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,34 @@ public class ParticipantInfoController {
         map.put("success",true);
 
         map.put("result", result);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
+    }
+
+    @RequestMapping("update")
+    public ResponseEntity<Map<String,Object>>update(UpdateInfoParam param){
+
+        Long id = participantInfoService.update(param);
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("success",true);
+
+        map.put("result", id);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
+    }
+
+    @RequestMapping("delete/{id}")
+    public ResponseEntity<Map<String,Object>>delete(@PathVariable("id") Long id){
+
+        participantInfoService.delete(id);
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("success",true);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
 

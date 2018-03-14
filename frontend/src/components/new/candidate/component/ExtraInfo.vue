@@ -1,7 +1,9 @@
 <template>
 
   <div STYLE="font-size: small; margin: 15px">
-    <div v-if="confirmed">{{infoStr}} </div>
+    <div v-if="confirmed">{{infoStr}}
+      <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
+    <el-button size="mini" icon="el-icon-delete" @click="deleteExtraInfo" ></el-button></div>
     <div v-else>
       <el-input placeholder="Please input" size="mini" style="width:  350px" v-model="info.value">
 
@@ -12,17 +14,21 @@
         </el-select>
 
       </el-input>
+
       <el-button size="mini" icon="el-icon-check" @click="confirm"></el-button>
+      <el-button size="mini" icon="el-icon-delete" @click="deleteExtraInfo" ></el-button>
     </div>
   </div>
 </template>
 <script>
-
+import {getHeader} from '../../../../env.js'
   export default {
+  props: ['candidateId'],
     data(){
       return {
         confirmed:false,
         info:{
+          id:null,
           type: null,
           value:null
         },
@@ -31,8 +37,45 @@
     },
     methods:{
       confirm(){
-        this.confirmed = true;
-        this.$emit('addExtraInfo', this.info);
+
+        if (!this.info.id) {
+          this.$http.post("http://localhost:8080/info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.info.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('addExtraInfo', this.info);
+              }
+            })
+        }else {
+          this.$http.post("http://localhost:8080/info/update",this.info,{headers:getHeader()}).then(
+            res=>{
+              if(res.status===200){
+                this.info.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('editExtraInfo', this.info);
+
+              }}
+          );
+        }
+      },
+
+      edit(){
+        this.confirmed = false;
+
+      },
+
+
+      deleteExtraInfo(){
+
+        if(this.confirmed) {
+          this.$http.get("http://localhost:8080/info/delete/" + this.info.id, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.$emit('deleteExtraInfo', this.info.id);
+              }
+            });
+        }else this.$emit('deleteExtraInfo',this.info.id);
       }
     },
     computed:{

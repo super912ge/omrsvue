@@ -1,12 +1,13 @@
 package com.proship.omrs.candidate.address.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proship.omrs.candidate.base.entity.BaseEntityCountry;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class ParticipantAddress {
+public class ParticipantAddress extends BaseEntityCountry{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_address_id_seq")
@@ -32,7 +33,6 @@ public class ParticipantAddress {
 
     private String postalCode ;
 
-    private Long countryId;
 
     public Long getId() {
         return id;
@@ -98,11 +98,4 @@ public class ParticipantAddress {
         this.postalCode = postalCode;
     }
 
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
 }

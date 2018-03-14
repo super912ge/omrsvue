@@ -3,7 +3,7 @@ package com.proship.omrs.candidate.event.entity;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import com.proship.omrs.candidate.participant.repository.ParticipantEventTypeRepository;
+import com.proship.omrs.candidate.event.repository.ParticipantEventTypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

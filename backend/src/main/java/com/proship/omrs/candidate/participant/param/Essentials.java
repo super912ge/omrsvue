@@ -64,6 +64,7 @@ public class Essentials {
 
         this.mainAddress = participant.getAddress().stream().map(ParticipantAddressOverride::getAddress).collect(Collectors.toList());
 
+        if (!participant.getEvaluation().getChildren().isEmpty())
         this.primarySkill = Utils.findPrimarySkill(participant.getEvaluation()).getType().getLabel();
 
         if (participant.getHomeAirports()!=null && !participant.getHomeAirports().isEmpty()){

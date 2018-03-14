@@ -1,13 +1,18 @@
 package com.proship.omrs.candidate.contact.entity;
 
 import com.proship.omrs.candidate.base.entity.BaseEntity;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
 public class ParticipantContactField extends BaseEntity{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_contact_field_id_seq")
+    @SequenceGenerator(
+            name="participant_contact_field_id_seq",
+            sequenceName="participant_contact_field_id_sequence"
+    )
     private Long id;
 
     private String value ;
@@ -47,4 +52,8 @@ public class ParticipantContactField extends BaseEntity{
     public void setContactFieldTypeId(Long contactFieldTypeId) {
         this.contactFieldTypeId = contactFieldTypeId;
     }
+
+//    ParticipantContactField getEntity(){
+//
+//    }
 }

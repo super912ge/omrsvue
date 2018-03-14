@@ -2,6 +2,8 @@
   <div>
   <div v-if="confirmed" style="margin-left: 20px">
     <span style="font-size: small"> {{addressStr}}</span>
+    <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
+    <el-button size="mini" icon="el-icon-delete" @click="deleteAddress" ></el-button>
   </div>
   <div v-else style="padding: 10px; font-size: small" >
     <div style="margin: 5px">
@@ -27,7 +29,9 @@
       </el-select>
       <span>Postal Code: </span>
       <el-input size="mini" v-model="address.postalCode" style="width: 80px"></el-input>
+
       <el-button size="mini" icon="el-icon-check" @click="confirm"></el-button>
+      <el-button size="mini" icon="el-icon-delete" @click="deleteAddress"></el-button>
     </div>
   </div>
   </div>
@@ -35,11 +39,13 @@
 
 <script>
 import _ from 'lodash'
+import {getHeader} from "../../../../env.js"
   export default {
-    props:['countries'],
+    props:['countries','candidateId'],
     data(){
       return {
         address:{
+          id:null,
           line1:'',
           line2:'',
           city: '',
@@ -47,20 +53,60 @@ import _ from 'lodash'
           postalCode:'',
           country: null
         },
-        options:[{id:1,name:'b'},{id:2, name:'e'}],
+//        options:[{id:1,name:'b'},{id:2, name:'e'}],
         confirmed: false
       }
     },
     methods:{
       confirm(){
-        this.confirmed = true;
-        this.$emit('addAddress', this.address);
+        if(this.address.id){
+          this.$http.post("http://localhost:8080/address/update",this.address,{headers:getHeader()}).then(
+            res=>{
+              if(res.status===200){
+                this.address.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('editAddress', this.address);
+              }}
+          );
+        }
+        else {
+          this.$http.post("http://localhost:8080/address/create/" + this.candidateId, this.address, {headers: getHeader()}).then(
+            res => {
+              if (res.status === 200) {
+                this.address.id = res.data.result;
+                this.confirmed = true;
+                this.$emit('addAddress', this.address.id);
+
+              }
+            }
+          );
+        }
+      },
+      edit(){
+        this.confirmed = false;
+      },
+      deleteAddress(){
+        if(this.address.id)
+        this.$http.get("http://localhost:8080/address/delete/" + this.address.id,  {headers: getHeader()}).then(
+          res => {
+            if (res.status === 200) {
+              this.$emit('deleteAddress', this.address.id);
+            }
+          });
+        else  this.$emit('deleteAddress', this.address.id);
       }
     },
     computed:{
       addressStr(){
+
+        if(this.address.line2===null || ''===this.address.line2.trim())
+          return this.address.line1 + ", "+ this.address.city + ", "
+            + this.address.region+ ", "+ _.find(this.countries,['id',this.address.country]).name+", "
+            +this.address.postalCode;
+        else
         return this.address.line1 + ", "+ this.address.line2 + ", "+ this.address.city + ", "
-          + this.address.region+ ", "+ _.find(this.countries,['id',this.address.country]).name+", "+this.address.postalCode;
+          + this.address.region+ ", "+ _.find(this.countries,['id',this.address.country]).name+", "
+          +this.address.postalCode;
       }
     }
 

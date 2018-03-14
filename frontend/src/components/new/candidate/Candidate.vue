@@ -80,7 +80,7 @@
         </el-row>
 
         <el-row>
-            <essentials></essentials>
+            <essentials :candidateId="candidateId"></essentials>
         </el-row>
       </el-main>
       <el-aside style="width: 16%">

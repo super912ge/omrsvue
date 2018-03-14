@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.participant.repository;
+package com.proship.omrs.candidate.name.repository;
 
 import com.proship.omrs.candidate.name.entity.ParticipantActName;
 import org.springframework.data.jpa.repository.JpaRepository;
