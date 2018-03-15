@@ -271,7 +271,7 @@
     methods: {
       handleNameChange(){
 
-        _.debounce(this.searchByName,700)();
+        _.debounce(this.searchByName,500)();
       },
 //      handleReqChange(){},
 
@@ -283,7 +283,7 @@
         if(this.criteria.name && this.criteria.name.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/gig/search/name/"+
-            this.criteria.name,options,{header:getHeader()}).then(response=>{
+            this.criteria.name,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
               this.result.nameResultList = response.data;
@@ -296,7 +296,7 @@
         if(!_.isNumber(pageNumber))pageNumber = 1;
 
         this.$http.post("http://localhost:8080/gig/display",{ids: this.gigIdList, page:pageNumber-1,size:20},
-          {header:getHeader()}).then(response=>{
+          {headers:getHeader()}).then(response=>{
           if(response.status === 200) {
             this.result.gigList = [];
             response.data.resultList.forEach(item => this.result.gigList.push(item));
@@ -316,7 +316,7 @@
         if(this.criteria.proship.accountManager){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/gig/search/accountManager/"+
-            this.criteria.proship.accountManager,options,{header:getHeader()}).then(response=>{
+            this.criteria.proship.accountManager,options,{headers:getHeader()}).then(response=>{
             if (response.status === 200){
               this.result.proshipResultList = response.data;
               console.log(this.result.proshipResultList)
@@ -333,7 +333,7 @@
         if(this.criteria.proship.gigId && this.criteria.proship.gigId.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/gig/search/id/"+
-            this.criteria.proship.gigId,options,{header:getHeader()}).then(response=>{
+            this.criteria.proship.gigId,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
               this.result.idResultList = response.data;
@@ -352,7 +352,7 @@
         if(this.criteria.proship.jobId){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/gig/search/jobId/"+
-            this.criteria.proship.jobId,options,{header:getHeader()}).then(response=>{
+            this.criteria.proship.jobId,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
               this.result.idResultList = response.data;
@@ -366,7 +366,7 @@
       },
       searchByType(){
         this.$http.post("http://localhost:8080/gig/search/type",
-          this.criteria.type, {header:getHeader() }).then( response => {
+          this.criteria.type, {headers:getHeader() }).then( response => {
           if (response.status === 200) {
             this.result.typeResultList = response.data;
           }

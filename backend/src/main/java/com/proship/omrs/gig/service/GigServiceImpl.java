@@ -1,13 +1,9 @@
 package com.proship.omrs.gig.service;
 
-import com.proship.omrs.candidate.candidate.entity.Participant;
-import com.proship.omrs.candidate.candidate.param.CandidateBrief;
-import com.proship.omrs.candidate.candidate.param.DisplayCandidateResultParam;
 import com.proship.omrs.candidate.group.param.SearchByGigParam;
 import com.proship.omrs.contract.repository.ContractShardRepository;
 import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.entity.PositionMap;
-import com.proship.omrs.gig.param.DisplayGigParam;
 import com.proship.omrs.gig.param.DisplayGigResultParam;
 import com.proship.omrs.gig.param.GigBrief;
 import com.proship.omrs.gig.repository.GigMainShardRepository;
@@ -45,7 +41,7 @@ public class GigServiceImpl implements GigService {
     GigRepository gigRepository;
 
     @Override
-    public Set<Long> findCandidateByGig(com.proship.omrs.candidate.candidate.param.SearchByGigParam param) {
+    public Set<Long> findCandidateByGig(com.proship.omrs.candidate.participant.param.SearchByGigParam param) {
 
         Set<Long> gigIds = findGigIdByRoomAndGigType(param);
 

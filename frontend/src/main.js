@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -24,16 +25,16 @@ const router = new VueRouter({
     routes
 });
 Vue.router = router;
+
 new Vue({
   el: '#app',
     router,
     store,
- // render: h => h(App)
   template: '<App/>',
   components: { App }
-})
+});
 
-Vue.http.options.root = 'http://localhost:8080'
+Vue.http.options.root = 'http://localhost:8080';
 Vue.http.headers.common['Authorization'] = header_auth;
 
 

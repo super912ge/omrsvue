@@ -1,7 +1,6 @@
 package com.proship.omrs.candidate.group.repository;
 
-import com.proship.omrs.candidate.candidate.entity.Participant;
-import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import com.proship.omrs.candidate.group.entity.GroupActMemberShard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

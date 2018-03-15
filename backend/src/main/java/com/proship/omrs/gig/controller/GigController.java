@@ -1,7 +1,7 @@
 package com.proship.omrs.gig.controller;
 
 import com.proship.omrs.base.controller.BaseController;
-import com.proship.omrs.candidate.candidate.param.SearchByGigParam;
+import com.proship.omrs.candidate.participant.param.SearchByGigParam;
 import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.param.DisplayGigParam;
 import com.proship.omrs.gig.param.DisplayGigResultParam;

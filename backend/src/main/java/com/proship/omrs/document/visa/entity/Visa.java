@@ -168,4 +168,5 @@ public class Visa extends Document{
     public void setVisaTypeId(Long visaTypeId) {
         this.visaTypeId = visaTypeId;
     }
+
 }

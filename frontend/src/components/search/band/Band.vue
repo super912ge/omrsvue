@@ -197,7 +197,7 @@
         if(!_.isNumber(pageNumber))pageNumber = 1;
         console.log(pageNumber);
         this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
-          {header:getHeader()}).then(response=>{
+          {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
             response.data.resultList.forEach(item => this.result.bandList.push(item));
@@ -213,7 +213,7 @@
       },
       handleNameChange(){
         console.log('band name changed');
-        _.debounce(this.searchByName,1500)();
+        _.debounce(this.searchByName,500)();
       },
 
       searchByName(){
@@ -223,7 +223,7 @@
           this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/band/search/name",
-            this.criteria.band.name,{header:getHeader()}).then(response=>{
+            this.criteria.band.name,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.nameResultList = response.data;
             };
@@ -231,26 +231,26 @@
         }
       },
       handleSizeChange(){
-        _.debounce(this.searchBySize,1500)();
+        _.debounce(this.searchBySize,500)();
       },
       searchBySize(){
         let options = { emulateJSON: true};
         this.$http.post("http://localhost:8080/band/search/size",
-          this.criteria.band.size,{header:getHeader()}).then(response=>{
+          this.criteria.band.size,{headers:getHeader()}).then(response=>{
           if (response.status ===200){
             this.result.sizeResultList = response.data;
           }
         })
       },
       handleExperienceChange(){
-        _.debounce(this.searchByExperience,1500)();
+        _.debounce(this.searchByExperience,500)();
       },
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
           !_.isEmpty(this.criteria.experience.gigTypeId)){
           this.$http.post("http://localhost:8080/band/search/gig",
 
-            this.criteria.experience, {header:getHeader() }).then( response => {
+            this.criteria.experience, {headers:getHeader() }).then( response => {
 
               if (response.status === 200) {
 
@@ -267,7 +267,7 @@
 //        this.result.totalPage = data.totalPage * 10;
 //        this.result.showSearchResult = true;
         this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
-          {header:getHeader()}).then(response=>{
+          {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
             response.data.resultList.forEach(item => this.result.bandList.push(item));

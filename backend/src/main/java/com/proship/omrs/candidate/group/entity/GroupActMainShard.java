@@ -2,8 +2,8 @@ package com.proship.omrs.candidate.group.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.base.entity.MainShardEntity;
-import com.proship.omrs.candidate.candidate.entity.Participant;
-import com.proship.omrs.candidate.candidate.param.ParticipantSerializer;
+import com.proship.omrs.candidate.participant.entity.Participant;
+import com.proship.omrs.candidate.participant.param.ParticipantSerializer;
 import com.proship.omrs.gig.entity.BandType;
 import org.hibernate.annotations.Where;
 
@@ -32,7 +32,7 @@ public class GroupActMainShard extends MainShardEntity {
             joinColumns = {@JoinColumn(name="groupactMainShardId")},
             inverseJoinColumns = {@JoinColumn(name="bandtypeId")}
     )
-    BandType bandType;
+    private BandType bandType;
 
     public Long getId() {
         return id;

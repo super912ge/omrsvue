@@ -1,7 +1,6 @@
 package com.proship.omrs.candidate.group.controller;
 
 import com.proship.omrs.base.controller.BaseController;
-import com.proship.omrs.candidate.candidate.param.DisplayCandidateResultParam;
 import com.proship.omrs.candidate.group.entity.Act;
 import com.proship.omrs.candidate.group.param.*;
 import com.proship.omrs.candidate.group.repository.ActRepository;

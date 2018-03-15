@@ -3,8 +3,9 @@ package com.proship.omrs.base.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.user.entity.User;
 
+import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
-
+@MappedSuperclass
 public class BaseEntityWithCreator {
 
     @JsonIgnore
@@ -28,7 +29,15 @@ public class BaseEntityWithCreator {
     public void setNexttransactiontime(Timestamp nexttransactiontime) {
         this.nexttransactiontime = nexttransactiontime;
     }
-    private User creator;
 
 
+    private Long creatorId;
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
 }

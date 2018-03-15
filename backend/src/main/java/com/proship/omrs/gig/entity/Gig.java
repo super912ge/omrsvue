@@ -3,10 +3,6 @@ package com.proship.omrs.gig.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.chair.ChairRequirementTag;
 import com.proship.omrs.contract.entity.ContractMainShard;
-import org.hibernate.annotations.BatchSize;
-import org.springframework.data.jpa.repository.Query;
-
-import javax.jdo.annotations.Value;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +18,7 @@ public class Gig {
 
     @ManyToOne
     @JoinColumn(name = "parent_gig_id")
+    @JsonIgnore
     private Gig parentGig;
 
     @OneToMany(mappedBy = "parentGig")
@@ -34,7 +31,8 @@ public class Gig {
     @JsonIgnore
     private Set<ContractMainShard> contracts;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "chairRequirementTagId")
     private ChairRequirementTag chairRequirementTag;
 

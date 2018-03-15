@@ -1,20 +1,38 @@
 package com.proship.omrs.evaluation.service;
 
-import com.proship.omrs.evaluation.param.EvaluationSearchParam;
-import com.proship.omrs.evaluation.param.GeneralRatingParam;
-import com.proship.omrs.evaluation.param.InstrumentRating;
-import com.proship.omrs.evaluation.param.InstrumentRatingSearchParam;
+import com.proship.omrs.evaluation.entity.EvalTag;
+import com.proship.omrs.evaluation.entity.EvalTagComment;
+import com.proship.omrs.evaluation.param.*;
+import com.proship.omrs.evaluation.repository.EvalTagCommentRepository;
 import com.proship.omrs.evaluation.repository.EvalTagRepository;
+import com.proship.omrs.user.entity.CustomUser;
+import com.proship.omrs.utils.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class EvaluationTagServiceImpl implements EvaluationTagService{
 
+
     @Autowired
     EvalTagRepository repo;
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Autowired
+    EvalTagCommentRepository evalTagCommentRepository;
 
     @Override
     public Set<Long> findEvaluationByCriteria (EvaluationSearchParam param) {
@@ -92,6 +110,101 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
         return repo.findEvalTagByAllCriteria(totalSearchSet, (long)totalCriteria);
     }
 
+    @Override
+    @Transactional
+    public EvalTag createNewRating(Long id, NewRatingParam param) {
+
+
+        String username =
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        CustomUser user = (CustomUser)userDetailsService.loadUserByUsername(username);
+
+        EvalTag root = repo.findOne(id);
+
+        if (root.getChildren()==null|| root.getChildren().isEmpty()) {
+
+            if (param.getInstrument() != null && param.getInstrument().getInstrumentTypeId()!=null) {
+
+                EvalTag instrumentRoot = setEvalTag(2l, root, user.getUserId());
+
+                instrumentRoot = repo.save(instrumentRoot);
+
+                EvalTag instrument = setEvalTag(param.getInstrument().getInstrumentTypeId(), instrumentRoot, user.getUserId());
+
+                instrument = repo.save(instrument);
+
+                if (param.getInstrument().getRatings() != null && !param.getInstrument().getRatings().isEmpty()) {
+
+                    EvalTag primarySkill = setEvalTag(82l, instrument,user.getUserId());
+
+                    repo.save(primarySkill);
+
+                    for (InstrumentRating ratingParam : param.getInstrument().getRatings()) {
+
+                        EvalTag ratingType = setEvalTag(ratingParam.getRatingTypeId(), instrument, user.getUserId());
+
+                        ratingType = repo.save(ratingType);
+
+                        EvalTag rating = setEvalTag(ratingParam.getRatingId(), ratingType, user.getUserId());
+
+                        repo.saveAndFlush(rating);
+
+                        repo.refresh(ratingType);
+                    }
+                    repo.refresh(instrument);
+                    repo.refresh(instrumentRoot);
+                }
+            }
+            if (param.getClassification()!=null&& !param.getClassification().isEmpty()){
+
+                EvalTag classificationRoot = setEvalTag(133l,root,user.getUserId());
+
+                repo.save(classificationRoot);
+
+                saveAndRefreshTags(repo,classificationRoot,param.getClassification(),user.getUserId());
+
+                repo.refresh(classificationRoot);
+            }
+            if (param.getLanguage()!=null&& !param.getLanguage().isEmpty()){
+
+                EvalTag languageRoot = setEvalTag(4l,root,user.getUserId());
+
+                repo.save(languageRoot);
+
+                saveAndRefreshTags(repo,languageRoot,param.getLanguage(),user.getUserId());
+
+                repo.refresh(languageRoot);
+            }
+            if (param.getEvaluation()!=null){
+
+                if (param.getEvaluation().getComment()!=null&&!"".equals(param.getEvaluation().getComment().trim())) {
+
+                    EvalTagComment evalTagComment = new EvalTagComment();
+
+                    evalTagComment.setCreatorId(user.getUserId());
+
+                    evalTagComment.setNexttransactiontime(Utils.getInfiniteTimestamp());
+
+                    evalTagComment.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+
+                    evalTagComment.setEvalTag(root);
+
+                    evalTagCommentRepository.save(evalTagComment);
+                }
+            }
+        }
+        repo.flush();
+        repo.refresh(root);
+
+        return root;
+    }
+
+    @Override
+    public EvalTag findEvalTagById(Long id) {
+        return repo.findOne(id);
+    }
+
     private Set<Long>findInstrumentIds(Set<InstrumentRatingSearchParam> param ){
 
         Set<Long> instrumentSet = new HashSet<>();
@@ -158,13 +271,13 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
 
             if (p.getRatingId()==null){
 
-                searchWithoutRating.add(p.getSkillTypeId());
+                searchWithoutRating.add(p.getId());
 
                 continue;
 
             }else {
                 Set<Long> resultSet = repo.findEvalTagIdByClassificationOrPresentationRating(
-                        p.getRatingId(), p.getSkillTypeId()
+                        p.getRatingId(), p.getId()
                 );
                 if (add) {
 
@@ -200,12 +313,12 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
 
             if (p.getRatingId()==null){
 
-                searchWithoutRating.add(p.getSkillTypeId());
+                searchWithoutRating.add(p.getId());
 
                 continue;
             }else {
 
-                Set<Long> resultSet = repo.findEvalTagIdByLanguageRating(p.getRatingId(),p.getSkillTypeId());
+                Set<Long> resultSet = repo.findEvalTagIdByLanguageRating(p.getRatingId(),p.getId());
 
                 if (add) {
 
@@ -230,5 +343,34 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
         return languageSet;
     }
 
+    EvalTag setEvalTag(Long typeId, EvalTag parent, Long userId){
+
+        EvalTag evalTag = new EvalTag();
+
+        evalTag.setEvalTagTypeId(typeId);
+        evalTag.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+        evalTag.setNexttransactiontime(Utils.getInfiniteTimestamp());
+        evalTag.setParent(parent);
+        evalTag.setUuid(UUID.randomUUID().getMostSignificantBits());
+        evalTag.setCreatorId(userId);
+        evalTag.setDestroyerId(userId);
+        return evalTag;
+    }
+
+    private void saveAndRefreshTags(EvalTagRepository repo, EvalTag root, Set<GeneralRatingParam> params,Long userId ){
+
+        for (GeneralRatingParam ratingParam: params){
+
+            EvalTag ratingType = setEvalTag(ratingParam.getId(), root, userId);
+
+            ratingType = repo.save(ratingType);
+
+            EvalTag rating = setEvalTag(ratingParam.getRatingId(), ratingType, userId);
+
+            repo.saveAndFlush(rating);
+
+            repo.refresh(ratingType);
+        }
+    }
 }
 

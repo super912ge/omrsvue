@@ -3,50 +3,53 @@
     <el-table
       border
       :data="resultList"
-      style="width: 100%; font-size: 80%">
+      style="width: 80%;margin: auto;"
+      size="small">
       <el-table-column
         prop="actId"
         label="Act Id"
-        width ="100"
+        width="70"
       ></el-table-column>
 
       <el-table-column
         prop="name"
         label="Name"
-        width="120">
+        width="150"
+>
       </el-table-column>
 
       <el-table-column
         prop="nextAvailableDate"
         label="Next Available Date"
-        width="150">
+      >
       </el-table-column>
       <el-table-column
         label="Skills"
-        width="200" prop="evaluation">
+       prop="evaluation">
        <display-candidate-skill slot-scope="scope" :evaluation=scope.row.evaluation></display-candidate-skill>
       </el-table-column>
       <el-table-column
         prop="residency"
         label="Residency"
-        width="100">
+    >
       </el-table-column>
       <el-table-column
         prop="citizenship"
         label="Citizenship"
-        width="100">
+ >
       </el-table-column>
       <el-table-column
         prop="birthDay"
         label="Date of Birth"
-        width="150">
+    >
       </el-table-column>
       <el-table-column
         label="Operations"
-        width="107">
+>
         <template slot-scope="scope">
-          <el-button @click="handleClick" type="text" size="small">Detail</el-button>
-          <el-button type="text" size="small">Edit</el-button>
+          <router-link :to="{ name: 'DisplayCandidate', params: { id: scope.row.id }}">
+            <el-button @click="handleClick" type="text" size="small">Detail</el-button></router-link>
+          <el-button type="text" size="small">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>

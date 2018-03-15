@@ -1,14 +1,15 @@
 package com.proship.omrs.evaluation.repository;
 
+import com.proship.omrs.base.repository.CustomizedRepository;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-
-public interface EvalTagRepository extends JpaRepository<EvalTag,Long>{
+public interface EvalTagRepository extends CustomizedRepository<EvalTag,Long>{
 
     @Query("select e.parent.id from EvalTag e where e.nexttransactiontime> current_date  and " +
             "id in :ids group by e.parent.id having count(e.parent.id) = :num ")

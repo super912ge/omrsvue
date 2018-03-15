@@ -1,18 +1,18 @@
 <template>
 <div>
-<el-row>
-<el-col  :span="11" :offset="1">
-  <span class="demonstration">Candidate Id or Act Id</span>
-  <div style="margin-top: 15px"></div>
-<el-row>
-  <el-col :span="8" >
-    <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
-  </el-col>
-  <el-col :span="8" style="margin-left: 15px">
-    <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
-  </el-col>
+  <el-row>
+    <el-col  :span="11" :offset="1">
+      <span class="demonstration">Candidate Id or Act Id</span>
+      <div style="margin-top: 15px"></div>
+    <el-row>
+      <el-col :span="8" >
+        <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
+      </el-col>
+      <el-col :span="8" style="margin-left: 15px">
+        <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
+    </el-col>
 
-</el-row>
+  </el-row>
   <el-row>
     <div style="margin-top: 15px;">
       <span class="demonstration">Candidate Name</span>
@@ -179,23 +179,22 @@
     </el-row>
   </el-col>
 </el-row>
-  <el-row>
-<div style="margin-top: 20px"></div>
-    <el-col :span="4" :offset="8">
+    <el-row>
+      <div style="margin-top: 20px"></div>
+        <el-col :span="4" :offset="8">
 
-      <el-button style="margin: auto" @click="displayCandidate">Display Candidate({{candidateIdList.length}})</el-button>
-    </el-col>
-    <el-col :span="2">
-      <el-button style="margin: auto" @click="reset">Reset</el-button>
-    </el-col>
-
-  </el-row>
-<el-row>
-  <div style="margin-top: 20px"></div>
-  <display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"
-  @pageChange="displayCandidate"></display-candidate>
-</el-row>
-</div>
+          <el-button style="margin: auto" @click="displayCandidate">Display Candidate({{candidateIdList.length}})</el-button>
+        </el-col>
+        <el-col :span="2">
+          <el-button style="margin: auto" @click="reset">Reset</el-button>
+        </el-col>
+    </el-row>
+    <el-row>
+      <div style="margin-top: 20px"></div>
+      <display-candidate v-if="result.showSearchResult" :resultList="result.candidateList" :pageNumber="result.totalPage"
+      @pageChange="displayCandidate"></display-candidate>
+    </el-row>
+  </div>
 </template>
 <script>
   import Document from './Document.vue'
@@ -209,6 +208,8 @@
   import ElTree from "element-ui/packages/tree/src/tree.vue"
   import response from './data/data.js'
   import locale from 'element-ui/lib/locale/lang/en'
+
+  import AppNav from "../../AppNav.vue"
   export default {
 
     components: {
@@ -217,6 +218,7 @@
       ElRow,
       Document,
       ElTree,
+      AppNav,
       DisplayCandidate},
     data() {
       return {
@@ -313,7 +315,7 @@
         if(!_.isNumber(pageNumber))pageNumber = 1;
 
         this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
-            {header:getHeader()}).then(response=>{
+            {headers:getHeader()}).then(response=>{
               if(response.status===200) {
                 this.result.candidateList = [];
                 response.data.resultList.forEach(item => this.result.candidateList.push(item))
@@ -333,7 +335,7 @@
         this.$refs.certificate.reset();
       },
       searchByDocument(){
-          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{header:getHeader()}).then(
+          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{headers:getHeader()}).then(
             response=>{
               if(response.status === 200){
                 console.log('document',response.data);
@@ -343,16 +345,16 @@
        this.criteria.documentRequestSent=true;
       },
       handleIdChange(){
-        _.debounce(this.searchById,1000)();
+        _.debounce(this.searchById,300)();
       },
       handleActIdChange(){
-        _.debounce(this.searchByActId,1000)();
+        _.debounce(this.searchByActId,300)();
       },
       searchById(){
         if(this.criteria.candidateId && this.criteria.candidateId.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/candidate/search/id/"+
-            this.criteria.candidateId,options,{header:getHeader()}).then(response=>{
+            this.criteria.candidateId,options,{headers:getHeader()}).then(response=>{
 
               if (response.status ===200){
                 this.result.idResultList = response.data;
@@ -364,7 +366,7 @@
         if(this.criteria.actId && this.criteria.actId.trim().length>0){
           let options = { emulateJSON: true};
           this.$http.get("http://localhost:8080/candidate/search/actId/"+
-            this.criteria.actId,options,{header:getHeader()}).then(response=>{
+            this.criteria.actId,options,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
             };
@@ -372,54 +374,54 @@
         }else this.result.idResultList = null;
       },
       handleLocationChange(){
-        _.debounce(this.searchByLocation,1500)();
+        _.debounce(this.searchByLocation,500)();
       },
       handlePassportChange(val){
-        console.log(val);
+
         this.criteria.document["passport"]=val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleVisaChange(val){
-        console.log(val);
+
         this.criteria.document["visa"] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleMedicalChange(val){
-        console.log(val);
+
         this.criteria.document["medical"] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleSeamansBookChange(val){
-        console.log(val);
+
         this.criteria.document['seamansBook'] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       handleCertificateChange(val){
-        console.log(val);
+
         this.criteria.document['certificate'] = val;
         if(this.criteria.documentRequestSent===true){
           this.criteria.documentRequestSent = false;
-          _.debounce(this.searchByDocument,1500)();
+          _.debounce(this.searchByDocument,500)();
         }
       },
       searchByLocation(){
 
-        console.log(this.criteria.location);
+
         if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
           this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
-           this.criteria.location, {header:getHeader() }).then( response => {
+           this.criteria.location, {headers:getHeader() }).then( response => {
               if (response.status ===200) {
 
                 this.result.locationResultList = response.data;
@@ -428,7 +430,7 @@
         }
       },
       handleNameChange(){
-        _.debounce(this.searchByName,1500)();
+        _.debounce(this.searchByName,500)();
       },
       searchByName(){
         if(this.criteria.candidateName.name && this.criteria.candidateName.searchType
@@ -437,7 +439,7 @@
           this.criteria.candidateName.name = this.criteria.candidateName.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
           this.$http.post("http://localhost:8080/candidate/search/name",
-            this.criteria.candidateName,{header:getHeader()}).then(response=>{
+            this.criteria.candidateName,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
             };
@@ -445,14 +447,14 @@
         }
       },
       handleExperienceChange(){
-        _.debounce(this.searchByExperience,1500)();
+        _.debounce(this.searchByExperience,500)();
       },
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
         !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
           this.$http.post("http://localhost:8080/candidate/search/gig",
 
-            this.criteria.experience, {header:getHeader() }).then( response => {
+            this.criteria.experience, {headers:getHeader() }).then( response => {
             if (response.status === 200) {
               this.result.experienceResultList = response.data;
             }
@@ -460,9 +462,8 @@
         }
       },
       handleEvalChange(){
-        console.log('handle eval change');
+
         let evalTags = this.$refs.treeEval.getCheckedNodes();
-        console.log('evaltagnodes',evalTags);
 
         let instrumentCriteria  = [];
         let nonInstrumentCriteria = [];
@@ -493,7 +494,6 @@
              let instrumentCriterionUpdated = instrumentCriteria.pop();
              instrumentCriterionUpdated.ratings = ratings;
              instrumentCriteria.push(instrumentCriterionUpdated);
-             console.log(instrumentCriteria,instrumentCriterion,instrumentCriterionUpdated,ratings,instrument);
              continue;
            }
 
@@ -571,12 +571,12 @@
           classificationCriteria,
           languageCriteria
         };
-        _.debounce(this.searchByEvaluation,2500)()
+        _.debounce(this.searchByEvaluation,1000)()
       },
       searchByEvaluation(evaluation){
         this.$http.post("http://localhost:8080/candidate/search/evaluation",
 
-          this.criteria.evaluation, {header:getHeader() }).then( response => {
+          this.criteria.evaluation, {headers:getHeader() }).then( response => {
           if (response.status === 200) {
             this.result.evalResultList = response.data;
           }
@@ -585,7 +585,8 @@
       handleDocumentClick(){
       },
       getChildrenNodes(key, resolve){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
+        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()})
+          .then(response=> {
           if (response.status === 200) {
             resolve(response.data);
           } else resolve([]);
@@ -609,11 +610,9 @@
               {id: 180, label: 'Presentation'}
             ])
           }
-          if(node.level>1)
-          {
+          if(node.level>1) {
            this.getChildrenNodes(node, resolve);
           }
-
       },
       fetchPosition(){
         let positionOptions = JSON.parse(localStorage.getItem("positionOptions"));
@@ -648,10 +647,9 @@
         }
       },
       fetchClient(){
-        console.log(this.clients)
+
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
-          console.log(clientOptions)
           if(!clientOptions){
             this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
@@ -661,7 +659,7 @@
             })
           }else {
             this.clients = clientOptions;
-            console.log(this.clients)
+
           }
         }
       },
@@ -671,21 +669,18 @@
             this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 venueOptions = response.data;
-                console.log('venueOptions from http request',venueOptions);
                 localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
               }
             })
           }
 
-        console.log(venueOptions);
+
 
         if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
-          console.log(this.criteria.experience.clientIds);
           this.venues = venueOptions;
         }
         else {
           let filteredVenue = venueOptions.filter(venue => this.criteria.experience.clientIds.includes(venue.clientId));
-          console.log(filteredVenue);
           this.venues = filteredVenue;
         }
       },
@@ -708,7 +703,6 @@
         if(!visaTypeOptions) this.$http.get('http://localhost:8080/visaType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
 
-            console.log('visa result: ',response.data);
             visaTypeOptions = response.data;
             localStorage.setItem('visaTypeOptions',JSON.stringify(visaTypeOptions));
             this.visaType = visaTypeOptions;
@@ -722,7 +716,7 @@
           this.$http.get('http://localhost:8080/medicalType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             medicalTypeOptions = response.data;
-            console.log('medical result: ',response.data);
+
             localStorage.setItem('medicalTypeOptions',JSON.stringify(medicalTypeOptions));
             this.medicalType = medicalTypeOptions;
           }
@@ -734,7 +728,7 @@
         if(!certificateTypeOptions) this.$http.get('http://localhost:8080/certificateType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             certificateTypeOptions = response.data;
-            console.log('certificate result: ',response.data);
+
             localStorage.setItem('certificateTypeOptions',JSON.stringify(certificateTypeOptions));
             this.certificateType = certificateTypeOptions;
           }
@@ -778,6 +772,8 @@
     },
     filterText:''
   },
+    activeIndex: '1',
+    activeIndex2: '1',
     result:{
       totalCandidate:0,
       totalPage:0,

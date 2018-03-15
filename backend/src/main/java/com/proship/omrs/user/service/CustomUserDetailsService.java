@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             logger.info("User not found");
             throw new UsernameNotFoundException("username not found");
         }
-        logger.info("User:{ }"+user.getName());
+        logger.info("User:{ "+user.getName()+"}");
 
           //  sessionInfo.setUser(user);
             return new CustomUser(user.getId(),

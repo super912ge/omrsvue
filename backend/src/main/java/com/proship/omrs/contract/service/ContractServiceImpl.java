@@ -1,8 +1,6 @@
 package com.proship.omrs.contract.service;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proship.omrs.contract.entity.Contract;
-import com.proship.omrs.contract.entity.ContractStatus;
-//import com.proship.omrs.contract.entity.QContractShard;
 import com.proship.omrs.contract.repository.ContractRepository;
 import com.proship.omrs.contract.repository.ContractShardRepository;
 import com.proship.omrs.contract.repository.ContractStatusRepository;
-import com.querydsl.core.types.dsl.BooleanExpression;
+
 
 
 @Service

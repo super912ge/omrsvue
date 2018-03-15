@@ -2,11 +2,9 @@ package com.proship.omrs.contract.entity;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -19,6 +17,12 @@ public class Job {
     private Integer specialtyType ;
 
     private Long uuid;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "Job_Contracts",
+            joinColumns = {@JoinColumn(name="job_id")},
+            inverseJoinColumns = {@JoinColumn(name="contract_id")})
+    private List<Contract> contracts;
 
     @OneToMany(mappedBy = "job")
     @Where(clause = "jobMainShards.nexttransactiontime > current_date")
@@ -57,6 +61,14 @@ public class Job {
 
     public void setJobMainShards(Set<JobMainShard> jobMainShard) {
         this.jobMainShards = jobMainShard;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public JobMainShard getShard(){

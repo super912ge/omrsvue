@@ -5,45 +5,60 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 
 
 @Entity
 public class Contract implements Serializable{
 	
-	@Override
-	public String toString() {
-		return "Contract [id=" + id + ", specialty_type=" + specialtyType + ", non_ps=" + nonPs + ", uuid=" + uuid
-				+ ", status=" + contractStatus.getCancel() + ", contractShards=" + contractMainShards + "]";
-	}
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
+
 	@JsonIgnore
 	private Integer specialtyType;
 
 	private Boolean nonPs;
+
+	@ManyToOne
+	@JoinTable(name = "Job_Contracts",
+			joinColumns = {@JoinColumn(name="contract_id")},
+			inverseJoinColumns = {@JoinColumn(name="job_id")})
+	private Job job;
 
 	@JsonIgnore
 	private Long uuid;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "contractId")
+    @Where(
+            clause = "nexttransactiontime > current_date"
+    )
 	@OrderBy(value = "validendtime")
 	private List<ContractMainShard> contractMainShards;
-	
+
+	@OneToOne(mappedBy = "contract")
+	private ContractPeriodShard contractPeriodShard;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contract")
+	private List<ContractEvent> contractEvents;
 	
 	@OneToOne( mappedBy="contract",fetch = FetchType.LAZY)
 	private ContractStatus contractStatus;
 
-	
-	Contract(){};
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
 
 	public Long getId() {
 		return id;
@@ -57,8 +72,8 @@ public class Contract implements Serializable{
 		return specialtyType;
 	}
 
-	public void setSpecialtyType(Integer specialty_type) {
-		this.specialtyType = specialty_type;
+	public void setSpecialtyType(Integer specialtyType) {
+		this.specialtyType = specialtyType;
 	}
 
 	public Boolean getNonPs() {
@@ -78,7 +93,9 @@ public class Contract implements Serializable{
 	}
 
 	public List<ContractMainShard> getContractMainShards() {
-		return contractMainShards;
+
+	    this.contractMainShards = contractMainShards.stream().filter(item->item.getNexttransactiontime().after(new Date())).collect(Collectors.toList());
+        return this.contractMainShards;
 	}
 
 	public void setContractMainShards(List<ContractMainShard> contractMainShards) {
@@ -92,4 +109,20 @@ public class Contract implements Serializable{
 	public void setContractStatus(ContractStatus contractStatus) {
 		this.contractStatus = contractStatus;
 	}
+
+	public List<ContractEvent> getContractEvents() {
+		return contractEvents;
+	}
+
+	public void setContractEvents(List<ContractEvent> contractEvents) {
+		this.contractEvents = contractEvents;
+	}
+
+    public ContractPeriodShard getContractPeriodShard() {
+        return contractPeriodShard;
+    }
+
+    public void setContractPeriodShard(ContractPeriodShard contractPeriodShard) {
+        this.contractPeriodShard = contractPeriodShard;
+    }
 }

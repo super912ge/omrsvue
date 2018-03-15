@@ -1,7 +1,7 @@
 package com.proship.omrs.candidate.group.service;
 
-import com.proship.omrs.candidate.candidate.entity.Participant;
-import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
+import com.proship.omrs.candidate.participant.entity.Participant;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import com.proship.omrs.candidate.group.entity.Act;
 import com.proship.omrs.candidate.group.param.BandBrief;
 import com.proship.omrs.candidate.group.param.BandMemberBrief;

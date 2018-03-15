@@ -2,6 +2,8 @@ package com.proship.omrs.evaluation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -13,11 +15,19 @@ import java.util.List;
 public class EvalTag extends BaseEntity{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="eval_tag_id_seq")
+    @SequenceGenerator(
+            name="eval_tag_id_seq",
+            sequenceName="eval_tag_id_sequence"
+    )
     private Long id ;
+
     @JsonIgnore
     private Long uuid ;
+
     @JsonIgnore
     private Long creatorId ;
+
     @JsonIgnore
     private Long destroyerId ;
 
@@ -34,11 +44,15 @@ public class EvalTag extends BaseEntity{
     @Transient
     private String label;
 
+    @OneToOne(mappedBy = "evalTag")
+    private EvalTagComment comment;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private EvalTag parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent",cascade = CascadeType.REFRESH)
+    @OrderBy("id")
     private List <EvalTag> children;
 
     public Long getId() {
@@ -69,6 +83,10 @@ public class EvalTag extends BaseEntity{
 
         this.type = EvalTagTypeMap.getEvalTagType(this.evalTagTypeId);
         return type;
+    }
+
+    public Long getDestroyerId() {
+        return destroyerId;
     }
 
     public void setType(EvalTagType type) {
@@ -120,6 +138,14 @@ public class EvalTag extends BaseEntity{
         else this.label = EvalTagTypeMap.getEvalTagType(this.evalTagTypeId).getLabel();
         this.type = getType();
         return label;
+    }
+
+    public EvalTagComment getComment() {
+        return comment;
+    }
+
+    public void setComment(EvalTagComment comment) {
+        this.comment = comment;
     }
 
     public void setLabel(String label) {

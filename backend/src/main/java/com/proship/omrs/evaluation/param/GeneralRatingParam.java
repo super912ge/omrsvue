@@ -2,16 +2,16 @@ package com.proship.omrs.evaluation.param;
 
 public class GeneralRatingParam {
 
-    private Long skillTypeId;
+    private Long id;
 
     private Long ratingId;
 
-    public Long getSkillTypeId() {
-        return skillTypeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setSkillTypeId(Long skillTypeId) {
-        this.skillTypeId = skillTypeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getRatingId() {

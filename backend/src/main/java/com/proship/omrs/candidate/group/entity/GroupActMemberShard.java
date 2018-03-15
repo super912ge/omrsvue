@@ -2,7 +2,7 @@ package com.proship.omrs.candidate.group.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;
-import com.proship.omrs.candidate.candidate.entity.ParticipantAct;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;

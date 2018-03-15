@@ -10,7 +10,7 @@ import SearchGig from './components/search/gig/Gig.vue'
 import SearchBand from './components/search/band/Band.vue'
 import SearchClient from './components/search/client/Client.vue'
 import SearchUser from './components/search/user/User.vue'
-
+import NewCandidate from './components/new/candidate/Candidate.vue'
 import DisplayCandidate from './components/display/candidate/Candidate.vue'
 export const routes = [
     { path: '/',
@@ -95,22 +95,22 @@ export const routes = [
     },
     {
         name: 'New',
-        path: 'new',
+        path: '/new',
         component:Full,
         meta: {
 
         },
         children: [
             {
-                name: 'Candidate',
+                name: 'NewCandidate',
                 path: 'candidate',
-                component:SearchCandidate,
+                component:NewCandidate,
                 meta: {
 
                 }
             },
             {
-                name: 'Band',
+                name: 'NewBand',
                 path: 'band',
                 component:SearchCandidate,
                 meta: {
@@ -118,7 +118,7 @@ export const routes = [
                 }
             },
             {
-                name: 'Gig',
+                name: 'NewGig',
                 path:'gig',
                 component:SearchCandidate,
                 meta: {
@@ -126,7 +126,7 @@ export const routes = [
                 }
             },
             {
-                name: 'Client',
+                name: 'NewClient',
                 path: 'client',
                 component:SearchCandidate,
                 meta: {
@@ -134,7 +134,7 @@ export const routes = [
                 }
             },
             {
-                name: 'User',
+                name: 'NewUser',
                 path: 'user',
                 component:SearchCandidate,
                 meta: {
@@ -151,7 +151,7 @@ export const routes = [
     children: [
       {
         name: 'DisplayCandidate',
-        path: 'candidate',
+        path: 'candidate/:id',
         component:DisplayCandidate,
         meta: {
 

@@ -21,7 +21,7 @@ public class Client {
 
     @JsonIgnore
     private Long uuid  ;
-    private String name  ;
+    private String name ;
     private String code ;
     private Boolean active ;
 
