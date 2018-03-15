@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="confirmed" style="margin-left: 20px">
+    <div v-if="confirmed" style="margin-left: 20px" v-show="!deleted">
       <span style="font-size: small"> {{airportStr}}</span>
       <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
       <el-button size="mini" icon="el-icon-delete" @click="deleteAirport" ></el-button>
@@ -8,7 +8,7 @@
     <div style="margin-left: 15px; margin-top: 10px">
       <span style="font-size: small">Airport: </span>
       <el-select placeholder="Select" size="mini" v-model="airport.airportId">
-        <el-option v-for="item in airports" label="item.name +'----'+item.code" value="item.id" :key="item.id"></el-option>
+        <el-option v-for="item in airports" :label="item.name +'-------'+item.code" :value="item.id" :key="item.id"></el-option>
       </el-select>
       <span style="font-size: small">Client: </span> <el-input v-model="airport.client" size="mini" style="width: 200px"></el-input>
       <el-button size="mini" icon="el-icon-check" @click="confirm"></el-button>
@@ -24,7 +24,8 @@
     data(){
       return {
         confirmed: false,
-        airport:{id:null, airportId:'', client:''}
+        airport:{id:null, airportId:'', client:''},
+        deleted: false
       }
     },
     computed:{
@@ -36,11 +37,12 @@
     methods:{
       confirm(){
         if(this.airport.id) {
-          this.$http.post("http://localhost:8080/homeAirport/update", this.airport, {headers: getHeader()}).then(res => {
-            if (res.status === 200) {
-              this.airport.id = res.data.result;
-              this.$emit('addAirport', this.airport);
-              this.confirmed = true;
+          this.$http.post("http://localhost:8080/homeAirport/update", this.airport,
+            {headers: getHeader()}).then(res => {
+              if (res.status === 200) {
+                this.airport.id = res.data.result;
+                this.$emit('addAirport', this.airport);
+                this.confirmed = true;
             }
           });
         }else {
@@ -60,13 +62,14 @@
       },
       deleteAirport(){
         if(this.confirmed) {
-          this.$http.get("http://localhost:8080/homeAirport/delete/" + this.airport.id, {headers: getHeader()}).then(
-            res => {
-              if (res.status === 200) {
-                this.$emit('deleteAirport', this.airport.id);
-              }
+          this.$http.get("http://localhost:8080/homeAirport/delete/" + this.airport.id,
+            {headers: getHeader()}).then(
+              res => {
+                if (res.status === 200) {
+                  this.deleted = true;
+                }
             });
-        }else this.$emit('deleteAirport',this.airport.id);
+        }else this.$emit('deleteAirport');
       }
     }
   }

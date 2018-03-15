@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div v-if="confirmed" style="margin-left: 20px">
+  <div v-if="confirmed" style="margin-left: 20px" v-show="!deleted">
     <span style="font-size: small"> {{addressStr}}</span>
     <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
     <el-button size="mini" icon="el-icon-delete" @click="deleteAddress" ></el-button>
@@ -53,7 +53,7 @@ import {getHeader} from "../../../../env.js"
           postalCode:'',
           country: null
         },
-//        options:[{id:1,name:'b'},{id:2, name:'e'}],
+        deleted:false,
         confirmed: false
       }
     },
@@ -90,10 +90,10 @@ import {getHeader} from "../../../../env.js"
         this.$http.get("http://localhost:8080/address/delete/" + this.address.id,  {headers: getHeader()}).then(
           res => {
             if (res.status === 200) {
-              this.$emit('deleteAddress', this.address.id);
+              this.deleted = true;
             }
           });
-        else  this.$emit('deleteAddress', this.address.id);
+        else  this.$emit('deleteAddress');
       }
     },
     computed:{

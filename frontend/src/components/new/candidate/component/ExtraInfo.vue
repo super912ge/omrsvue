@@ -1,6 +1,6 @@
 <template>
 
-  <div STYLE="font-size: small; margin: 15px">
+  <div STYLE="font-size: small; margin: 15px" v-show="!deleted">
     <div v-if="confirmed">{{infoStr}}
       <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
     <el-button size="mini" icon="el-icon-delete" @click="deleteExtraInfo" ></el-button></div>
@@ -32,7 +32,8 @@ import {getHeader} from '../../../../env.js'
           type: null,
           value:null
         },
-        types:['BIRTHPLACE', 'SIN', 'HH_PACK_ID', 'HH_CANDIDATE_ID']
+        types:['BIRTHPLACE', 'SIN', 'HH_PACK_ID', 'HH_CANDIDATE_ID'],
+        deleted:false
       }
     },
     methods:{
@@ -71,11 +72,9 @@ import {getHeader} from '../../../../env.js'
         if(this.confirmed) {
           this.$http.get("http://localhost:8080/info/delete/" + this.info.id, {headers: getHeader()}).then(
             res => {
-              if (res.status === 200) {
-                this.$emit('deleteExtraInfo', this.info.id);
-              }
+              if (res.status === 200) this.deleted = true;
             });
-        }else this.$emit('deleteExtraInfo',this.info.id);
+        }else this.$emit('deleteExtraInfo');
       }
     },
     computed:{

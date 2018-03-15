@@ -1,6 +1,6 @@
 <template>
 
-  <div style="margin: 10px 10px">
+  <div style="margin: 10px 10px" v-show="!deleted">
     <div v-if="confirmed" style="font-size: small">
 
       <span>{{contactStr}}</span>
@@ -43,6 +43,7 @@ import {getHeader} from "../../../../env.js"
           method: '',
           text: ''
         },
+        deleted:false,
         contactType:null,
         contactLabel:null,
         contactFieldTypeOptions: [
@@ -70,8 +71,6 @@ import {getHeader} from "../../../../env.js"
     },
     methods:{
       confirm(){
-
-        console.log('contactComponent',this.candidateId);
         if(this.contact.id){
           this.$http.post("http://localhost:8080/contact/update",this.contact,{headers:getHeader()}).then(
             res=>{
@@ -90,7 +89,7 @@ import {getHeader} from "../../../../env.js"
               if (res.status === 200) {
                 this.contact.id = res.data.result;
                 this.confirmed = true;
-                this.$emit('addContact', this.contact);
+                this.$emit('addContactInfo', this.contact);
               }
             }
           );
@@ -103,18 +102,16 @@ import {getHeader} from "../../../../env.js"
         if(this.contact.id) {
           this.$http.get("http://localhost:8080/contact/delete/" + this.contact.id, {headers: getHeader()}).then(
             res => {
-              if (res.status === 200) {
-                this.$emit('deleteContact', this.contact.id);
-              }
+              if (res.status === 200) this.deleted = true;
             });
-        }else this.$emit('deleteContact', this.contact.id);
+        }else this.$emit('deleteContact');
       }
     },
     computed:{
       contactStr(){
         return _.find(this.contactFieldLabelOptions,['id',this.contact.type]).label+
           " "+_.find(this.contactFieldTypeOptions,['id',this.contact.method]).label+": "+this.contact.text;
-//        return null;
+
       }
     }
   }

@@ -7,8 +7,8 @@
                      :disabled="button.disableAddContact"
                      @click="addContact"></el-button></span>
         </div>
-        <template v-for="item in result.contacts">
-          <contact-info @addContact="addContactInfo" @editContact="editContact"
+        <template v-for="(item, index) in result.contacts">
+          <contact-info @addContactInfo="addContactInfo" @editContact="editContact"
                         @deleteContact="deleteContact" :candidateId="candidateId"></contact-info>
         </template>
     </div>
@@ -32,7 +32,7 @@
       </div>
       <template v-for="item in result.homeAirport">
         <home-airport @addAirport="addHomeAirport" @deleteAirport="deleteAirport" @editAirport="editAirport"
-                      :candidateId="candidateId"></home-airport>
+                      :candidateId="candidateId" :airports="airports"></home-airport>
       </template>
     </div>
 
@@ -127,26 +127,25 @@
         let index = _.findIndex(this.result.info, {'id':val.id});
         this.result.info[index] = val;
       },
-      deleteExtraInfo(val){
-        if(val) _.remove(this.result.info, {id:val});
-        else {this.result.info.pop(); this.button.disableAddExtraInfo = false;}
+      deleteExtraInfo(){
+        this.result.info.pop();
+        this.button.disableAddExtraInfo = false;
       },
-
       addContact(){
         this.button.disableAddContact = true;
-        console.log(this.candidateId);
         this.result.contacts.push({});
       },
       editContact(val){
         let index = _.findIndex(this.result.contacts, {'id':val.id});
         this.result.contacts[index] = val;
       },
-      deleteContact(val){
-        if(val)
-         _.remove(this.result.contacts, {id:val});
-        else {this.result.contacts.pop(); this.button.disableAddContact = false;}
+      deleteContact(){
+         this.result.contacts.pop();
+         this.button.disableAddContact = false;
+
       },
       addContactInfo(value){
+
         this.result.contacts.pop();
         this.result.contacts.push(value);
         this.button.disableAddContact = false;
@@ -164,10 +163,9 @@
         let index = _.findIndex(this.result.address, {'id':val.id});
         this.result.address[index] = val;
       },
-      deleteAddress(val){
-        if(val)
-        _.remove(this.result.address, {id:val});
-        else {this.result.address.pop(); this.button.disableAddAddress = false;}
+      deleteAddress(){
+        this.result.address.pop();
+        this.button.disableAddAddress = false;
       },
       addAirport(){
         this.result.homeAirport.push({});
@@ -182,10 +180,9 @@
         let index = _.findIndex(this.result.homeAirport, {'id':value.id});
         this.result.homeAirport[index] = value;
       },
-      deleteAirport(val){
-        if(val)
-        _.remove(this.result.homeAirport, {id:val});
-        else {this.result.homeAirport.pop(); this.button.disableAddAirport = false;}
+      deleteAirport(){
+         this.result.homeAirport.pop();
+         this.button.disableAddAirport = false;
       },
       addResidency(){
         this.residencyComponent = true;

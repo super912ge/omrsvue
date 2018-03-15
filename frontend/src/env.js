@@ -16,6 +16,6 @@ export const getHeader = function () {
         'Authorization': 'Bearer ' + authUser.access_token
 
     };
-    console.log(headers);
+
     return headers;
 };
