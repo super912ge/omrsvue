@@ -12,4 +12,6 @@ public class MedicalTypeController extends BaseController<MedicalType,Long> {
     public MedicalTypeController(MedicalTypeRepository repo) {
         super(repo);
     }
+
+
 }

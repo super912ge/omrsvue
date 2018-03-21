@@ -2,23 +2,23 @@ package com.proship.omrs.candidate.homeAirport.param;
 
 public class CreateHomeAirportParam {
 
-    Long id;
+    private Long airportId;
 
-    String comment;
+    private String client;
 
-    public Long getId() {
-        return id;
+    public Long getAirportId() {
+        return airportId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAirportId(Long airportId) {
+        this.airportId = airportId;
     }
 
-    public String getComment() {
-        return comment;
+    public String getClient() {
+        return client;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setClient(String client) {
+        this.client = client;
     }
 }

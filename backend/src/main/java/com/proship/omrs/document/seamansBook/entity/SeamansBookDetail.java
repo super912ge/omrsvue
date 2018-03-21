@@ -1,17 +1,20 @@
-package com.proship.omrs.document.seamanBook.entity;
+package com.proship.omrs.document.seamansBook.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.DocumentDetail;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "seamans_book_detail_tts")
 public class SeamansBookDetail extends DocumentDetail{
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seamans_book_detail_tts_id_seq")
+    @SequenceGenerator(
+            name="seamans_book_detail_tts_id_seq",
+            sequenceName="seamans_book_detail_tts_id_sequence"
+    )
     private Long id;
 
     @ManyToOne

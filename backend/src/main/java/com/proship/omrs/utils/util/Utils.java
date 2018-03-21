@@ -6,6 +6,8 @@ import com.proship.omrs.evaluation.entity.EvalTagType;
 import com.proship.omrs.user.entity.User;
 import com.proship.omrs.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -81,5 +83,13 @@ public class Utils {
 
         return null;
 
+    }
+
+    public static ResponseEntity<Map<String, Object>> getResponseEntityWithResultMap(Object result){
+        Map resultMap = new HashMap();
+        resultMap.put("success",true);
+        resultMap.put("result", result);
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 }

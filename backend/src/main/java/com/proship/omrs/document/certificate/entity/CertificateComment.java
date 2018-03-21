@@ -3,21 +3,20 @@ package com.proship.omrs.document.certificate.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.DocumentComment;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "certificate_comment_tts")
 public class CertificateComment extends DocumentComment {
 
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="certificate_comment_tts_id_seq")
+    @SequenceGenerator(
+            name="certificate_comment_tts_id_seq",
+            sequenceName="certificate_comment_tts_id_sequence"
+    )
     private Long id;
-
-    @ManyToOne
-    @JsonIgnore
-    private Certificate certificate;
 
     public Long getId() {
         return id;
@@ -27,6 +26,11 @@ public class CertificateComment extends DocumentComment {
         this.id = id;
     }
 
+
+    @ManyToOne
+    @JsonIgnore
+    Certificate certificate;
+
     public Certificate getCertificate() {
         return certificate;
     }
@@ -34,4 +38,5 @@ public class CertificateComment extends DocumentComment {
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
     }
+
 }

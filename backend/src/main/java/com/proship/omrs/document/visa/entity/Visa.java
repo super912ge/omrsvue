@@ -3,6 +3,7 @@ package com.proship.omrs.document.visa.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.Document;
 import com.proship.omrs.utils.util.Utils;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,17 +20,12 @@ public class Visa extends Document{
     )
     private Long id;
 
-    private Long uuid;
-
     private Long visaTypeId;
 
     private String  multiplicity;
 
     @Transient
-    private VisaType visaType;
-
-    @Transient
-    private VisaDetail detail;
+    private String type;
 
     @Transient
     private Date formDate;
@@ -40,17 +36,20 @@ public class Visa extends Document{
     @JsonIgnore
     private Long participantId;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @OrderBy("transactiontime")
-    private List<VisaDetail> detailList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
+    @Where(clause = "nexttransactiontime>current_date")
+    @JsonIgnore
+    private  VisaDetail  visaDetail;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @OrderBy("transactiontime")
-    List<VisaFormDate> formDateList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
+    @Where(clause = "nexttransactiontime>current_date")
+    @JsonIgnore
+     VisaFormDate  visaFormDate;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @OrderBy("transactiontime")
-    List<VisaComment> commentList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
+    @Where(clause = "nexttransactiontime >current_date")
+    @JsonIgnore
+     VisaComment visaComment;
 
     public Long getId() {
         return id;
@@ -68,22 +67,6 @@ public class Visa extends Document{
         this.participantId = participantId;
     }
 
-    public Long getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Long uuid) {
-        this.uuid = uuid;
-    }
-
-    public Long getVisa_type_id() {
-        return visaTypeId;
-    }
-
-    public void setVisa_type_id(Long visaTypeId) {
-        this.visaTypeId = visaTypeId;
-    }
-
     public String getMultiplicity() {
         return multiplicity;
     }
@@ -92,32 +75,9 @@ public class Visa extends Document{
         this.multiplicity = multiplicity;
     }
 
-    public VisaType getVisaType() {
-
-        this.visaType =VisaTypeMap.getVisaType(visaTypeId);
-
-        return visaType;
-    }
-
-    public void setVisaType(VisaType visaType) {
-
-        this.visaType = visaType;
-    }
-
-    public VisaDetail getDetail() {
-
-        detail = Utils.getLastElementFromList(detailList);
-
-        return detail;
-    }
-
-    public void setDetail(VisaDetail detail) {
-        this.detail = detail;
-    }
-
     public Date getFormDate() {
 
-        formDate = Utils.getLastElementFromList(formDateList).getValue();
+        setFormDate(visaFormDate.getValue());
 
         return formDate;
     }
@@ -126,35 +86,43 @@ public class Visa extends Document{
         this.formDate = formDate;
     }
 
-    public List<VisaDetail> getDetailList() {
-        return detailList;
+    public String getType() {
+
+        setType(VisaTypeMap.getVisaType(visaTypeId).getName());
+        return type;
     }
 
-    public void setDetailList(List<VisaDetail> detailList) {
-        this.detailList = detailList;
-    }
-
-    public List<VisaFormDate> getFormDateList() {
-        return formDateList;
-    }
-
-    public void setFormDateList(List<VisaFormDate> formDateList) {
-        this.formDateList = formDateList;
-    }
-
-    public List<VisaComment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<VisaComment> commentList) {
-        this.commentList = commentList;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getComment() {
-
-        comment = Utils.getLastElementFromList(commentList).getText();
-
+        setComment(visaComment.getText());
         return comment;
+    }
+
+    public VisaDetail getVisaDetail() {
+        return visaDetail;
+    }
+
+    public void setVisaDetail(VisaDetail visaDetail) {
+        this.visaDetail = visaDetail;
+    }
+
+    public VisaFormDate getVisaFormDate() {
+        return visaFormDate;
+    }
+
+    public void setVisaFormDate(VisaFormDate visaFormDate) {
+        this.visaFormDate = visaFormDate;
+    }
+
+    public VisaComment getVisaComment() {
+        return visaComment;
+    }
+
+    public void setVisaComment(VisaComment visaComment) {
+        this.visaComment = visaComment;
     }
 
     public void setComment(String comment) {

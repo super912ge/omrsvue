@@ -2,14 +2,9 @@ package com.proship.omrs.client.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.proship.omrs.document.seamanBook.entity.SeamansBook;
-import com.proship.omrs.venue.entity.Venue;
 import com.proship.omrs.venue.entity.VenueMainShard;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 @Entity

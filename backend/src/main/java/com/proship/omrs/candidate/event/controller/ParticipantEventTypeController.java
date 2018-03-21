@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.participant.controller;
+package com.proship.omrs.candidate.event.controller;
 
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.event.entity.ParticipantEventType;

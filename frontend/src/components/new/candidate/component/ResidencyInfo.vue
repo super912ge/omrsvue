@@ -37,6 +37,7 @@
         confirmed:false,
         options: generateData(),
         residency: [],
+        jsonStr:null,
         confirmedResidency:[],
         titles: ['Options','Added']
       }
@@ -44,14 +45,15 @@
     methods:{
       confirm() {
         if (this.confirmedResidency.length === 0 && this.residency.length !== 0) {
-
+          this.residency.sort();
           this.$http.post("http://localhost:8080/" + this.type + "/create/" + this.candidateId, this.residency,
             {headers: getHeader()}).then(response => {
-
             if (response.status === 200) {
               this.confirmedResidency = response.data.result;
+              this.jsonStr = JSON.stringify(this.confirmedResidency);
               this.$emit('addResidencyInfo', this.confirmedResidency);
-              this.confirmed = true
+              this.confirmed = true;
+
             }
           })
         } else if (this.residency.length === 0) {
@@ -64,16 +66,20 @@
                 }
               });
           }
-          else
-        {
-          this.$http.post("http://localhost:8080/" + this.type + "/update/" + this.candidateId, this.residency,
-            {headers: getHeader()}).then(response => {
-            if (response.status === 200) {
-              this.confirmedResidency = response.data.result;
-              this.$emit('editResidencyInfo', this.confirmedResidency);
-              this.confirmed = true;
-            }
-          })
+          else {
+          if (this.jsonStr !== JSON.stringify(this.residency.sort())) {
+            this.$http.post("http://localhost:8080/" + this.type + "/update/" + this.candidateId, this.residency,
+              {headers: getHeader()}).then(response => {
+              if (response.status === 200) {
+                this.confirmedResidency = response.data.result;
+                this.jsonStr = JSON.stringify(this.confirmedResidency);
+                this.$emit('editResidencyInfo', this.confirmedResidency);
+                this.confirmed = true;
+              }
+            })
+          }else {
+            this.confirmed = true;
+          }
         }
       },
       reset(){

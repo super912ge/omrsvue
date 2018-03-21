@@ -42,11 +42,11 @@ public class HomeAirportServiceImpl extends
             ParticipantHomeAirport participantHomeAirport =
                     getNewBaseEntity(new ParticipantHomeAirport());
 
-            Airport airport = airportRepository.findOne(param.getId());
+            Airport airport = airportRepository.findOne(param.getAirportId());
 
             participantHomeAirport.setAirport(airport);
 
-            participantHomeAirport.setComment(param.getComment());
+            participantHomeAirport.setComment(param.getClient().trim());
 
             participantHomeAirport = participantHomeAirportRepository.save(participantHomeAirport);
 
@@ -66,6 +66,15 @@ public class HomeAirportServiceImpl extends
     @Override
     public Long update(UpdateHomeAirportParam param) {
 
+        ParticipantHomeAirportOverride override = participantHomeAirportOverrideRepository.findOne(param.getId());
+
+        ParticipantHomeAirport airport = override.getParticipantHomeAirport();
+
+        if(airport.getAirport().getId().equals(param.getAirportId())
+                && airport.getComment().equals(param.getClient().trim())){
+            return airport.getId();
+        }
+
         Long candidate = delete(param.getId());
 
         return create(candidate,param);
@@ -82,6 +91,6 @@ public class HomeAirportServiceImpl extends
 
         participantHomeAirportOverrideRepository.save(participantHomeAirportOverride);
 
-        return participantHomeAirportOverride.getId();
+        return participantHomeAirportOverride.getParticipant().getId();
     }
 }

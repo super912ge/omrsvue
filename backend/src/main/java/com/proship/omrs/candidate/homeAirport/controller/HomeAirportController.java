@@ -23,7 +23,7 @@ public class HomeAirportController {
     HomeAirportService homeAirportService;
 
     @RequestMapping("/create/{id}")
-    ResponseEntity<Map<String,Object>> create(@PathVariable("id")Long id, CreateHomeAirportParam param){
+    ResponseEntity<Map<String,Object>> create(@PathVariable("id")Long id, @RequestBody CreateHomeAirportParam param){
 
        Long result = homeAirportService.create(id,param);
 

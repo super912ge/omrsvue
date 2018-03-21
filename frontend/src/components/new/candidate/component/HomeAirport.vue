@@ -5,7 +5,7 @@
       <el-button size="mini" icon="el-icon-edit" @click="edit"></el-button>
       <el-button size="mini" icon="el-icon-delete" @click="deleteAirport" ></el-button>
     </div>
-    <div style="margin-left: 15px; margin-top: 10px">
+    <div style="margin-left: 15px; margin-top: 10px" v-else="">
       <span style="font-size: small">Airport: </span>
       <el-select placeholder="Select" size="mini" v-model="airport.airportId">
         <el-option v-for="item in airports" :label="item.name +'-------'+item.code" :value="item.id" :key="item.id"></el-option>
@@ -25,7 +25,8 @@
       return {
         confirmed: false,
         airport:{id:null, airportId:'', client:''},
-        deleted: false
+        deleted: false,
+        jsonStr: null
       }
     },
     computed:{
@@ -37,19 +38,23 @@
     methods:{
       confirm(){
         if(this.airport.id) {
-          this.$http.post("http://localhost:8080/homeAirport/update", this.airport,
-            {headers: getHeader()}).then(res => {
+          if(this.jsonStr!==JSON.stringify(this.airport)) {
+            this.$http.post("http://localhost:8080/homeAirport/update", this.airport,
+              {headers: getHeader()}).then(res => {
               if (res.status === 200) {
                 this.airport.id = res.data.result;
+                this.jsonStr = JSON.stringify(this.airport);
                 this.$emit('addAirport', this.airport);
                 this.confirmed = true;
-            }
-          });
+              }
+            });
+          }else this.confirmed = true;
         }else {
           this.$http.post("http://localhost:8080/homeAirport/create/"+this.candidateId, this.airport,
             {headers: getHeader()}).then(res => {
             if (res.status === 200) {
               this.airport.id = res.data.result;
+              this.jsonStr = JSON.stringify(this.airport);
               this.$emit('editAirport', this.airport);
               this.confirmed = true;
             }

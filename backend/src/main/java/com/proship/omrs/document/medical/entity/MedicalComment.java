@@ -3,10 +3,7 @@ package com.proship.omrs.document.medical.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.DocumentComment;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "medical_comment_tts")
@@ -14,6 +11,11 @@ public class MedicalComment extends DocumentComment {
 
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="medical_comment_id_seq")
+    @SequenceGenerator(
+            name="medical_comment_id_seq",
+            sequenceName="medical_comment_tts_id_sequence"
+    )
     private Long id;
 
     @ManyToOne

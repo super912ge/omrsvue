@@ -11,7 +11,7 @@ import VueResource from 'vue-resource';
 import {header_auth,getHeader} from "./env";
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
-
+import moment from 'moment'
 
 
 Vue.use(VueResource);
@@ -19,6 +19,11 @@ locale.use(lang);
 Vue.use(Element);
 Vue.use(VueRouter);
 
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('YYYY-MM-DD')
+  }
+});
 
 const router = new VueRouter({
     mode:'history',

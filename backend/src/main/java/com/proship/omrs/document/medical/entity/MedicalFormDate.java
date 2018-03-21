@@ -10,6 +10,11 @@ import javax.persistence.*;
 public class MedicalFormDate extends DocumentFormDate{
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="medical_form_date_id_seq")
+    @SequenceGenerator(
+            name="medical_form_date_id_seq",
+            sequenceName="medical_form_date_tts_id_sequence"
+    )
     private Long id;
 
 

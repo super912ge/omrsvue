@@ -10,6 +10,8 @@ import com.proship.omrs.candidate.citizenship.param.SearchByResidencyCitizenship
 import com.proship.omrs.candidate.citizenship.repository.ParticipantCitizenshipOverrideRepository;
 import com.proship.omrs.candidate.name.entity.ParticipantActName;
 import com.proship.omrs.candidate.name.entity.ParticipantNameTts;
+import com.proship.omrs.candidate.participant.entity.ParticipantBirthdayTts;
+import com.proship.omrs.candidate.participant.entity.ParticipantGender;
 import com.proship.omrs.candidate.participant.param.*;
 import com.proship.omrs.candidate.participant.repository.*;
 import com.proship.omrs.candidate.name.param.SearchByNameParam;
@@ -22,7 +24,7 @@ import com.proship.omrs.document.base.repository.DocumentRepository;
 import com.proship.omrs.document.certificate.repository.CertificateRepository;
 import com.proship.omrs.document.medical.repository.MedicalRepository;
 import com.proship.omrs.document.passport.repository.PassportRepository;
-import com.proship.omrs.document.seamanBook.repository.SeamansBookRepository;
+import com.proship.omrs.document.seamansBook.repository.SeamansBookRepository;
 import com.proship.omrs.document.visa.repository.VisaRepository;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import com.proship.omrs.evaluation.repository.EvalTagRepository;
@@ -77,6 +79,12 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Autowired
     ContractShardRepository contractShardRepository;
+
+    @Autowired
+    ParticipantBirthdayRepository participantBirthdayRepository;
+
+    @Autowired
+    ParticipantGenderRepository participantGenderRepository;
 
     @Resource(name = "contractEventCase")
     private Properties contractEventCase;
@@ -280,6 +288,24 @@ public class ParticipantServiceImpl implements ParticipantService {
 
             participantActNameRepository.save(participantActName);
         }
+
+        if (param.getBirthday()!=null){
+            ParticipantBirthdayTts birthdayTts = new ParticipantBirthdayTts();
+            birthdayTts.setParticipant(participant);
+            birthdayTts.setValue(param.getBirthday());
+            birthdayTts.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+            birthdayTts.setNexttransactiontime(Utils.getInfiniteTimestamp());
+            birthdayTts.setCreatorId(user.getUserId());
+            participantBirthdayRepository.save(birthdayTts);
+        }
+        ParticipantGender participantGender = new ParticipantGender();
+        participantGender.setParticipant(participant);
+        participantGender.setValue(param.getGender());
+        participantGender.setTransactiontime(new Timestamp(System.currentTimeMillis()));
+        participantGender.setNexttransactiontime(Utils.getInfiniteTimestamp());
+        participantGender.setCreatorId(user.getUserId());
+
+        participantGenderRepository.save(participantGender);
 
         result.put("id", participant.getId());
         result.put("actId",act.getId());

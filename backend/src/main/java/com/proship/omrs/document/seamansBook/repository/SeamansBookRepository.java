@@ -1,7 +1,7 @@
-package com.proship.omrs.document.seamanBook.repository;
+package com.proship.omrs.document.seamansBook.repository;
 
 import com.proship.omrs.document.base.repository.DocumentRepository;
-import com.proship.omrs.document.seamanBook.entity.SeamansBook;
+import com.proship.omrs.document.seamansBook.entity.SeamansBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

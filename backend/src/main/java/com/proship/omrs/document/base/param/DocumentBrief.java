@@ -1,12 +1,10 @@
 package com.proship.omrs.document.base.param;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.proship.omrs.document.base.entity.Document;
 import com.proship.omrs.document.certificate.entity.Certificate;
 import com.proship.omrs.document.medical.entity.Medical;
-import com.proship.omrs.document.medical.entity.MedicalType;
 import com.proship.omrs.document.passport.entity.Passport;
-import com.proship.omrs.document.seamanBook.entity.SeamansBook;
+import com.proship.omrs.document.seamansBook.entity.SeamansBook;
 import com.proship.omrs.document.visa.entity.Visa;
 import com.proship.omrs.system.country.entity.CountryMap;
 import java.util.Date;
@@ -18,13 +16,13 @@ public class DocumentBrief {
 
         this.id = visa.getId();
 
-        String[] strs = visa.getVisaType().getName().split("-");
+        String[] strs = visa.getType().split("-");
 
         this.name = strs[1].trim();
 
         this.country = strs[0].trim();
 
-        this.expiryDate = visa.getDetail().getExpiryDate();
+        this.expiryDate = visa.getVisaDetail().getExpiryDate();
     }
     public DocumentBrief(Passport passport){
 
@@ -34,14 +32,14 @@ public class DocumentBrief {
 
         this.country = CountryMap.getCountry(passport.getCountryId()).getName();
 
-        this.expiryDate = passport.getDetail().getExpiryDate();
+        this.expiryDate = passport.getPassportDetail().getExpiryDate();
     }
 
     public DocumentBrief(SeamansBook seamansBook){
 
         this.id = seamansBook.getId();
 
-        this.expiryDate = seamansBook.getDetail().getExpiryDate();
+        this.expiryDate = seamansBook.getSeamansBookDetail().getExpiryDate();
 
         this.country = CountryMap.getCountry(seamansBook.getCountryId()).getName();
 
@@ -56,14 +54,14 @@ public class DocumentBrief {
 
         this.country = CountryMap.getCountry(certificate.getCountryId()).getName();
 
-        this.expiryDate = certificate.getDetail().getExpiryDate();
+        this.expiryDate = certificate.getCertificateDetail().getExpiryDate();
     }
 
     public DocumentBrief(Medical medical){
 
         this.id = medical.getId();
 
-        String name = medical.getMedicalType().getName();
+        String name = medical.getType();
 
         String[] arr = name.split("-");
 
@@ -71,7 +69,7 @@ public class DocumentBrief {
 
         this.country = arr[0].trim();
 
-        this.expiryDate = medical.getDetail().getExpiryDate();
+        this.expiryDate = medical.getMedicalDetail().getExpiryDate();
     }
 
     private Long id;

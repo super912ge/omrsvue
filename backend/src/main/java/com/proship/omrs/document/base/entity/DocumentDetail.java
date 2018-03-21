@@ -1,12 +1,15 @@
 package com.proship.omrs.document.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import com.proship.omrs.base.entity.BaseEntityWithCreator;
 
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 @MappedSuperclass
-public class DocumentDetail extends BaseEntity{
+public class DocumentDetail extends BaseEntityWithCreator{
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private String issuingPost;
@@ -40,4 +43,5 @@ public class DocumentDetail extends BaseEntity{
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
+
 }

@@ -1,13 +1,13 @@
 package com.proship.omrs.document.certificate.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.Document;
-import com.proship.omrs.utils.util.Utils;
-
+import com.proship.omrs.system.country.entity.Country;
+import com.proship.omrs.system.country.entity.CountryMap;
+import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 public class Certificate extends Document{
@@ -18,20 +18,19 @@ public class Certificate extends Document{
             sequenceName="certificate_id_sequence"
     )
     private Long id;
-
-    private Long uuid;
-
+    
     private Long certificateTypeId;
+    
+    @Transient
+    private String type;
 
     private Long countryId;
 
-    private String number;
-
+    @Transient
+    private Country country;
+    
     @Transient
     private CertificateType certificateType;
-
-    @Transient
-    private CertificateDetail detail;
 
     @Transient
     private Date formDate;
@@ -42,17 +41,29 @@ public class Certificate extends Document{
     @JsonIgnore
     private Long participantId;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
-    @OrderBy("transactiontime")
-    private List<CertificateDetail> detailList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
+    @JsonIgnore
+    @Where(clause = "nexttransactiontime>current_date")
+    private  CertificateDetail certificateDetail ;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
-    @OrderBy("transactiontime")
-    List<CertificateFormDate> formDateList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
+    @JsonIgnore
+    @Where(clause = "nexttransactiontime>current_date")
+    private CertificateFormDate certificateFormDate ;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
-    @OrderBy("transactiontime")
-    List<CertificateComment> commentList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
+    @JsonIgnore
+    @Where(clause = "nexttransactiontime>current_date")
+    private CertificateComment certificateComment ;
+
+    public Country getCountry() {
+        setCountry(CountryMap.getCountry(countryId));
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
     public Long getId() {
         return id;
@@ -62,32 +73,8 @@ public class Certificate extends Document{
         this.id = id;
     }
 
-    public Long getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Long uuid) {
-        this.uuid = uuid;
-    }
-
-    public Long getCertificate_type_id() {
-        return certificateTypeId;
-    }
-
-    public void setCertificate_type_id(Long certificateTypeId) {
-        this.certificateTypeId = certificateTypeId;
-    }
-
     public void setCountryId(Long countryId) {
         this.countryId = countryId;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public Long getCountryId() {
@@ -106,20 +93,9 @@ public class Certificate extends Document{
         this.certificateType = certificateType;
     }
 
-    public CertificateDetail getDetail() {
-
-        detail = Utils.getLastElementFromList(detailList);
-
-        return detail;
-    }
-
-    public void setDetail(CertificateDetail detail) {
-        this.detail = detail;
-    }
-
     public Date getFormDate() {
 
-        formDate = Utils.getLastElementFromList(formDateList).getValue();
+        setFormDate(certificateFormDate.getValue());
 
         return formDate;
     }
@@ -128,39 +104,46 @@ public class Certificate extends Document{
         this.formDate = formDate;
     }
 
-    public List<CertificateDetail> getDetailList() {
-        return detailList;
+    public String getType() {
+        setType(CertificateTypeMap.getCertificateType(certificateTypeId).getName());
+        return type;
     }
 
-    public void setDetailList(List<CertificateDetail> detailList) {
-        this.detailList = detailList;
-    }
-
-    public List<CertificateFormDate> getFormDateList() {
-        return formDateList;
-    }
-
-    public void setFormDateList(List<CertificateFormDate> formDateList) {
-        this.formDateList = formDateList;
-    }
-
-    public List<CertificateComment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<CertificateComment> commentList) {
-        this.commentList = commentList;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getComment() {
-
-        comment = Utils.getLastElementFromList(commentList).getText();
-
+        setComment(this.certificateComment.getText());
         return comment;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public CertificateDetail getCertificateDetail() {
+        return certificateDetail;
+    }
+
+    public void setCertificateDetail(CertificateDetail certificateDetail) {
+        this.certificateDetail = certificateDetail;
+    }
+
+    public CertificateFormDate getCertificateFormDate() {
+        return certificateFormDate;
+    }
+
+    public void setCertificateFormDate(CertificateFormDate certificateFormDate) {
+        this.certificateFormDate = certificateFormDate;
+    }
+
+    public CertificateComment getCertificateComment() {
+        return certificateComment;
+    }
+
+    public void setCertificateComment(CertificateComment certificateComment) {
+        this.certificateComment = certificateComment;
     }
 
     public Long getCertificateTypeId() {

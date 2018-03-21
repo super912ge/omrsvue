@@ -3,19 +3,22 @@ package com.proship.omrs.candidate.participant.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import com.proship.omrs.base.entity.BaseEntityWithCreator;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Where(clause = "nexttransactiontime>current_date")
-public class ParticipantBirthdayTts extends BaseEntity{
+public class ParticipantBirthdayTts extends BaseEntityWithCreator{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "participant_birthday_tts_id_seq")
+    @SequenceGenerator(
+            name = "participant_birthday_tts_id_seq",
+            sequenceName = "participant_birthday_tts_id_sequence"
+    )
     private Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

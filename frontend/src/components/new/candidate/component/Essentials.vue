@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <el-card>
+    <div slot="header" class="clearfix">
+      <span>Essentials</span>
+    </div>
     <div style="margin: 10px">
       <div>
         <span style="margin:15px 0px">Contact Info
@@ -82,7 +85,7 @@
         <extra-info @addExtraInfo="addExtraInfo" :candidateId="candidateId" @editExtraInfo="editExtraInfo" @deleteExtraInfo="deleteExtraInfo"></extra-info>
       </template>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -210,6 +213,18 @@
         this.$refs.citizenship.deleteResidency();
         this.citizenshipComponent = false;
       },
+      fetchAirport(){
+        let airportOptions = JSON.parse(localStorage.getItem('airportOptions'));
+        if (!airportOptions){
+          this.$http.get('http://localhost:8080/airport/',{headers:getHeader()}).then(response=>{
+            if(response.status===200){
+              localStorage.setItem('airportOptions', JSON.stringify(response.data));
+              this.airports = response.data;
+            }
+          })
+        }
+        else this.airports = airportOptions;
+      },
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
         if (!countryOptions){
@@ -222,23 +237,11 @@
         }
         else this.countries = countryOptions;
 
-      },
-      fetchAirport(){
-        let airportOptions = JSON.parse(localStorage.getItem('airportOptions'));
-        if (!airportOptions){
-          this.$http.get('http://localhost:8080/airport/',{headers:getHeader()}).then(response=>{
-            if(response.status===200){
-              localStorage.setItem('airportOptions', JSON.stringify(response.data));
-              this.airports = response.data;
-            }
-          })
-        }
-        else this.airports = airportOptions;
       }
     },
     created(){
-      this.fetchCountry();
       this.fetchAirport();
+      this.fetchCountry();
     }
   }
 </script>

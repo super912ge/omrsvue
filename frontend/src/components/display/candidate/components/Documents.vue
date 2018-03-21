@@ -17,7 +17,7 @@
           </div>
           <div>
             <span class="content">Expiry Date: {{identity.expiryDate}}</span><br>
-            <span class="content" >Country: {{ identity.country}}</span>
+            <span class="content">Country: {{ identity.country}}</span>
 
           </div>
 

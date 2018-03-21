@@ -2,14 +2,15 @@ package com.proship.omrs.document.passport.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.Document;
-import com.proship.omrs.utils.util.Utils;
+import com.proship.omrs.system.country.entity.Country;
+import com.proship.omrs.system.country.entity.CountryMap;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
-
 public class Passport extends Document{
 
     @Id
@@ -20,14 +21,10 @@ public class Passport extends Document{
     )
     private Long id;
 
-    private String number ;
-
-    private Long uuid;
-
     private Long countryId;
 
     @Transient
-    private PassportDetail detail;
+    private Country country;
 
     @Transient
     private Date formDate;
@@ -38,17 +35,18 @@ public class Passport extends Document{
     @JsonIgnore
     private Long participantId;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @OrderBy("transactiontime")
-    private List<PassportDetail> detailList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
+    @Where(clause = "nexttransactiontime > current_date")
+    private PassportDetail passportDetail;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @OrderBy("transactiontime")
-    List<PassportFormDate> formDateList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
+    @Where(clause = "nexttransactiontime > current_date")
+    PassportFormDate passportFormDate;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @OrderBy("transactiontime")
-    List<PassportComment> commentList;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
+    @Where(clause = "nexttransactiontime > current_date")
+    @JsonIgnore
+    PassportComment passportComment;
 
     public Long getId() {
         return id;
@@ -66,22 +64,6 @@ public class Passport extends Document{
         this.participantId = participantId;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public Long getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Long uuid) {
-        this.uuid = uuid;
-    }
-
     public Long getCountryId() {
         return countryId;
     }
@@ -90,56 +72,17 @@ public class Passport extends Document{
         this.countryId = countryId;
     }
 
-    public PassportDetail getDetail() {
-
-        detail = Utils.getLastElementFromList(detailList);
-
-        return detail;
-    }
-
-    public void setDetail(PassportDetail detail) {
-        this.detail = detail;
-    }
-
     public Date getFormDate() {
-
-        formDate = Utils.getLastElementFromList(formDateList).getValue();
-
         return formDate;
     }
 
     public void setFormDate(Date formDate) {
+        this.setFormDate(this.passportFormDate.getValue());
         this.formDate = formDate;
     }
 
-    public List<PassportDetail> getDetailList() {
-        return detailList;
-    }
-
-    public void setDetailList(List<PassportDetail> detailList) {
-        this.detailList = detailList;
-    }
-
-    public List<PassportFormDate> getFormDateList() {
-        return formDateList;
-    }
-
-    public void setFormDateList(List<PassportFormDate> formDateList) {
-        this.formDateList = formDateList;
-    }
-
-    public List<PassportComment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<PassportComment> commentList) {
-        this.commentList = commentList;
-    }
-
     public String getComment() {
-
-        comment = Utils.getLastElementFromList(commentList).getText();
-
+        setComment(this.passportComment.getText());
         return comment;
     }
 
@@ -147,4 +90,37 @@ public class Passport extends Document{
         this.comment = comment;
     }
 
+    public PassportDetail getPassportDetail() {
+        return passportDetail;
+    }
+
+    public void setPassportDetail(PassportDetail passportDetail) {
+        this.passportDetail = passportDetail;
+    }
+
+    public PassportFormDate getPassportFormDate() {
+        return passportFormDate;
+    }
+
+    public void setPassportFormDate(PassportFormDate passportFormDate) {
+        this.passportFormDate = passportFormDate;
+    }
+
+    public PassportComment getPassportComment() {
+        return passportComment;
+    }
+
+    public void setPassportComment(PassportComment passportComment) {
+        this.passportComment = passportComment;
+    }
+
+    public Country getCountry() {
+
+        setCountry(CountryMap.getCountry(countryId));
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 }

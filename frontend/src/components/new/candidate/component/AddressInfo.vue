@@ -52,7 +52,9 @@ import {getHeader} from "../../../../env.js"
           region:'',
           postalCode:'',
           country: null
+
         },
+        jsonStr:null,
         deleted:false,
         confirmed: false
       }
@@ -60,14 +62,19 @@ import {getHeader} from "../../../../env.js"
     methods:{
       confirm(){
         if(this.address.id){
-          this.$http.post("http://localhost:8080/address/update",this.address,{headers:getHeader()}).then(
-            res=>{
-              if(res.status===200){
-                this.address.id = res.data.result;
-                this.confirmed = true;
-                this.$emit('editAddress', this.address);
-              }}
-          );
+
+          if(JSON.stringify(this.address)!==this.jsonStr) {
+            this.$http.post("http://localhost:8080/address/update", this.address, {headers: getHeader()}).then(
+              res => {
+                if (res.status === 200) {
+                  this.address.id = res.data.result;
+                  this.jsonStr = JSON.stringify(this.address);
+                  this.confirmed = true;
+                  this.$emit('editAddress', this.address);
+                }
+              }
+            );
+          }else this.confirmed = true;
         }
         else {
           this.$http.post("http://localhost:8080/address/create/" + this.candidateId, this.address, {headers: getHeader()}).then(
@@ -76,7 +83,7 @@ import {getHeader} from "../../../../env.js"
                 this.address.id = res.data.result;
                 this.confirmed = true;
                 this.$emit('addAddress', this.address.id);
-
+                this.jsonStr = JSON.stringify(this.address);
               }
             }
           );

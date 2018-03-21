@@ -33,29 +33,34 @@ import {getHeader} from '../../../../env.js'
           value:null
         },
         types:['BIRTHPLACE', 'SIN', 'HH_PACK_ID', 'HH_CANDIDATE_ID'],
-        deleted:false
+        deleted:false,
+        jsonStr: null
       }
     },
     methods:{
       confirm(){
 
         if (!this.info.id) {
-          this.$http.post("http://localhost:8080/info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
-            res => {
-              if (res.status === 200) {
-                this.info.id = res.data.result;
-                this.confirmed = true;
-                this.$emit('addExtraInfo', this.info);
-              }
-            })
+
+          if(JSON.stringify(this.info)!==this.jsonStr) {
+            this.$http.post("http://localhost:8080/info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
+              res => {
+                if (res.status === 200) {
+                  this.info.id = res.data.result;
+                  this.jsonStr = JSON.stringify(this.info);
+                  this.confirmed = true;
+                  this.$emit('addExtraInfo', this.info);
+                }
+              })
+          }else this.confirmed = true;
         }else {
           this.$http.post("http://localhost:8080/info/update",this.info,{headers:getHeader()}).then(
             res=>{
               if(res.status===200){
                 this.info.id = res.data.result;
+                this.jsonStr = JSON.stringify(this.info);
                 this.confirmed = true;
                 this.$emit('editExtraInfo', this.info);
-
               }}
           );
         }

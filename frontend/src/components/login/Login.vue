@@ -15,7 +15,6 @@
             </el-form-item>
         </el-form>
     </div>
-
 </template>
 
 <script>
@@ -28,13 +27,13 @@
 
         data() {
 
-            var validatePass = (rule, value, callback) => {
+            let validatePass = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input the password'));
                 }
                 callback();
             };
-            var validateUsername = (rule, value, callback) => {
+            let validateUsername = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input the username'));
                 }
@@ -59,7 +58,6 @@
         methods: {
             login(formName) {
 
-                console.log(this.$http)
                 this.$refs[formName].validate((valid) => {
 
                     const loginData = {
@@ -67,12 +65,12 @@
                         password: this.loginForm.password,
                         grant_type: 'password',
                         scope:''
-                    }
-                    const authUser = {}
-                    const userInfo = {}
+                    };
+                    const authUser = {};
+                    const userInfo = {};
                     if (valid) {
-                        let options = { emulateJSON: true}
-                        console.log(header_auth)
+                        let options = { emulateJSON: true};
+
                         this.$http.post(loginUrl, loginData,options,
 
                             {headers: { Authorization: header_auth }}
@@ -85,11 +83,10 @@
                               LocalStorage.setItem("authUser",JSON.stringify(authUser));
                             this.$http.get('user/'+response.data.userId,{headers: getHeader()})
                                 .then(response => {
-                                    if(response.status == 200){
+                                    if(response.status === 200){
                                       userInfo.full_name = response.data.full_name;
                                       userInfo.email = response.data.email;
                                       LocalStorage.setItem("userInfo",JSON.stringify(userInfo));
-                                        console.log('userInfo',response.data);
                                         this.$router.push('/')
                                     }
 
@@ -97,7 +94,6 @@
                             }
                         })
                     } else {
-                        console.log('login fail!!');
                         return false;
                     }
                 });

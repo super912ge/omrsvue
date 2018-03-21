@@ -10,6 +10,11 @@ import javax.persistence.*;
 public class PassportDetail extends DocumentDetail {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="passport_detail_tts_id_seq")
+    @SequenceGenerator(
+            name="passport_detail_tts_id_seq",
+            sequenceName="passport_detail_tts_id_sequence"
+    )
     private Long id;
 
     @ManyToOne
@@ -24,4 +29,11 @@ public class PassportDetail extends DocumentDetail {
         this.id = id;
     }
 
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
 }

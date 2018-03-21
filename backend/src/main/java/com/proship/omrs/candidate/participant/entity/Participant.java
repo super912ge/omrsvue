@@ -17,7 +17,7 @@ import com.proship.omrs.candidate.residency.entity.ParticipantResidencyOverride;
 import com.proship.omrs.document.certificate.entity.Certificate;
 import com.proship.omrs.document.medical.entity.Medical;
 import com.proship.omrs.document.passport.entity.Passport;
-import com.proship.omrs.document.seamanBook.entity.SeamansBook;
+import com.proship.omrs.document.seamansBook.entity.SeamansBook;
 import com.proship.omrs.document.visa.entity.Visa;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import org.hibernate.annotations.Where;

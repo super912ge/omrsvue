@@ -3,16 +3,18 @@ package com.proship.omrs.document.visa.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.document.base.entity.DocumentDetail;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "visa_detail_tts")
 public class VisaDetail extends DocumentDetail {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="visa_detail_tts_id_seq")
+    @SequenceGenerator(
+            name="visa_detail_tts_id_seq",
+            sequenceName="visa_detail_date_tts_id_sequence"
+    )
     private Long id;
 
     @ManyToOne

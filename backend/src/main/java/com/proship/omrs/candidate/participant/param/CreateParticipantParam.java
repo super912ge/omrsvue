@@ -1,5 +1,7 @@
 package com.proship.omrs.candidate.participant.param;
 
+import java.util.Date;
+
 public class CreateParticipantParam {
 
     private String firstName;
@@ -11,6 +13,10 @@ public class CreateParticipantParam {
     private String pronunciation;
 
     private String actName;
+
+    private Date birthday;
+
+    private String gender;
 
     public String getFirstName() {
         return firstName==null?"":this.firstName;
@@ -50,5 +56,20 @@ public class CreateParticipantParam {
 
     public void setActName(String actName) {
         this.actName = actName;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

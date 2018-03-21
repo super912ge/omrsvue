@@ -2,6 +2,7 @@ package com.proship.omrs.candidate.participant.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
+import com.proship.omrs.base.entity.BaseEntityWithCreator;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "participant_gender_tts")
 @Where(clause = "nexttransactiontime> current_date")
-public class ParticipantGender extends BaseEntity{
+public class ParticipantGender extends BaseEntityWithCreator{
 
 
     @Id
@@ -18,6 +19,7 @@ public class ParticipantGender extends BaseEntity{
             name="participant_gender_tts_id_seq",
             sequenceName="participant_gender_tts_id_sequence"
     )
+    private Long id;
 
     private String value;
 
@@ -40,5 +42,13 @@ public class ParticipantGender extends BaseEntity{
 
     public void setParticipant(Participant participant) {
         this.participant = participant;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

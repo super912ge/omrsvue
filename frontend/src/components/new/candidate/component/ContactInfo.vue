@@ -43,6 +43,7 @@ import {getHeader} from "../../../../env.js"
           method: '',
           text: ''
         },
+        jsonStr:null,
         deleted:false,
         contactType:null,
         contactLabel:null,
@@ -72,27 +73,31 @@ import {getHeader} from "../../../../env.js"
     methods:{
       confirm(){
         if(this.contact.id){
-          this.$http.post("http://localhost:8080/contact/update",this.contact,{headers:getHeader()}).then(
-            res=>{
-              if(res.status===200){
+          if(JSON.stringify(this.contact)!==this.jsonStr) {
+            this.$http.post("http://localhost:8080/contact/update", this.contact, {headers: getHeader()}).then(
+              res => {
+                if (res.status === 200) {
 
-                this.contact.id = res.data.result;
-                this.confirmed = true;
-                this.$emit('editContact', this.contact);
+                  this.contact.id = res.data.result;
+                  this.jsonStr = JSON.stringify(this.contact);
+                  this.confirmed = true;
+                  this.$emit('editContact', this.contact);
 
-              }}
-          );
+                }
+              }
+            );
+          }else this.confirmed = true;
         }
         else {
           this.$http.post("http://localhost:8080/contact/create/" + this.candidateId, this.contact, {headers: getHeader()}).then(
             res => {
               if (res.status === 200) {
                 this.contact.id = res.data.result;
+                this.jsonStr = JSON.stringify(this.contact);
                 this.confirmed = true;
                 this.$emit('addContactInfo', this.contact);
               }
-            }
-          );
+            });
         }
       },
       edit(){
