@@ -12,6 +12,7 @@ import SearchClient from './components/search/client/Client.vue'
 import SearchUser from './components/search/user/User.vue'
 import NewCandidate from './components/new/candidate/Candidate.vue'
 import DisplayCandidate from './components/display/candidate/Candidate.vue'
+import UserInfo from './components/UserInfo.vue'
 export const routes = [
     { path: '/',
       component: Full,
@@ -323,7 +324,8 @@ export const routes = [
         meta: {}
     },
     { path: '/user/login', component: Login, meta: {hidden:true}},
-    { path: '/register', component:Register, meta: {hidden:true}}
+    { path: '/register', component:Register, meta: {hidden:true}},
+    { name:'userInfo',path: '/account', component:UserInfo, meta:{hidden:true}}
 
 ]
 

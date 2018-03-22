@@ -25,7 +25,7 @@
               }
             }
             console.log(ls.getItem("userInfo"));
-            console.log('parse authUser',user)
+            console.log('parse authUser',user);
             return {user};
         }
     }

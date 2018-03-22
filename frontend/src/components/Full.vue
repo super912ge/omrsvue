@@ -23,8 +23,6 @@
   </el-row>
 
 
-  <user-info/>
-
 
 </div>
 </template>

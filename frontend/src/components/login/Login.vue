@@ -77,9 +77,10 @@
                             ).then(response => {
                             if(response.status===200){
                               LocalStorage.setItem("userId",response.data.userId);
+                              LocalStorage.setItem("username",JSON.stringify(response.data.username));
                             authUser.access_token = response.data.access_token;
                             authUser.refresh_token = response.data.access_token;
-                            authUser.expires_in = response.data.expires_in + _.now();
+                            authUser.expires_in = response.data.expires_in *1000 + _.now();
                               LocalStorage.setItem("authUser",JSON.stringify(authUser));
                             this.$http.get('user/'+response.data.userId,{headers: getHeader()})
                                 .then(response => {

@@ -19,33 +19,68 @@
                   </el-submenu>
               </template>
           </el-menu>
-
-
-
-
         </el-col>
-        <el-col :span="2"  style="margin-top: 6px">
-          <router-link to="/user/login"><el-button >Login</el-button></router-link>
+
+
+        <el-col :span="2"  style="margin-top: 15px">
+
+          <el-dropdown v-if="username" @command="handleCommand">
+            <span id="username">
+              {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item command="account">Account</el-dropdown-item>
+              <el-dropdown-item command="logout">Log out</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <div v-else>
+            <router-link to="/user/login"><el-button >Log in</el-button></router-link>
+          </div>
         </el-col>
       </el-row>
     </el-col>
 
 </template>
 <script>
+  import ls from 'localStorage'
+  import ElDropdown from "../../node_modules/element-ui/packages/dropdown/src/dropdown.vue";
+  import ElDropdownItem from "../../node_modules/element-ui/packages/dropdown/src/dropdown-item.vue";
     export default {
-        data() {
+      components: {
+        ElDropdownItem,
+        ElDropdown},
+      data() {
             return {
-
+                text: 'logout'
             };
         },
-        computed: {
+      computed: {
             level1() { //
                 return this.$router.options.routes.map(function(route) {
                 //  let options = route.path.exclude
                     return route.path;
                 });
+            },
+          username(){
+              return JSON.parse(ls.getItem('username'));
+
+          }
+        },
+      methods:{
+        handleCommand(command) {
+          console.log(command);
+            if(command==='logout'){
+              console.log(command);
+              ls.removeItem('userId');
+              ls.removeItem('username');
+              ls.removeItem('authUser');
+              this.$router.push('/user/login')
+            }else if(command ==='account'){
+              this.$router.push('/account')
             }
-        }
+          }
+
+      }
     };
 </script>
 
@@ -53,5 +88,14 @@
 <style scoped>
  .el-col {
      background-color: rgb(50, 65, 87) ;
+ }
+
+  #username{
+
+    font-size: large;
+    color:white;
+  }
+ .el-menu-item{
+   height: 60.99px;
  }
 </style>
