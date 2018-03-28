@@ -1,6 +1,6 @@
-package com.proship.omrs.candidate.availibility.repository;
+package com.proship.omrs.candidate.availability.repository;
 
-import com.proship.omrs.candidate.availibility.entity.ParticipantAvailabilityBts;
+import com.proship.omrs.candidate.availability.entity.ParticipantAvailabilityBts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -36,7 +36,7 @@ public abstract class BaseController<T, ID extends Serializable> {
 	        this.repo = repo;
 	    }
 
-	    @RequestMapping
+	    @RequestMapping(method = RequestMethod.GET)
 	    public ResponseEntity<List<T>> listAll() {
 	        Iterable<T> all = this.repo.findAll();
 	        return new ResponseEntity<List<T>>(Lists.newArrayList(all),HttpStatus.OK);

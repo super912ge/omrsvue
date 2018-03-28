@@ -2,7 +2,7 @@ package com.proship.omrs.candidate.participant.param;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.proship.omrs.candidate.availibility.param.Availability;
+import com.proship.omrs.candidate.availability.param.Availability;
 import com.proship.omrs.candidate.participant.entity.Participant;
 import com.proship.omrs.candidate.event.param.Note;
 import com.proship.omrs.candidate.group.entity.Act;

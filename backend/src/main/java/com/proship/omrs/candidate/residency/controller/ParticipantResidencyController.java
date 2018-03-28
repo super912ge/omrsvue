@@ -3,6 +3,7 @@ package com.proship.omrs.candidate.residency.controller;
 
 import com.proship.omrs.candidate.residency.entity.ParticipantResidency;
 import com.proship.omrs.candidate.residency.service.ResidencyService;
+import com.proship.omrs.utils.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ParticipantResidencyController {
     @Autowired
     ResidencyService residencyService;
 
-    @RequestMapping("create/{id}")
+    @RequestMapping(value = "create/{id}",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>> addResidency(@PathVariable("id")Long id, @RequestBody List<Long>ids){
 
         List<ParticipantResidency> result = residencyService.addResidency(id,ids);
@@ -32,32 +33,22 @@ public class ParticipantResidencyController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-    @RequestMapping("update/{id}")
+    @RequestMapping(value = "update/{id}",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>update(@PathVariable("id")Long candidateId, @RequestBody List<Long> countryIds){
 
         List<ParticipantResidency> ids = residencyService.update(candidateId, countryIds);
 
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("success",true);
-
-        result.put("result",ids);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return Utils.getResponseEntityWithResultMap(ids);
     }
 
 
 
-    @RequestMapping("delete")
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>delete(@RequestBody List<Long> ids){
 
         residencyService.delete(ids);
 
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("success",true);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return Utils.getResponseEntityWithResultMap(null);
     }
 
     @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
@@ -65,11 +56,7 @@ public class ParticipantResidencyController {
 
         residencyService.delete(id);
 
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("success",true);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return Utils.getResponseEntityWithResultMap(id);
     }
 
 

@@ -1,6 +1,6 @@
 package com.proship.omrs.candidate.participant.service;
 
-import com.proship.omrs.candidate.availibility.param.SearchByAvailabilityParam;
+import com.proship.omrs.candidate.availability.param.SearchByAvailabilityParam;
 import com.proship.omrs.candidate.participant.param.*;
 import com.proship.omrs.candidate.citizenship.param.SearchByResidencyCitizenshipParam;
 import com.proship.omrs.candidate.name.param.SearchByNameParam;

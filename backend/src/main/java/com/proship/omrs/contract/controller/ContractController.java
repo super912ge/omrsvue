@@ -3,6 +3,7 @@ package com.proship.omrs.contract.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.proship.omrs.utils.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +44,12 @@ public class ContractController extends BaseController<Contract,Long>{
 
 	        Contract contract = contractService.reinstateContract(id);
 
-	        Map<String, Object> m = Maps.newHashMap();
-	        m.put("success", true);
-	        m.put("updated", contract);
-	        return new ResponseEntity<Map<String, Object>>(m,HttpStatus.OK);
+
+	        return Utils.getResponseEntityWithResultMap(contract);
 	    }
 	 
 	 @RequestMapping(value="/search", method=RequestMethod.POST,consumes = {"application/json"})
-	 public ResponseEntity<List<Contract>>searchContract( @RequestBody Contract contract){
+	 public ResponseEntity<Map<String,Object>>searchContract( @RequestBody Contract contract){
 		 
 
 			Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -60,7 +59,7 @@ public class ContractController extends BaseController<Contract,Long>{
 		 List<Contract> contracts = contractService.findContractByConditions(contract);
 		 
 		 
-		return new ResponseEntity<>(contracts,HttpStatus.OK);
+		return Utils.getResponseEntityWithResultMap(contracts);
 		 
 	 }
 

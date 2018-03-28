@@ -84,7 +84,7 @@ public class UserController extends BaseController<User,Long>{
 
     }
 
-    @RequestMapping("all")
+    @RequestMapping(value = "all",method = RequestMethod.GET)
     public ResponseEntity<List<UserBrief>> listAllUsers() {
         Iterable<UserBrief> all = userBriefRepository.findAll();
         return new ResponseEntity<>(Lists.newArrayList(all),HttpStatus.OK);

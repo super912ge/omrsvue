@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,7 +72,6 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         return new JwtTokenStore(accessTokenConverter());
     }
 
-
     @Bean
     @Primary
     public DefaultTokenServices tokenServices() {
@@ -83,16 +81,12 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         return tokenServices;
     }
 
-
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
-
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

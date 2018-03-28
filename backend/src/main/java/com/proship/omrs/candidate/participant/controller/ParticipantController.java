@@ -1,13 +1,11 @@
 package com.proship.omrs.candidate.participant.controller;
 
-import com.proship.omrs.base.controller.BaseController;
-import com.proship.omrs.candidate.availibility.param.SearchByAvailabilityParam;
-import com.proship.omrs.candidate.participant.entity.Participant;
+import com.proship.omrs.candidate.availability.param.SearchByAvailabilityParam;
+import com.proship.omrs.candidate.citizenship.param.SearchByResidencyCitizenshipParam;
+import com.proship.omrs.candidate.name.param.SearchByNameParam;
 import com.proship.omrs.candidate.participant.param.*;
 import com.proship.omrs.candidate.participant.repository.ParticipantRepository;
 import com.proship.omrs.candidate.participant.service.ParticipantService;
-import com.proship.omrs.candidate.citizenship.param.SearchByResidencyCitizenshipParam;
-import com.proship.omrs.candidate.name.param.SearchByNameParam;
 import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.evaluation.param.EvaluationSearchParam;
 import com.proship.omrs.evaluation.service.EvaluationTagService;
@@ -26,14 +24,13 @@ import java.util.*;
 @RestController
 @RequestMapping(value="/candidate/")
 @CrossOrigin
-public class ParticipantController extends BaseController<Participant,Long>{
-    @Autowired
-    public ParticipantController(ParticipantRepository repo) {
-        super(repo);
+public class ParticipantController {
 
-    }
     @Autowired
     ParticipantService participantService;
+
+    @Autowired
+    ParticipantRepository repo;
 
     @Autowired
     EvaluationTagService evaluationTagService;
@@ -42,14 +39,14 @@ public class ParticipantController extends BaseController<Participant,Long>{
     GigService gigService;
 
 
-    @RequestMapping("/search/document")
+    @RequestMapping(value = "/search/document",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByDocument(@RequestBody Map<String,List<DocumentSearchTerm>> searchMap){
 
         return new ResponseEntity<>(participantService.findParticipantByDocuments(searchMap), HttpStatus.OK);
 
     }
 
-    @RequestMapping("/display")
+    @RequestMapping(value = "/display",method = RequestMethod.POST)
     public ResponseEntity<DisplayCandidateResultParam> listCandidatesByIds(@RequestBody DisplayCandidateParam param) {
 
        Pageable pageable = new PageRequest(param.getPage(),param.getSize());
@@ -58,7 +55,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping("/search/id/{id}")
+    @RequestMapping(value = "/search/id/{id}",method = RequestMethod.GET)
     public ResponseEntity<Set<Long>> searchCandidateById(@PathVariable(value = "id")Long id){
         Set<Long> result = new HashSet<>();
         if (repo.findOne(id)!=null){
@@ -66,7 +63,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
         }
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
-    @RequestMapping("/search/actId/{id}")
+    @RequestMapping(value = "/search/actId/{id}",method = RequestMethod.GET)
     public ResponseEntity<Set<Long>> searchCandidateByActId(@PathVariable(value = "id")Long id){
         Set<Long> result = new HashSet<>();
 
@@ -77,7 +74,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping("/search/evaluation")
+    @RequestMapping(value = "/search/evaluation",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByEvaluation(@RequestBody EvaluationSearchParam param) {
 
         Set<Long> result = evaluationTagService.findEvaluationByCriteria(param);
@@ -87,14 +84,14 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping("/search/gig")
+    @RequestMapping(value = "/search/gig", method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByGig(@RequestBody SearchByGigParam param){
 
         Set<Long> results = gigService.findCandidateByGig(param);
 
         return new ResponseEntity<>(results,HttpStatus.OK);
     }
-    @RequestMapping("/search/name")
+    @RequestMapping(value = "/search/name",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByName(@RequestBody SearchByNameParam param) {
 
         Set<Long> results = participantService.findParticipantByName(param);
@@ -102,7 +99,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(results,HttpStatus.OK);
     }
 
-    @RequestMapping("/search/residencyAndCitizenship")
+    @RequestMapping(value = "/search/residencyAndCitizenship",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByCitizenship(@RequestBody SearchByResidencyCitizenshipParam param){
 
         Set<Long> results = participantService.findParticipantByCountry(param);
@@ -110,7 +107,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(results,HttpStatus.OK);
     }
 
-    @RequestMapping("/search/availability")
+    @RequestMapping(value = "search/availability",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchCandidateByAvailability(@RequestBody SearchByAvailabilityParam param){
 
         Set<Long> results = participantService.findParticipantByAvailability(param);
@@ -118,12 +115,12 @@ public class ParticipantController extends BaseController<Participant,Long>{
         return new ResponseEntity<>(results,HttpStatus.OK);
 
     }
-    @RequestMapping("display/{id}")
+    @RequestMapping(value = "display/{id}",method = RequestMethod.GET)
     public ResponseEntity<CandidateComplete> displayCandidateDetail(@PathVariable(value = "id")Long id){
         CandidateComplete result = participantService.displayCandidateDetail(id);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
-    @RequestMapping("createByName")
+    @RequestMapping(value = "createByName",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>> createNewCandidate(@RequestBody CreateParticipantParam param){
 
         Map<String,Object> map = participantService.createParticipant(param);
@@ -132,7 +129,7 @@ public class ParticipantController extends BaseController<Participant,Long>{
 
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
-    @RequestMapping("updateName/{id}")
+    @RequestMapping(value = "updateName/{id}",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>> updateName(@PathVariable(value = "id")Long id,
                                                          @RequestBody CreateParticipantParam param){
         Map<String,Object> map = new HashMap<>();

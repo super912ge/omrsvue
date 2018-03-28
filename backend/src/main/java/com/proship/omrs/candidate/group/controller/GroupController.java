@@ -1,7 +1,5 @@
 package com.proship.omrs.candidate.group.controller;
 
-import com.proship.omrs.base.controller.BaseController;
-import com.proship.omrs.candidate.group.entity.Act;
 import com.proship.omrs.candidate.group.param.*;
 import com.proship.omrs.candidate.group.repository.ActRepository;
 import com.proship.omrs.candidate.group.repository.GroupActMainShardRepository;
@@ -10,7 +8,6 @@ import com.proship.omrs.candidate.group.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +17,7 @@ import java.util.List;
 
 @RequestMapping(value = "/band/")
 @RestController
-public class GroupController extends BaseController<Act,Long> {
+public class GroupController  {
 
     @Autowired
     ActRepository actRepository;
@@ -34,11 +31,9 @@ public class GroupController extends BaseController<Act,Long> {
     @Autowired
     GroupActMainShardRepository groupActMainShardRepository;
 
-    public GroupController(CrudRepository<Act, Long> repo) {
-        super(repo);
-    }
 
-    @RequestMapping(value = "search/name")
+
+    @RequestMapping(value = "search/name", method = RequestMethod.POST)
     public ResponseEntity<List<Long>> searchByName(@RequestBody String name){
 
         name = "%"+name+"%";
@@ -47,7 +42,7 @@ public class GroupController extends BaseController<Act,Long> {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "search/size")
+    @RequestMapping(value = "search/size",method = RequestMethod.POST)
     public ResponseEntity<List<Long>>searchBySize(@RequestBody BandSize size){
 
         List<Long> result = new ArrayList<>();
@@ -60,14 +55,14 @@ public class GroupController extends BaseController<Act,Long> {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "search/gig")
+    @RequestMapping(value = "search/gig",method = RequestMethod.POST)
     public ResponseEntity<List<Long>>searchByGig(@RequestBody SearchByGigParam param){
 
         List<Long> result = groupService.findGroupByGig(param);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "display")
+    @RequestMapping(value = "display",method = RequestMethod.POST)
     public ResponseEntity<DisplayBandResultParam>display(@RequestBody DisplayBandParam param){
 
         Pageable pageable = new PageRequest(param.getPage(),param.getSize());
@@ -76,8 +71,8 @@ public class GroupController extends BaseController<Act,Long> {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "members/{id}")
-    public ResponseEntity<List<BandMemberBrief>> displayMemebers(@PathVariable(value = "id")Long id){
+    @RequestMapping(value = "members/{id}",method = RequestMethod.POST)
+    public ResponseEntity<List<BandMemberBrief>> displayMembers(@PathVariable(value = "id")Long id){
 
         List<BandMemberBrief> result = groupService.getBandMembers(id);
 

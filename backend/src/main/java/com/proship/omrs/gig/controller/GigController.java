@@ -1,12 +1,11 @@
 package com.proship.omrs.gig.controller;
 
-import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.candidate.participant.param.SearchByGigParam;
-import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.param.DisplayGigParam;
 import com.proship.omrs.gig.param.DisplayGigResultParam;
 import com.proship.omrs.gig.repository.GigRepository;
 import com.proship.omrs.gig.service.GigService;
+import javafx.scene.chart.ValueAxis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,18 +18,15 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/gig/")
-public class GigController extends BaseController<Gig,Long> {
+public class GigController {
 
 
     @Autowired
     GigService gigService;
 
+    @Autowired GigRepository repo;
 
-    public GigController(GigRepository repo) {
-        super(repo);
-    }
-
-    @RequestMapping("display")
+    @RequestMapping(value = "display",method = RequestMethod.POST)
         public ResponseEntity<DisplayGigResultParam>displayGig(@RequestBody DisplayGigParam param){
             Pageable pageable = new PageRequest(param.getPage(),param.getSize());
             DisplayGigResultParam result = gigService.displayGig(param.getIds(),pageable);
@@ -38,20 +34,20 @@ public class GigController extends BaseController<Gig,Long> {
             return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping("search/name/{name}")
+    @RequestMapping(value = "search/name/{name}",method = RequestMethod.GET)
     public ResponseEntity<Set<Long>> searchByName(@PathVariable(value = "name") String name){
         Set<Long> result = gigService.findGigIdByName(name);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping("search/type")
+    @RequestMapping(value = "search/type",method = RequestMethod.POST)
     public ResponseEntity<Set<Long>> searchByGig(@RequestBody SearchByGigParam param){
 
         Set<Long> result = gigService.findGigIdByRoomAndGigType(param);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @RequestMapping("search/id/{id}")
+    @RequestMapping(value = "search/id/{id}",method = RequestMethod.GET)
     public ResponseEntity<Set<Long>>searchByGigId(@PathVariable(value = "id")Long id){
         Set<Long> result = new HashSet<>();
         if (repo.findOne(id)!=null){
@@ -59,7 +55,7 @@ public class GigController extends BaseController<Gig,Long> {
         }
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
-    @RequestMapping("search/accountManager/{id}")
+    @RequestMapping(value = "search/accountManager/{id}",method = RequestMethod.GET)
     public ResponseEntity<Set<Long>>searchByAccountManager(@PathVariable(value = "id")Long id){
 
         Set<Long> result = gigService.findGigIdByAccountManager(id);

@@ -40,10 +40,7 @@ public class TestTodoListController {
 	
 	@Mock
 	TodoListRepository repo;
-//	
-//	@Mock
-//	TodoListController controller;
-//	
+
 	@InjectMocks
 	TodoListController controller;
 
@@ -150,7 +147,7 @@ public class TestTodoListController {
 	static void tearAll(){
 		
 	}
-    public static String asJsonString(final Object obj) {
+    private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
@@ -158,7 +155,7 @@ public class TestTodoListController {
         }
     }
 
-    public static TodoList setTodoList(){
+    private static TodoList setTodoList(){
 
         TodoList todoList = new TodoList();
         todoList.setCreateDate(new Timestamp(System.currentTimeMillis()));

@@ -20,7 +20,7 @@ public class CitizenshipController {
     CitizenshipService citizenshipService;
 
 
-    @RequestMapping("create/{id}")
+    @RequestMapping(value = "create/{id}", method = RequestMethod.POST)
     ResponseEntity<Map<String,Object>> addCitizenships(@PathVariable("id") Long id, @RequestBody List<Long> ids){
 
         List<ParticipantCitizenship> result = citizenshipService.addCitizenship(id,ids);
@@ -35,7 +35,7 @@ public class CitizenshipController {
 
     }
 
-    @RequestMapping("update/{id}")
+    @RequestMapping(value = "update/{id}",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>updateCitizenship(@PathVariable("id") Long candidate,
                                                                @RequestBody List<Long>countryIds){
 
@@ -50,7 +50,7 @@ public class CitizenshipController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping("delete")
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>deleteCitizenship(@RequestBody List<Long> ids){
 
         citizenshipService.delete(ids);

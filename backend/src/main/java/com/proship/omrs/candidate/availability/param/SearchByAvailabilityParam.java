@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.availibility.param;
+package com.proship.omrs.candidate.availability.param;
 
 import java.util.Date;
 

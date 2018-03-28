@@ -59,7 +59,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         // @formatter:off
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/","/static/**","/user/login","/register",
-                        "/user/register","/user/registrationConfirm**")
+                        "/user/register","/user/registrationConfirm**","/api/v2/api-docs")
                 .permitAll().and().authorizeRequests().
                         antMatchers("/api/**").authenticated().and().exceptionHandling().and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -70,6 +70,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 //    public void configure(WebSecurity webSecurity)throws Exception{
 //
 //    }
+
+
     @Bean
     public JavaMailSenderImpl mailSender(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();

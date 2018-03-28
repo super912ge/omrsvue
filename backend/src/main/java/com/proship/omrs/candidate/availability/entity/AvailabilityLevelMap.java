@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.availibility.entity;
+package com.proship.omrs.candidate.availability.entity;
 
 import com.proship.omrs.gig.repository.AvailabilityLevelRepository;
 import org.slf4j.Logger;

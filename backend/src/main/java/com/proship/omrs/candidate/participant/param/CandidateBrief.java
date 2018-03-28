@@ -2,7 +2,7 @@ package com.proship.omrs.candidate.participant.param;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.proship.omrs.candidate.availibility.entity.ParticipantAvailabilityBts;
+import com.proship.omrs.candidate.availability.entity.ParticipantAvailabilityBts;
 import com.proship.omrs.candidate.participant.entity.*;
 import com.proship.omrs.candidate.citizenship.entity.ParticipantCitizenship;
 import com.proship.omrs.candidate.citizenship.entity.ParticipantCitizenshipOverride;

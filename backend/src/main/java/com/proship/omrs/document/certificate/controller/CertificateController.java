@@ -18,14 +18,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/certificate/")
 @CrossOrigin
-public class CertificateController extends BaseController<Certificate,Long>{
+public class CertificateController {
 
 
-    @Autowired
-
-    public CertificateController(CertificateRepository repo) {
-        super(repo);
-    }
     @Autowired
     @Qualifier("certificateService")
     DocumentService certificateService;
@@ -37,7 +32,7 @@ public class CertificateController extends BaseController<Certificate,Long>{
 //                certificateService.searchCandidate(term), HttpStatus.OK);
 //    }
 
-    @RequestMapping("create/{id}")
+    @RequestMapping(value = "create/{id}",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>createDocument(@PathVariable("id")Long id,
             @RequestBody CreateEditDocumentParam param){
 
@@ -47,7 +42,7 @@ public class CertificateController extends BaseController<Certificate,Long>{
         
     }
     
-    @RequestMapping("update")
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>> updateDocument(
             @RequestBody CreateEditDocumentParam param){
 
@@ -56,7 +51,7 @@ public class CertificateController extends BaseController<Certificate,Long>{
         return Utils.getResponseEntityWithResultMap(certificateId);
     }
 
-    @RequestMapping("delete/{id}")
+    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     public ResponseEntity<Map<String,Object>> deleteDocument(@PathVariable("id")Long id){
 
         certificateService.delete(id);

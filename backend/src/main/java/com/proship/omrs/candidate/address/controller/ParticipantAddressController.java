@@ -6,10 +6,7 @@ import com.proship.omrs.candidate.address.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +19,7 @@ public class ParticipantAddressController {
     @Autowired
     private AddressService addressService;
 
-    @RequestMapping("create/{id}")
+    @RequestMapping(value = "create/{id}", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> addNewAddress(@PathVariable("id") Long id, @RequestBody CreateAddressParam param){
 
         Long result = addressService.addAddress(id,param);
@@ -36,7 +33,7 @@ public class ParticipantAddressController {
         return new ResponseEntity<Map<String, Object>>(m, HttpStatus.OK);
 
     }
-    @RequestMapping("update")
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public ResponseEntity<Map<String,Object>>update(@RequestBody UpdateAddressParam param){
 
         Long id = addressService.update(param);
@@ -51,7 +48,7 @@ public class ParticipantAddressController {
     }
 
 
-    @RequestMapping("delete/{id}")
+    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     public ResponseEntity<Map<String,Object>>update(@PathVariable("id")Long id){
 
         addressService.delete(id);

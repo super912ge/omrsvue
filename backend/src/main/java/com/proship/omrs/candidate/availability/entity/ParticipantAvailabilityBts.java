@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.availibility.entity;
+package com.proship.omrs.candidate.availability.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;

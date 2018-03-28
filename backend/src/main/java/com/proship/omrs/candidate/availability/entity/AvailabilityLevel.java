@@ -1,4 +1,4 @@
-package com.proship.omrs.candidate.availibility.entity;
+package com.proship.omrs.candidate.availability.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

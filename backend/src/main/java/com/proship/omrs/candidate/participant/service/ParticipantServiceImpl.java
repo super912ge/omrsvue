@@ -1,7 +1,7 @@
 package com.proship.omrs.candidate.participant.service;
 
-import com.proship.omrs.candidate.availibility.param.SearchByAvailabilityParam;
-import com.proship.omrs.candidate.availibility.repository.ParticipantAvailabilityRepository;
+import com.proship.omrs.candidate.availability.param.SearchByAvailabilityParam;
+import com.proship.omrs.candidate.availability.repository.ParticipantAvailabilityRepository;
 import com.proship.omrs.candidate.name.repository.ParticipantActNameRepository;
 import com.proship.omrs.candidate.name.repository.ParticipantNameTtsRepository;
 import com.proship.omrs.candidate.participant.entity.Participant;

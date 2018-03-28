@@ -224,7 +224,7 @@
         this.$http.post("http://localhost:8080/evaluation/create/"+this.evaluationId,
           val, {headers: getHeader()}).then(response => {
           if (response.status === 200) {
-            this.evaluationRoot = response.data;
+            this.evaluationRoot = response.data.result;
             this.evaluationVisible = false;
           }
         });
