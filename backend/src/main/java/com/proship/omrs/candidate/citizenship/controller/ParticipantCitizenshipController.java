@@ -24,7 +24,7 @@ public class ParticipantCitizenshipController {
     CitizenshipService citizenshipService;
 
     @RequestMapping(value = "create/{candidateId}", method = RequestMethod.POST)
-    @ApiOperation(value = "Add one or multiple new citizenship info for the given candidate and return the a list of created citizenship entities.",
+    @ApiOperation(value = "Add one or multiple new citizenship for the given candidate and return the a list of created citizenship entities.",
             response=List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully creating citizenship info. ", response = List.class),
