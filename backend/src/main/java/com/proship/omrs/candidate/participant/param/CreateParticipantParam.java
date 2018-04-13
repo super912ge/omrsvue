@@ -1,13 +1,19 @@
 package com.proship.omrs.candidate.participant.param;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class CreateParticipantParam {
 
+    @NotNull
+    @Size(min = 2)
     private String firstName;
 
     private String otherName;
 
+    @NotNull
+    @Size(min = 2)
     private String lastName;
 
     private String pronunciation;

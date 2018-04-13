@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "participant_gender_tts")
-@Where(clause = "nexttransactiontime> current_date")
+@Where(clause = "nexttransactiontime> now()")
 public class ParticipantGender extends BaseEntityWithCreator{
 
 

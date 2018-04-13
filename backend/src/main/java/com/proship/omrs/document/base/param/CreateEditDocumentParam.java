@@ -1,19 +1,30 @@
 package com.proship.omrs.document.base.param;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class CreateEditDocumentParam {
+
 
     private Long id;
 
     private String comment;
 
+    @NotNull
+    @Past
     private Date issuingDate;
 
+    @NotNull
+    @Future
     private Date expiryDate;
 
+    @NotNull
     private Date formDate;
 
+    @NotNull
     private String issuingPost;
 
     private Boolean fitForDuty;
@@ -24,6 +35,8 @@ public class CreateEditDocumentParam {
 
     private Long country;
 
+    @NotNull
+    @Size(min = 4)
     private String number;
 
     private String name;

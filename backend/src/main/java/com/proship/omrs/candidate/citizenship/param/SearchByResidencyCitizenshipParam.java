@@ -1,7 +1,12 @@
 package com.proship.omrs.candidate.citizenship.param;
 
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotNull;
+
 public class SearchByResidencyCitizenshipParam {
+
 
     private Long residency;
 

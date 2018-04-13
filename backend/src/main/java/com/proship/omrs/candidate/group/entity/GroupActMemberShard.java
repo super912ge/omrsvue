@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Where(clause = "nexttransactiontime>current_date")
+@Where(clause = "nexttransactiontime>now()")
 public class GroupActMemberShard extends MainShardEntity{
 
     @Id

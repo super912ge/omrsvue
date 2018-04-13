@@ -8,14 +8,18 @@ import java.util.Date;
 public class Note {
 
     public Note (ParticipantEventOverride participantEventOverride){
-        this.type = participantEventOverride.getParticipantEventTemporal().getParticipantEvent()
-                .getParticipantEventType().getId();
+
+        this.id = participantEventOverride.getId();
+        this.type = participantEventOverride.getParticipantEventTemporal().
+                getParticipantEvent().getParticipantEventTypeTts().getParticipantEventTypeId();
 
         this.text = participantEventOverride.getParticipantEventTemporal().getParticipantEvent()
                 .getParticipantEventCommentTts().getText();
         this.transactionTime = participantEventOverride.getParticipantEventTemporal().getTransactiontime();
         this.username = participantEventOverride.getParticipantEventTemporal().getCreator().getShortName();
     }
+
+    public Long id;
 
     public Long getType() {
         return type;

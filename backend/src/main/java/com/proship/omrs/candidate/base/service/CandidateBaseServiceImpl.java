@@ -1,10 +1,10 @@
 package com.proship.omrs.candidate.base.service;
 
 import com.proship.omrs.candidate.base.entity.BaseEntity;
-import com.proship.omrs.candidate.base.entity.BaseEntityCountry;
 import com.proship.omrs.candidate.base.entity.BaseOverrideEntity;
 import com.proship.omrs.candidate.participant.entity.Participant;
 import com.proship.omrs.candidate.participant.repository.ParticipantRepository;
+import com.proship.omrs.exceptions.customExceptions.CandidateNotFoundException;
 import com.proship.omrs.user.entity.CustomUser;
 import com.proship.omrs.utils.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class CandidateBaseServiceImpl<T extends BaseEntity, D extends BaseOverri
 
     private Long userId;
 
-    public void setUserId(){
+    private void setUserId(){
 
         String username =
                 (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -44,10 +44,16 @@ public class CandidateBaseServiceImpl<T extends BaseEntity, D extends BaseOverri
 
    public Participant getParticipant(Long id){
 
-        return participantRepository.findOne(id);
+        Participant participant =  participantRepository.findOne(id);
+
+        if (participant == null) {
+            throw new CandidateNotFoundException(id);
+        }
+
+        return participant;
    }
 
-   public T getNewBaseEntity(T t){
+   protected T getNewBaseEntity(T t){
 
 
 
@@ -58,7 +64,7 @@ public class CandidateBaseServiceImpl<T extends BaseEntity, D extends BaseOverri
        return t;
    }
 
-   public D getNewBaseOverrideEntity(D d, Long id){
+   protected D getNewBaseOverrideEntity(D d, Long id){
 
        d.setDestroyerId(getUserId());
 

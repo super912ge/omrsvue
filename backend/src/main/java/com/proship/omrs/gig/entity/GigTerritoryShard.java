@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date and validendtime>current_date")
+@Where(clause = "nexttransactiontime > now() and validendtime>now()")
 public class GigTerritoryShard extends MainShardEntity{
 
     @Id

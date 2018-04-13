@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class ContractEventCaseTts extends BaseEntityTts<String> {
 
     @Id

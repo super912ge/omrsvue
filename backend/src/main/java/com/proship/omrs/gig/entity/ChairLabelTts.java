@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-@Where(clause = "nexttransactiontime> current_date")
+@Where(clause = "nexttransactiontime> now()")
 public class ChairLabelTts extends BaseEntity{
 
     @Id

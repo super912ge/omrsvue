@@ -48,8 +48,8 @@
           this.residency.sort();
           this.$http.post("http://localhost:8080/" + this.type + "/create/" + this.candidateId, this.residency,
             {headers: getHeader()}).then(response => {
-            if (response.status === 200) {
-              this.confirmedResidency = response.data.result;
+            if (response.status === 201) {
+              this.confirmedResidency = response.data;
               this.jsonStr = JSON.stringify(this.confirmedResidency);
               this.$emit('addResidencyInfo', this.confirmedResidency);
               this.confirmed = true;
@@ -70,8 +70,8 @@
           if (this.jsonStr !== JSON.stringify(this.residency.sort())) {
             this.$http.post("http://localhost:8080/" + this.type + "/update/" + this.candidateId, this.residency,
               {headers: getHeader()}).then(response => {
-              if (response.status === 200) {
-                this.confirmedResidency = response.data.result;
+              if (response.status === 201) {
+                this.confirmedResidency = response.data;
                 this.jsonStr = JSON.stringify(this.confirmedResidency);
                 this.$emit('editResidencyInfo', this.confirmedResidency);
                 this.confirmed = true;

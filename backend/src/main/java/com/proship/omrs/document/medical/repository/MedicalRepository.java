@@ -16,7 +16,7 @@ public interface MedicalRepository extends JpaRepository<Medical,Long>, Document
     @Override
     @Query("select a.medical.participantId  from MedicalDetail a " +
             " where a.medical.medicalTypeId in :types and a.expiryDate > :expiryDate " +
-            "and a.nexttransactiontime >= CURRENT_DATE group by a.medical.participantId" +
+            "and a.nexttransactiontime >= now() group by a.medical.participantId" +
             " having count(a.medical.participantId)= :num ")
     Set<Long> findParticipant(@Param("expiryDate") Date expiryDate, @Param("types") List<Long> types,
                               @Param("num") Long num);

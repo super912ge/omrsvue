@@ -14,5 +14,8 @@ public interface UserRepository extends CustomizedRepository<User,Long>{
 
     User findByName(String username);
 
+    @Query("select user.shortName from User user where user.id = :id")
+    Long findUsernameById(Long id);
+
 
 }

@@ -1,31 +1,26 @@
 package com.proship.omrs.candidate.event.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.proship.omrs.candidate.participant.entity.Participant;
+
+import com.proship.omrs.candidate.base.entity.BaseOverrideEntity;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
-public class ParticipantEventOverride {
+@Where(clause = "nexttransactiontime > now()")
+public class ParticipantEventOverride extends BaseOverrideEntity{
 
     @Id
     private Long id ;
 
-    @JsonIgnore
-    private Date nexttransactiontime ;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Participant participant;
-
-
     @ManyToOne
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "id",insertable = false,updatable = false)
     private ParticipantEventTemporal participantEventTemporal;
-
 
 
     public ParticipantEventTemporal getParticipantEventTemporal() {
@@ -44,19 +39,4 @@ public class ParticipantEventOverride {
         this.id = id;
     }
 
-    public Date getNexttransactiontime() {
-        return nexttransactiontime;
-    }
-
-    public void setNexttransactiontime(Date nexttransactiontime) {
-        this.nexttransactiontime = nexttransactiontime;
-    }
-
-    public Participant getParticipant() {
-        return participant;
-    }
-
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
-    }
 }

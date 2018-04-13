@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "eval_tag_comment_tts")
-@Where(clause = "nexttransactiontime> current_date")
+@Where(clause = "nexttransactiontime> now()")
 public class EvalTagComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="eval_tag_comment_tts_id_seq")

@@ -12,10 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -153,6 +149,7 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
                         repo.refresh(ratingType);
                     }
                     repo.refresh(instrument);
+
                     repo.refresh(instrumentRoot);
                 }
             }
@@ -195,6 +192,7 @@ public class EvaluationTagServiceImpl implements EvaluationTagService{
             }
         }
         repo.flush();
+
         repo.refresh(root);
 
         return root;

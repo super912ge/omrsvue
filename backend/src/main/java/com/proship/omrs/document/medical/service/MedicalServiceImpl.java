@@ -2,7 +2,6 @@ package com.proship.omrs.document.medical.service;
 
 import com.proship.omrs.candidate.participant.repository.ParticipantRepository;
 import com.proship.omrs.document.base.param.CreateEditDocumentParam;
-import com.proship.omrs.document.base.param.DocumentSearchTerm;
 import com.proship.omrs.document.base.service.DocumentService;
 import com.proship.omrs.document.base.service.DocumentServiceImpl;
 import com.proship.omrs.document.medical.entity.Medical;
@@ -13,16 +12,13 @@ import com.proship.omrs.document.medical.repository.MedicalCommentRepository;
 import com.proship.omrs.document.medical.repository.MedicalDetailRepository;
 import com.proship.omrs.document.medical.repository.MedicalFormDateRepository;
 import com.proship.omrs.document.medical.repository.MedicalRepository;
-import com.proship.omrs.utils.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.util.UUID;
 
 @Service("medicalService")
 public class MedicalServiceImpl extends DocumentServiceImpl<Medical, MedicalDetail,MedicalFormDate,MedicalComment>
         implements DocumentService{
+
     @Autowired
     MedicalRepository repository;
 

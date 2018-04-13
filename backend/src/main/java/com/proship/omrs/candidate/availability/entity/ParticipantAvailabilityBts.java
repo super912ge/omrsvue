@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date and validendtime>current_date")
+@Where(clause = "nexttransactiontime > now() and validendtime>now()")
 public class ParticipantAvailabilityBts extends MainShardEntity{
 
     @Id

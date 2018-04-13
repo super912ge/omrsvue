@@ -9,7 +9,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Where(clause = " nexttransactiontime > current_date")
+@Where(clause = " nexttransactiontime > now()")
 public class VenueMainShard extends MainShardEntity{
 
     @Id

@@ -11,12 +11,9 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import static com.google.common.collect.Lists.newArrayList;
-import static org.springframework.security.oauth2.provider.token.AccessTokenConverter.CLIENT_ID;
-
 import java.util.Collections;
+import static com.google.common.collect.Lists.newArrayList;
 
 
 @Configuration
@@ -29,9 +26,9 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.proship.omrs"))
                 .paths(PathSelectors.any()).build().apiInfo(apiInfo()).useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET,
-                        newArrayList(new ResponseMessageBuilder().code(500).message("500 message")
+                        newArrayList(new ResponseMessageBuilder().code(500).message("Internal Server Error")
                                 .responseModel(new ModelRef("Error")).build(), new ResponseMessageBuilder()
-                                .code(403).message("Forbidden!!!!!").build()));
+                                .code(403).message("Forbidden").build()));
     }
 
     private ApiInfo apiInfo() {
@@ -42,7 +39,6 @@ public class SwaggerConfig {
                 "License of API",
                 "API license URL",
                 Collections.emptyList());
-
     }
 
 //    @Bean

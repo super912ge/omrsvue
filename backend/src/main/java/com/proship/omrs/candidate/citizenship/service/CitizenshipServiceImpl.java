@@ -1,7 +1,6 @@
 package com.proship.omrs.candidate.citizenship.service;
 
-import com.proship.omrs.candidate.base.entity.BaseEntityCountry;
-import com.proship.omrs.candidate.base.entity.BaseOverrideEntity;
+
 import com.proship.omrs.candidate.base.service.CandidateBaseServiceImpl;
 import com.proship.omrs.candidate.citizenship.entity.ParticipantCitizenshipOverride;
 import com.proship.omrs.candidate.citizenship.repository.ParticipantCitizenshipRepository;
@@ -80,6 +79,7 @@ public class CitizenshipServiceImpl extends
 
         List <ParticipantCitizenship> finalList = list.stream()
                 .map(ParticipantCitizenshipOverride::getParticipantCitizenship).collect(Collectors.toList());
+
         finalList.addAll(added);
 
         return finalList;

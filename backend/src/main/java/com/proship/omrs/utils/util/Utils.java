@@ -4,6 +4,7 @@ import com.proship.omrs.base.entity.BaseEntity;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import com.proship.omrs.evaluation.entity.EvalTagType;
 import com.proship.omrs.user.entity.User;
+import com.proship.omrs.user.repository.UserRepository;
 import com.proship.omrs.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utils {
+
 
 
     public static <T extends BaseEntity> T getLastElementFromList(List<T> list){

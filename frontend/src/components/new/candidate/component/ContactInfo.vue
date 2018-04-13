@@ -76,9 +76,9 @@ import {getHeader} from "../../../../env.js"
           if(JSON.stringify(this.contact)!==this.jsonStr) {
             this.$http.post("http://localhost:8080/contact/update", this.contact, {headers: getHeader()}).then(
               res => {
-                if (res.status === 200) {
+                if (res.status === 201) {
 
-                  this.contact.id = res.data.result;
+                  this.contact.id = res.data;
                   this.jsonStr = JSON.stringify(this.contact);
                   this.confirmed = true;
                   this.$emit('editContact', this.contact);
@@ -91,7 +91,7 @@ import {getHeader} from "../../../../env.js"
         else {
           this.$http.post("http://localhost:8080/contact/create/" + this.candidateId, this.contact, {headers: getHeader()}).then(
             res => {
-              if (res.status === 200) {
+              if (res.status === 201) {
                 this.contact.id = res.data.result;
                 this.jsonStr = JSON.stringify(this.contact);
                 this.confirmed = true;

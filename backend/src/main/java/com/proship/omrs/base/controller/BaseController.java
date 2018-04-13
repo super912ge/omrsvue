@@ -1,33 +1,22 @@
 package com.proship.omrs.base.controller;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.proship.omrs.user.entity.CustomUser;
-import com.proship.omrs.user.entity.User;
-import com.proship.omrs.user.repository.UserRepository;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping(value="/api/")
 public abstract class BaseController<T, ID extends Serializable> {
-
-
 
 	    protected CrudRepository<T, ID> repo;
 
@@ -37,27 +26,22 @@ public abstract class BaseController<T, ID extends Serializable> {
 	    }
 
 	    @RequestMapping(method = RequestMethod.GET)
+		@ApiOperation(value = "Return all the entities stored in database.")
 	    public ResponseEntity<List<T>> listAll() {
 	        Iterable<T> all = this.repo.findAll();
-	        return new ResponseEntity<List<T>>(Lists.newArrayList(all),HttpStatus.OK);
+	        return new ResponseEntity<>(Lists.newArrayList(all),HttpStatus.OK);
 	    }
 
+		@ApiOperation(value = "Return created entity.")
 	    @RequestMapping(value="create",method=RequestMethod.POST,consumes="application/json")
-	    public ResponseEntity<Map<String, Object>> create(@RequestBody T json) {
-	    //    Log.debug("create() with body {} of type {}", json, json.getClass());
+	    public ResponseEntity<T> create(@RequestBody T json) {
 
 	        T created = this.repo.save(json);
-	        
-	        
-
-	        Map<String, Object> m = Maps.newHashMap();
-	        m.put("success", true);
-	        m.put("created", created);
-	        return new ResponseEntity<Map<String, Object>>(m,HttpStatus.OK);
+	        return new ResponseEntity<>(created,HttpStatus.CREATED);
 	    }
 
 	    @RequestMapping(value="/{id}", method=RequestMethod.GET, produces = {"application/json"})
-	   
+	    @ApiOperation("Return the entity by given id.")
 	    public ResponseEntity<T> get(@PathVariable ID id) {
 
 			T t = null;
@@ -69,14 +53,13 @@ public abstract class BaseController<T, ID extends Serializable> {
 				e.printStackTrace();
 			}
 	      
-	         return new ResponseEntity<T>(t,HttpStatus.OK);
+	         return new ResponseEntity<>(t,HttpStatus.OK);
 	    }
 
 	    @SuppressWarnings("deprecation")
 		@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	    public ResponseEntity<Map<String, Object>>  update(@PathVariable ID id, @RequestBody T json) {
-	        //logger.debug("update() of id#{} with body {}", id, json);
-	       // logger.debug("T json is of type {}", json.getClass());
+		@ApiOperation("Update entity with given id.")
+	    public ResponseEntity<T>  update(@PathVariable ID id, @RequestBody T json) {
 
 	        T entity = this.repo.findOne(id);
 	        try {
@@ -88,25 +71,17 @@ public abstract class BaseController<T, ID extends Serializable> {
 	            throw Throwables.propagate(e);
 	        }
 
-	      //  logger.debug("merged entity: {}", entity);
-
 	        T updated = this.repo.save(entity);
-	    //    logger.debug("updated enitity: {}", updated);
 
-	        Map<String, Object> m = Maps.newHashMap();
-	        m.put("success", true);
-	        m.put("id", id);
-	        m.put("updated", updated);
-	        return new ResponseEntity<Map<String, Object>>(m,HttpStatus.OK);
+
+	        return new ResponseEntity<>(updated,HttpStatus.OK);
 	    }
 
 	    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	    public ResponseEntity<Map<String, Object>> delete(@PathVariable ID id) {
+		@ApiOperation("Delete entity with given id.")
+	    public ResponseEntity<ID> delete(@PathVariable ID id) {
 	        this.repo.delete(id);
-	        Map<String, Object> m = Maps.newHashMap();
-	        m.put("success", true);
-	        m.put("id", id);
-	        return new ResponseEntity<Map<String, Object>>(m,HttpStatus.OK);
+	        return new ResponseEntity<>(id,HttpStatus.OK);
 	    }
 	
 

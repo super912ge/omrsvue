@@ -15,7 +15,7 @@ public interface VisaRepository extends JpaRepository<Visa,Long>,DocumentReposit
     @Override
     @Query("select a.visa.participantId  from VisaDetail a " +
             " where a.visa.visaTypeId in :types and a.expiryDate > :expiryDate " +
-            "and a.nexttransactiontime >= CURRENT_DATE group by a.visa.participantId" +
+            "and a.nexttransactiontime >= now() group by a.visa.participantId" +
             " having count(a.visa.participantId)= :num ")
     Set<Long> findParticipant(@Param("expiryDate") Date expiryDate, @Param("types") List<Long> types,
                               @Param("num") Long num);

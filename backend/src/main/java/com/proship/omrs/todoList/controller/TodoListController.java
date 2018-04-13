@@ -1,27 +1,21 @@
 package com.proship.omrs.todoList.controller;
 
-import com.google.common.collect.Maps;
-import com.proship.omrs.user.entity.CustomUser;
-import com.proship.omrs.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.*;
-
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.todoList.entity.TodoList;
 import com.proship.omrs.todoList.repository.TodoListRepository;
-
+import com.proship.omrs.user.entity.CustomUser;
+import com.proship.omrs.user.entity.User;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 @Log4j
 @RestController

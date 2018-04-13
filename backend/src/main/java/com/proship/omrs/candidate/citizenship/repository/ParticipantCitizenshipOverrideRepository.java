@@ -13,7 +13,7 @@ public interface ParticipantCitizenshipOverrideRepository extends
         CustomizedRepository<ParticipantCitizenshipOverride,Long> {
 
     @Query("select r.participant.id from ParticipantCitizenshipOverride " +
-            "r where r.nexttransactiontime> current_date and" +
+            "r where r.nexttransactiontime> now() and" +
             " r.participantCitizenship.countryId = :countryId")
     Set<Long> findCandidateIdByCitizenship(@Param("countryId") Long countryId);
 

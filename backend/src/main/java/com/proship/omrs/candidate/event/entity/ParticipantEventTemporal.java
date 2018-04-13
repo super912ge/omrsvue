@@ -4,14 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class ParticipantEventTemporal {
+
     @JsonIgnore
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_event_temporal_id_seq")
+    @SequenceGenerator(
+            name="participant_event_temporal_id_seq",
+            sequenceName="participant_event_temporal_id_sequence"
+    )
     private Long id;
 
     @JsonIgnore
@@ -22,7 +30,8 @@ public class ParticipantEventTemporal {
     private User creator;
 
     @OneToOne @JoinColumn(name = "participantEventId")
-    ParticipantEvent participantEvent;
+    @Fetch(FetchMode.SELECT)
+    private ParticipantEvent participantEvent;
 
 
     public Long getId() {

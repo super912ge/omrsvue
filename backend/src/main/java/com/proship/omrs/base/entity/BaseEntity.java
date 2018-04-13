@@ -15,7 +15,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public abstract class BaseEntity {
 
 	@JsonIgnore

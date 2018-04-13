@@ -18,3 +18,18 @@ export function fetchCandidate(id,cb) {
 
   // cb(null,participant);
 }
+
+
+export function fetchNotes(id,cb) {
+
+
+  Vue.http.get("http://localhost:8080/participantEvent/candidate/"+id)
+    .then(response=>{
+      if(response.status === 200){
+        cb(null,response.data);
+      }else
+        cb(new Error("Can't load candidate's notes"+response.status));
+    });
+
+  // cb(null,participant);
+}

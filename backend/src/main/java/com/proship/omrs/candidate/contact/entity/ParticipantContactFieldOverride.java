@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class ParticipantContactFieldOverride extends BaseOverrideEntity{
 
     @Id

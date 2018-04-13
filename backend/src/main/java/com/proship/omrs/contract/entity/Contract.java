@@ -38,7 +38,7 @@ public class Contract implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "contractId")
     @Where(
-            clause = "nexttransactiontime > current_date"
+            clause = "nexttransactiontime > now()"
     )
 	@OrderBy(value = "validendtime")
 	private List<ContractMainShard> contractMainShards;

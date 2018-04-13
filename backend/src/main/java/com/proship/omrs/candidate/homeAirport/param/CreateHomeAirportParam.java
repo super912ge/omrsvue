@@ -1,7 +1,12 @@
 package com.proship.omrs.candidate.homeAirport.param;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class CreateHomeAirportParam {
 
+    @NotNull
+    @Min(1)
     private Long airportId;
 
     private String client;

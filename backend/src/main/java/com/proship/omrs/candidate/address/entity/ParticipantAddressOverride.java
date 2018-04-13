@@ -36,14 +36,20 @@ public class ParticipantAddressOverride extends BaseOverrideEntity{
 
     public String getAddress(){
         String line;
-        if (participantAddress.getLine2()!=null&&"".equals(participantAddress.getLine2().trim())) {
+        if (participantAddress.getLine2()!=null&&!"".equals(participantAddress.getLine2().trim())) {
 
             line = this.participantAddress.getLine1() + ", " + participantAddress.getLine2() + ", ";
 
         }else line = this.participantAddress.getLine1()+ ", ";
 
-        return line+participantAddress.getCity()+", "+participantAddress.getRegion()+", "+
-                participantAddress.getCountry()+", "
+        line = line + participantAddress.getCity() + ", ";
+
+        if(participantAddress.getRegion()!=null&&!"".equals(participantAddress.getRegion().trim()))
+            line = line + participantAddress.getRegion() + ", ";
+
+
+        return line + participantAddress.getCountry().getName() + ", "
+
                 +this.participantAddress.getPostalCode();
 
     }

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class CommentDataShard extends BaseEntityWithCreator{
 
     @Id

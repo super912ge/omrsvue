@@ -43,17 +43,17 @@ public class Certificate extends Document{
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
     @JsonIgnore
-    @Where(clause = "nexttransactiontime>current_date")
+    @Where(clause = "nexttransactiontime>now()")
     private  CertificateDetail certificateDetail ;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
     @JsonIgnore
-    @Where(clause = "nexttransactiontime>current_date")
+    @Where(clause = "nexttransactiontime>now()")
     private CertificateFormDate certificateFormDate ;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "certificate")
     @JsonIgnore
-    @Where(clause = "nexttransactiontime>current_date")
+    @Where(clause = "nexttransactiontime>now()")
     private CertificateComment certificateComment ;
 
     public Country getCountry() {

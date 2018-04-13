@@ -15,7 +15,7 @@ public interface SeamansBookRepository extends JpaRepository<SeamansBook,Long> ,
     @Override
     @Query("select a.seamansBook.participantId  from SeamansBookDetail a " +
             " where a.seamansBook.countryId in :types and a.expiryDate > :expiryDate " +
-            "and a.nexttransactiontime >= CURRENT_DATE group by a.seamansBook.participantId" +
+            "and a.nexttransactiontime >= now() group by a.seamansBook.participantId" +
             " having count(a.seamansBook.participantId)= :num ")
     Set<Long> findParticipant(@Param("expiryDate") Date expiryDate, @Param("types") List<Long> types,
                               @Param("num") Long num);

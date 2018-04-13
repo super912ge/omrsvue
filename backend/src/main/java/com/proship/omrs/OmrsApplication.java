@@ -24,9 +24,7 @@ public class OmrsApplication {
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
 		return (container -> {
 			ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/");
-            //DefaultLoginPageConfigurer
 			container.addErrorPages(error404Page);
-			//container
 		});
 	}
 

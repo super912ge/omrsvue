@@ -38,17 +38,17 @@ public class Medical extends Document{
     private Long participantId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "medical")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private MedicalDetail medicalDetail;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "medical")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private MedicalFormDate medicalFormDate;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "medical")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private MedicalComment medicalComment;
 

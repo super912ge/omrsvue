@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Where(clause = "validendtime > current_date and nexttransactiontime> current_date")
+@Where(clause = "validendtime > now() and nexttransactiontime> now()")
 public class VenuePeriodShard extends MainShardEntity {
 
     @Id

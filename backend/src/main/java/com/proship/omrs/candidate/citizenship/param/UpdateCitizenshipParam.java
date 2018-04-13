@@ -1,11 +1,14 @@
 package com.proship.omrs.candidate.citizenship.param;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class UpdateCitizenshipParam {
 
+    @NotNull
     List<Long> citizenshipIds;
 
+    @NotNull
     List<Long> countryIds;
 
     public List<Long> getCitizenshipIds() {

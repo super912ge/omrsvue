@@ -1,26 +1,32 @@
 package com.proship.omrs.candidate.event.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Where;
+import javax.persistence.*;
 
 
 @Entity
 public class ParticipantEvent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_event_id_seq")
+    @SequenceGenerator(
+            name="participant_event_id_seq",
+            sequenceName="participant_event_id_sequence"
+    )
     private Long id;
 
+    @OneToOne(mappedBy = "comment", fetch = FetchType.LAZY)
+    @Where(clause = "nexttransactiontime > now()")
+    @Fetch(FetchMode.SELECT)
+    private ParticipantEventCommentTts participantEventCommentTts;
 
-
-    @OneToOne(mappedBy = "comment")
-    public ParticipantEventCommentTts participantEventCommentTts;
-
-    @OneToOne(mappedBy = "participantEvent")
+    @OneToOne(mappedBy = "participantEvent",fetch = FetchType.LAZY)
     @JsonIgnore
+    @Fetch(FetchMode.SELECT)
+    @Where(clause = "nexttransactiontime > now()")
     private ParticipantEventTypeTts participantEventTypeTts;
 
     @Transient
@@ -53,7 +59,9 @@ public class ParticipantEvent {
 
     public ParticipantEventType getParticipantEventType() {
 
-        if(this.participantEventTypeTts!=null) this.participantEventType = participantEventTypeTts.getParticipantEventType();
+        if(this.participantEventTypeTts!=null)
+            this.participantEventType = ParticipantEventTypeMap.getParticipantEventType(
+                    participantEventTypeTts.getParticipantEventTypeId());
         return participantEventType;
     }
 

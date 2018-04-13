@@ -3,6 +3,7 @@ package com.proship.omrs.venue.controller;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.venue.entity.Room;
 import com.proship.omrs.venue.repository.RoomRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class RoomController extends BaseController<Room,Long> {
         super(repo);
     }
 
+    @ApiOperation(value="Return all the rooms' names.")
     @RequestMapping(value = "all",method = RequestMethod.GET)
     ResponseEntity<List<String>> getRooms(){
         List<String> result = roomRepository.findAllRooms();

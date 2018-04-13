@@ -45,7 +45,7 @@ import {getHeader} from '../../../../env.js'
           if(JSON.stringify(this.info)!==this.jsonStr) {
             this.$http.post("http://localhost:8080/info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
               res => {
-                if (res.status === 200) {
+                if (res.status === 201) {
                   this.info.id = res.data.result;
                   this.jsonStr = JSON.stringify(this.info);
                   this.confirmed = true;
@@ -56,8 +56,8 @@ import {getHeader} from '../../../../env.js'
         }else {
           this.$http.post("http://localhost:8080/info/update",this.info,{headers:getHeader()}).then(
             res=>{
-              if(res.status===200){
-                this.info.id = res.data.result;
+              if(res.status===201){
+                this.info.id = res.data;
                 this.jsonStr = JSON.stringify(this.info);
                 this.confirmed = true;
                 this.$emit('editExtraInfo', this.info);

@@ -30,8 +30,8 @@ public class Act {
     private Set<JobMainShard> jobMainShards;
 
     @OneToMany
-    @Where(clause = "groupActMemberShard.validendtime >current_date and " +
-            "groupActMemberShard.nexttransactiontime > current_date")
+    @Where(clause = "groupActMemberShard.validendtime >now() and " +
+            "groupActMemberShard.nexttransactiontime > now()")
     private Set<GroupActMemberShard> groupActMemberShards;
 
     public Long getId() {

@@ -21,7 +21,7 @@ import org.hibernate.annotations.Where;
 @Entity
 @Data
 @Table(name = "contract_status_cancel_tts")
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class ContractStatus extends BaseEntity{
 	
 	@Id

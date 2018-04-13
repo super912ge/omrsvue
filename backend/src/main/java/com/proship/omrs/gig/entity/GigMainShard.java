@@ -12,8 +12,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
-//@NamedNativeQuery(query = "SELECT gms.* FROM GigMainShard gms where gms.nexttransactiontime> current_date ORDER BY " +
+@Where(clause = "nexttransactiontime > now()")
+//@NamedNativeQuery(query = "SELECT gms.* FROM GigMainShard gms where gms.nexttransactiontime> now() ORDER BY " +
 //        "gms.validendtime DESC LIMIT 1", name = "mostRecentGigShard",resultClass = GigMainShard.class)
 public class GigMainShard extends MainShardEntity{
 

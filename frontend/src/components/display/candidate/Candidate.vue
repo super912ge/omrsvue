@@ -12,7 +12,6 @@
         <el-row>
 
           <el-card>
-
             <el-col :span="3" :offset="1">
               <img src='./snoop.jpg' style="width: 80px; height: 80px;border-radius: 50%"/>
             </el-col>
@@ -40,7 +39,9 @@
           </el-col>
 
           <el-col :span="14">
-            <notes :notes="candidate.notes"></notes>
+            <notes :notes="candidate.notes" :candidateId="candidate.essentials.employeeNumber" ref="note"
+             @noteAdded="addNote" @noteUpdated="updateNote" @noteDeleted="deleteNote"
+            ></notes>
           </el-col>
         </el-row>
 
@@ -66,7 +67,7 @@
       </el-main>
       <el-aside style="width: 16%">
         <el-row>
-          <actions ></actions>
+          <actions></actions>
         </el-row>
         <el-row>
           <evaluation></evaluation>
@@ -82,9 +83,9 @@
 </template>
 
 <script>
-//  import profilePic from '/src/components/display/participant/snoop.jpg'
+
   import ElRow from "element-ui/packages/row/src/row";
-  import {fetchCandidate} from "./api.js"
+  import {fetchCandidate,fetchNotes} from "./api.js"
   import ElCol from "element-ui/packages/col/src/col";
   import Association from "./components/Association.vue"
   import Availability from "./components/Availability.vue";
@@ -98,16 +99,16 @@
   import Evaluation from "./components/Evaluation.vue";
   import ElCard from "../../../../node_modules/element-ui/packages/card/src/main.vue";
   import AppNav from "../../AppNav.vue"
-//  import participant from "participant.js"
+  import {getHeader} from "../../../env.js"
+  import candidate from './candidate.js'
+
   export default {
     components: {
-      ElCard,
-      ElCol, ElRow, Association, Availability, WorkHistory, Notes, Band,
+  Association, Availability, WorkHistory, Notes, Band,
       Documents, SearchResult, Essentials, Actions, Evaluation
     },
     data() {
 
-      console.log('candidate',this.candidate);
       return {
 
         candidate: null,
@@ -125,21 +126,39 @@
         if (err) {
           this.error = err.toString()
         } else {
-
-
           this.candidate = candidate;
-          console.log('load ', this.candidate);
+
         }
+      },
+      addNote(val){
+        this.candidate.notes.unshift(val);
+      },
+      updateNote(val,index){
+
+        this.$http.post("http://localhost:8080/participantEvent/update",val,
+          {headers:getHeader()}).then(response=> {
+          if(response.status===201) {
+
+            fetchNotes(this.candidate.essentials.employeeNumber,(err, res)=>{
+              this.candidate.notes = res;
+             // setData(err,this.candidate);
+            });
+          }
+        });
+
+      },
+      deleteNote(index){
+        this.candidate.notes.splice(index,1);
       }
     },
 
     beforeRouteEnter(to, from, next) {
 
-
       fetchCandidate(to.params.id, (err, candidate) => {
-
         next(vm => vm.setData(err, candidate));
-      })
+      });
+
+    //  next(vm=>vm.setData(null,candidate));
     },
     beforeRouteUpdate(to, from, next) {
       this.candidate = null;

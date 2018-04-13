@@ -1,9 +1,16 @@
 package com.proship.omrs.candidate.name.param;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SearchByNameParam {
 
+    @NotNull
+    @Size(min = 2)
     private String name;
 
+    @NotNull
     private String searchType;
 
     public String getName() {

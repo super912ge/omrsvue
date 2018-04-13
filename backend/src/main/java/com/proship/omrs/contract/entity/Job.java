@@ -25,7 +25,7 @@ public class Job {
     private List<Contract> contracts;
 
     @OneToMany(mappedBy = "job")
-    @Where(clause = "jobMainShards.nexttransactiontime > current_date")
+    @Where(clause = "jobMainShards.nexttransactiontime > now()")
     private Set<JobMainShard> jobMainShards;
 
     @Transient

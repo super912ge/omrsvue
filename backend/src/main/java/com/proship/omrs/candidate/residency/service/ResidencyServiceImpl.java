@@ -1,7 +1,5 @@
 package com.proship.omrs.candidate.residency.service;
 
-import com.proship.omrs.candidate.base.entity.BaseEntityCountry;
-import com.proship.omrs.candidate.base.entity.BaseOverrideEntity;
 import com.proship.omrs.candidate.base.service.CandidateBaseServiceImpl;
 import com.proship.omrs.candidate.residency.entity.ParticipantResidency;
 import com.proship.omrs.candidate.residency.entity.ParticipantResidencyOverride;

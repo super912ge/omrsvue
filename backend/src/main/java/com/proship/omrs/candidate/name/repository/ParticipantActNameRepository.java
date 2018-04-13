@@ -10,6 +10,6 @@ import java.util.Set;
 public interface ParticipantActNameRepository extends JpaRepository<ParticipantActName,Long>{
 
     @Query("select p.participantAct.participant.id from ParticipantActName p where p.name like :name " +
-            "and p.nexttransactiontime > current_date ")
+            "and p.nexttransactiontime > now() ")
     Set<Long> findCandidateIdByName(@Param("name") String name);
 }

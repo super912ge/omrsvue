@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Where(clause = "validendtime > current_date and nexttransactiontime > current_date")
+@Where(clause = "validendtime > now() and nexttransactiontime > now()")
 public class GroupActMainShard extends MainShardEntity {
 
     @Id

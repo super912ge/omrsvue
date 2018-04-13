@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Where(clause = "nexttransactiontime>current_date")
+@Where(clause = "nexttransactiontime>now()")
 public class EvalTag extends BaseEntity{
 
     @Id

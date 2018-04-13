@@ -308,8 +308,11 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantGenderRepository.save(participantGender);
 
         result.put("id", participant.getId());
+
         result.put("actId",act.getId());
+
         result.put("evaluationId",participant.getEvaluation().getId());
+
         return result;
     }
 
@@ -390,7 +393,8 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
         else if (param.getResidency()!=null) return participantResidencyOverrideRepository.findCandidateIdByResidency(param.getResidency());
 
-        return null;
+        else return null;
+
     }
 
     @Override
@@ -437,6 +441,7 @@ public class ParticipantServiceImpl implements ParticipantService {
             participantIds.addAll(result);
         }
         else if (!participantIds.isEmpty()) {
+
             participantIds.retainAll(result);
         }
     }
@@ -473,6 +478,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantActName.setParticipantAct(act);
 
         participantActName.setCreatorId(userId);
+
         participantActName.setNexttransactiontime(Utils.getInfiniteTimestamp());
 
         participantActName.setTransactiontime(new Timestamp(System.currentTimeMillis()));

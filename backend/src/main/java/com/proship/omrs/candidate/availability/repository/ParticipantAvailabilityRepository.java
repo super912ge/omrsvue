@@ -11,11 +11,11 @@ import java.util.Set;
 public interface ParticipantAvailabilityRepository extends JpaRepository<ParticipantAvailabilityBts, Long>{
 
     @Query("select p.participant.id from ParticipantAvailabilityBts p where p.validstarttime <= :start and" +
-            " p.validendtime >= :end and p.nexttransactiontime > current_date ")
+            " p.validendtime >= :end and p.nexttransactiontime > now() ")
     Set<Long> findCandidateIdByAvailability(@Param("start") Date start, @Param("end") Date end);
 
     @Query("select p.participant.id from ParticipantAvailabilityBts p where p.validstarttime <= :start and" +
-            " p.validendtime >= :end and p.nexttransactiontime > current_date and p.level > :level")
+            " p.validendtime >= :end and p.nexttransactiontime > now() and p.level > :level")
     Set<Long> findCandidateIdByAvailabilityAndLevel(@Param("start") Date start, @Param("end") Date end,
                                                     @Param("level") Integer level);
 }

@@ -16,7 +16,7 @@ public interface PassportRepository extends JpaRepository<Passport,Long>,Documen
     @Override
     @Query("select a.passport.participantId  from PassportDetail a " +
             " where a.passport.countryId in :types and a.expiryDate > :expiryDate " +
-            "and a.nexttransactiontime >= CURRENT_DATE group by a.passport.participantId" +
+            "and a.nexttransactiontime >= now() group by a.passport.participantId" +
             " having count(a.passport.participantId)= :num ")
     Set<Long> findParticipant(@Param("expiryDate") Date expiryDate, @Param("types") List<Long> types,
                               @Param("num") Long num);

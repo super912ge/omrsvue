@@ -41,8 +41,8 @@
           if(this.jsonStr!==JSON.stringify(this.airport)) {
             this.$http.post("http://localhost:8080/homeAirport/update", this.airport,
               {headers: getHeader()}).then(res => {
-              if (res.status === 200) {
-                this.airport.id = res.data.result;
+              if (res.status === 201) {
+                this.airport.id = res.data;
                 this.jsonStr = JSON.stringify(this.airport);
                 this.$emit('addAirport', this.airport);
                 this.confirmed = true;
@@ -52,7 +52,7 @@
         }else {
           this.$http.post("http://localhost:8080/homeAirport/create/"+this.candidateId, this.airport,
             {headers: getHeader()}).then(res => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               this.airport.id = res.data.result;
               this.jsonStr = JSON.stringify(this.airport);
               this.$emit('editAirport', this.airport);

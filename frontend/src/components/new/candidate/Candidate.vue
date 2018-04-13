@@ -187,10 +187,10 @@
         if(!this.candidateCreated) {
           this.$http.post("http://localhost:8080/candidate/createByName",
             this.name, {headers: getHeader()}).then(response => {
-            if (response.status === 200) {
+            if (response.status === 201) {
               this.candidateCreated = true;
               this.editMode = false;
-              this.candidateId = response.data.id;
+              this.candidateId = response.data;
               this.actId = response.data.actId;
               this.evaluationId = response.data.evaluationId;
             }
@@ -198,7 +198,7 @@
         }else {
           this.$http.post("http://localhost:8080/candidate/updateName/"+this.candidateId,
           this.name,{headers: getHeader()}).then(response => {
-            if (response.status===200){
+            if (response.status===201){
               this.editMode = false;
             }
           })
@@ -223,8 +223,8 @@
       submitEvaluation(val){
         this.$http.post("http://localhost:8080/evaluation/create/"+this.evaluationId,
           val, {headers: getHeader()}).then(response => {
-          if (response.status === 200) {
-            this.evaluationRoot = response.data.result;
+          if (response.status === 201) {
+            this.evaluationRoot = response.data;
             this.evaluationVisible = false;
           }
         });

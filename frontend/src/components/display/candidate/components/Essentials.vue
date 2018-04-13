@@ -11,7 +11,7 @@
           <li><span>Main Phone: </span> {{candidate.mainPhone}}</li>
           <li><span>Main Mobile: </span>{{candidate.mainMobile}}</li>
           <li><span>Primary Email: </span>{{candidate.email}}</li>
-          <li><span>Main Address: </span>{{candidate.mainAddress}}</li>
+          <li><span>Main Address: </span><p v-for="item in candidate.mainAddress">{{item}}</p></li>
           <li><span>Residency: </span>{{residency}}</li>
           <li><span>Citizenship: </span>{{citizenship}}</li>
           <li><span>Date of Birth: </span>{{candidate.birthday}}</li>

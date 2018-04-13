@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "participant_act_name_tts")
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class ParticipantActName extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_act_name_tts_id_seq")

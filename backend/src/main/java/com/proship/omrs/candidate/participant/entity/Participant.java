@@ -20,6 +20,8 @@ import com.proship.omrs.document.passport.entity.Passport;
 import com.proship.omrs.document.seamansBook.entity.SeamansBook;
 import com.proship.omrs.document.visa.entity.Visa;
 import com.proship.omrs.evaluation.entity.EvalTag;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -119,26 +121,28 @@ public class Participant{
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
     private List<ParticipantHomeAirportOverride> homeAirports;
 
+    @Fetch(FetchMode.SELECT)
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
+    @Where(clause = "nexttransactiontime>now()")
     private List<ParticipantEventOverride> events;
 
 //    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
 //    private List<ParticipantEvaluationCommentOverride > evaluationComments;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     private List<ParticipantCitizenshipOverride> citizenship;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     private List<ParticipantContactFieldOverride> contactFields;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     private List<ParticipantInfoOverride> infos;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "participant")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     private List<ParticipantAddressOverride> address;
 
 

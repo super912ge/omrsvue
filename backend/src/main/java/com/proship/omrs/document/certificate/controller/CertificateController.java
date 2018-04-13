@@ -1,18 +1,17 @@
 package com.proship.omrs.document.certificate.controller;
 
-import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.document.base.param.CreateEditDocumentParam;
 import com.proship.omrs.document.base.service.DocumentService;
-import com.proship.omrs.document.certificate.entity.Certificate;
-import com.proship.omrs.document.certificate.repository.CertificateRepository;
-import com.proship.omrs.utils.util.Utils;
+import com.proship.omrs.exceptions.ErrorDetail;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Log4j
 @RestController
@@ -25,38 +24,47 @@ public class CertificateController {
     @Qualifier("certificateService")
     DocumentService certificateService;
 
-//    @RequestMapping(value = "/search/candidate",method= RequestMethod.POST, produces = {"application/json"})
-//    public ResponseEntity<Set<Long>> searchCandidate(@RequestBody DocumentSearchTerm term){
-//
-//        return new ResponseEntity<>(
-//                certificateService.searchCandidate(term), HttpStatus.OK);
-//    }
-
-    @RequestMapping(value = "create/{id}",method = RequestMethod.POST)
-    public ResponseEntity<Map<String,Object>>createDocument(@PathVariable("id")Long id,
+    @RequestMapping(value = "create/{candidateId}",method = RequestMethod.POST)
+    @ApiOperation(value = "Create a new certificate for candidate and return the created certificate's id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful creating new certificate. ", response = Long.class),
+            @ApiResponse(code = 409, message = "Illegal argument",response = ErrorDetail.class),
+            @ApiResponse(code = 500, message = "Internal server error",response = ErrorDetail.class)})
+    public ResponseEntity<Long>createDocument(@PathVariable("candidateId")Long id,
             @RequestBody CreateEditDocumentParam param){
 
         Long certificateId = certificateService.create(id,param);
 
-        return Utils.getResponseEntityWithResultMap(certificateId);
+        return new ResponseEntity<>(certificateId, HttpStatus.CREATED);
         
     }
-    
+    @ApiOperation(value = "Update an existing certificate and return the new document id.",
+            notes = " Update the target document by logically deleting it and creating a new document. " +
+            "Return the new created document's id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful creating new certificate. ", response = Long.class),
+            @ApiResponse(code = 409, message = "Illegal argument",response = ErrorDetail.class),
+            @ApiResponse(code = 500, message = "Internal server error",response = ErrorDetail.class)})
     @RequestMapping(value = "update",method = RequestMethod.POST)
-    public ResponseEntity<Map<String,Object>> updateDocument(
+    public ResponseEntity<Long> updateDocument(
             @RequestBody CreateEditDocumentParam param){
 
         Long certificateId = certificateService.update(param);
 
-        return Utils.getResponseEntityWithResultMap(certificateId);
+        return new ResponseEntity<>(certificateId, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Map<String,Object>> deleteDocument(@PathVariable("id")Long id){
+    @ApiOperation("Delete the certificate with the given id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful creating new certificate. ", response = Long.class),
+            @ApiResponse(code = 409, message = "Illegal argument",response = ErrorDetail.class),
+            @ApiResponse(code = 500, message = "Internal server error",response = ErrorDetail.class)})
+    public ResponseEntity<Long> deleteDocument(@PathVariable("id")Long id){
 
         certificateService.delete(id);
 
-        return Utils.getResponseEntityWithResultMap(null);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

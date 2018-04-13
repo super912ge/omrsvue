@@ -103,7 +103,7 @@
         }else {
           this.$http.post('http://localhost:8080/' + name + "/create/"+this.candidateId, document, {headers: getHeader()}).then(
             res => {
-              if (res.status === 200) {
+              if (res.status === 201) {
                 document.id = res.data.result;
                 this.addedDocuments.push(document);
                 this.doc = {name:null,type:null,country:null,expiryDate:null,number:null,fitForDuty:false,

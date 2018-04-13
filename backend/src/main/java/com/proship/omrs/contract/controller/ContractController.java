@@ -1,9 +1,6 @@
 package com.proship.omrs.contract.controller;
 
 import java.util.List;
-import java.util.Map;
-
-import com.proship.omrs.utils.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.common.collect.Maps;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.contract.entity.Contract;
 import com.proship.omrs.contract.repository.ContractRepository;
@@ -38,18 +34,16 @@ public class ContractController extends BaseController<Contract,Long>{
 	@Autowired
 	ContractService contractService;
 	
-	 @RequestMapping(value="/reinstatecancel/{id}", method=RequestMethod.GET, produces = {"application/json"})
-	    public ResponseEntity<Map<String, Object>> reinstateCancelStatus(@PathVariable Long id) {
-	    //    Log.debug("create() with body {} of type {}", json, json.getClass());
+	 @RequestMapping(value="/reinstateCancel/{id}", method=RequestMethod.GET, produces = {"application/json"})
+	    public ResponseEntity<Long> reinstateCancelStatus(@PathVariable Long id) {
 
 	        Contract contract = contractService.reinstateContract(id);
 
-
-	        return Utils.getResponseEntityWithResultMap(contract);
+	        return new ResponseEntity<>(contract.getId(),HttpStatus.CREATED);
 	    }
 	 
 	 @RequestMapping(value="/search", method=RequestMethod.POST,consumes = {"application/json"})
-	 public ResponseEntity<Map<String,Object>>searchContract( @RequestBody Contract contract){
+	 public ResponseEntity<List<Contract>>searchContract( @RequestBody Contract contract){
 		 
 
 			Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -59,7 +53,7 @@ public class ContractController extends BaseController<Contract,Long>{
 		 List<Contract> contracts = contractService.findContractByConditions(contract);
 		 
 		 
-		return Utils.getResponseEntityWithResultMap(contracts);
+		return new ResponseEntity<>(contracts,HttpStatus.OK);
 		 
 	 }
 

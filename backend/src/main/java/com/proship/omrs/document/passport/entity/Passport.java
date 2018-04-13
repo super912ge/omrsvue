@@ -36,15 +36,15 @@ public class Passport extends Document{
     private Long participantId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     private PassportDetail passportDetail;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     PassportFormDate passportFormDate;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "passport")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     PassportComment passportComment;
 

@@ -69,7 +69,7 @@
     },
     methods:{
       confirm(){
-        console.log(this.index, this.document);
+
         if(this.document.countryItem.id||this.document.typeItem.id) {
           if (this.document.countryItem.id) {
             this.document.country = this.document.countryItem.id;

@@ -1,13 +1,20 @@
 package com.proship.omrs.candidate.participant.param;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class DisplayCandidateParam {
 
+    @NotNull
+    @Size(min = 1)
     List<Long> ids;
-
+    @NotNull
+    @Size(min = 0)
     Integer page;
 
+    @NotNull
+    @Size(min = 2)
     Integer size;
 
     public List<Long> getIds() {

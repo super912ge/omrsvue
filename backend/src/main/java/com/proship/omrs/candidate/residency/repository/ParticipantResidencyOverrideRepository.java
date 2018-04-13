@@ -13,7 +13,7 @@ import java.util.Set;
 public interface ParticipantResidencyOverrideRepository extends
         CustomizedRepository<ParticipantResidencyOverride,Long> {
 
-    @Query("select r.participant.id from ParticipantResidencyOverride r where r.nexttransactiontime> current_date and" +
+    @Query("select r.participant.id from ParticipantResidencyOverride r where r.nexttransactiontime> now() and" +
             " r.participantResidency.countryId = :countryId")
     Set<Long> findCandidateIdByResidency(@Param("countryId") Long countryId);
 

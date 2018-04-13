@@ -37,17 +37,17 @@ public class Visa extends Document{
     private Long participantId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @Where(clause = "nexttransactiontime>current_date")
+    @Where(clause = "nexttransactiontime>now()")
     @JsonIgnore
     private  VisaDetail  visaDetail;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @Where(clause = "nexttransactiontime>current_date")
+    @Where(clause = "nexttransactiontime>now()")
     @JsonIgnore
      VisaFormDate  visaFormDate;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visa")
-    @Where(clause = "nexttransactiontime >current_date")
+    @Where(clause = "nexttransactiontime >now()")
     @JsonIgnore
      VisaComment visaComment;
 

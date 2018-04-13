@@ -1,17 +1,33 @@
 package com.proship.omrs.candidate.address.param;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateAddressParam {
 
+    @NotNull
+    @Size(min=2, max=100)
     private String line1 ;
+
 
     private String line2 ;
 
+    @NotNull
+    @Size(min=2, max=30)
     private String city ;
 
+    @NotNull
+    @Size(min=2, max=30)
     private String region ;
 
+    @NotNull
+    @Size(min=2, max=30)
     private String postalCode ;
 
+    @NotNull
+    @Range(min = 0)
     private Long country;
 
     public String getLine1() {

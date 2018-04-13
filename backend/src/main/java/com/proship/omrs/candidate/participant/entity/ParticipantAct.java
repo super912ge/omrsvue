@@ -35,7 +35,7 @@ public class ParticipantAct {
     private Boolean active;
 
     @OneToMany(mappedBy = "act",fetch = FetchType.LAZY)
-    @Where(clause = "nexttransactiontime> current_date")
+    @Where(clause = "nexttransactiontime> now()")
     private List<ContractMainShard> contractShards;
 
     @ManyToOne

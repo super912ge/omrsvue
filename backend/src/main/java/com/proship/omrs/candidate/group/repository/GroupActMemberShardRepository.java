@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface GroupActMemberShardRepository extends JpaRepository<GroupActMemberShard,Long> {
 
-    @Query("select g.act.id  from GroupActMemberShard g where g.nexttransactiontime > current_date " +
+    @Query("select g.act.id  from GroupActMemberShard g where g.nexttransactiontime > now() " +
             "group by g.act.id having  count (g.act.id)  >= :min and  count (g.act.id)  <= :max")
     List<Long> findBandBySize(@Param(value = "min") long min, @Param(value = "max") long max);
 
 
-    @Query("select distinct g.participantActs from GroupActMemberShard g where g.act.id = :id and g.nexttransactiontime > current_date ")
+    @Query("select distinct g.participantActs from GroupActMemberShard g where g.act.id = :id and g.nexttransactiontime > now() ")
     List<ParticipantAct>findBandMembers(@Param(value = "id") Long id);
 }

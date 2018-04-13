@@ -3,22 +3,25 @@ package com.proship.omrs.candidate.event.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Where(clause = "nexttransactiontime > current_date")
+@Where(clause = "nexttransactiontime > now()")
 public class ParticipantEventTypeTts {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="participant_event_type_tts_id_seq")
+    @SequenceGenerator(
+            name="participant_event_type_tts_id_seq",
+            sequenceName="participant_event_type_tts_id_sequence"
+    )
     @JsonIgnore
     private Long id;
 
-    @ManyToOne
-    private ParticipantEventType participantEventType;
+
+    private Long participantEventTypeId;
 
     @JsonIgnore
     private Long creatorId;
@@ -41,12 +44,12 @@ public class ParticipantEventTypeTts {
         this.id = id;
     }
 
-    public ParticipantEventType getParticipantEventType() {
-        return participantEventType;
+    public Long getParticipantEventTypeId() {
+        return participantEventTypeId;
     }
 
-    public void setParticipantEventType(ParticipantEventType participantEventType) {
-        this.participantEventType = participantEventType;
+    public void setParticipantEventTypeId(Long participantEventTypeId) {
+        this.participantEventTypeId = participantEventTypeId;
     }
 
     public Long getCreatorId() {

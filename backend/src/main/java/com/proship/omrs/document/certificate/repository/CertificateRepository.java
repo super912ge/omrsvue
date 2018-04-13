@@ -17,12 +17,12 @@ public interface CertificateRepository extends JpaRepository<Certificate,Long>,
 //    @Query("select a.id from Participant a join a.certificateList b on a.id = b.participantId inner join " +
 //            "b.certificate_detail_tts c on b.id = c.certificateId\n" +
 //            "  where b.certificateTypeId in :types and c.expiryDate > :expiryDate " +
-//            "and c.nexttransactiontime >= CURRENT_DATE group by a.id having count(a.id)= :num ")
+//            "and c.nexttransactiontime >= now() group by a.id having count(a.id)= :num ")
 
     @Override
     @Query("select a.certificate.participantId  from CertificateDetail a " +
             "  where a.certificate.certificateTypeId in :types and a.expiryDate > :expiryDate " +
-            "and a.nexttransactiontime >= CURRENT_DATE group by a.certificate.participantId" +
+            "and a.nexttransactiontime >= now() group by a.certificate.participantId" +
             " having count(a.certificate.participantId)= :num ")
     Set<Long> findParticipant(@Param("expiryDate") Date expiryDate, @Param("types") List<Long> types,
                               @Param("num") Long num);

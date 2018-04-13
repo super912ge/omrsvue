@@ -34,17 +34,17 @@ public class SeamansBook extends Document{
     private String comment;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "seamansBook")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private SeamansBookDetail seamansBookDetail;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "seamansBook")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private SeamansBookFormDate seamansBookFormDate;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "seamansBook")
-    @Where(clause = "nexttransactiontime > current_date")
+    @Where(clause = "nexttransactiontime > now()")
     @JsonIgnore
     private SeamansBookComment seamansBookComment;
 

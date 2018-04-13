@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
-@Where(clause = "nexttransactiontime> current_date")
+@Where(clause = "nexttransactiontime> now()")
 public class ContractPeriodShard extends BaseEntityWithCreator{
 
     @Id
