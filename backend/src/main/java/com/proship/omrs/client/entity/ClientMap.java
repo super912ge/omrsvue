@@ -28,7 +28,7 @@ public class ClientMap implements InitializingBean{
 
         clients = HashBiMap.create();
 
-        for (Client  client  : list) {
+        for (Client client  : list) {
             clients.put(client .getId(), client );
         }
 

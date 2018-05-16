@@ -25,15 +25,15 @@ import org.hibernate.annotations.Where;
 public class ContractStatus extends BaseEntity{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="contract_cancelstatus_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="contract_cancel_status_seq")
 	@SequenceGenerator(
-	    name="contract_cancelstatus_seq",
+	    name="contract_cancel_status_seq",
 	    sequenceName="contract_status_cancel_tts_id_sequence"
 	)
 	private Long id;
 	
 	@ManyToOne(cascade= CascadeType.DETACH)
-	  @JsonSerialize(using = UserSerializer.class)
+	@JsonSerialize(using = UserSerializer.class)
 	private User creator;
 	
 	@ManyToOne(cascade= CascadeType.DETACH)

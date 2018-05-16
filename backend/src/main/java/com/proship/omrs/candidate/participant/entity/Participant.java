@@ -55,7 +55,7 @@ public class Participant{
     private Long uuid ;
 
     @OneToOne(mappedBy = "participant")@JsonIgnore
-    ParticipantNameTts nameTts;
+    private ParticipantNameTts nameTts;
 
     @Transient
     private String name;

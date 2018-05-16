@@ -3,6 +3,7 @@ package com.proship.omrs.candidate.name.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
 import com.proship.omrs.candidate.participant.entity.Participant;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -22,8 +23,13 @@ public class ParticipantNameTts extends BaseEntity{
     private Participant participant;
 
     private String firstName;
+
     private String lastName;
+
     private String otherName;
+
+    @Formula(value="first_name || ' ' || other_name || ' ' || last_name")
+    private String fullName;
 
     private Long creatorId;
 
@@ -83,5 +89,13 @@ public class ParticipantNameTts extends BaseEntity{
 
     public void setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

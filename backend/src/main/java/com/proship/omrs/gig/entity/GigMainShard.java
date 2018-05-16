@@ -41,7 +41,7 @@ public class GigMainShard extends MainShardEntity{
     private String maxSalaryRecurrenceUnit  ;
     private Boolean exclusive;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "responsible")
     @JsonSerialize(using = UserSerializer.class)
     private User responsible ;
