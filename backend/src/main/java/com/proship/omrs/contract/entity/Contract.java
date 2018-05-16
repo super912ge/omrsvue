@@ -26,8 +26,10 @@ public class Contract implements Serializable{
 
 	private Boolean nonPs;
 
+	private Long number;
+
 	@ManyToOne
-	@JoinTable(name = "Job_Contracts",
+	@JoinTable(name = "job_contracts",
 			joinColumns = {@JoinColumn(name="contract_id")},
 			inverseJoinColumns = {@JoinColumn(name="job_id")})
 	private Job job;
@@ -90,6 +92,14 @@ public class Contract implements Serializable{
 
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
+	}
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 
 	public List<ContractMainShard> getContractMainShards() {

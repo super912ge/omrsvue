@@ -19,7 +19,7 @@ public class Job {
     private Long uuid;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(  name = "Job_Contracts",
+    @JoinTable(  name = "job_contracts",
             joinColumns = {@JoinColumn(name="job_id")},
             inverseJoinColumns = {@JoinColumn(name="contract_id")})
     private List<Contract> contracts;

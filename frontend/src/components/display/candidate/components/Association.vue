@@ -53,11 +53,10 @@
 
 </template>
 <script>
-  import ElTable from "../../../../../node_modules/element-ui/packages/table/src/table.vue";
+
 
   export default {
 
-    components: {ElTable},
     props:['associations']
   }
 </script>

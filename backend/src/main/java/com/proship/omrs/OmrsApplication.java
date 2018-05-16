@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 
 @SpringBootApplication
@@ -64,6 +65,11 @@ public class OmrsApplication {
 //        registration.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
 //        return registration;
 //    }
+
+	@Bean
+	public HibernateJpaSessionFactoryBean sessionFactory() {
+		return new HibernateJpaSessionFactoryBean();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(

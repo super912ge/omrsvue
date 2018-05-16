@@ -4,7 +4,6 @@ import com.proship.omrs.contract.entity.ContractMainShard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -86,4 +85,16 @@ public interface ContractShardRepository extends JpaRepository<ContractMainShard
     List<ContractMainShard> findByNexttransactiontimeAndContractId(Date date,Long ContractId);
 
     List<ContractMainShard> findByTransactiontimeAndContractId(Date date, Long ContractId);
+
+//    @Query(value = "select c from contract_main_shard c join contract_status_cancel_tts csct " +
+//            "on c.contract_id = csct.contract_id INNER JOIN contract con on c.contract_id = con.id " +
+//            " INNER JOIN participant_act act on c.act_id = act.id join participant_name_tts pnt on act.participant_id" +
+//            " = pnt.participant_id where c.gig_id in ( :gigIds) and csct.nexttransactiontime > now() and " +
+//            "csct.cancel = false and act.active = true AND con.non_ps = FALSE " +
+//            "and act_id not in (1,2,2576,2577) and act.active = true and c.nexttransactiontime > now() " +
+//            "and pnt.nexttransactiontime>now()",
+//            nativeQuery = true)
+//    Set<Long>findContractByCandidateIds(@Param("candidateIds") Set<Long> candidateIds);
+
+
 }

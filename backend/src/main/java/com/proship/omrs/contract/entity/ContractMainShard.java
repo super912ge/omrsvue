@@ -130,6 +130,9 @@ public class ContractMainShard extends MainShardEntity{
 		}
 		catch (EntityNotFoundException e){
 			setAct(null);
+		}catch (Exception e){
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
