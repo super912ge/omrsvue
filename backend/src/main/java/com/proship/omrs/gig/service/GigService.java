@@ -19,4 +19,6 @@ public interface GigService {
     Long findGigIdById(Long id);
 
     Set<Long>findGigIdByAccountManager(Long id);
+
+    List<Long>findGigIdByRequirement(List<Long>ids);
 }

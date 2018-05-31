@@ -10,6 +10,11 @@ import com.proship.omrs.gig.repository.GigMainShardRepository;
 import com.proship.omrs.gig.repository.GigRepository;
 import com.proship.omrs.venue.repository.RoomRepository;
 import com.proship.omrs.venue.repository.VenueMainShardRepository;
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,8 +42,15 @@ public class GigServiceImpl implements GigService {
     @Autowired
     VenueMainShardRepository venueMainShardRepository;
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
     GigRepository gigRepository;
+
+    @Autowired
+    public GigServiceImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Set<Long> findCandidateByGig(com.proship.omrs.candidate.participant.param.SearchByGigParam param) {
@@ -168,5 +180,26 @@ public class GigServiceImpl implements GigService {
     @Override
     public Set<Long> findGigIdByAccountManager(Long id) {
         return gigMainShardRepository.findGigIdByAccountManager(id);
+    }
+
+    @Override
+    public List<Long> findGigIdByRequirement(List<Long> ids) {
+
+        Session session = sessionFactory.getCurrentSession();
+
+        String query =
+
+                "WITH RECURSIVE tag(id, EVAL_TAG_TYPE_ID, parent_id) AS (\n" +
+                "    SELECT g.id, g.EVAL_TAG_TYPE_ID, g.PARENT_ID FROM chair_requirement_tag g " +
+                        "WHERE g.EVAL_TAG_TYPE_ID = 14 and g.nexttransactiontime > now()" +
+                "  UNION SELECT g.id, g.eval_tag_type_id, g.parent_id FROM chair_requirement_tag g," +
+                " tag tg WHERE g.id = tg.parent_id and g.nexttransactiontime > now()) " +
+                " SELECT DISTINCT id FROM tag where parent_id is NULL and EVAL_TAG_TYPE_ID =1";
+
+        SQLQuery qry = session.createSQLQuery(query).addScalar("id",StandardBasicTypes.LONG);
+
+
+        return qry.list();
+
     }
 }

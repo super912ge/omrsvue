@@ -3,6 +3,7 @@ package com.proship.omrs.contract.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.base.entity.MainShardEntity;
+import com.proship.omrs.base.entity.MainShardEntityWithGig;
 import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import com.proship.omrs.candidate.participant.param.ParticipantActSerializer;
 import com.proship.omrs.gig.entity.Gig;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="contract_main_shard")
-public class ContractMainShard extends MainShardEntity{
+public class ContractMainShard extends MainShardEntityWithGig{
 	
 	
 	ContractMainShard(){};
@@ -23,10 +24,8 @@ public class ContractMainShard extends MainShardEntity{
 	private Long id;
 
 	@JoinColumn(name="contractId")
-
 	@ManyToOne
 	@JsonIgnore
-
 	private Contract contract;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -120,20 +119,20 @@ public class ContractMainShard extends MainShardEntity{
                 + super.getValidendtime() + ", pay=" + pay.getId() + "]";
 	}
 
-	@PostLoad
-	public void postLoad(){
-		try {
-			if(this.getAct() != null && this.getAct().getId() == 2 || this.getAct().getId()==1
-					|| this.getAct().getId()==2577 || this.getAct().getId()==2576){
-				setAct(null);
-			}
-		}
-		catch (EntityNotFoundException e){
-			setAct(null);
-		}catch (Exception e){
-			e.printStackTrace();
-			throw e;
-		}
-	}
+//	@PostLoad
+//	public void postLoad(){
+//		try {
+//			if(this.getAct() != null && this.getAct().getId() == 2 || this.getAct().getId()==1
+//					|| this.getAct().getId()==2577 || this.getAct().getId()==2576){
+//				setAct(null);
+//			}
+//		}
+//		catch (EntityNotFoundException e){
+//			setAct(null);
+//		}catch (Exception e){
+//			e.printStackTrace();
+//			throw e;
+//		}
+//	}
 	
 }

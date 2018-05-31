@@ -38,7 +38,7 @@ public class GigBrief {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    private String minSal;
+    private String salaryRange;
 
     private UserBrief territory;
 
@@ -65,7 +65,7 @@ public class GigBrief {
             this.startDate = gig.getPeriod().getValidstarttime();
             this.endDate = gig.getPeriod().getValidendtime();
         }
-        this.minSal = gig.getShard().getMinSalaryAmount()+gig.getShard().getMinSalaryCurrency();
+        this.salaryRange = gig.getShard().getSalaryRange();
 
         if (gig.getTerritory()!=null) {
             this.territory = new UserBrief(gig.getTerritory().getUser());
@@ -154,12 +154,12 @@ public class GigBrief {
         this.endDate = endDate;
     }
 
-    public String getMinSal() {
-        return minSal;
+    public String getSalaryRange() {
+        return salaryRange;
     }
 
-    public void setMinSal(String minSal) {
-        this.minSal = minSal;
+    public void setSalaryRange(String salaryRange) {
+        this.salaryRange = salaryRange;
     }
 
     public UserBrief getTerritory() {

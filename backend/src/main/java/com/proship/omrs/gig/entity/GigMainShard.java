@@ -13,8 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Where(clause = "nexttransactiontime > now()")
-//@NamedNativeQuery(query = "SELECT gms.* FROM GigMainShard gms where gms.nexttransactiontime> now() ORDER BY " +
-//        "gms.validendtime DESC LIMIT 1", name = "mostRecentGigShard",resultClass = GigMainShard.class)
+
 public class GigMainShard extends MainShardEntity{
 
     @Id
@@ -41,7 +40,7 @@ public class GigMainShard extends MainShardEntity{
     private String maxSalaryRecurrenceUnit  ;
     private Boolean exclusive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "responsible")
     @JsonSerialize(using = UserSerializer.class)
     private User responsible ;
@@ -215,5 +214,17 @@ public class GigMainShard extends MainShardEntity{
     public void setBandType(BandType bandType) {
         this.bandType = bandType;
         this.gigType = bandType.getId();
+    }
+
+    public String getSalaryRange() {
+        String str = "";
+
+
+        if (this.minSalaryAmount!=null) str+=this.minSalaryAmount+" " + this.minSalaryCurrency
+                + " /"+this.minSalaryRecurrenceUnit+ " - ";
+        if (this.maxSalaryAmount!=null) str+=       this.getMaxSalaryAmount()+" "+ this.maxSalaryCurrency+
+                " /"+this.maxSalaryRecurrenceUnit;
+
+        return str;
     }
 }

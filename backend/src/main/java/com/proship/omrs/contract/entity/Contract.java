@@ -26,7 +26,7 @@ public class Contract implements Serializable{
 
 	private Boolean nonPs;
 
-	private Long number;
+	private String number;
 
 	@ManyToOne
 	@JoinTable(name = "job_contracts",
@@ -94,11 +94,15 @@ public class Contract implements Serializable{
 		this.uuid = uuid;
 	}
 
-	public Long getNumber() {
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Long number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

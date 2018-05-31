@@ -16,6 +16,8 @@ public class ContractBriefBase {
 
             this.jobNumber = contract.getNumber();
 
+            this.cancel = contract.getContractStatus().getCancel();
+
             this.shards = new ArrayList<>();
             for (ContractMainShard contractMainShard : contract.getContractMainShards()) {
                 shards.add(new com.proship.omrs.candidate.participant.param.ContractShardBrief(contractMainShard));
@@ -36,7 +38,18 @@ public class ContractBriefBase {
 
         private Long id;
 
-        private Long jobNumber;
+        private String jobNumber;
+
+        private Boolean cancel;
+
+
+    public Boolean getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(Boolean cancel) {
+        this.cancel = cancel;
+    }
 
     public Long getId() {
         return id;
@@ -46,11 +59,12 @@ public class ContractBriefBase {
         this.id = id;
     }
 
-    public Long getJobNumber() {
+
+    public String getJobNumber() {
         return jobNumber;
     }
 
-    public void setJobNumber(Long jobNumber) {
+    public void setJobNumber(String jobNumber) {
         this.jobNumber = jobNumber;
     }
 }

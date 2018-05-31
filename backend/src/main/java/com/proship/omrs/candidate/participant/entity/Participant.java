@@ -37,7 +37,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @Table(name = "participant")
 @Entity
 @JsonInclude(NON_EMPTY)
-@Where(clause = "id not in (1,2576)")
+//@Where(clause = "id not in (1,2576)")
 public class Participant{
 
     @Id
@@ -60,8 +60,13 @@ public class Participant{
     @Transient
     private String name;
 
-    @OneToOne(mappedBy = "participant")
+//    @OneToOne(mappedBy = "participant")
+//    @Where(clause = "id not in (1,2)")
+    @Transient
     private ParticipantAct participantAct;
+
+//
+//    private List<ParticipantAct> participantActs;
 
     @OneToOne
     @JoinColumn(name = "evaluationId")
@@ -271,6 +276,8 @@ public class Participant{
     }
 
     public ParticipantAct getParticipantAct() {
+
+        this.participantAct = participantActList.get(0);
         return participantAct;
     }
 

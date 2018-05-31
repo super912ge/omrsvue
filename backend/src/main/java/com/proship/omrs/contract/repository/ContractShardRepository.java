@@ -86,6 +86,8 @@ public interface ContractShardRepository extends JpaRepository<ContractMainShard
 
     List<ContractMainShard> findByTransactiontimeAndContractId(Date date, Long ContractId);
 
+    List<ContractMainShard> findAllByIdIn(List<Long>id);
+
 //    @Query(value = "select c from contract_main_shard c join contract_status_cancel_tts csct " +
 //            "on c.contract_id = csct.contract_id INNER JOIN contract con on c.contract_id = con.id " +
 //            " INNER JOIN participant_act act on c.act_id = act.id join participant_name_tts pnt on act.participant_id" +

@@ -1,6 +1,6 @@
 package com.proship.omrs.contract.param;
 
-public class CandidateSearchParamIn extends ContractSearchingParamIn{
+public class CandidateSearchParamIn extends ContractSearchParamIn {
 
     private String name;
 

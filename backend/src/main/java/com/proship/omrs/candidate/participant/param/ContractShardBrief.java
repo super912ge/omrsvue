@@ -17,6 +17,7 @@ public class ContractShardBrief {
         this.id = contractMainShard.getContract().getId();
 
         if(contractMainShard.getContract().getJob()!=null)
+
         if (contractMainShard.getPay()!=null) {
             this.salary = contractMainShard.getPay().getSalaryAmount() + contractMainShard.getPay().getSalaryCurrency();
         }

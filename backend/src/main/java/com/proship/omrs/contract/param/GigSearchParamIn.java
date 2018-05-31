@@ -2,7 +2,7 @@ package com.proship.omrs.contract.param;
 
 import java.util.Set;
 
-public class GigSearchParamIn extends ContractSearchingParamIn{
+public class GigSearchParamIn {
 
     private Set<Long> clientIds;
 

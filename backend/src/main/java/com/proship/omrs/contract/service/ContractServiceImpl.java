@@ -2,24 +2,20 @@ package com.proship.omrs.contract.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.proship.omrs.candidate.name.repository.ParticipantNameTtsRepository;
 import com.proship.omrs.candidate.participant.repository.ParticipantActRepository;
-import com.proship.omrs.contract.entity.ContractMainShard;
-import com.proship.omrs.contract.param.CandidateSearchParamIn;
-import com.proship.omrs.contract.param.ContractBrief;
-import com.proship.omrs.contract.param.ContractSearchingParamIn;
-import com.proship.omrs.contract.param.GigSearchParamIn;
+import com.proship.omrs.contract.param.*;
 import com.proship.omrs.contract.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.proship.omrs.contract.entity.Contract;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 
 @Service
@@ -101,12 +97,20 @@ public class ContractServiceImpl implements ContractService{
 	}
 
 	@Override
-	public List<ContractBrief> findContractByConditions(ContractSearchingParamIn in) {
-		List<Long> ids =  hibernateContractDao.findContractByMultiConditions(in);
+	public ContractSearchResultParam findContractByConditions(ContractSearchParamIn in) {
 
-		List<Contract> contracts = contractRepo.findByIdIn(ids);
+		ContractSearchResultParam resultParam = new
+				ContractSearchResultParam();
 
-		return contracts.stream().map(ContractBrief::new)
-				.filter(item-> item.getAct()!=null).collect(Collectors.toList());
+		Map<String,Object> map = hibernateContractDao.findContractByMultiConditions(in);
+
+		List<Contract> contracts = (List<Contract>) map.get("contract");
+
+		resultParam.setContracts(contracts.stream().map(ContractBrief::new).collect(Collectors.toList()));
+
+		resultParam.setTotalPage((Long)map.get("totalPage"));
+
+		return resultParam;
+
 	}
 }

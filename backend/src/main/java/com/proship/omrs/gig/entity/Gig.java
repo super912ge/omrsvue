@@ -1,11 +1,13 @@
 package com.proship.omrs.gig.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.proship.omrs.chair.ChairRequirementTag;
 import com.proship.omrs.contract.entity.ContractMainShard;
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Gig {
@@ -32,14 +34,13 @@ public class Gig {
     private Set<ContractMainShard> contracts;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "chairRequirementTagId")
     private ChairRequirementTag chairRequirementTag;
 
     @OneToOne(mappedBy = "gig")
     private ChairLabelTts chair;
 
-    @OneToMany(mappedBy = "gig",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "gig", fetch = FetchType.EAGER)
     @OrderBy(value = "validendtime desc")
     @JsonIgnore
     private List<GigMainShard> shards;
@@ -111,7 +112,9 @@ public class Gig {
     }
 
     public GigMainShard getShard() {
-        this.shard = this.shards.get(0);
+        this.shard = this.shards.stream()
+                .filter( s->s.getValidendtime()
+                        .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList()).get(0);
         return shard;
     }
 

@@ -3,12 +3,9 @@ package com.proship.omrs.contract.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import com.proship.omrs.contract.param.CandidateSearchParamIn;
 import com.proship.omrs.contract.param.ContractBrief;
-import com.proship.omrs.contract.param.ContractSearchingParamIn;
-import com.proship.omrs.contract.param.GigSearchParamIn;
+import com.proship.omrs.contract.param.ContractSearchResultParam;
+import com.proship.omrs.contract.param.ContractSearchParamIn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,17 +48,18 @@ public class ContractController extends BaseController<Contract,Long>{
 	    }
 	 
 	 @RequestMapping(value="/search", method=RequestMethod.POST,consumes = {"application/json"})
-	 public ResponseEntity<List<ContractBrief>>searchContract( @RequestBody ContractSearchingParamIn in){
+	 public ResponseEntity<ContractSearchResultParam>searchContract(@RequestBody ContractSearchParamIn in){
 		 
 
 			Logger logger = LoggerFactory.getLogger(this.getClass());
 			
 			logger.info("searchContract"+ in.toString());
 		 
-		 List<ContractBrief> contracts = contractService.findContractByConditions(in);
+		 ContractSearchResultParam result = contractService.findContractByConditions(in);
+
+		System.out.print( result.getTotalPage());
 		 
-		 
-		return new ResponseEntity<>(contracts,HttpStatus.OK);
+		return new ResponseEntity<>(result,HttpStatus.OK);
 		 
 	 }
 	 @RequestMapping(value = "/availability",method = RequestMethod.GET)

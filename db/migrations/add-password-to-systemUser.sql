@@ -24,3 +24,6 @@ ALTER TABLE public.to_do_list
 GRANT ALL ON TABLE public.to_do_list TO postgres;
 -- GRANT SELECT ON TABLE public.to_do_list TO omrs;
 GRANT ALL ON TABLE public.to_do_list TO public;
+
+
+update participant_act set active = false where id = 2577

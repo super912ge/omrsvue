@@ -14,7 +14,7 @@ import java.util.Set;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 
 @Entity
-@Where(clause = "active = true and id not in (1,2,2576,2577)")
+@Where(clause = "active = true ")
 @JsonInclude(NON_EMPTY)
 
 public class ParticipantAct {

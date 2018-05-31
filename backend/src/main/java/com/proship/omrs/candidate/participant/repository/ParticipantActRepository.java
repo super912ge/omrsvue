@@ -11,4 +11,7 @@ public interface ParticipantActRepository extends JpaRepository<ParticipantAct,L
 
 //    @Query("select p.id from ParticipantAct p where p.participant.id in :ids")
 //    Set<Long> findIdByParticipantId(@Param("candidateIds") Set<Long> ids);
+
+    @Query("select p.participant.id from ParticipantAct p where p.id = :id")
+    Long findParticipantByActId(@Param("id") Long id);
 }

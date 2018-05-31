@@ -16,7 +16,7 @@ public class MainShardEntity extends BaseEntity {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name="creator_id")
     //@JsonSerialize(using = UserSerializer.class)
-            @JsonIgnore
+    @JsonIgnore
     User creator;
 
     @JsonFormat(pattern="yyyy-MM-dd")

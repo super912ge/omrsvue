@@ -86,6 +86,8 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Autowired
     ParticipantGenderRepository participantGenderRepository;
 
+
+
     @Resource(name = "contractEventCase")
     private Properties contractEventCase;
 
@@ -211,7 +213,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public Long findParticipantByActId(Long actId) {
-        return participantRepository.findParticipantByActId(actId);
+        return participantActRepository.findParticipantByActId(actId);
     }
 
     @Override

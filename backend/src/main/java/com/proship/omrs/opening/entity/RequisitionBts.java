@@ -1,29 +1,28 @@
-package com.proship.omrs.gig.entity;
+package com.proship.omrs.opening.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.proship.omrs.base.entity.BaseEntity;
+import com.proship.omrs.base.entity.BaseEntityWithCreator;
+import com.proship.omrs.base.entity.MainShardEntity;
+import com.proship.omrs.base.entity.MainShardEntityWithGig;
+import com.proship.omrs.gig.entity.Gig;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
-@Where(clause = "nexttransactiontime> now()")
-public class ChairLabelTts extends BaseEntity{
+@Where(clause = "nexttransactiontime > now()")
+public class RequisitionBts extends MainShardEntityWithGig {
 
     @Id
     private Long id;
 
-    private String label;
-
     @OneToOne
-    @JoinColumn(name = "chairId")
-    @JsonIgnore
+    @JoinColumn(name="gig_id")
     private Gig gig;
-
 
 
     public Long getId() {
@@ -32,14 +31,6 @@ public class ChairLabelTts extends BaseEntity{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public Gig getGig() {

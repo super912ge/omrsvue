@@ -1,15 +1,14 @@
-package com.proship.omrs.chair;
+package com.proship.omrs.gig.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
-import com.proship.omrs.evaluation.entity.EvalTagType;
-import com.proship.omrs.gig.entity.Gig;
-import com.proship.omrs.user.entity.User;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Where(clause = "nexttransactiontime> now()")
 public class ChairRequirementTag extends BaseEntity{
 
     @Id
@@ -24,8 +23,8 @@ public class ChairRequirementTag extends BaseEntity{
 //    @OneToOne(mappedBy = "chairRequirementTag")
 //    private Gig gig;
 
-    @ManyToOne
-    //@JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private ChairRequirementTag parent;
 
     @OneToMany(mappedBy = "parent")
@@ -61,5 +60,13 @@ public class ChairRequirementTag extends BaseEntity{
 
     public void setParent(ChairRequirementTag parent) {
         this.parent = parent;
+    }
+
+    public List<ChairRequirementTag> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ChairRequirementTag> children) {
+        this.children = children;
     }
 }
