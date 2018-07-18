@@ -12,6 +12,11 @@ import java.util.function.Predicate;
 public class Job {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="job_id_seq")
+    @SequenceGenerator(
+            name="job_id_seq",
+            sequenceName="job_id_sequence"
+    )
     private Long id ;
 
     private Integer specialtyType ;

@@ -18,7 +18,11 @@ public class Contract implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_id_seq")
+	@SequenceGenerator(
+			name="contract_id_seq",
+			sequenceName="contract_id_sequence"
+	)
 	private Long id;
 
 	@JsonIgnore
@@ -37,21 +41,22 @@ public class Contract implements Serializable{
 	@JsonIgnore
 	private Long uuid;
 
+	@OneToOne(cascade = CascadeType.ALL,mappedBy="contract")
+	private ContractRecruiterAttributionTts contractRecruiterAttributionTts;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "contractId")
-    @Where(
-            clause = "nexttransactiontime > now()"
-    )
+    @Where(clause = "nexttransactiontime > now()")
 	@OrderBy(value = "validendtime")
 	private List<ContractMainShard> contractMainShards;
 
-	@OneToOne(mappedBy = "contract")
+	@OneToOne(mappedBy = "contract",cascade = CascadeType.ALL)
 	private ContractPeriodShard contractPeriodShard;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contract")
+	@OneToMany( fetch = FetchType.LAZY, mappedBy = "contract",cascade = CascadeType.ALL)
 	private List<ContractEvent> contractEvents;
 	
-	@OneToOne( mappedBy="contract",fetch = FetchType.LAZY)
+	@OneToOne( mappedBy="contract",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ContractStatus contractStatus;
 
 	public Job getJob() {
@@ -108,8 +113,18 @@ public class Contract implements Serializable{
 
 	public List<ContractMainShard> getContractMainShards() {
 
+		if (this.contractMainShards!=null&& !this.contractMainShards.isEmpty())
+
 	    this.contractMainShards = contractMainShards.stream().filter(item->item.getNexttransactiontime().after(new Date())).collect(Collectors.toList());
         return this.contractMainShards;
+	}
+
+	public ContractRecruiterAttributionTts getContractRecruiterAttributionTts() {
+		return contractRecruiterAttributionTts;
+	}
+
+	public void setContractRecruiterAttributionTts(ContractRecruiterAttributionTts contractRecruiterAttributionTts) {
+		this.contractRecruiterAttributionTts = contractRecruiterAttributionTts;
 	}
 
 	public void setContractMainShards(List<ContractMainShard> contractMainShards) {

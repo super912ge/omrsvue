@@ -11,6 +11,7 @@ import com.proship.omrs.candidate.group.param.BandBrief;
 import com.proship.omrs.contract.entity.Contract;
 import com.proship.omrs.contract.entity.ContractMainShard;
 import com.proship.omrs.contract.entity.Job;
+import com.proship.omrs.contract.param.ContractBriefWithEvents;
 import com.proship.omrs.document.base.param.DocumentBrief;
 import com.proship.omrs.evaluation.entity.EvalTag;
 
@@ -42,7 +43,7 @@ public class CandidateComplete {
 
                 if (contractMainShard.getContract().getNonPs()) {
 
-                    this.nonPsContracts.add(new ContractBrief(contractMainShard.getContract()));
+                    this.nonPsContracts.add(new ContractBriefWithEvents(contractMainShard.getContract()));
 
                 }else {
 
@@ -89,8 +90,8 @@ public class CandidateComplete {
             }
             if (contractMap.size()>0) {
                 for (Map.Entry<Long, Contract> contract : contractMap.entrySet()) {
-                    ContractBrief contractBrief = new ContractBrief(contract.getValue());
-                    this.psContracts.add(contractBrief);
+                    ContractBriefWithEvents contractBriefWithEvents = new ContractBriefWithEvents(contract.getValue());
+                    this.psContracts.add(contractBriefWithEvents);
                 }
             }
 
@@ -141,9 +142,9 @@ public class CandidateComplete {
 
     private List<Availability> availabilities;
 
-    private List<ContractBrief> psContracts;
+    private List<ContractBriefWithEvents> psContracts;
 
-    private List<ContractBrief>nonPsContracts;
+    private List<ContractBriefWithEvents>nonPsContracts;
 
     private List<DocumentBrief> identifications;
 
@@ -179,19 +180,19 @@ public class CandidateComplete {
         this.availabilities = availabilities;
     }
 
-    public List<ContractBrief> getPsContracts() {
+    public List<ContractBriefWithEvents> getPsContracts() {
         return psContracts;
     }
 
-    public void setPsContracts(List<ContractBrief> psContracts) {
+    public void setPsContracts(List<ContractBriefWithEvents> psContracts) {
         this.psContracts = psContracts;
     }
 
-    public List<ContractBrief> getNonPsContracts() {
+    public List<ContractBriefWithEvents> getNonPsContracts() {
         return nonPsContracts;
     }
 
-    public void setNonPsContracts(List<ContractBrief> nonPsContracts) {
+    public void setNonPsContracts(List<ContractBriefWithEvents> nonPsContracts) {
         this.nonPsContracts = nonPsContracts;
     }
 

@@ -4,14 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntityTts;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 @Entity
 @Where(clause = "nexttransactiontime> now()")
 public class ContractEventFormDateTts extends BaseEntityTts<Date>{
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_event_form_date_tts_id_seq")
+    @SequenceGenerator(
+            name="contract_event_form_date_tts_id_seq",
+            sequenceName="contract_event_form_date_tts_id_sequence"
+    )
     private Long id;
 
     @OneToOne

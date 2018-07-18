@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntityWithCreator;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,6 +13,11 @@ import java.util.Date;
 public class ContractPeriodShard extends BaseEntityWithCreator{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_period_shard_id_seq")
+    @SequenceGenerator(
+            name="contract_period_shard_id_seq",
+            sequenceName="contract_period_shard_id_sequence"
+    )
     private Long id;
 
     private Integer startConfidence;

@@ -82,7 +82,7 @@ public class GigController {
     public ResponseEntity<Set<Long>>searchByGigId(@PathVariable(value = "id")Long id){
 
         Set<Long> result = new HashSet<>();
-        if (repo.findOne(id)!=null){
+        if (repo.getOne(id)!=null){
             result.add(id);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);

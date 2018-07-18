@@ -97,7 +97,7 @@ public class CertificateServiceImpl extends
     }
     public Long delete(Long id){
 
-        Certificate certificate = repository.findOne(id);
+        Certificate certificate = repository.getOne(id);
 
         return certificate.getParticipantId();
 

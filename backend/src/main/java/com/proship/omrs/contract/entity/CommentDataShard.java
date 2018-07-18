@@ -5,15 +5,18 @@ import com.proship.omrs.base.entity.BaseEntityWithCreator;
 import com.proship.omrs.contract.entity.Comment;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Where(clause = "nexttransactiontime > now()")
 public class CommentDataShard extends BaseEntityWithCreator{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="comment_data_shard_id_seq")
+    @SequenceGenerator(
+            name="comment_data_shard_id_seq",
+            sequenceName="comment_data_shard_id_sequence"
+    )
     private Long id;
 
     private String text;

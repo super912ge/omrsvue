@@ -3,21 +3,19 @@ package com.proship.omrs.todoList.controller;
 import com.proship.omrs.base.controller.BaseController;
 import com.proship.omrs.todoList.entity.TodoList;
 import com.proship.omrs.todoList.repository.TodoListRepository;
-import com.proship.omrs.user.entity.CustomUser;
 import com.proship.omrs.user.entity.User;
-import lombok.extern.log4j.Log4j;
+import com.proship.omrs.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Log4j
+
 @RestController
 @RequestMapping(value="/todo/")
 @CrossOrigin
@@ -33,20 +31,18 @@ public class TodoListController extends BaseController<TodoList,Long>{
 	TodoListRepository repo;
 
 	@Autowired
-    UserDetailsService userDetailsService;
+	UserRepository userRepository;
 
 	@Override
 	public ResponseEntity<List<TodoList>> listAll() {
-		//CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication();
 
-		//UserDetails userDetails = ((Authentication)principal).getPrincipal();
 
 		String username =
 				(String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		CustomUser user = (CustomUser)userDetailsService.loadUserByUsername(username);
+		User user = userRepository.findByName(username);
 
-		List<TodoList>list = repo.findByUser(new User(user.getUserId()));
+		List<TodoList>list = repo.findByUser(user);
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

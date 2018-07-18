@@ -2,8 +2,10 @@ package com.proship.omrs.candidate.event.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "participant_event_type")
 public class ParticipantEventType {
 
     @Id

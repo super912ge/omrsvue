@@ -4,8 +4,10 @@ import com.proship.omrs.document.base.entity.DocumentType;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "medical_type")
 public class MedicalType extends DocumentType{
 
     @Id

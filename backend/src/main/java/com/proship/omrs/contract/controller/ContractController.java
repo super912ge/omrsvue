@@ -1,13 +1,12 @@
 package com.proship.omrs.contract.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import com.proship.omrs.contract.param.ContractBrief;
+
+import com.proship.omrs.contract.param.Booking;
+import com.proship.omrs.contract.param.ContractBriefWithParticipant;
 import com.proship.omrs.contract.param.ContractSearchResultParam;
 import com.proship.omrs.contract.param.ContractSearchParamIn;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +21,11 @@ import com.proship.omrs.contract.entity.Contract;
 import com.proship.omrs.contract.repository.ContractRepository;
 import com.proship.omrs.contract.service.ContractService;
 
-import lombok.extern.log4j.Log4j;
-
-@Log4j
 @RestController
 @RequestMapping(value="/contract/")
 @CrossOrigin
-public class ContractController extends BaseController<Contract,Long>{
-	
-	@Autowired
-	public ContractController(ContractRepository repo) {
-		super(repo);
-		
-	}
+public class ContractController {
+
 	
 	@Autowired
 	ContractService contractService;
@@ -49,12 +40,7 @@ public class ContractController extends BaseController<Contract,Long>{
 	 
 	 @RequestMapping(value="/search", method=RequestMethod.POST,consumes = {"application/json"})
 	 public ResponseEntity<ContractSearchResultParam>searchContract(@RequestBody ContractSearchParamIn in){
-		 
 
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			
-			logger.info("searchContract"+ in.toString());
-		 
 		 ContractSearchResultParam result = contractService.findContractByConditions(in);
 
 		System.out.print( result.getTotalPage());
@@ -65,6 +51,19 @@ public class ContractController extends BaseController<Contract,Long>{
 	 @RequestMapping(value = "/availability",method = RequestMethod.GET)
 	 public ResponseEntity<Map<String,Object>> generateAvailability(){
 		 return new ResponseEntity<>(new HashMap<>(),HttpStatus.OK);
+	 }
+
+	 @RequestMapping(value = "/create", method = RequestMethod.POST)
+	 public ResponseEntity<ContractBriefWithParticipant> createContract(@RequestBody Booking booking){
+
+	 	Long id = contractService.addNewContract(booking);
+
+	 	contractService.addContractEventsAndShard(id,booking);
+
+	 	ContractBriefWithParticipant contract = contractService.findContractById(id);
+
+	 	return new ResponseEntity<>(contract,HttpStatus.OK);
+
 	 }
 
 

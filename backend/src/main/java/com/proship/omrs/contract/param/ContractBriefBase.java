@@ -19,19 +19,21 @@ public class ContractBriefBase {
             this.cancel = contract.getContractStatus().getCancel();
 
             this.shards = new ArrayList<>();
+
             for (ContractMainShard contractMainShard : contract.getContractMainShards()) {
-                shards.add(new com.proship.omrs.candidate.participant.param.ContractShardBrief(contractMainShard));
+
+                shards.add(new ContractShardBrief(contractMainShard));
             }
 
         }
 
-    private List<com.proship.omrs.candidate.participant.param.ContractShardBrief> shards;
+    private List<ContractShardBrief> shards;
 
-    public List<com.proship.omrs.candidate.participant.param.ContractShardBrief> getShards() {
+    public List<ContractShardBrief> getShards() {
         return shards;
     }
 
-    public void setShards(List<com.proship.omrs.candidate.participant.param.ContractShardBrief> shards) {
+    public void setShards(List<ContractShardBrief> shards) {
         this.shards = shards;
     }
 

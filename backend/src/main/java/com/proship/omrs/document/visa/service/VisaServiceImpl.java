@@ -73,7 +73,7 @@ public class VisaServiceImpl extends DocumentServiceImpl<Visa, VisaDetail,VisaFo
     @Override
     public Long delete(Long id){
 
-        Visa visa = repository.findOne(id);
+        Visa visa = repository.getOne(id);
 
         return visa.getParticipantId();
     }

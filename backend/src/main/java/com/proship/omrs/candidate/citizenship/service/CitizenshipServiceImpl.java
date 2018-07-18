@@ -68,7 +68,7 @@ public class CitizenshipServiceImpl extends
         toBeDeleted = toBeDeleted.stream().peek(item->item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
 
-        participantCitizenshipOverrideRepository.save(toBeDeleted);
+        participantCitizenshipOverrideRepository.saveAll(toBeDeleted);
 
         List<Long> existingCountryIds = list.stream().map(ParticipantCitizenshipOverride::getParticipantCitizenship)
                 .map(ParticipantCitizenship::getCountryId).collect(Collectors.toList());
@@ -94,7 +94,7 @@ public class CitizenshipServiceImpl extends
         deleteList = deleteList.stream().peek(item->item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
 
-        participantCitizenshipOverrideRepository.save(deleteList);
+        participantCitizenshipOverrideRepository.saveAll(deleteList);
 
         return deleteList.get(0).getParticipant().getId();
     }
@@ -110,7 +110,7 @@ public class CitizenshipServiceImpl extends
         deleteList = deleteList.stream().peek(item->item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
 
-        participantCitizenshipOverrideRepository.save(deleteList);
+        participantCitizenshipOverrideRepository.saveAll(deleteList);
 
         return deleteList.get(0).getParticipant().getId();
     }

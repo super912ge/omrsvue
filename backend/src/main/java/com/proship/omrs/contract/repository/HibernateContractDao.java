@@ -1,40 +1,37 @@
 package com.proship.omrs.contract.repository;
 
-import com.proship.omrs.contract.entity.Contract;
-import com.proship.omrs.contract.entity.ContractMainShard;
-import com.proship.omrs.contract.param.ContractBrief;
-import com.proship.omrs.contract.param.ContractSearchResultParam;
+import com.proship.omrs.candidate.name.entity.ParticipantNameTts;
+import com.proship.omrs.candidate.name.entity.ParticipantNameTts_;
+import com.proship.omrs.candidate.participant.entity.Participant;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct;
+import com.proship.omrs.candidate.participant.entity.ParticipantAct_;
+import com.proship.omrs.candidate.participant.entity.Participant_;
+import com.proship.omrs.contract.entity.*;
 import com.proship.omrs.contract.param.ContractSearchParamIn;
+import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.entity.Gig_;
 import com.proship.omrs.gig.entity.PositionMap;
 import com.proship.omrs.gig.repository.HibernateGigDao;
-import com.proship.omrs.gig.service.GigService;
-import com.proship.omrs.venue.repository.VenueMainShardRepository;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
-import java.math.BigInteger;
+import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Repository
 @Transactional
 public class HibernateContractDao {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
+
+    private final Integer pageSize = 20;
 
     @Autowired
-    public HibernateContractDao(SessionFactory sf) {
-        this.sessionFactory = sf;
+    public HibernateContractDao(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Autowired
@@ -43,70 +40,72 @@ public class HibernateContractDao {
     @Autowired
     ContractRepository contractRepository;
 
-    @Autowired
-    private VenueMainShardRepository venueMainShardRepository;
-
     public Map<String, Object> findContractByMultiConditions(ContractSearchParamIn in) {
 
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManagerFactory.unwrap(Session.class);
 
-        Criteria criteria = session.createCriteria(Contract.class);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
-        Criteria shardCriteria = null;
+        CriteriaQuery<Contract> criteria = builder.createQuery(Contract.class);
 
-        Criteria periodCriteria = null;
+        Root<Contract> root = criteria.from(Contract.class);
 
-        Criteria gigCriteria;
+        List<Predicate> contractPredicates = new ArrayList<>();
 
+        Join<Contract,ContractMainShard> contractMainShardJoin =root.join(Contract_.contractMainShards);
+
+        Join<Contract,ContractPeriodShard> periodShardJoin = root.join(Contract_.contractPeriodShard);
+
+        Join<ContractMainShard,Gig> gigJoin ;
 
         if (in.getGigSearchParam() != null) {
 
-            shardCriteria = criteria.createCriteria("contractMainShards");
-
             List<Long> gigIds = gigDao.findGigIdByConditions(in.getGigSearchParam());
 
-            gigCriteria = shardCriteria.createCriteria("gig");
+            gigJoin = contractMainShardJoin.join(ContractMainShard_.gig);
 
-            gigCriteria.add(Restrictions.in("id", gigIds));
+            contractPredicates.add(gigJoin.get(Gig_.id).in(gigIds));
+
+
         }
 
         if (in.getNonPs() != null) {
 
-            criteria.add(Restrictions.eq("nonPs", in.getNonPs()));
+            contractPredicates.add(builder.notEqual(root.get(Contract_.nonPs),in.getNonPs()));
         }
+
         if (in.getCanceled() != null) {
 
-            Criteria statusCriteria = criteria.createCriteria("contractStatus");
-
-            statusCriteria.add(Restrictions.eq("cancel", in.getCanceled()));
+            contractPredicates.add(builder.equal(root.join(Contract_.contractStatus).get(ContractStatus_.cancel),in.getCanceled()));
 
         }
-
 
         if (in.getStartDate() != null) {
 
-            periodCriteria = criteria.createCriteria("contractPeriodShard");
-
-            periodCriteria.add(Restrictions.ge("validstarttime", in.getStartDate()));
+            contractPredicates.add(builder.greaterThan(
+                    periodShardJoin.get(ContractPeriodShard_.validstarttime),in.getStartDate()));
         }
 
         if (in.getEndDate() != null) {
 
-            if (periodCriteria == null) periodCriteria = criteria.createCriteria("contractPeriodShard");
-            periodCriteria.add(Restrictions.le("validendtime", in.getEndDate()));
+            contractPredicates.add(builder.lessThan(
+                    periodShardJoin.get(ContractPeriodShard_.validendtime),in.getEndDate()));
         }
 
         if (in.getSeaDate() != null) {
 
-            if (periodCriteria == null) periodCriteria = criteria.createCriteria("contractPeriodShard");
-
             if (in.getSeaDateOn()) {
 
-                periodCriteria.add(Restrictions.le("validstarttime", in.getSeaDate()));
+                Predicate seaDateOn = builder.and(builder.lessThan(
+                        periodShardJoin.get(ContractPeriodShard_.validstarttime),in.getSeaDate()),builder.greaterThan(
+                        periodShardJoin.get(ContractPeriodShard_.validendtime),in.getSeaDate()));
 
-                periodCriteria.add(Restrictions.ge("validendtime", in.getSeaDate()));
+                contractPredicates.add(seaDateOn);
+
             } else {
-                periodCriteria.add(Restrictions.ge("validendtime", in.getSeaDate()));
+
+                contractPredicates.add(builder.greaterThan(
+                        periodShardJoin.get(ContractPeriodShard_.validendtime),in.getSeaDate()));
             }
         }
 
@@ -114,41 +113,43 @@ public class HibernateContractDao {
 
             Set<Long> positions = PositionMap.getPositionIdByGroup(PositionMap.getPosition(in.getRank()).getGrouping());
 
-            if (shardCriteria == null) shardCriteria = criteria.createCriteria("contractMainShards");
-            shardCriteria.add(Restrictions.in("position", positions));
+            contractPredicates.add(contractMainShardJoin.get(ContractMainShard_.position).in(positions));
         }
 
 
         if (in.getName() != null && !"".equals(in.getName())) {
 
-            if (shardCriteria == null) shardCriteria = criteria.createCriteria("contractMainShards");
-            Criteria actCriteria = shardCriteria.createCriteria("act");
+            Join<ContractMainShard,ParticipantAct> participantActJoin = contractMainShardJoin.join(ContractMainShard_.act);
 
-            Criteria participantCriteria = actCriteria.createCriteria("participant");
+            Join<ParticipantAct,Participant> participantJoin = participantActJoin.join(ParticipantAct_.participant);
 
-            Criteria nameCriteria = participantCriteria.createCriteria("nameTts");
+            Join<Participant,ParticipantNameTts> nameTtsJoin = participantJoin.join(Participant_.nameTts);
 
-            nameCriteria.add(Restrictions.ilike("fullName", "%" + in.getName().toLowerCase().trim() + "%"));
+            contractPredicates.add(builder.like(builder.lower(
+                    nameTtsJoin.get(ParticipantNameTts_.fullName)),"%" + in.getName().toLowerCase().trim() + "%"));
+
         }
 
-        criteria.setFirstResult((int) (in.getPageNumber() - 1) * 20);
+        Predicate predicateFinal = builder.and(contractPredicates.toArray(new Predicate[contractPredicates.size()]));
 
-        criteria.setMaxResults(20);
+        long count = 0;
 
-        criteria.setProjection(Projections.distinct(Projections.id()));
+        if(in.getPageNumber()==0){
+            CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
 
-        List<Long> ids = criteria.list();
+            countQuery.select(builder.countDistinct(root.get(Contract_.id))).where(predicateFinal);
 
-        List<Contract> contracts = contractRepository.findByIdIn(ids);
+            count = session.createQuery(countQuery).getSingleResult();
+        }
 
-        criteria.setProjection(Projections.countDistinct("id"));
+        List<Contract> contracts = session.createQuery(criteria.where(predicateFinal)
+                .orderBy(builder.desc(root.get(Contract_.id))).distinct(true))
+                .setMaxResults(pageSize).setFirstResult(in.getPageNumber().intValue()*pageSize).getResultList();
 
-        Long count = (Long) criteria.uniqueResult();
 
         Map<String, Object> map = new HashMap<>();
 
         map.put("totalPage", count / 20 + 1);
-
 
         map.put("contract", contracts);
 

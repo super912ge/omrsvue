@@ -11,9 +11,13 @@ public interface ContractService extends BaseService{
 	
 	Contract reinstateContract(Long id);
 
-		
 	Map<String,Object> generateContractAvailability();
 
 	ContractSearchResultParam findContractByConditions(ContractSearchParamIn in);
 
+    Long addNewContract(Booking booking);
+
+	ContractBriefWithParticipant findContractById(Long id);
+
+	void addContractEventsAndShard(Long contractId, Booking booking);
 }

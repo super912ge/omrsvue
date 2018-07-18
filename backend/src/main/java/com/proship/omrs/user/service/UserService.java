@@ -49,7 +49,7 @@ public class UserService {
 
         user.updateUserRoleListByRoleList();
 
-        userRoleRepository.save(user.getUserRoleList());
+        userRoleRepository.saveAll(user.getUserRoleList());
         return newUser;
     }
 

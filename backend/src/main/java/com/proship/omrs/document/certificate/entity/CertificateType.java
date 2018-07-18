@@ -4,8 +4,10 @@ import com.proship.omrs.document.base.entity.DocumentType;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "certificate_type")
 
 public class CertificateType extends DocumentType{
 

@@ -73,7 +73,7 @@ public class MedicalServiceImpl extends DocumentServiceImpl<Medical, MedicalDeta
     @Override
     public Long delete(Long id){
 
-        Medical medical = repository.findOne(id);
+        Medical medical = repository.getOne(id);
 
         return medical.getParticipantId();
     }

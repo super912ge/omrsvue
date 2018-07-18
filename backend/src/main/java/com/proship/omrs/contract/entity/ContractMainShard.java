@@ -16,11 +16,13 @@ import javax.persistence.*;
 @Entity
 @Table(name="contract_main_shard")
 public class ContractMainShard extends MainShardEntityWithGig{
-	
-	
-	ContractMainShard(){};
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_main_shard_id_seq")
+	@SequenceGenerator(
+			name="contract_main_shard_id_seq",
+			sequenceName="contract_main_shard_id_sequence"
+	)
 	private Long id;
 
 	@JoinColumn(name="contractId")

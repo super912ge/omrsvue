@@ -44,7 +44,7 @@ public class CandidateBaseServiceImpl<T extends BaseEntity, D extends BaseOverri
 
    public Participant getParticipant(Long id){
 
-        Participant participant =  participantRepository.findOne(id);
+        Participant participant =  participantRepository.findById(id).orElse(null);
 
         if (participant == null) {
             throw new CandidateNotFoundException(id);

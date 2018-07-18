@@ -1,17 +1,27 @@
 package com.proship.omrs.gig.repository;
 
+
 import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.entity.GigMainShard;
+import com.proship.omrs.gig.entity.GigMainShard_;
+import com.proship.omrs.gig.entity.Gig_;
 import com.proship.omrs.gig.param.GigSearchParam;
 import com.proship.omrs.gig.service.GigService;
+import com.proship.omrs.user.entity.User;
+import com.proship.omrs.user.entity.User_;
+import com.proship.omrs.venue.entity.Room;
+import com.proship.omrs.venue.entity.Room_;
 import com.proship.omrs.venue.repository.VenueMainShardRepository;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,11 +29,11 @@ import java.util.Set;
 @Transactional
 public class HibernateGigDao {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    public HibernateGigDao(SessionFactory sf) {
-        this.sessionFactory=sf;
+    public HibernateGigDao(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Autowired
@@ -34,73 +44,80 @@ public class HibernateGigDao {
 
     public List<Long> findGigIdByConditions(GigSearchParam in){
 
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManagerFactory.unwrap(Session.class);
 
-        Criteria gigCriteria = session.createCriteria(Gig.class);
+        CriteriaBuilder cb = session.getCriteriaBuilder();
 
-        Criteria gigShardCriteria = gigCriteria.createCriteria("shards");
+        CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
 
-        if (in.getGroup())
-            gigCriteria.add(Restrictions.isNull("parentGig"));
+        Root<Gig> root = criteria.from(Gig.class);
 
-        else gigCriteria.add(Restrictions.isNotNull("parentGig"));
+        Join<Gig,GigMainShard> shardJoin = root.join(Gig_.shards);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (in.getGroup()) {
+
+            predicates.add(cb.isNull(root.get(Gig_.parentGig)));
+        }
+
+        else predicates.add(cb.isNotNull(root.get(Gig_.parentGig)));
 
         if (in.getAccountManager()!=null){
 
-            Criteria accountManagerCriteria = gigShardCriteria.createCriteria("responsible");
+            Join<GigMainShard,User> responsibleJoin = shardJoin.join(GigMainShard_.responsible);
 
-            accountManagerCriteria.add(Restrictions.eq("id",in.getAccountManager()));
+            predicates.add(cb.equal(responsibleJoin.get(User_.id),in.getAccountManager()));
 
         }
 
-        Criteria roomCriteria = null;
+        if (in.getClientIds()!=null||in.getVenueIds()!=null||in.getRoomName()!=null) {
 
-        if(in.getClientIds()!=null&& !in.getClientIds().isEmpty()){
+            Join<GigMainShard,Room> roomJoin = shardJoin.join(GigMainShard_.room);
 
-            roomCriteria = gigShardCriteria.createCriteria("room");
+            if (in.getClientIds() != null && !in.getClientIds().isEmpty()) {
 
-            if(in.getVenueIds()!=null&& !in.getVenueIds().isEmpty()){
+                if (in.getVenueIds() != null && !in.getVenueIds().isEmpty()) {
 
-                roomCriteria.add(Restrictions.in("venueId",in.getVenueIds()));
+                    predicates.add(roomJoin.get(Room_.venue).in(in.getVenueIds()));
 
-            }else {
+                } else {
 
-                Set<Long> venueIds = venueMainShardRepository.findByClientId(in.getClientIds());
+                    Set<Long> venueIds = venueMainShardRepository.findByClientId(in.getClientIds());
 
-                roomCriteria.add(Restrictions.in("venueId",venueIds));
+                    predicates.add(roomJoin.get(Room_.venue).in(venueIds));
+                }
+
             }
 
+            if (in.getRoomName() != null && !"".equals(in.getRoomName())) {
+
+                predicates.add(cb.like(cb.lower(roomJoin.get(Room_.name)),"%" + in.getRoomName().toLowerCase() + "%"));
+            }
         }
 
-        if (in.getGigTypeId()!=null){
+        if (in.getGigTypeId() != null) {
 
-            gigShardCriteria.add(Restrictions.eq("gigType",in.getGigTypeId()));
-        }
-
-        if (in.getRoomName()!=null && !"".equals(in.getRoomName())){
-
-            if(roomCriteria==null)roomCriteria = gigShardCriteria.createCriteria("room");
-
-            roomCriteria.add(Restrictions.like("name","%"+in.getRoomName()+"%"));
+            predicates.add(cb.equal(shardJoin.get(GigMainShard_.gigType), in.getGigTypeId()));
         }
         if (in.getRequirement()!=null&&!in.getRequirement().isEmpty()){
 
             List<Long> gigIds = gigService.findGigIdByRequirement(in.getRequirement());
 
-            gigCriteria.add(Restrictions.in("id",gigIds));
+            predicates.add(root.get(Gig_.id).in(gigIds));
         }
         if (in.getExclusive()!=null && in.getExclusive()){
-            gigShardCriteria.add(Restrictions.eq("exclusive",in.getExclusive()));
+            predicates.add(cb.equal(shardJoin.get(GigMainShard_.exclusive),in.getExclusive()));
         }
         if (in.getId()!=null){
-            gigCriteria.add(Restrictions.eq("id", in.getId()));
+            predicates.add(cb.equal(root.get(Gig_.id), in.getId()));
         }
         if (in.getName()!=null&&!"".equals(in.getName())){
-            gigShardCriteria.add(Restrictions.ilike("label","%"+in.getName()+"%"));
+            predicates.add(cb.like(cb.lower(shardJoin.get(GigMainShard_.label)),"%"+in.getName().toLowerCase()+"%"));
         }
 
-        gigCriteria.setProjection(Projections.distinct(Projections.property("id")));
+        return session.createQuery(criteria.select(root.get(Gig_.id))
+                .where(cb.and(predicates.toArray(new Predicate[predicates.size()]))).distinct(true)).getResultList();
 
-        return gigCriteria.list();
     }
 }

@@ -6,6 +6,7 @@ import com.proship.omrs.candidate.event.repository.*;
 import com.proship.omrs.candidate.participant.entity.Participant;
 import com.proship.omrs.candidate.participant.repository.ParticipantRepository;
 import com.proship.omrs.exceptions.customExceptions.CandidateNotFoundException;
+import com.proship.omrs.exceptions.customExceptions.OmrsResourceNotFoundException;
 import com.proship.omrs.user.entity.User;
 import com.proship.omrs.user.repository.UserRepository;
 import com.proship.omrs.utils.util.Utils;
@@ -59,7 +60,7 @@ public class ParticipantEventServiceImpl implements ParticipantEventService{
     @Override
     public Note addNewEvent(Long id, ParticipantEventParam param) {
 
-            Participant participant = participantRepository.findOne(id);
+            Participant participant = participantRepository.findById(id).orElse(null);
 
             ParticipantEventTemporal temporal = new ParticipantEventTemporal();
 
@@ -133,7 +134,8 @@ public class ParticipantEventServiceImpl implements ParticipantEventService{
     @Override
     public Note updateEvent(ParticipantEventParam param) {
 
-        ParticipantEventOverride override = overrideRepository.findOne(param.getId());
+        ParticipantEventOverride override = overrideRepository.findById(param.getId())
+                .orElseThrow(()->new OmrsResourceNotFoundException("ParticipantEventOverride "+param.getId()+" not found."));
 
         ParticipantEvent event = override.getParticipantEventTemporal().getParticipantEvent();
 
@@ -194,7 +196,8 @@ public class ParticipantEventServiceImpl implements ParticipantEventService{
             }
             eventRepository.refresh(event);
 
-            override = overrideRepository.findOne(param.getId());
+            override = overrideRepository.findById(param.getId())
+                    .orElseThrow(()->new OmrsResourceNotFoundException("ParticipantEventOverride "+param.getId()+" not found."));
         }
 
         return new Note(override);
@@ -203,7 +206,7 @@ public class ParticipantEventServiceImpl implements ParticipantEventService{
     @Override
     public Long delete(Long id) {
 
-        ParticipantEventOverride override = overrideRepository.findOne(id);
+        ParticipantEventOverride override = overrideRepository.getOne(id);
 
         ParticipantEventTemporal temporal = override.getParticipantEventTemporal();
 

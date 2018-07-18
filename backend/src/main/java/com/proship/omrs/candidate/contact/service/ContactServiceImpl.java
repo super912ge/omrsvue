@@ -69,7 +69,7 @@ public class ContactServiceImpl extends CandidateBaseServiceImpl
     @Override
     public Long delete(Long id) {
         ParticipantContactFieldOverride participantContactFieldOverride
-                = participantContactFieldOverrideRepository.findOne(id);
+                = participantContactFieldOverrideRepository.getOne(id);
 
         participantContactFieldOverride.setNexttransactiontime(new Timestamp(System.currentTimeMillis()));
 

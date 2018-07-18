@@ -4,15 +4,17 @@ import com.proship.omrs.candidate.group.entity.Act;
 import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.gig.entity.Gig;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class JobMainShard extends MainShardEntity{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="job_main_shard_id_seq")
+    @SequenceGenerator(
+            name="job_main_shard_id_seq",
+            sequenceName="job_main_shard_id_sequence"
+    )
     private Long id;
 
     @ManyToOne

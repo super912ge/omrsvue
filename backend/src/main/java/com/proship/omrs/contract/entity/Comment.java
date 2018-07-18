@@ -9,6 +9,11 @@ import java.util.List;
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="comment_id_seq")
+    @SequenceGenerator(
+            name="comment_id_seq",
+            sequenceName="comment_id_sequence"
+    )
     private Long id;
 
     private Long uuid;

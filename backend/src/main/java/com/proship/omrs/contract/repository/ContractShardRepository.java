@@ -99,4 +99,7 @@ public interface ContractShardRepository extends JpaRepository<ContractMainShard
 //    Set<Long>findContractByCandidateIds(@Param("candidateIds") Set<Long> candidateIds);
 
 
+
+
+
 }

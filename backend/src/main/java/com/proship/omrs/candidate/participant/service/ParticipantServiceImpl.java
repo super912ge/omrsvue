@@ -28,7 +28,10 @@ import com.proship.omrs.document.seamansBook.repository.SeamansBookRepository;
 import com.proship.omrs.document.visa.repository.VisaRepository;
 import com.proship.omrs.evaluation.entity.EvalTag;
 import com.proship.omrs.evaluation.repository.EvalTagRepository;
+import com.proship.omrs.exceptions.customExceptions.OmrsResourceNotFoundException;
 import com.proship.omrs.user.entity.CustomUser;
+import com.proship.omrs.user.entity.User;
+import com.proship.omrs.user.repository.UserRepository;
 import com.proship.omrs.utils.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,7 +52,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     CertificateRepository certificateRepository;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    UserRepository userRepository;
     @Autowired
     VisaRepository visaRepository;
     @Autowired
@@ -220,7 +223,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     public CandidateComplete displayCandidateDetail(Long id) {
 
 
-        Participant participant = participantRepository.findOne(id);
+        Participant participant = participantRepository.findById(id).orElse(null);
 
         for (ContractMainShard shard : participant.getParticipantAct().getContractShards()){
             List<ContractEvent> events = shard.getContract().getContractEvents();
@@ -240,7 +243,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         String username =
                 (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        CustomUser user = (CustomUser)userDetailsService.loadUserByUsername(username);
+        User user = userRepository.findByName(username);
 
         Participant participant = new Participant();
 
@@ -254,9 +257,9 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         evalTag.setEvalTagTypeId(1l);
 
-        evalTag.setCreatorId(user.getUserId());
+        evalTag.setCreatorId(user.getId());
 
-        evalTag.setDestroyerId(user.getUserId());
+        evalTag.setDestroyerId(user.getId());
 
         evalTag.setTransactiontime(new Timestamp(System.currentTimeMillis()));
 
@@ -280,13 +283,13 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         act = participantActRepository.save(act);
 
-        ParticipantNameTts participantNameTts = setParticipantName(param, participant,user.getUserId());
+        ParticipantNameTts participantNameTts = setParticipantName(param, participant,user.getId());
 
         participantNameTtsRepository.save(participantNameTts);
 
         if (param.getActName()!=null&&!param.getActName().trim().equals("")){
 
-            ParticipantActName participantActName = setParticipantActName(param,act,user.getUserId());
+            ParticipantActName participantActName = setParticipantActName(param,act,user.getId());
 
             participantActNameRepository.save(participantActName);
         }
@@ -297,7 +300,7 @@ public class ParticipantServiceImpl implements ParticipantService {
             birthdayTts.setValue(param.getBirthday());
             birthdayTts.setTransactiontime(new Timestamp(System.currentTimeMillis()));
             birthdayTts.setNexttransactiontime(Utils.getInfiniteTimestamp());
-            birthdayTts.setCreatorId(user.getUserId());
+            birthdayTts.setCreatorId(user.getId());
             participantBirthdayRepository.save(birthdayTts);
         }
         ParticipantGender participantGender = new ParticipantGender();
@@ -305,7 +308,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantGender.setValue(param.getGender());
         participantGender.setTransactiontime(new Timestamp(System.currentTimeMillis()));
         participantGender.setNexttransactiontime(Utils.getInfiniteTimestamp());
-        participantGender.setCreatorId(user.getUserId());
+        participantGender.setCreatorId(user.getId());
 
         participantGenderRepository.save(participantGender);
 
@@ -321,14 +324,14 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public void updateName(Long id, CreateParticipantParam param) {
 
-        Participant participant = participantRepository.findOne(id);
+        Participant participant = participantRepository.findById(id).orElseThrow(()->new OmrsResourceNotFoundException("Participant "+ id +" not found."));
 
         ParticipantNameTts nameTts = participant.getNameTts();
 
         String username =
                 (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        CustomUser user = (CustomUser)userDetailsService.loadUserByUsername(username);
+        User user = userRepository.findByName(username);
 
         if(nameTts.getFirstName().equals(param.getFirstName().trim())
                 && nameTts.getOtherName().equals(param.getOtherName())
@@ -341,7 +344,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
             participantNameTtsRepository.save(nameTts);
 
-            ParticipantNameTts participantNameTts = setParticipantName(param,participant,user.getUserId());
+            ParticipantNameTts participantNameTts = setParticipantName(param,participant,user.getId());
         }
         ParticipantActName actName = participant.getParticipantAct().getParticipantActName();
         if (actName!=null){
@@ -359,7 +362,7 @@ public class ParticipantServiceImpl implements ParticipantService {
                     participantActNameRepository.save(actName);
 
                     ParticipantActName participantActName = setParticipantActName(param,
-                            participant.getParticipantAct(),user.getUserId());
+                            participant.getParticipantAct(),user.getId());
 
                     participantActNameRepository.save(participantActName);
                 }
@@ -367,7 +370,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         }else if (!param.getActName().trim().equals("")){
 
             ParticipantActName participantActName =
-                    setParticipantActName(param,participant.getParticipantAct(),user.getUserId());
+                    setParticipantActName(param,participant.getParticipantAct(),user.getId());
 
             participantActNameRepository.save(participantActName);
         }

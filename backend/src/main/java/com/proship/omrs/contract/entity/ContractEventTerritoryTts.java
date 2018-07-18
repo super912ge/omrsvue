@@ -14,6 +14,11 @@ import javax.persistence.*;
 public class ContractEventTerritoryTts extends BaseEntityWithCreator{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_event_territory_tts_id_seq")
+    @SequenceGenerator(
+            name="contract_event_territory_tts_id_seq",
+            sequenceName="contract_event_territory_tts_id_sequence"
+    )
     private Long id;
 
     @OneToOne

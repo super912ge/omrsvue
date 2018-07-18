@@ -1,48 +1,49 @@
 package com.proship.omrs;
 
 import com.proship.omrs.base.repository.CustomizedRepositoryImpl;
-import com.proship.omrs.config.AuthServerOAuth2Config;
-import com.proship.omrs.config.ResourceServerConfiguration;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @SpringBootApplication
+@EnableTransactionManagement
 @EnableJpaRepositories(repositoryBaseClass = CustomizedRepositoryImpl.class)
 public class OmrsApplication {
 
 	@Bean
-	public EmbeddedServletContainerCustomizer containerCustomizer() {
-		return (container -> {
-			ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/");
-			container.addErrorPages(error404Page);
-		});
+	public ConfigurableServletWebServerFactory containerCustomizer() {
+
+        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+
+            factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
+			return factory;
 	}
 
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate() {
-		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
-		template.setConnectionFactory(jedisConnectionFactory());
-		return template;
-	}
-
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-		jedisConFactory.setHostName("localhost");
-		jedisConFactory.setPort(6379);
-		return jedisConFactory;
-	}
+//	@Bean
+//	public RedisTemplate<String, Object> redisTemplate() {
+//		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+//		template.setConnectionFactory(jedisConnectionFactory());
+//		return template;
+//	}
+//
+//	@Bean
+//    JedisConnectionFactory jedisConnectionFactory() {
+//		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
+//		jedisConFactory.setHostName("localhost");
+//		jedisConFactory.setPort(6379);
+//		return jedisConFactory;
+//	}
 
 
 	@Bean(name = "contractEventCase")
@@ -66,15 +67,14 @@ public class OmrsApplication {
 //        return registration;
 //    }
 
-	@Bean
-	public HibernateJpaSessionFactoryBean sessionFactory() {
-		return new HibernateJpaSessionFactoryBean();
-	}
+//	@Bean
+//	public HibernateJpaSessionFactoryBean sessionFactory() {
+//		return new HibernateJpaSessionFactoryBean();
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(
-				new Class[]{OmrsApplication.class, AuthServerOAuth2Config.class,
-						ResourceServerConfiguration.class},
+				new Class[]{OmrsApplication.class},
 				args);
 
 	}

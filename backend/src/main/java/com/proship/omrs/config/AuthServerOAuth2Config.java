@@ -4,6 +4,7 @@ import com.proship.omrs.user.entity.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -25,12 +26,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-
 import javax.sql.DataSource;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +43,8 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     @Qualifier("customUserDetailsService")
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @Value("${signing-key:oui214hmui23o4hm1pui3o2hp4m1o3h2m1o43}")
     private String signingKey;
@@ -101,7 +99,6 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         endpoints.
                 tokenStore(tokenStore()).
                 tokenEnhancer(tokenEnhancerChain). // new
-                authenticationManager(authenticationManager).
                 userDetailsService(userDetailsService).
                 allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST,HttpMethod.OPTIONS).
                 accessTokenConverter(accessTokenConverter());

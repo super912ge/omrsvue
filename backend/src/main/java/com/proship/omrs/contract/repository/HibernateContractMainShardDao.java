@@ -1,8 +1,11 @@
 package com.proship.omrs.contract.repository;
 
-import com.proship.omrs.contract.entity.ContractMainShard;
+import com.proship.omrs.contract.entity.*;
+import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.entity.Gig_;
 import com.proship.omrs.gig.repository.HibernateGigDao;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
@@ -10,19 +13,22 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Repository
 @Transactional
 public class HibernateContractMainShardDao {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    public HibernateContractMainShardDao(SessionFactory sf) {
-        this.sessionFactory = sf;
+    public HibernateContractMainShardDao(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Autowired
@@ -31,35 +37,43 @@ public class HibernateContractMainShardDao {
 
     public List<Long> findContractMainShardIdByGigIdAndDate(Long gigId, Date start, Date end ) {
 
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ContractMainShard.class);
+        Session session = entityManagerFactory.unwrap(Session.class);
 
-        Criteria contractCriteria = criteria.createCriteria("contract");
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+
+        Root<ContractMainShard> root = criteriaQuery.from(ContractMainShard.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        Join<ContractMainShard,Contract> contractJoin = root.join(ContractMainShard_.contract);
+
+        Join<Contract,ContractStatus> statusJoin = contractJoin.join(Contract_.contractStatus);
+
+        predicates.add(builder.equal(statusJoin.get(ContractStatus_.cancel), false));
 
 
-        Criteria statusCriteria =  contractCriteria.createCriteria("contractStatus");
 
-        statusCriteria.add(Restrictions.eq("cancel", false));
+        Predicate endTimePredicate = builder.and(
+                builder.greaterThanOrEqualTo(root.get(ContractMainShard_.validendtime),end),
+                builder.lessThanOrEqualTo(root.get(ContractMainShard_.validendtime),start));
 
-        Criterion criterionEndTime =
-                Restrictions.and(Restrictions.ge("validendtime", end),
-                        Restrictions.le("validendtime", start));
+        Predicate startTimePredicate = builder.and(
+                builder.greaterThanOrEqualTo(root.get(ContractMainShard_.validstarttime),start),
+                builder.lessThanOrEqualTo(root.get(ContractMainShard_.validstarttime),end));
 
-        Criterion criterionStartTime =  Restrictions.and(Restrictions.le("validstarttime", end),
-                Restrictions.ge("validstarttime", start));
+        predicates.add(builder.or(endTimePredicate,startTimePredicate));
 
+        Join<ContractMainShard,Gig> gigJoin = root.join(ContractMainShard_.gig);
 
-        criteria.add(Restrictions.or(criterionEndTime, criterionStartTime));
+        predicates.add(builder.equal(gigJoin.get(Gig_.id), gigId));
 
-//        criteria.addOrder(Order.asc("validendtime"));
+        criteriaQuery.orderBy(builder.asc(root.get(ContractMainShard_.id)))
+                .where(builder.and(predicates.toArray(new Predicate[predicates.size()])))
+                .distinct(true)
+                .select(root.get(ContractMainShard_.id));
 
-        Criteria gigCriteria = criteria.createCriteria("gig");
-
-        gigCriteria.add(Restrictions.eq("id", gigId));
-
-        criteria.setProjection(Projections.distinct(Projections.property("id")));
-
-        criteria.addOrder(Order.asc("id"));
-
-        return criteria.list();
+        return session.createQuery(criteriaQuery).getResultList();
     }
 }

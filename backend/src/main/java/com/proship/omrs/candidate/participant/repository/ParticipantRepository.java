@@ -1,5 +1,6 @@
 package com.proship.omrs.candidate.participant.repository;
 
+import com.proship.omrs.base.repository.CustomizedRepository;
 import com.proship.omrs.candidate.participant.entity.Participant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Set;
 
-public interface ParticipantRepository extends PagingAndSortingRepository<Participant,Long> {
+public interface ParticipantRepository extends CustomizedRepository<Participant,Long>, PagingAndSortingRepository<Participant,Long> {
 
     @Query(
             "select p.id from Participant p where p.evaluation.id in :ids and p.nameTts is not null"

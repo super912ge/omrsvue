@@ -23,7 +23,7 @@ public class ClientMap implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        logger.info("[client Map][afterPropertiesSet]start");
+        logger.info("[clientMap][afterPropertiesSet]start");
         List<Client > list = repo.findAll();
 
         clients = HashBiMap.create();
@@ -32,7 +32,7 @@ public class ClientMap implements InitializingBean{
             clients.put(client .getId(), client );
         }
 
-        logger.info("[client Map][afterPropertiesSet]finish setting " + clients.size() + " client  types.");
+        logger.info("[clientMap][afterPropertiesSet]finish setting " + clients.size() + " clients.");
     }
 
     public static Map getClients() {

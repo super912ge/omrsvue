@@ -1,7 +1,7 @@
 package com.proship.omrs.exceptions;
 
 import com.proship.omrs.exceptions.customExceptions.OmrsResourceNotFoundException;
-import org.springframework.boot.context.config.ResourceNotFoundException;
+//import org.springframework.boot.web.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,14 +27,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorDetail,
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
-    @ExceptionHandler(value = {OmrsResourceNotFoundException.class, ResourceNotFoundException.class})
-    protected ResponseEntity<Object>handleResourceNotFound(RuntimeException ex, WebRequest req) {
-        ErrorDetail errorDetail = new ErrorDetail();
-        errorDetail.setTimestamp(new Date());
-        errorDetail.setMessage(ex.getMessage());
-        errorDetail.setDetail(req.getDescription(true));
-        return handleExceptionInternal(ex,errorDetail,new HttpHeaders(),HttpStatus.NOT_FOUND,req);
-    }
+//    @ExceptionHandler(value = {OmrsResourceNotFoundException.class, ResourceNotFoundException.class})
+//    protected ResponseEntity<Object>handleResourceNotFound(RuntimeException ex, WebRequest req) {
+//        ErrorDetail errorDetail = new ErrorDetail();
+//        errorDetail.setTimestamp(new Date());
+//        errorDetail.setMessage(ex.getMessage());
+//        errorDetail.setDetail(req.getDescription(true));
+//        return handleExceptionInternal(ex,errorDetail,new HttpHeaders(),HttpStatus.NOT_FOUND,req);
+//    }
     @ExceptionHandler(value ={SQLException.class} )
     protected ResponseEntity<Object> handleSqlException(RuntimeException ex, WebRequest req){
         ErrorDetail errorDetail = new ErrorDetail();

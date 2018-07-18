@@ -91,7 +91,7 @@
 //    void testGet()throws  Exception{
 //        Citizenship citizenship = setCitizenship();
 //
-//        when(repo.findOne((long)2)).thenReturn(citizenship);
+//        when(repo.getOne((long)2)).thenReturn(citizenship);
 //
 //        this.mockMvc.perform(get("/todo/2"))
 //                .andExpect(status().isOk())
@@ -105,7 +105,7 @@
 //
 //        //doNothing().when(repo).save(citizenship);
 //
-//        when(repo.findOne(citizenship.getId())).thenReturn(citizenship);
+//        when(repo.getOne(citizenship.getId())).thenReturn(citizenship);
 //        citizenship.setText("new text");
 //
 //        String json =  asJsonString(citizenship);
@@ -115,7 +115,7 @@
 //                .contentType((MediaType.APPLICATION_JSON))
 //                .content(json))
 //                .andExpect(status().isOk());
-//        verify(repo,times(1)).findOne(citizenship.getId());
+//        verify(repo,times(1)).getOne(citizenship.getId());
 //        verify(repo,times(1)).save((Citizenship)argCaptor.capture());
 //        ParticipantCitizenship newTodo =(ParticipantCitizenship)argCaptor.getValue();
 //        assertEquals(citizenship.getText(),newTodo.getText());

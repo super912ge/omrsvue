@@ -59,7 +59,7 @@ public class ParticipantInfoServiceImpl extends CandidateBaseServiceImpl<Partici
     @Override
     public Long delete(Long id) {
 
-        ParticipantInfoOverride participantInfoOverride = participantInfoOverrideRepository.findOne(id);
+        ParticipantInfoOverride participantInfoOverride = participantInfoOverrideRepository.getOne(id);
         participantInfoOverride.setNexttransactiontime(new Timestamp(System.currentTimeMillis()));
         participantInfoOverrideRepository.save(participantInfoOverride);
 

@@ -10,15 +10,15 @@ import com.proship.omrs.gig.repository.GigMainShardRepository;
 import com.proship.omrs.gig.repository.GigRepository;
 import com.proship.omrs.venue.repository.RoomRepository;
 import com.proship.omrs.venue.repository.VenueMainShardRepository;
-import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManagerFactory;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
@@ -42,14 +42,14 @@ public class GigServiceImpl implements GigService {
     @Autowired
     VenueMainShardRepository venueMainShardRepository;
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Autowired
     GigRepository gigRepository;
 
     @Autowired
-    public GigServiceImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public GigServiceImpl(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Override
@@ -172,7 +172,7 @@ public class GigServiceImpl implements GigService {
 
     @Override
     public Long findGigIdById(Long id) {
-        if( gigRepository.findOne(id)!=null)
+        if( gigRepository.getOne(id)!=null)
             return id;
         else return null;
     }
@@ -185,7 +185,7 @@ public class GigServiceImpl implements GigService {
     @Override
     public List<Long> findGigIdByRequirement(List<Long> ids) {
 
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManagerFactory.unwrap(Session.class);
 
         String query =
 

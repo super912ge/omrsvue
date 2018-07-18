@@ -2,13 +2,9 @@ package com.proship.omrs.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @MappedSuperclass
 public class MainShardEntity extends BaseEntity {
@@ -17,12 +13,13 @@ public class MainShardEntity extends BaseEntity {
     @JoinColumn(name="creator_id")
     //@JsonSerialize(using = UserSerializer.class)
     @JsonIgnore
-    User creator;
+    private User creator;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    Timestamp validstarttime;
+    private Date validstarttime;
+
     @JsonFormat(pattern="yyyy-MM-dd")
-    Timestamp validendtime;
+    private Date validendtime;
 
     public User getCreator() {
         return creator;
@@ -32,19 +29,19 @@ public class MainShardEntity extends BaseEntity {
         this.creator = creator;
     }
 
-    public Timestamp getValidstarttime() {
+    public Date getValidstarttime() {
         return validstarttime;
     }
 
-    public void setValidstarttime(Timestamp validstarttime) {
+    public void setValidstarttime(Date validstarttime) {
         this.validstarttime = validstarttime;
     }
 
-    public Timestamp getValidendtime() {
+    public Date getValidendtime() {
         return validendtime;
     }
 
-    public void setValidendtime(Timestamp validendtime) {
+    public void setValidendtime(Date validendtime) {
         this.validendtime = validendtime;
     }
 }

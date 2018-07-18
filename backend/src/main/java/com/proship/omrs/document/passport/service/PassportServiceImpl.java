@@ -70,7 +70,7 @@ public class PassportServiceImpl extends DocumentServiceImpl<Passport, PassportD
     @Override
     public Long delete(Long id){
 
-        Passport passport = repository.findOne(id);
+        Passport passport = repository.getOne(id);
 
         return passport.getParticipantId();
     }

@@ -67,7 +67,7 @@ public class AddressServiceImpl extends
     @Override
     public Long delete(Long id) {
 
-        ParticipantAddressOverride participantAddressOverride = participantAddressOverrideRepository.findOne(id);
+        ParticipantAddressOverride participantAddressOverride = participantAddressOverrideRepository.getOne(id);
 
         participantAddressOverride.setNexttransactiontime(new Timestamp(System.currentTimeMillis()));
 

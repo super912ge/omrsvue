@@ -11,6 +11,11 @@ import javax.persistence.*;
 public class ReasonCode extends BaseEntityWithCreator {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="reason_code_id_seq")
+    @SequenceGenerator(
+            name="reason_code_id_seq",
+            sequenceName="reason_code_id_sequence"
+    )
     private Long id;
 
     @ManyToOne

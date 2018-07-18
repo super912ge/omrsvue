@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
+import com.proship.omrs.contract.entity.ContractRecruiterAttributionTts;
 import com.proship.omrs.gig.entity.GigTerritoryShard;
+import com.proship.omrs.msd.entity.UserMsdBracketShard;
 import com.proship.omrs.role.entity.Role;
 import com.proship.omrs.role.entity.RoleMap;
 import com.proship.omrs.role.entity.UserRole;
@@ -33,13 +35,11 @@ public class User {
 	
 	private String name;
 	private String shortName;
-
 	private String password;
-
 	private String passwordSalt;
 	private String passwordHash;
 	private String email;
-	private Long  incentiveBracketSettingId;
+	private Long incentiveBracketSettingId;
 	private Boolean active;
 	private Long uuid;
 	private String extension;
@@ -48,13 +48,21 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<GigTerritoryShard> gigTerritoryShards;
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     @JoinColumn(name = "userId")
 	private List<UserRole> userRoleList;
 
+	@OneToMany
+    @JoinColumn(name = "userId")
+	private List<UserMsdBracketShard> userMsdBracketShards;
+
 	private Boolean requisitionMailRecipient;
 
+	@OneToMany( fetch = FetchType.LAZY)
+    @JoinColumn(name = "recruiterId")
+	private List<ContractRecruiterAttributionTts> contractRecruiterAttributionTtsList;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -63,11 +71,12 @@ public class User {
 	@Transient
 	private List<Role> roleList = new ArrayList<>();
 
-
 	public User(){};
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -78,6 +87,14 @@ public class User {
 
     public void setGigTerritoryShards(List<GigTerritoryShard> gigTerritoryShards) {
         this.gigTerritoryShards = gigTerritoryShards;
+    }
+
+    public List<UserMsdBracketShard> getUserMsdBracketShards() {
+        return userMsdBracketShards;
+    }
+
+    public void setUserMsdBracketShards(List<UserMsdBracketShard> userMsdBracketShards) {
+        this.userMsdBracketShards = userMsdBracketShards;
     }
 
     public String getPassword() {
@@ -211,7 +228,6 @@ public class User {
 
 	public void setRoleList(List<Role> roleList) {
 
-
 	    this.roleList = roleList;
 
 	}
@@ -229,10 +245,19 @@ public class User {
 			}
 	}
 	public void updateUserRoleListByRoleList(){
+
 		this.userRoleList = roleList.stream().map(role -> new UserRole(
 				this.getId(),role.getId())).collect(Collectors.toList());
 	}
 	public User(Long id){
 		this.id = id;
 	}
+
+    public List<ContractRecruiterAttributionTts> getContractRecruiterAttributionTtsList() {
+        return contractRecruiterAttributionTtsList;
+    }
+
+    public void setContractRecruiterAttributionTtsList(List<ContractRecruiterAttributionTts> contractRecruiterAttributionTtsList) {
+        this.contractRecruiterAttributionTtsList = contractRecruiterAttributionTtsList;
+    }
 }

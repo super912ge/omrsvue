@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.proship.omrs.contract.repository.ContractShardRepository;
 import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.annotation.Resource;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,11 @@ public class ContractEvent {
     private Properties contractEventCase;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="contract_event_id_seq")
+    @SequenceGenerator(
+            name="contract_event_id_seq",
+            sequenceName="contract_event_id_sequence"
+    )
     private Long id ;
 
     private Long uuid;
@@ -40,26 +47,27 @@ public class ContractEvent {
     @JoinColumn(name = "entityId")
     private Contract contract ;
 
-    private Date transactionTime ;
+    @CreationTimestamp
+    private Timestamp transactionTime ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creatorId")
     @JsonSerialize(using = UserSerializer.class)
     private User creator;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @OneToOne(mappedBy = "contractEvent",cascade = CascadeType.ALL)
     private ContractEventDateTts contractEventDateTts;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @OneToOne(mappedBy = "contractEvent",cascade = CascadeType.ALL)
     private ContractEventCaseTts contractEventCaseTts;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @OneToOne(mappedBy = "contractEvent",cascade = CascadeType.ALL)
     private ContractEventFormDateTts contractEventFormDateTts;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @OneToOne(mappedBy = "contractEvent",cascade = CascadeType.ALL)
     private ContractEventTerritoryTts contractEventTerritoryTts;
 
-    @OneToOne(mappedBy = "contractEvent")
+    @OneToOne(mappedBy = "contractEvent",cascade = CascadeType.ALL)
     private ReasonCode reasonCode;
 
     @Transient
@@ -134,11 +142,11 @@ public class ContractEvent {
         this.contract = contract;
     }
 
-    public Date getTransactionTime() {
+    public Timestamp getTransactionTime() {
         return transactionTime;
     }
 
-    public void setTransactionTime(Date transactionTime) {
+    public void setTransactionTime(Timestamp transactionTime) {
         this.transactionTime = transactionTime;
     }
 

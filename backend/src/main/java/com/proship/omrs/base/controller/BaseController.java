@@ -47,7 +47,7 @@ public abstract class BaseController<T, ID extends Serializable> {
 			T t = null;
 
 	    	try {
-				t = this.repo.findOne(id);
+				t = this.repo.findById(id).orElse(null);
 			}catch (Exception e){
 
 				e.printStackTrace();
@@ -61,7 +61,7 @@ public abstract class BaseController<T, ID extends Serializable> {
 		@ApiOperation("Update entity with given id.")
 	    public ResponseEntity<T>  update(@PathVariable ID id, @RequestBody T json) {
 
-	        T entity = this.repo.findOne(id);
+	        T entity = this.repo.findById(id).orElse(null);
 	        try {
 
 	            BeanUtils.copyProperties(entity, json);
@@ -80,7 +80,7 @@ public abstract class BaseController<T, ID extends Serializable> {
 	    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 		@ApiOperation("Delete entity with given id.")
 	    public ResponseEntity<ID> delete(@PathVariable ID id) {
-	        this.repo.delete(id);
+	        this.repo.deleteById(id);
 	        return new ResponseEntity<>(id,HttpStatus.OK);
 	    }
 	

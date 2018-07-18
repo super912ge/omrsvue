@@ -4,9 +4,9 @@ import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import com.proship.omrs.candidate.participant.param.ParticipantActSerializer;
 import com.proship.omrs.contract.entity.Contract;
 
-public class ContractBrief extends ContractBriefBase{
+public class ContractBriefWithParticipant extends ContractBriefBase{
 
-    public ContractBrief(Contract contract){
+    public ContractBriefWithParticipant(Contract contract){
 
         super(contract);
 

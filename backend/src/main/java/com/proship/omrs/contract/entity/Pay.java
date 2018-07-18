@@ -1,12 +1,16 @@
 package com.proship.omrs.contract.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Pay {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="pay_id_seq")
+    @SequenceGenerator(
+            name="pay_id_seq",
+            sequenceName="pay_id_sequence"
+    )
     private Long id ;
     private Long payeeId ;
     private Double salaryAmount ;
@@ -15,6 +19,7 @@ public class Pay {
     private Integer salaryRecurrencePeriodNumerator ;
     private Integer salaryRecurrencePeriodDenominator ;
     private String salaryRecurrenceUnit ;
+
 
     public Long getId() {
         return id;

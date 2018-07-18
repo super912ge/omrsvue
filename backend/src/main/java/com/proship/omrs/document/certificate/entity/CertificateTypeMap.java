@@ -24,7 +24,7 @@ public class CertificateTypeMap implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        logger.info("[certificateTypeMap][afterPropertiesSet]start");
+        logger.info("[certificateTypeMap][afterPropertiesSet]start.");
         List<CertificateType> list = repo.findAll();
 
         certificateTypes = HashBiMap.create();

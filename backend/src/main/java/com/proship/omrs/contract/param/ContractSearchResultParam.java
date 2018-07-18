@@ -6,7 +6,7 @@ public class ContractSearchResultParam {
 
     private Long totalPage;
 
-    private List<ContractBrief> contracts;
+    private List<ContractBriefWithParticipant> contracts;
 
     public Long getTotalPage() {
         return totalPage;
@@ -16,11 +16,11 @@ public class ContractSearchResultParam {
         this.totalPage = totalPage;
     }
 
-    public List<ContractBrief> getContracts() {
+    public List<ContractBriefWithParticipant> getContracts() {
         return contracts;
     }
 
-    public void setContracts(List<ContractBrief> contracts) {
+    public void setContracts(List<ContractBriefWithParticipant> contracts) {
         this.contracts = contracts;
     }
 }

@@ -7,7 +7,6 @@ import com.proship.omrs.candidate.residency.repository.ParticipantResidencyOverr
 import com.proship.omrs.candidate.residency.repository.ParticipantResidencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public class ResidencyServiceImpl extends
         toBeDeleted = toBeDeleted.stream().peek(item->item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
 
-        participantResidencyOverrideRepository.save(toBeDeleted);
+        participantResidencyOverrideRepository.saveAll(toBeDeleted);
 
         List<Long> existingCountryIds = list.stream().map(ParticipantResidencyOverride::getParticipantResidency)
                 .map(ParticipantResidency::getCountryId).collect(Collectors.toList());
@@ -93,7 +92,7 @@ public class ResidencyServiceImpl extends
 
         deleted = deleted.stream().peek(item-> item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
-         participantResidencyOverrideRepository.save(deleted);
+         participantResidencyOverrideRepository.saveAll(deleted);
 
          return deleted.get(0).getParticipant().getId();
     }
@@ -108,7 +107,7 @@ public class ResidencyServiceImpl extends
         if (deleted.isEmpty()) return id;
         deleted = deleted.stream().peek(item-> item.setNexttransactiontime(new Timestamp(System.currentTimeMillis())))
                 .collect(Collectors.toList());
-        participantResidencyOverrideRepository.save(deleted);
+        participantResidencyOverrideRepository.saveAll(deleted);
 
         return deleted.get(0).getParticipant().getId();
     }

@@ -70,7 +70,7 @@ public class SeamansBookServiceImpl extends DocumentServiceImpl<SeamansBook, Sea
     @Override
     public Long delete(Long id){
 
-        SeamansBook seamansBook = repository.findOne(id);
+        SeamansBook seamansBook = repository.getOne(id);
 
         return seamansBook.getParticipantId();
     }

@@ -2,6 +2,7 @@ package com.proship.omrs.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.user.entity.User;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 public class BaseEntityWithCreator {
 
     @JsonIgnore
+    @CreationTimestamp
     private Timestamp transactiontime;
 
     @JsonIgnore

@@ -14,7 +14,6 @@ import com.proship.omrs.gig.service.GigService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Log4j
+
 @RestController
 @RequestMapping(value="/candidate/")
 @CrossOrigin
@@ -79,7 +78,7 @@ public class ParticipantController {
             @ApiResponse(code = 500, message = "Internal server error",response = ErrorDetail.class)})
     public ResponseEntity<Set<Long>> searchCandidateById(@PathVariable(value = "candidateId")Long id){
         Set<Long> result = new HashSet<>();
-        if (repo.findOne(id)!=null){
+        if (repo.findById(id)!=null){
             result.add(id);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);

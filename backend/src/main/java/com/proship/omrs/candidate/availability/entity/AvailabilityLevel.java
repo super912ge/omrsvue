@@ -2,8 +2,10 @@ package com.proship.omrs.candidate.availability.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "availability_level")
 public class AvailabilityLevel {
 
     @Id
