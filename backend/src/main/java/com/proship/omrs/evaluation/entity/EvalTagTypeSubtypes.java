@@ -3,21 +3,22 @@ package com.proship.omrs.evaluation.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 @Entity
+@Table(name = "eval_tag_type_subtypes")
 @IdClass(EvalTagTypeSubtypes.class)
 public class EvalTagTypeSubtypes implements Serializable{
 
     @Id
+    @Column(name = "eval_tag_type_id")
     private Long evalTagTypeId;
 
     @Id
+    @Column(name = "creator_id")
     @JsonIgnore
     private Long creatorId;
 
@@ -26,6 +27,7 @@ public class EvalTagTypeSubtypes implements Serializable{
 
     @Id
     @JsonIgnore
+    @Column(name = "destroyer_id")
     private Long destroyerId;
 
     @Id

@@ -66,17 +66,16 @@ public class JpaConfiguration {
         return dataSource;
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory()
-            throws NamingException {
-        LocalContainerEntityManagerFactoryBean factoryBean = new
-                LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan(new String[] { "com.proship.omrs" });
-        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-        factoryBean.setJpaProperties(jpaProperties());
-        return factoryBean;
-    }
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory()
+//            throws NamingException {
+//        LocalContainerEntityManagerFactoryBean factoryBean = new
+//                LocalContainerEntityManagerFactoryBean();
+//        factoryBean.setDataSource(dataSource());
+//        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+//        factoryBean.setJpaProperties(jpaProperties());
+//        return factoryBean;
+//    }
 
 //    @Bean
 //    public SessionFactory getSessionFactory() throws NamingException {

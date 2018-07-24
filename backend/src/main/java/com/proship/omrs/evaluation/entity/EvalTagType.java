@@ -2,15 +2,15 @@ package com.proship.omrs.evaluation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "eval_tag_type")
 public class EvalTagType {
 
     @Id private Long id;
 
+    @Column(name = "discriminator_id")
     private Long discriminatorId;
 
     private String label;

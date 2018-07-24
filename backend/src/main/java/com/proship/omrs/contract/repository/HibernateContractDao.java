@@ -7,32 +7,35 @@ import com.proship.omrs.candidate.participant.entity.ParticipantAct;
 import com.proship.omrs.candidate.participant.entity.ParticipantAct_;
 import com.proship.omrs.candidate.participant.entity.Participant_;
 import com.proship.omrs.contract.entity.*;
+import com.proship.omrs.contract.param.ContractBriefWithParticipant;
 import com.proship.omrs.contract.param.ContractSearchParamIn;
+import com.proship.omrs.contract.param.ContractSearchResultParam;
 import com.proship.omrs.gig.entity.Gig;
 import com.proship.omrs.gig.entity.Gig_;
 import com.proship.omrs.gig.entity.PositionMap;
 import com.proship.omrs.gig.repository.HibernateGigDao;
+import com.proship.omrs.venue.entity.Room;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Repository
 @Transactional
 public class HibernateContractDao {
 
-    private final EntityManagerFactory entityManagerFactory;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     private final Integer pageSize = 20;
-
-    @Autowired
-    public HibernateContractDao(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @Autowired
     HibernateGigDao gigDao;
@@ -40,11 +43,11 @@ public class HibernateContractDao {
     @Autowired
     ContractRepository contractRepository;
 
-    public Map<String, Object> findContractByMultiConditions(ContractSearchParamIn in) {
+    public ContractSearchResultParam findContractByMultiConditions(ContractSearchParamIn in) {
 
-        Session session = entityManagerFactory.unwrap(Session.class);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
         CriteriaQuery<Contract> criteria = builder.createQuery(Contract.class);
 
@@ -57,6 +60,10 @@ public class HibernateContractDao {
         Join<Contract,ContractPeriodShard> periodShardJoin = root.join(Contract_.contractPeriodShard);
 
         Join<ContractMainShard,Gig> gigJoin ;
+
+        if (in.getId()!=null){
+            contractPredicates.add(builder.equal(root.get(Contract_.id),in.getId()));
+        }
 
         if (in.getGigSearchParam() != null) {
 
@@ -130,30 +137,60 @@ public class HibernateContractDao {
 
         }
 
-        Predicate predicateFinal = builder.and(contractPredicates.toArray(new Predicate[contractPredicates.size()]));
+
+        Predicate predicateFinal = contractPredicates.size()>1?
+                builder.and(contractPredicates.toArray(new Predicate[contractPredicates.size()])):contractPredicates.get(0);
 
         long count = 0;
 
-        if(in.getPageNumber()==0){
-            CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+//        if(in.getPageNumber()==0){
+//            CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+//
+//            Root<Contract> rootCount =  countQuery.from(Contract.class);
+//
+//            Expression<Long> id = rootCount.get(Contract_.id);
+//
+//            countQuery.select(builder.countDistinct(id)).where(predicateFinal);
 
-            countQuery.select(builder.countDistinct(root.get(Contract_.id))).where(predicateFinal);
+//
+//            try {
+//                TypedQuery<Long> typedQuery = entityManager.createQuery(countQuery);
+//                count = typedQuery.getSingleResult();
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
 
-            count = session.createQuery(countQuery).getSingleResult();
+
+  //      }
+
+
+        ContractSearchResultParam resultParam = new ContractSearchResultParam();
+
+//        Map<String, Object> map = new HashMap<>();
+//
+//        map.put("totalPage", count / 20 + 1);
+//
+        resultParam.setTotalPage(count / 20 + 1);
+
+        try {
+
+            TypedQuery<Contract> typedQueryResult = entityManager.createQuery(criteria.where(predicateFinal)
+                    .orderBy(builder.desc(root.get(Contract_.id))).distinct(true))
+                    .setMaxResults(pageSize).setFirstResult(in.getPageNumber().intValue() * pageSize);
+
+            List<ContractBriefWithParticipant> contracts = typedQueryResult.getResultList()
+                    .stream().map(ContractBriefWithParticipant::new).collect(Collectors.toList());
+
+            System.out.print(contracts.get(0));
+
+           resultParam.setContracts(contracts);
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        List<Contract> contracts = session.createQuery(criteria.where(predicateFinal)
-                .orderBy(builder.desc(root.get(Contract_.id))).distinct(true))
-                .setMaxResults(pageSize).setFirstResult(in.getPageNumber().intValue()*pageSize).getResultList();
 
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put("totalPage", count / 20 + 1);
-
-        map.put("contract", contracts);
-
-        return map;
+        return resultParam;
 
 
     }

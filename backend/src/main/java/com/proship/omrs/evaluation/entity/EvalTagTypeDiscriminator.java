@@ -2,8 +2,10 @@ package com.proship.omrs.evaluation.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "eval_tag_type_discriminator")
 public class EvalTagTypeDiscriminator {
 
     @Id

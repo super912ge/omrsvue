@@ -1,7 +1,5 @@
 package com.proship.omrs.contract.param;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.proship.omrs.candidate.participant.entity.ParticipantAct;
-import com.proship.omrs.candidate.participant.param.ParticipantActSerializer;
+import com.proship.omrs.candidate.participant.param.ParticipantActBriefWrapper;
 import com.proship.omrs.contract.entity.Contract;
 
 public class ContractBriefWithParticipant extends ContractBriefBase{
@@ -10,18 +8,17 @@ public class ContractBriefWithParticipant extends ContractBriefBase{
 
         super(contract);
 
-        this.act = contract.getContractMainShards().get(0).getAct();
+        this.act = new ParticipantActBriefWrapper(contract.getContractMainShards().get(0).getAct());
     }
 
-    @JsonSerialize(using = ParticipantActSerializer.class)
-    private ParticipantAct act;
 
-    public ParticipantAct getAct() {
+    private ParticipantActBriefWrapper act;
+
+    public ParticipantActBriefWrapper getAct() {
         return act;
     }
 
-    public void setAct(ParticipantAct act) {
+    public void setAct(ParticipantActBriefWrapper act) {
         this.act = act;
     }
-
 }

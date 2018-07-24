@@ -13,7 +13,15 @@
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": ["istanbul"]
+
+      "plugins": ["transform-vue-jsx", "transform-es2015-modules-commonjs", "dynamic-import-node","istanbul",
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          }
+        ]]
     }
   }
 }

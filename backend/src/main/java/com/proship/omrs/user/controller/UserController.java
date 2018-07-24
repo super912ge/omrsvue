@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -84,6 +86,11 @@ public class UserController extends BaseController<User,Long>{
     public ResponseEntity<List<UserBrief>> listAllUsers() {
         Iterable<UserBrief> all = userBriefRepository.findAll();
         return new ResponseEntity<>(Lists.newArrayList(all),HttpStatus.OK);
+    }
+
+    @GetMapping("/userInfo")
+    public Principal userInfo(Principal principal){
+        return principal;
     }
 
 }

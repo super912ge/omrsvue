@@ -11,7 +11,6 @@ import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
 import moment from 'moment'
 
-Vue.use(VueResource);
 locale.use(lang);
 Vue.use(Element);
 Vue.use(VueRouter);
@@ -36,7 +35,7 @@ new Vue({
   components: { App }
 });
 
-Vue.http.options.root = 'http://localhost:8080';
+Vue.http.options.root = 'http://localhost:8088';
 Vue.http.headers.common['Authorization'] = header_auth;
 
 

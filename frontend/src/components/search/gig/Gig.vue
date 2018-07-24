@@ -170,19 +170,10 @@
   import _ from 'lodash'
   import {getHeader} from '../../../env'
   import localStorage from 'localStorage'
-  import ElRow from "element-ui/packages/row/src/row";
-  import ElButton from "../../../../node_modules/element-ui/packages/button/src/button.vue";
-  import ElCol from "element-ui/packages/col/src/col";
-  import ElSelect from "element-ui/packages/select"
-  import ElCheckbox from "../../../../node_modules/element-ui/packages/checkbox/src/checkbox.vue";
   import DisplayGig from "./DisplayGig.vue"
   export default {
 
     components: {
-      ElCheckbox,
-      ElCol,
-      ElButton,
-      ElRow,
       DisplayGig
     },
     data() {

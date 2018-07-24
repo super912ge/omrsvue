@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -31,7 +31,7 @@ public class Gig {
 
     @OneToMany(mappedBy = "gig", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<ContractMainShard> contracts;
+    private List<ContractMainShard> contracts;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chairRequirementTagId")
@@ -46,7 +46,7 @@ public class Gig {
     private List<GigMainShard> shards;
 
     @Transient
-    private GigMainShard shard;
+    private GigMainShard currentShard;
 
     @JsonIgnore
     @OneToOne(mappedBy = "gig",fetch = FetchType.LAZY)
@@ -54,6 +54,14 @@ public class Gig {
 
     @OneToOne(mappedBy = "gig",fetch = FetchType.LAZY)
     private GigPeriodShard period;
+
+    public List<GigMainShard> getShards() {
+        return shards;
+    }
+
+    public void setShards(List<GigMainShard> shards) {
+        this.shards = shards;
+    }
 
     public Long getId() {
         return id;
@@ -103,23 +111,26 @@ public class Gig {
         this.children = children;
     }
 
-    public Set<ContractMainShard> getContracts() {
+    public List<ContractMainShard> getContracts() {
         return contracts;
     }
 
-    public void setContracts(Set<ContractMainShard> contracts) {
+    public void setContracts(List<ContractMainShard> contracts) {
         this.contracts = contracts;
     }
 
-    public GigMainShard getShard() {
-        this.shard = this.shards.stream()
+    public GigMainShard getCurrentShard() {
+        List<GigMainShard> currentValidShards = this.shards.stream()
                 .filter( s->s.getValidendtime()
-                        .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList()).get(0);
-        return shard;
+                        .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList());
+        if (!currentValidShards.isEmpty())
+        return currentValidShards.get(0);
+        else return null;
     }
 
-    public void setShard(GigMainShard shard) {
-        this.shard = shard;
+
+    public void setCurrentShard(GigMainShard shard) {
+        this.currentShard = shard;
     }
 
     public GigTerritoryShard getTerritory() {

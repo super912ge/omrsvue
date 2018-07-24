@@ -44,7 +44,7 @@ public class ContractController {
 		 ContractSearchResultParam result = contractService.findContractByConditions(in);
 
 		System.out.print( result.getTotalPage());
-		 
+
 		return new ResponseEntity<>(result,HttpStatus.OK);
 		 
 	 }

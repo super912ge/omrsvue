@@ -5,13 +5,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.proship.omrs.client.entity.Client;
 import com.proship.omrs.client.entity.ClientMap;
 import com.proship.omrs.gig.entity.Gig;
+import com.proship.omrs.gig.entity.GigMainShard;
 import com.proship.omrs.user.param.UserBrief;
 import com.proship.omrs.venue.entity.Venue;
 import com.proship.omrs.venue.entity.VenueMainShard;
 import com.proship.omrs.venue.entity.VenueMainShardMap;
 import com.proship.omrs.venue.param.VenueBrief;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class GigBrief {
@@ -42,36 +46,62 @@ public class GigBrief {
 
     private UserBrief territory;
 
-    public GigBrief(Gig gig){
+    public GigBrief(Gig gig, Date startDate, Date endDate){
 
+        List<GigMainShard> validShards = gig.getShards().stream()
+                .filter( s-> !s.getValidendtime()
+                        .before(endDate)&& !s.getValidstarttime().after(startDate)).collect(Collectors.toList());
+
+        if (!validShards.isEmpty())
+            setGigBrief(gig, validShards.get(0));
+
+        else setGigBrief(gig,null);
+
+    }
+
+    private void setGigBrief(Gig gig, GigMainShard validShard) {
+        
         this.id = gig.getId();
-        this.name = gig.getShard().getLabel();
-
-        Long venueId = gig.getShard().getRoom().getVenue();
-
-        VenueMainShard venueMainShard =  VenueMainShardMap.getVenueMainShard(venueId);
-
-        String venueName = venueMainShard.getName();
-
-        this.venue = new VenueBrief(venueId,venueName);
-        this.client = new Client();
-        this.client.setId(venueMainShard.getClientId());
-        this.client.setCode(venueMainShard.getClientCode());
 
         if(gig.getChair()!=null) this.chair = gig.getChair().getLabel();
-        this.type = gig.getShard().getBandType().getName();
-        this.room = gig.getShard().getRoom().getName();
+
         if(gig.getPeriod()!=null) {
             this.startDate = gig.getPeriod().getValidstarttime();
             this.endDate = gig.getPeriod().getValidendtime();
         }
-        this.salaryRange = gig.getShard().getSalaryRange();
 
         if (gig.getTerritory()!=null) {
             this.territory = new UserBrief(gig.getTerritory().getUser());
         }
-        this.manager = new UserBrief(gig.getShard().getResponsible());
+        if (validShard!=null){
 
+            this.name = validShard.getLabel();
+
+            Long venueId = validShard.getRoom().getVenue();
+
+            VenueMainShard venueMainShard =  VenueMainShardMap.getVenueMainShard(venueId);
+
+            String venueName = venueMainShard.getName();
+
+            this.venue = new VenueBrief(venueId,venueName);
+            this.client = new Client();
+            this.client.setId(venueMainShard.getClientId());
+            this.client.setCode(venueMainShard.getClientCode());
+
+            this.type = validShard.getBandType().getName();
+            this.room = validShard.getRoom().getName();
+
+            this.manager = new UserBrief(validShard.getResponsible());
+            this.salaryRange = validShard.getSalaryRange();
+        }
+
+
+    }
+
+    public GigBrief(Gig gig){
+
+        setGigBrief(gig,gig.getCurrentShard());
+       
     }
 
     public String getName() {

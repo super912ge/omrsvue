@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -29,12 +30,10 @@ import java.util.Set;
 @Transactional
 public class HibernateGigDao {
 
-    private final EntityManagerFactory entityManagerFactory;
-
     @Autowired
-    public HibernateGigDao(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
+    private EntityManagerFactory entityManagerFactory;
+
+
 
     @Autowired
     VenueMainShardRepository venueMainShardRepository;
@@ -44,9 +43,9 @@ public class HibernateGigDao {
 
     public List<Long> findGigIdByConditions(GigSearchParam in){
 
-        Session session = entityManagerFactory.unwrap(Session.class);
+        EntityManager em = entityManagerFactory.createEntityManager();
 
-        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
 
@@ -56,7 +55,7 @@ public class HibernateGigDao {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (in.getGroup()) {
+        if (in.getGroup()!=null&&in.getGroup()) {
 
             predicates.add(cb.isNull(root.get(Gig_.parentGig)));
         }
@@ -116,7 +115,7 @@ public class HibernateGigDao {
             predicates.add(cb.like(cb.lower(shardJoin.get(GigMainShard_.label)),"%"+in.getName().toLowerCase()+"%"));
         }
 
-        return session.createQuery(criteria.select(root.get(Gig_.id))
+        return em.createQuery(criteria.select(root.get(Gig_.id))
                 .where(cb.and(predicates.toArray(new Predicate[predicates.size()]))).distinct(true)).getResultList();
 
     }

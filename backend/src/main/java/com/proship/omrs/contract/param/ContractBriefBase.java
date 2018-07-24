@@ -9,10 +9,8 @@ import java.util.List;
 public class ContractBriefBase {
 
         public ContractBriefBase(Contract contract){
-            this.id = contract.getId();
 
-//            if (contract.getJob()!=null)
-//                this.jobNumber = contract.getJob().getId();
+            this.id = contract.getId();
 
             this.jobNumber = contract.getNumber();
 
@@ -61,7 +59,6 @@ public class ContractBriefBase {
         this.id = id;
     }
 
-
     public String getJobNumber() {
         return jobNumber;
     }
@@ -69,4 +66,6 @@ public class ContractBriefBase {
     public void setJobNumber(String jobNumber) {
         this.jobNumber = jobNumber;
     }
+
+
 }

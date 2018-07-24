@@ -94,18 +94,9 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	public ContractSearchResultParam findContractByConditions(ContractSearchParamIn in) {
 
-		ContractSearchResultParam resultParam = new
-				ContractSearchResultParam();
 
-		Map<String,Object> map = hibernateContractDao.findContractByMultiConditions(in);
+		return hibernateContractDao.findContractByMultiConditions(in);
 
-		List<Contract> contracts = (List<Contract>) map.get("contract");
-
-		resultParam.setContracts(contracts.stream().map(ContractBriefWithParticipant::new).collect(Collectors.toList()));
-
-		resultParam.setTotalPage((Long)map.get("totalPage"));
-
-		return resultParam;
 
 	}
 

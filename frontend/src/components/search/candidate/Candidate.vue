@@ -314,7 +314,7 @@
       displayCandidate(pageNumber){
         if(!_.isNumber(pageNumber))pageNumber = 1;
 
-        this.$http.post("http://localhost:8080/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
+        this.$http.post("http://localhost:8088/candidate/display",{ids: this.candidateIdList, page:pageNumber-1,size:20},
             {headers:getHeader()}).then(response=>{
               if(response.status===200) {
                 this.result.candidateList = [];
@@ -335,7 +335,7 @@
         this.$refs.certificate.reset();
       },
       searchByDocument(){
-          this.$http.post("http://localhost:8080/candidate/search/document",this.criteria.document,{headers:getHeader()}).then(
+          this.$http.post("http://localhost:8088/candidate/search/document",this.criteria.document,{headers:getHeader()}).then(
             response=>{
               if(response.status === 200){
                 console.log('document',response.data);
@@ -353,7 +353,7 @@
       searchById(){
         if(this.criteria.candidateId && this.criteria.candidateId.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/candidate/search/id/"+
+          this.$http.get("http://localhost:8088/candidate/search/id/"+
             this.criteria.candidateId,options,{headers:getHeader()}).then(response=>{
 
               if (response.status ===200){
@@ -365,7 +365,7 @@
       searchByActId(){
         if(this.criteria.actId && this.criteria.actId.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/candidate/search/actId/"+
+          this.$http.get("http://localhost:8088/candidate/search/actId/"+
             this.criteria.actId,options,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
@@ -420,7 +420,7 @@
 
 
         if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
-          this.$http.post("http://localhost:8080/candidate/search/residencyAndCitizenship",
+          this.$http.post("http://localhost:8088/candidate/search/residencyAndCitizenship",
            this.criteria.location, {headers:getHeader() }).then( response => {
               if (response.status ===200) {
 
@@ -438,7 +438,7 @@
 
           this.criteria.candidateName.name = this.criteria.candidateName.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
-          this.$http.post("http://localhost:8080/candidate/search/name",
+          this.$http.post("http://localhost:8088/candidate/search/name",
             this.criteria.candidateName,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.idResultList = response.data;
@@ -452,7 +452,7 @@
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
         !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
-          this.$http.post("http://localhost:8080/candidate/search/gig",
+          this.$http.post("http://localhost:8088/candidate/search/gig",
 
             this.criteria.experience, {headers:getHeader() }).then( response => {
             if (response.status === 200) {
@@ -574,7 +574,7 @@
         _.debounce(this.searchByEvaluation,1000)()
       },
       searchByEvaluation(evaluation){
-        this.$http.post("http://localhost:8080/candidate/search/evaluation",
+        this.$http.post("http://localhost:8088/candidate/search/evaluation",
 
           this.criteria.evaluation, {headers:getHeader() }).then( response => {
           if (response.status === 200) {
@@ -585,7 +585,7 @@
       handleDocumentClick(){
       },
       getChildrenNodes(key, resolve){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()})
+        this.$http.get('http://localhost:8088/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()})
           .then(response=> {
           if (response.status === 200) {
             resolve(response.data);
@@ -618,7 +618,7 @@
         let positionOptions = JSON.parse(localStorage.getItem("positionOptions"));
         if(!positionOptions){
 
-          this.$http.get('http://localhost:8080/position/',{headers: getHeader()}).then(response=> {
+          this.$http.get('http://localhost:8088/position/',{headers: getHeader()}).then(response=> {
 
             if (response.status === 200) {
               this.rankingTypes = response.data;
@@ -634,7 +634,7 @@
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){
 
-          this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
+          this.$http.get('http://localhost:8088/gigType/',{headers: getHeader()}).then(response=> {
 
             if (response.status === 200) {
               gigTypeOptions = response.data;
@@ -651,7 +651,7 @@
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
           if(!clientOptions){
-            this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
+            this.$http.get('http://localhost:8088/client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 this.clients = response.data;
                 localStorage.setItem('clientOptions',JSON.stringify(response.data))
@@ -666,7 +666,7 @@
       fetchVenue(){
        let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
           if(!venueOptions){
-            this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
+            this.$http.get('http://localhost:8088/venuemainshard/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 venueOptions = response.data;
                 localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
@@ -688,7 +688,7 @@
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
 
         if (!countryOptions){
-          this.$http.get('http://localhost:8080/country/',{headers:getHeader()}).then(response=>{
+          this.$http.get('http://localhost:8088/country/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
               localStorage.setItem('countryOptions', JSON.stringify(response.data));
               this.countries = response.data;
@@ -700,7 +700,7 @@
       fetchVisaType(){
         let visaTypeOptions =  JSON.parse(localStorage.getItem('visaTypeOptions'));
 
-        if(!visaTypeOptions) this.$http.get('http://localhost:8080/visaType/',{headers: getHeader()}).then(response=> {
+        if(!visaTypeOptions) this.$http.get('http://localhost:8088/visaType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
 
             visaTypeOptions = response.data;
@@ -713,7 +713,7 @@
       fetchMedicalType(){
         let medicalTypeOptions =  JSON.parse(localStorage.getItem('medicalTypeOptions'));
         if(!medicalTypeOptions) {
-          this.$http.get('http://localhost:8080/medicalType/',{headers: getHeader()}).then(response=> {
+          this.$http.get('http://localhost:8088/medicalType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             medicalTypeOptions = response.data;
 
@@ -725,7 +725,7 @@
       },
       fetchCertificateType(){
         let certificateTypeOptions =  JSON.parse(localStorage.getItem('certificateTypeOptions'));
-        if(!certificateTypeOptions) this.$http.get('http://localhost:8080/certificateType/',{headers: getHeader()}).then(response=> {
+        if(!certificateTypeOptions) this.$http.get('http://localhost:8088/certificateType/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             certificateTypeOptions = response.data;
 

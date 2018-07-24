@@ -23,6 +23,8 @@
     import LocalStorage from 'localStorage';
     import _ from 'lodash'
 
+    import axios from 'axios'
+
     export default {
 
         data() {
@@ -71,7 +73,7 @@
                     if (valid) {
                         let options = { emulateJSON: true};
 
-                        this.$http.post(loginUrl, loginData,options,
+                      this.$http.post(loginUrl, loginData,options,
 
                             {headers: { Authorization: header_auth }}
                             ).then(response => {
