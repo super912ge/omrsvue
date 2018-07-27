@@ -74,7 +74,7 @@ import {getHeader} from "../../../../env.js"
       confirm(){
         if(this.contact.id){
           if(JSON.stringify(this.contact)!==this.jsonStr) {
-            this.$http.post("http://localhost:8080/contact/update", this.contact, {headers: getHeader()}).then(
+            this.$http.post("contact/update", this.contact, {headers: getHeader()}).then(
               res => {
                 if (res.status === 201) {
 
@@ -89,7 +89,7 @@ import {getHeader} from "../../../../env.js"
           }else this.confirmed = true;
         }
         else {
-          this.$http.post("http://localhost:8080/contact/create/" + this.candidateId, this.contact, {headers: getHeader()}).then(
+          this.$http.post("contact/create/" + this.candidateId, this.contact, {headers: getHeader()}).then(
             res => {
               if (res.status === 201) {
                 this.contact.id = res.data.result;
@@ -105,7 +105,7 @@ import {getHeader} from "../../../../env.js"
       },
       deleteContact(){
         if(this.contact.id) {
-          this.$http.get("http://localhost:8080/contact/delete/" + this.contact.id, {headers: getHeader()}).then(
+          this.$http.get("contact/delete/" + this.contact.id, {headers: getHeader()}).then(
             res => {
               if (res.status === 200) this.deleted = true;
             });

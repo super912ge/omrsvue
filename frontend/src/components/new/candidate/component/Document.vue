@@ -5,7 +5,7 @@
     <div slot="header" class="clearfix">
       <span>Document</span>
     </div>
-    <el-select v-model="doc.name" size="mini" @change="fetchDocumentType">
+    <el-select   v-model="doc.name" size="mini" @change="fetchDocumentType">
       <el-option v-for="item in documentsOptions" :value="item.name" :label="item.label" :key="item.name"></el-option>
     </el-select>
 
@@ -76,7 +76,7 @@
           return;
         }
 
-        this.$http.get("http://localhost:8080/"+name+"Type/",{headers:getHeader()}).then(res=>{
+        this.$http.get(""+name+"Type/",{headers:getHeader()}).then(res=>{
           if(res.status===200) {
             this.documentType = res.data;
           }
@@ -89,7 +89,7 @@
         let name = document.name;
         if(document.id){
 
-          this.$http.post('http://localhost:8080/'+document.name+"/update",document,{headers:getHeader()}).then(
+          this.$http.post( document.name+"/update",document,{headers:getHeader()}).then(
             res=>{
               if(res.status===200) {
                 document.id = res.data.result;
@@ -101,7 +101,7 @@
               }
             })
         }else {
-          this.$http.post('http://localhost:8080/' + name + "/create/"+this.candidateId, document, {headers: getHeader()}).then(
+          this.$http.post(  name + "/create/"+this.candidateId, document, {headers: getHeader()}).then(
             res => {
               if (res.status === 201) {
                 document.id = res.data.result;
@@ -122,7 +122,7 @@
       },
       deleteDoc(index){
         let doc = this.addedDocuments[index];
-        this.$http.get('http://localhost:8080/'+doc.name+"/delete/"+doc.id,{headers:getHeader()}).then(
+        this.$http.get( doc.name+"/delete/"+doc.id,{headers:getHeader()}).then(
           res=>{
             if(res.status===200) {
               this.addedDocuments.splice(index,1);

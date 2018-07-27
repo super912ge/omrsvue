@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/position/")
+@RequestMapping(value = "/rank/")
 public class PositionController extends BaseController<Position,Long>{
 
     public PositionController(PositionRepository repo) {

@@ -44,7 +44,7 @@ export default {
     displayMembers(row, expanded){
 
       var $vm = this;
-      this.$http.get('http://localhost:8080/band/members/'+row.id,{headers: getHeader()}).then(response=> {
+      this.$http.get('band/members/'+row.id,{headers: getHeader()}).then(response=> {
 
         if (response.status === 200) {
           $vm.$set(row, 'members', response.data);

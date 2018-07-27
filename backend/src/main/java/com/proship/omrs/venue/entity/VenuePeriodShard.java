@@ -3,7 +3,6 @@ package com.proship.omrs.venue.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -21,7 +20,7 @@ public class VenuePeriodShard extends MainShardEntity {
 
     @ManyToOne
     @JsonIgnore
-    private Venue venue;
+    private VenueBase venue;
 
     public Long getId() {
         return id;
@@ -47,11 +46,11 @@ public class VenuePeriodShard extends MainShardEntity {
         this.endConfidence = endConfidence;
     }
 
-    public Venue getVenue() {
+    public VenueBase getVenue() {
         return venue;
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = venue;
+    public void setVenue(VenueBase venueBase) {
+        this.venue = venueBase;
     }
 }

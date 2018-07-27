@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/gigType/")
+@RequestMapping(value = "/gig-type/")
 public class GigTypeController extends BaseController<BandType,Long>{
     public GigTypeController(BandTypeRepository repo) {
         super(repo);

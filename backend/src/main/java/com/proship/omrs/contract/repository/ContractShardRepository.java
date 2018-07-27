@@ -4,6 +4,8 @@ import com.proship.omrs.contract.entity.ContractMainShard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -86,6 +88,7 @@ public interface ContractShardRepository extends JpaRepository<ContractMainShard
 
     List<ContractMainShard> findByTransactiontimeAndContractId(Date date, Long ContractId);
 
+    @Transactional
     List<ContractMainShard> findAllByIdIn(List<Long>id);
 
 //    @Query(value = "select c from contract_main_shard c join contract_status_cancel_tts csct " +

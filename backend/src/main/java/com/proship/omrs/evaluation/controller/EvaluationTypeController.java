@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = "/evaluation/type")
+@RequestMapping(value = "/evaluation-type")
 @RestController
 public class EvaluationTypeController {
 
-    @RequestMapping(value = "/subtypes/{id}",  method= RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/subtype/{id}",  method= RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<List<EvalTagType>> getSubtypes(@PathVariable long id){
 
         return new ResponseEntity<>(EvaluationTreeMap.getEvalTagTypeSubtypes(id), HttpStatus.OK);

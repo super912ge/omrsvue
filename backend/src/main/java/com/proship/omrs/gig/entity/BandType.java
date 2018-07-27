@@ -2,17 +2,17 @@ package com.proship.omrs.gig.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "band_type")
 public class BandType {
 
     @Id
     private Long id ;
+
     private String name ;
+
     private Integer ordering ;
+
     private Integer grouping ;
 
     public Long getId() {

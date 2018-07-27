@@ -3,7 +3,7 @@
     title="New Todo" :visible ="true"  width="30%" center :show-close="false">
     <el-form :model="todoItem" ref="todoItem" label-width="120px" class="demo-ruleForm">
       <el-form-item label="Title" prop="title">
-        <el-input v-model="todoItem.title" auto-complete="off" width="10%"></el-input>
+        <el-input size="mini" v-model="todoItem.title" auto-complete="off" width="10%"></el-input>
       </el-form-item>
 
       <el-form-item label="Due Date" prop="dueDate">
@@ -13,7 +13,7 @@
 
 
       <el-form-item label="Priority" prop="priority">
-        <el-select v-model="todoItem.priorityId" placeholder="Select">
+        <el-select size="mini" v-model="todoItem.priorityId" placeholder="Select">
           <el-option
             v-for="item in priority"
             :key="item.value"
@@ -23,7 +23,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Description" prop="text">
-        <el-input type="textarea" :rows="3" v-model="todoItem.text" auto-complete="off"></el-input>
+        <el-input size="mini" type="textarea" :rows="3" v-model="todoItem.text" auto-complete="off"></el-input>
       </el-form-item>
 
 
@@ -88,7 +88,7 @@
         this.todoItem.dueDate = moment(this.todoItem.dueDate).format('YYYY-MM-DD HH:mm:ss');
 
         console.log(this.todoItem)
-        this.$http.put('http://localhost:8080/todo/'+this.todoItem.id, this.todoItem,{headers: getHeader()}).then(response => {
+        this.$http.put('todo/'+this.todoItem.id, this.todoItem,{headers: getHeader()}).then(response => {
 
           if (response.status === 200) {
 

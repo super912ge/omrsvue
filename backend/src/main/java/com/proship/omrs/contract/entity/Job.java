@@ -1,5 +1,6 @@
 package com.proship.omrs.contract.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Job {
     )
     private Long id ;
 
+    @JsonIgnore
     private Integer specialtyType ;
 
     private Long uuid;

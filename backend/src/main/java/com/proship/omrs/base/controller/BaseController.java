@@ -15,7 +15,6 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value="/api/")
 public abstract class BaseController<T, ID extends Serializable> {
 
 	    protected CrudRepository<T, ID> repo;

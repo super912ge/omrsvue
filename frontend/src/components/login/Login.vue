@@ -3,10 +3,10 @@
     <div class="login">
         <el-form :model="loginForm" :rules="loginRule" ref="loginForm" label-width="120px" class="demo-ruleForm">
             <el-form-item label="Username" prop="username">
-                <el-input v-model="loginForm.username" auto-complete="off"></el-input>
+                <el-input size="mini" v-model="loginForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password">
-                <el-input type="password" v-model="loginForm.password" auto-complete="off"></el-input>
+                <el-input size="mini" type="password" v-model="loginForm.password" auto-complete="off"></el-input>
 
             </el-form-item>
             <el-form-item>
@@ -69,12 +69,13 @@
                         scope:''
                     };
                     const authUser = {};
+
                     const userInfo = {};
+
                     if (valid) {
                         let options = { emulateJSON: true};
 
                       this.$http.post(loginUrl, loginData,options,
-
                             {headers: { Authorization: header_auth }}
                             ).then(response => {
                             if(response.status===200){

@@ -28,7 +28,7 @@ public class GroupActMainShard extends MainShardEntity {
 
     @OneToOne
     @JoinTable(
-            name = "group_act_band_types",
+            name = "groupActBandTypes",
             joinColumns = {@JoinColumn(name="groupactMainShardId")},
             inverseJoinColumns = {@JoinColumn(name="bandtypeId")}
     )

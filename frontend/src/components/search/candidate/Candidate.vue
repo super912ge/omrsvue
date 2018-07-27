@@ -6,10 +6,10 @@
       <div style="margin-top: 15px"></div>
     <el-row>
       <el-col :span="8" >
-        <el-input v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
+        <el-input size="mini" v-model="criteria.candidateId" placeholder="Candidate ID" class="shortInput" style=" margin-left: 25px" @change="handleIdChange"></el-input>
       </el-col>
       <el-col :span="8" style="margin-left: 15px">
-        <el-input v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
+        <el-input size="mini" v-model="criteria.actId" placeholder="Candidate Act ID" class="shortInput" @change="handleActIdChange"></el-input>
     </el-col>
 
   </el-row>
@@ -17,9 +17,9 @@
     <div style="margin-top: 15px;">
       <span class="demonstration">Candidate Name</span>
       <div style="margin-top: 15px;"></div>
-      <el-input placeholder="Candidate Name" v-model="criteria.candidateName.name" class="input-with-select"
+      <el-input size="mini" placeholder="Candidate Name" v-model="criteria.candidateName.name" class="input-with-select"
                 style="width: 60%; margin-left: 25px" @change="handleNameChange">
-        <el-select v-model="criteria.candidateName.searchType" slot="prepend" placeholder="select">
+        <el-select size="mini" v-model="criteria.candidateName.searchType" slot="prepend" placeholder="select">
           <el-option label="First Name" value="FirstName"></el-option>
           <el-option label="Last Name" value="LastName"></el-option>
           <el-option label="Any Match" value="Any"></el-option>
@@ -75,9 +75,9 @@
       <el-collapse-item title="Venue">
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="criteria.experience.venueIds" style="height: 200px; overflow-y:scroll">
-          <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
+          <el-checkbox v-for="venueBase in venues" :label="venueBase.venueId" :key="venueBase.venueId"
                        style="margin-left: 5px; width: 200px"
-                       @change="handleExperienceChange">{{venue.name}}  ------  {{venue.clientCode}}
+                       @change="handleExperienceChange">{{venueBase.name}}  ------  {{venueBase.clientCode}}
           </el-checkbox>
         </el-checkbox-group>
       </el-collapse-item>
@@ -85,7 +85,7 @@
   </el-row>
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-    <el-select v-model="criteria.experience.gigTypeId"  @change="handleExperienceChange"
+    <el-select size="mini" v-model="criteria.experience.gigTypeId"  @change="handleExperienceChange"
                filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
       <el-option
         v-for="item in gigTypes"
@@ -97,7 +97,7 @@
   </el-row>
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-    <el-select v-model="criteria.experience.rank" filterable placeholder="Ranking"
+    <el-select size="mini" v-model="criteria.experience.rank" filterable placeholder="Ranking"
                @change="handleExperienceChange" style="width: 200px;margin-left: 21px">
       <el-option
         v-for="item in rankingTypes"
@@ -112,7 +112,7 @@
     <span class="demonstration">World</span>
     <div style="margin-top: 15px"></div>
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Residency</span>
-    <el-select v-model="criteria.location.residency" filterable placeholder="Residency" style="width: 200px;margin-left: 21px"
+    <el-select size="mini" v-model="criteria.location.residency" filterable placeholder="Residency" style="width: 200px;margin-left: 21px"
                @change="handleLocationChange">
       <el-option
         v-for="item in countries"
@@ -123,7 +123,7 @@
     </el-select>
     <div style="margin-top: 15px"></div>
     <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Citizenship</span>
-    <el-select v-model="criteria.location.citizenship" filterable placeholder="Citizenship" style="width: 200px;margin-left: 16px"
+    <el-select size="mini" v-model="criteria.location.citizenship" filterable placeholder="Citizenship" style="width: 200px;margin-left: 16px"
                @change="handleLocationChange">
       <el-option
         v-for="item in countries"
@@ -139,7 +139,7 @@
     <el-row>
       <span class="demonstration">Evaluation</span>
       <div style="margin-top: 5px">
-        <el-input
+        <el-input size="mini"
           style="margin-top: 15px;margin-left: 25px; width: 70%"
           placeholder="Filter keyword"
           v-model="criteria.filterText">
@@ -680,7 +680,7 @@
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.criteria.experience.clientIds.includes(venue.clientId));
+          let filteredVenue = venueOptions.filter(venueBase => this.criteria.experience.clientIds.includes(venueBase.clientId));
           this.venues = filteredVenue;
         }
       },

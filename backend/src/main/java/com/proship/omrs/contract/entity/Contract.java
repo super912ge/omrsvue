@@ -45,7 +45,7 @@ public class Contract implements Serializable{
 	private ContractRecruiterAttributionTts contractRecruiterAttributionTts;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "contractId")
+   // @JoinColumn(name = "contractId")
     @Where(clause = "nexttransactiontime > now()")
 	@OrderBy(value = "validendtime")
 	private List<ContractMainShard> contractMainShards;

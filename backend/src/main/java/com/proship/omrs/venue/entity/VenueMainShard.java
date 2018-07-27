@@ -3,7 +3,6 @@ package com.proship.omrs.venue.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.base.entity.MainShardEntity;
 import com.proship.omrs.client.entity.Client;
-import com.proship.omrs.client.entity.ClientMap;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -19,17 +18,14 @@ public class VenueMainShard extends MainShardEntity{
 
     private String type;
 
-    @Transient
-    private String clientCode;
-
-    private Long clientId;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private Venue venue;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Client client;
 
 
-    private Long venueId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private VenueBase venue;
 
     public Long getId() {
         return id;
@@ -55,30 +51,20 @@ public class VenueMainShard extends MainShardEntity{
         this.type = type;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(Long client) {
-        this.clientId = client;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public String getClientCode() {
-        this.clientCode = ClientMap.getClient(clientId).getCode();
-        return clientCode;
+    public VenueBase getVenue() {
+        return venue;
     }
 
-    public void setClientCode(String clientCode) {
-        this.clientCode = clientCode;
-    }
-
-    public Long getVenueId() {
-
-        return venueId;
-    }
-
-    public void setVenueId(Long venueId) {
-        this.venueId = venueId;
+    public void setVenue(VenueBase venue) {
+        this.venue = venue;
     }
 
     @Override
@@ -87,9 +73,9 @@ public class VenueMainShard extends MainShardEntity{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", clientCode='" + clientCode + '\'' +
-                ", clientId=" + clientId +
-                ", venueId=" + venueId +
+                ", clientCode='" + client.getCode() + '\'' +
+                ", clientId=" + client.getId() +
+                ", venueId=" + venue.getId() +
                 '}';
     }
 }

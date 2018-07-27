@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/info/")
+@RequestMapping("/candidate-extra-info/")
 public class ParticipantInfoController {
 
     @Autowired

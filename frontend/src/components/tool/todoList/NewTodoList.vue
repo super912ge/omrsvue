@@ -3,7 +3,7 @@
     title="New Todo" :visible ="true"  width="30%" center :show-close="false">
     <el-form :model="toDoListForm" ref="toDoListForm" label-width="120px" class="demo-ruleForm">
       <el-form-item label="Title" prop="title">
-        <el-input v-model="toDoListForm.title" auto-complete="off" width="10%"></el-input>
+        <el-input size="mini" v-model="toDoListForm.title" auto-complete="off" width="10%"></el-input>
       </el-form-item>
 
       <el-form-item label="Due Date" prop="dueDate">
@@ -13,7 +13,7 @@
 
 
       <el-form-item label="Priority" prop="priority">
-        <el-select v-model="toDoListForm.priorityId" placeholder="Select">
+        <el-select size="mini" v-model="toDoListForm.priorityId" placeholder="Select">
           <el-option
             v-for="item in priority"
             :key="item.value"
@@ -23,7 +23,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Description" prop="text">
-        <el-input type="textarea" :rows="3" v-model="toDoListForm.text" auto-complete="off"></el-input>
+        <el-input size="mini" type="textarea" :rows="3" v-model="toDoListForm.text" auto-complete="off"></el-input>
       </el-form-item>
 
 

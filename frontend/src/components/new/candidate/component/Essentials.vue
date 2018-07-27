@@ -216,7 +216,7 @@
       fetchAirport(){
         let airportOptions = JSON.parse(localStorage.getItem('airportOptions'));
         if (!airportOptions){
-          this.$http.get('http://localhost:8080/airport/',{headers:getHeader()}).then(response=>{
+          this.$http.get('airport/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
               localStorage.setItem('airportOptions', JSON.stringify(response.data));
               this.airports = response.data;
@@ -228,7 +228,7 @@
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
         if (!countryOptions){
-          this.$http.get('http://localhost:8080/country/',{headers:getHeader()}).then(response=>{
+          this.$http.get('country/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
               localStorage.setItem('countryOptions', JSON.stringify(response.data));
               this.countries = response.data;

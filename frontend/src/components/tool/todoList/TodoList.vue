@@ -98,14 +98,14 @@
 
             },
             handleDelete(index, row) {
-                this.$http.delete('http://localhost:8080/todo/'+row.id,{headers: getHeader()}).then(response=>{
+                this.$http.delete('todo/'+row.id,{headers: getHeader()}).then(response=>{
                   this.todoList.splice(index,1);
                 })
             },
             handleDone(index, row) {
 
                 row.done = true;
-                this.$http.put('http://localhost:8080/todo/'+row.id, row,{headers: getHeader()}).then(response=>{
+                this.$http.put('todo/'+row.id, row,{headers: getHeader()}).then(response=>{
                   if (response.status == 200) {
                     this.todoList[index].done = true;
                   }
@@ -115,7 +115,7 @@
             },
 
             fetchData(){
-                this.$http.get('http://localhost:8080/todo/',{headers: getHeader()}).then(response=> {
+                this.$http.get('todo/',{headers: getHeader()}).then(response=> {
                         if (response.status == 200) {
                             this.todoList = response.data
                         }

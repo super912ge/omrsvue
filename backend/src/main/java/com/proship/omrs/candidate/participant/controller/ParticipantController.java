@@ -30,16 +30,16 @@ import java.util.*;
 public class ParticipantController {
 
     @Autowired
-    ParticipantService participantService;
+    private ParticipantService participantService;
 
     @Autowired
-    ParticipantRepository repo;
+    private ParticipantRepository repo;
 
     @Autowired
-    EvaluationTagService evaluationTagService;
+    private EvaluationTagService evaluationTagService;
 
     @Autowired
-    GigService gigService;
+    private GigService gigService;
 
 
     @RequestMapping(value = "/search/document",method = RequestMethod.POST)
@@ -78,14 +78,14 @@ public class ParticipantController {
             @ApiResponse(code = 500, message = "Internal server error",response = ErrorDetail.class)})
     public ResponseEntity<Set<Long>> searchCandidateById(@PathVariable(value = "candidateId")Long id){
         Set<Long> result = new HashSet<>();
-        if (repo.findById(id)!=null){
+        if (repo.findById(id).isPresent()){
             result.add(id);
         }
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/search/actId/{actId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/search/act-id/{actId}",method = RequestMethod.GET)
     @ApiOperation(value = "Return qualified candidates' ids according to the given candidate's act id.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful retrieval of qualified participants' ids.",
@@ -147,7 +147,7 @@ public class ParticipantController {
     }
 
 
-    @RequestMapping(value = "/search/residencyAndCitizenship",method = RequestMethod.POST)
+    @RequestMapping(value = "/search/residency-and-citizenship",method = RequestMethod.POST)
     @ApiOperation(value = "Return qualified participants' ids according to given " +
             "citizenship and/or residency country list requirements.")
     @ApiResponses(value = {
@@ -192,7 +192,7 @@ public class ParticipantController {
     }
 
 
-    @RequestMapping(value = "createByName",method = RequestMethod.POST)
+    @RequestMapping(value = "create-by-name",method = RequestMethod.POST)
     @ApiOperation(value = "Create a new candidate and return the created candidate's id.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully creating a participant and inserting his/her basic information.",
@@ -207,7 +207,7 @@ public class ParticipantController {
     }
 
 
-    @RequestMapping(value = "updateName/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "update-name/{id}",method = RequestMethod.POST)
     @ApiOperation(value = "Update candidate's basic information, as name, act name, gender, and birthday, return candidate's id on success.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful updated candidate.",

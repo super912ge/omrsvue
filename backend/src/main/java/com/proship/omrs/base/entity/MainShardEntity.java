@@ -10,8 +10,7 @@ import java.util.Date;
 public class MainShardEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name="creator_id")
-    //@JsonSerialize(using = UserSerializer.class)
+    @JoinColumn(name="creatorId")
     @JsonIgnore
     private User creator;
 

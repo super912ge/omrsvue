@@ -39,7 +39,7 @@
       confirm(){
         if(this.airport.id) {
           if(this.jsonStr!==JSON.stringify(this.airport)) {
-            this.$http.post("http://localhost:8080/homeAirport/update", this.airport,
+            this.$http.post("homeAirport/update", this.airport,
               {headers: getHeader()}).then(res => {
               if (res.status === 201) {
                 this.airport.id = res.data;
@@ -50,7 +50,7 @@
             });
           }else this.confirmed = true;
         }else {
-          this.$http.post("http://localhost:8080/homeAirport/create/"+this.candidateId, this.airport,
+          this.$http.post("homeAirport/create/"+this.candidateId, this.airport,
             {headers: getHeader()}).then(res => {
             if (res.status === 201) {
               this.airport.id = res.data.result;
@@ -67,7 +67,7 @@
       },
       deleteAirport(){
         if(this.confirmed) {
-          this.$http.get("http://localhost:8080/homeAirport/delete/" + this.airport.id,
+          this.$http.get("homeAirport/delete/" + this.airport.id,
             {headers: getHeader()}).then(
               res => {
                 if (res.status === 200) {

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(value="/client/")
 @RestController
-public class ClientController extends BaseController<Client,Long>{
-    public ClientController(ClientRepository repo) {
-        super(repo);
-    }
+public class ClientController {
+
 }

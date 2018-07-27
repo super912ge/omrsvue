@@ -6,7 +6,7 @@ import com.proship.omrs.document.medical.repository.MedicalTypeRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(value = "/medicalType/")
+@RequestMapping(value = "/medical-type/")
 @RestController
 public class MedicalTypeController extends BaseController<MedicalType,Long> {
     public MedicalTypeController(MedicalTypeRepository repo) {

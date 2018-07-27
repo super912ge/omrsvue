@@ -10,7 +10,7 @@
 
 
 
-      Client Name: <el-input v-model="criteria.name" style="width: 70%"></el-input>
+      Client Name: <el-input size="mini" v-model="criteria.name" style="width: 70%"></el-input>
       </el-row>
     </el-col>
   </el-row>

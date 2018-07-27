@@ -25,10 +25,10 @@ public class RoomController extends BaseController<Room,Long> {
         super(repo);
     }
 
-    @ApiOperation(value="Return all the rooms' names.")
-    @RequestMapping(value = "all",method = RequestMethod.GET)
-    ResponseEntity<List<String>> getRooms(){
-        List<String> result = roomRepository.findAllRooms();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @ApiOperation(value="Return all the rooms' names.")
+//    @RequestMapping(value = "all",method = RequestMethod.GET)
+//    ResponseEntity<List<String>> getRooms(){
+//        List<String> result = roomRepository.findAllRooms();
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 }

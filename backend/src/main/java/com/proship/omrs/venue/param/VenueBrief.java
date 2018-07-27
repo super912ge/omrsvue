@@ -3,6 +3,7 @@ package com.proship.omrs.venue.param;
 public class VenueBrief {
 
     public VenueBrief(Long id, String name ){
+
         this.id = id;
 
         this.name = name;

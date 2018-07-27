@@ -7,7 +7,7 @@
     @close="cancel"
    >
     <template v-if="typeDisplay">Type:
-    <el-select v-model="document.typeItem" placeholder="Select" size="mini" value-key="id">
+    <el-select v-model="document.typeItem" placeholder="Select"   value-key="id">
       <el-option v-for="item in documentTypeOptions" :key="item.id" :label = "item.name" :value="item" ></el-option>
     </el-select>
       <div v-if="document.name==='medical'">
@@ -16,7 +16,7 @@
     </template>
 
     <template v-if= "countryDisplay">Country:
-      <el-select v-model="document.countryItem" size="mini" placeholder="Country" value-key="id">
+      <el-select v-model="document.countryItem"  placeholder="Country" value-key="id">
         <el-option v-for="item in countryOptions" :key="item.id" :label = "item.name" :value="item"></el-option>
       </el-select>
     </template>

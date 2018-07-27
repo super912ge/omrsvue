@@ -21,13 +21,12 @@ public class GroupActMemberShard extends MainShardEntity{
 
     @ManyToMany
     @JoinTable(
-                    name = "Group_Act_Members",
-                    joinColumns = {@JoinColumn(name="member_shard_id")},
-                    inverseJoinColumns = {@JoinColumn(name="act_id")}
+                    name = "GroupActMembers",
+                    joinColumns = {@JoinColumn(name="memberShardId")},
+                    inverseJoinColumns = {@JoinColumn(name="actId")}
             )
-
     @JsonIgnore
-    Set<ParticipantAct> participantActs;
+    private Set<ParticipantAct> participantActs;
 
     public Long getId() {
         return id;

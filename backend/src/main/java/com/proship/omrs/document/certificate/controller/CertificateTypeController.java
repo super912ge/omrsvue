@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/certificateType/")
+@RequestMapping("/certificate-type/")
 public class CertificateTypeController extends BaseController<CertificateType,Long>{
     public CertificateTypeController(CertificateTypeRepository repo) {
         super(repo);

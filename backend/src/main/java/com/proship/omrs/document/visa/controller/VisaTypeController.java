@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/visaType/")
+@RequestMapping(value = "/visa-type/")
 public class VisaTypeController extends BaseController<VisaType,Long>{
     public VisaTypeController(VisaTypeRepository repo) {
         super(repo);

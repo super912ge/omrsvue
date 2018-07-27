@@ -17,7 +17,7 @@
             style="margin-top:10px; width: 80%">
           </el-date-picker>
         </div>
-        <el-input
+        <el-input size="mini"
           type="textarea"
           :rows="3"
           placeholder="Please input"

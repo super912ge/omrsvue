@@ -34,7 +34,7 @@
         <template slot-scope="props" >
           <div style="min-height: 100px; height: auto" v-for="shard in props.row.shards">
           <p><b>Client:</b> {{shard.gig.client.name }}</p>
-          <p><b>Venue:</b> {{ shard.gig.venue.name }}</p>
+          <p><b>Venue:</b> {{ shard.gig.venueBase.name }}</p>
           <p><b>Room:</b> {{ shard.gig.room.name }}</p>
           <p><b>Type:</b> {{ shard.gig.gigType.name}}</p>
           </div>

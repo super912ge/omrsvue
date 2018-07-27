@@ -10,6 +10,8 @@ import {header_auth,getHeader} from "./env";
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
 import moment from 'moment'
+import _ from 'lodash'
+
 
 locale.use(lang);
 Vue.use(Element);
@@ -53,7 +55,7 @@ Vue.http.headers.common['Authorization'] = header_auth;
             })
         }else if(user.expires_in>= new Date().getMilliseconds()){
 
-          this.$http.post("http://localhost:8080/oauth/token",
+          this.$http.post("oauth/token",
             {grant_type:'refresh_token',refresh_token:user.refresh_token}).then(res=>{
               if(res.status===200) {
                 let authUser = null;

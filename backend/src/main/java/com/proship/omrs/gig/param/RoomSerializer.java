@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.proship.omrs.client.entity.ClientMap;
 import com.proship.omrs.venue.entity.Room;
-import com.proship.omrs.venue.entity.VenueMainShardMap;
+import com.proship.omrs.venue.entity.VenueMap;
 
 import java.io.IOException;
 
@@ -15,9 +15,11 @@ public class RoomSerializer extends StdSerializer<Room> {
     public RoomSerializer(Class<Room> t){
         super(t);
     }
+
     public RoomSerializer(){
         this(null);
     }
+
     @Override
     public void serialize(Room room, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
@@ -27,16 +29,16 @@ public class RoomSerializer extends StdSerializer<Room> {
 
         jsonGenerator.writeStringField("roomName",room.getName());
 
-        jsonGenerator.writeNumberField("venueId",room.getVenue());
+        jsonGenerator.writeNumberField("venueId",room.getVenue().getId());
 
         jsonGenerator.writeStringField("venueName",
-                VenueMainShardMap.getVenueMainShard(room.getVenue()).getName());
+               room.getVenue().getVenueMainShard().getName());
 
         jsonGenerator.writeNumberField("clientId",
-                VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId());
+                room.getVenue().getVenueMainShard().getClient().getId());
 
         jsonGenerator.writeStringField("clientName",
-                ClientMap.getClient(VenueMainShardMap.getVenueMainShard(room.getVenue()).getClientId()).getName());
+                room.getVenue().getVenueMainShard().getClient().getName());
 
         jsonGenerator.writeEndObject();
     }

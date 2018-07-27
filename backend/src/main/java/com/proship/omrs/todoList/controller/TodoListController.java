@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value="/todo/")
+@RequestMapping(value="/to-do/")
 @CrossOrigin
 public class TodoListController extends BaseController<TodoList,Long>{
 

@@ -45,21 +45,27 @@ public class OpeningServiceImpl implements OpeningService{
 
                 Map<Long, List<MainShardEntityWithGig>> reqMap = generateGigRequisitionMap(requisitionBtsList);
 
-                for (Long id : gigIds) {
-
-                    List<Long> contractShardIds =
+                    List<ContractMainShard> contractShards  =
                             contractMainShardDao.
-                                    findContractMainShardIdByGigIdAndDate(id, in.getValidStartDate(), in.getValidEndDate());
+                                    findContractMainShardIdByGigIdAndDate(
+                                            null,gigIds, in.getValidStartDate(), in.getValidEndDate());
 
-                    List<ContractMainShard> contracts = contractShardRepository.findAllByIdIn(contractShardIds);
+                for (ContractMainShard shard : contractShards){
 
-                    List<MainShardEntityWithGig> mainShardEntityList = reqMap.get(id)==null? new ArrayList<>():reqMap.get(id);
+                    Long gigId = shard.getGig().getId();
 
+                    List<MainShardEntityWithGig> mainShardEntityList =
+                            reqMap.get(gigId)==null? new ArrayList<>():reqMap.get(gigId);
 
-                    mainShardEntityList.addAll(contracts);
+                    mainShardEntityList.add(shard);
 
                     mainShardEntityList.sort(Comparator.comparing(MainShardEntity::getValidendtime));
+                }
 
+                for (Long id : reqMap.keySet()){
+
+                    List<MainShardEntityWithGig> mainShardEntityList =
+                            reqMap.get(id);
 
                     for (int a = 0; a < mainShardEntityList.size(); a++) {
 
@@ -74,7 +80,7 @@ public class OpeningServiceImpl implements OpeningService{
                         if (a <= mainShardEntityList.size() - 2 && compareDateDifferenceMoreThanTwoDay
                                 (shard.getValidendtime(), mainShardEntityList.get(a + 1).getValidstarttime())) {
 
-                               result.add( new Opening(shard, mainShardEntityList.get(a + 1)));
+                            result.add( new Opening(shard, mainShardEntityList.get(a + 1)));
                         }
 
                         if (a == mainShardEntityList.size() - 1) {

@@ -24,11 +24,13 @@ public class ClientMap implements InitializingBean{
     public void afterPropertiesSet() throws Exception {
 
         logger.info("[clientMap][afterPropertiesSet]start");
+
         List<Client > list = repo.findAll();
 
         clients = HashBiMap.create();
 
         for (Client client  : list) {
+
             clients.put(client .getId(), client );
         }
 

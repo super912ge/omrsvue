@@ -171,7 +171,7 @@
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
         if (!countryOptions){
-          this.$http.get('http://localhost:8080/country/',{headers:getHeader()}).then(response=>{
+          this.$http.get('country/',{headers:getHeader()}).then(response=>{
             if(response.status===200){
               localStorage.setItem('countryOptions', JSON.stringify(response.data));
               this.countries = response.data;
@@ -185,7 +185,7 @@
       createCandidate(){
 
         if(!this.candidateCreated) {
-          this.$http.post("http://localhost:8080/candidate/createByName",
+          this.$http.post("candidate/createByName",
             this.name, {headers: getHeader()}).then(response => {
             if (response.status === 201) {
               this.candidateCreated = true;
@@ -196,7 +196,7 @@
             }
           });
         }else {
-          this.$http.post("http://localhost:8080/candidate/updateName/"+this.candidateId,
+          this.$http.post("candidate/updateName/"+this.candidateId,
           this.name,{headers: getHeader()}).then(response => {
             if (response.status===201){
               this.editMode = false;
@@ -221,7 +221,7 @@
         return isJPG && isLt2M;
       },
       submitEvaluation(val){
-        this.$http.post("http://localhost:8080/evaluation/create/"+this.evaluationId,
+        this.$http.post("evaluation/create/"+this.evaluationId,
           val, {headers: getHeader()}).then(response => {
           if (response.status === 201) {
             this.evaluationRoot = response.data;

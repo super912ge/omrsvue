@@ -13,14 +13,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/participantEvent/")
+@RequestMapping("/candidate-event/")
 public class ParticipantEventController {
 
 
     @Autowired
     ParticipantEventService participantEventService;
 
-    @RequestMapping("create/{candidateId}")
+    @RequestMapping(value = "create/{candidateId}",method = RequestMethod.POST)
     @ApiOperation(value = "Add one or multiple new citizenship info for the given candidate " +
             "and return the created event(note).",
             response=Note.class)
@@ -29,7 +29,7 @@ public class ParticipantEventController {
         return new ResponseEntity<>(participantEventService.addNewEvent(id,event), HttpStatus.CREATED);
     }
 
-    @RequestMapping("update")
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     @ApiOperation(value = "Update the note or type of the given event " +
             "and return the updated event(note).",
             response=Note.class)
@@ -38,14 +38,14 @@ public class ParticipantEventController {
         return new ResponseEntity<>(participantEventService.updateEvent(event), HttpStatus.CREATED);
     }
 
-    @RequestMapping("delete/{id}")
+    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     @ApiOperation(value = "Logically delete the given event and return the id of the deleted event id.",
             response=Long.class)
     public ResponseEntity<Long>delete(@PathVariable("id")Long id){
         return new ResponseEntity<>(participantEventService.delete(id),HttpStatus.OK);
     }
 
-    @RequestMapping("candidate/{candidateId}")
+    @RequestMapping(value = "candidate/{candidateId}",method = RequestMethod.GET)
     @ApiOperation(value = "Get all the valid events(notes) for given candidate id.",
             response=List.class)
     public ResponseEntity<List<Note>> getByCandidateId(@PathVariable("candidateId")Long id){

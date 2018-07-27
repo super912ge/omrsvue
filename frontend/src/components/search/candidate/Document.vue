@@ -28,7 +28,7 @@
   </el-col>
 <el-col :span="18">
 
-  <el-select v-model="id" @change="handleSelect" filterable placeholder="Select" style="width: 180px">
+  <el-select size="mini" v-model="id" @change="handleSelect" filterable placeholder="Select" style="width: 180px">
     <el-option
       v-for="item in options"
       :key="item.id"

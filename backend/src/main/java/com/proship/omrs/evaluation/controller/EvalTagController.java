@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/evaluation/")
-public class EvaluationController {
+public class EvalTagController {
 
     @Autowired
     EvaluationTagService evaluationTagService;

@@ -7,7 +7,7 @@
           <span class="demonstration">Type</span>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-            <el-select v-model="criteria.type.gigTypeId"  @change="handleTypeChange"
+            <el-select size="mini" v-model="criteria.type.gigTypeId"  @change="handleTypeChange"
                        filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
               <el-option
                 v-for="item in gigTypes"
@@ -19,7 +19,7 @@
           </el-row>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Ranking</span>
-            <el-select v-model="criteria.type.rank" filterable placeholder="Ranking"
+            <el-select size="mini" v-model="criteria.type.rank" filterable placeholder="Ranking"
                        @change="handleTypeChange" style="width: 200px;margin-left: 21px">
               <el-option
                 v-for="item in rankingTypes"
@@ -38,7 +38,7 @@
 
           <span class="demonstration"style="margin-left: 25px;font-size: 80%;">Requirement</span>
           <div style="margin-top: 5px">
-            <el-input
+            <el-input size="mini"
               style="margin-top: 10px;width: 50%; margin-left: 50px"
               placeholder="Filter keyword"
               v-model="criteria.filterText">
@@ -78,16 +78,16 @@
             <el-collapse-item title="Venue">
               <div style="margin: 15px 0;"></div>
               <el-checkbox-group v-model="criteria.company.venueIds" style="height: 200px; overflow-y:scroll">
-                <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
+                <el-checkbox v-for="venueBase in venues" :label="venueBase.venueId" :key="venueBase.venueId"
                              style="margin-left: 5px; width: 200px"
-                             @change="handleCompanyChange">{{venue.name}}  ------  {{venue.clientCode}}
+                             @change="handleCompanyChange">{{venueBase.name}}  ------  {{venueBase.clientCode}}
                 </el-checkbox>
               </el-checkbox-group>
             </el-collapse-item>
           </el-collapse>
           <div style="margin-top: 15px"></div>
           <span class="demonstration" style="margin-left: 25px; font-size: 80%">Room</span>
-          <el-select v-model="criteria.company.room"  @change="handleCompanyChange"
+          <el-select size="mini" v-model="criteria.company.room"  @change="handleCompanyChange"
                      filterable placeholder="Select" style="width: 200px;margin-left: 15px">
             <el-option
               v-for="item in rooms"
@@ -104,7 +104,7 @@
           <div style="margin-top: 15px;">
             <span class="demonstration">Candidate Name</span>
             <div style="margin-top: 15px;"></div>
-            <el-input placeholder="Candidate Name" v-model="criteria.candidateName" class="input-with-select"
+            <el-input size="mini" placeholder="Candidate Name" v-model="criteria.candidateName" class="input-with-select"
                       style="width: 50%; margin-left: 25px" @change="handleNameChange" >
             </el-input>
           </div>
@@ -131,19 +131,19 @@
           <el-row>
             <el-row>
               <span class="demonstration" style="margin-left: 55px; font-size: 80%">Job Number</span>
-              <el-input v-model="criteria.proship.jobId" placeholder="Job Number" class="shortInput"
+              <el-input size="mini" v-model="criteria.proship.jobId" placeholder="Job Number" class="shortInput"
                         @change="handleJobIdChange" style="width: 37%;margin-left: 15px"></el-input>
             </el-row>
             <el-row style="margin-top: 10px">
              <span class="demonstration" style="margin-left: 59px; font-size: 80%">Contract Id</span>
-               <el-input v-model="criteria.proship.contractId" placeholder="Contract ID"
+               <el-input size="mini" v-model="criteria.proship.contractId" placeholder="Contract ID"
                          class="shortInput" style="margin-left: 15px;width: 37%"
                          @change="handleContractIdChange"></el-input>
             </el-row>
             <el-row style="margin-top: 10px">
              <span class="demonstration" style="margin-left: 84px; font-size: 80%">Gig Id</span>
 
-              <el-input v-model="criteria.proship.gigId" placeholder="Gig ID" class="shortInput"
+              <el-input size="mini" v-model="criteria.proship.gigId" placeholder="Gig ID" class="shortInput"
                         style="width: 37%; margin-left: 15px" @change="handleGigIdChange"></el-input>
             </el-row>
           </el-row>
@@ -163,7 +163,7 @@
           </el-row>
           <el-row style="margin-top: 10px">
             <span class="demonstration" style="margin-left: 25px; font-size: 80%">Account Manager</span>
-            <el-select v-model="criteria.proship.accountManager"  @change="handleAccountManagerChange"
+            <el-select size="mini" v-model="criteria.proship.accountManager"  @change="handleAccountManagerChange"
                        filterable placeholder="Select" style="width: 200px;margin-left: 15px">
               <el-option
                 v-for="item in systemUsers"
@@ -175,7 +175,7 @@
           </el-row>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 70px; font-size: 80%">Recruiter</span>
-            <el-select v-model="criteria.proship.recruiter"  @change="handleRecruiterChange"
+            <el-select size="mini" v-model="criteria.proship.recruiter"  @change="handleRecruiterChange"
                        filterable placeholder="Select" style="width: 200px;margin-left: 15px">
               <el-option
                 v-for="item in systemUsers"
@@ -323,10 +323,10 @@ export default {
 
     },
     fetchGigType(){
-      console.log('fetchgig')
+
       let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
       if(!gigTypeOptions){
-        this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
+        this.$http.get('gig-type/',{headers: getHeader()}).then(response=> {
 
           if (response.status === 200) {
             gigTypeOptions = response.data;
@@ -339,12 +339,12 @@ export default {
       }
     },
     fetchClient(){
-      console.log(this.clients)
+
       if(! this.clients){
         let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
-        console.log(clientOptions)
+
         if(!clientOptions){
-          this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
+          this.$http.get('client/',{headers: getHeader()}).then(response=> {
             if (response.status === 200) {
               this.clients = response.data;
               localStorage.setItem('clientOptions',JSON.stringify(response.data))
@@ -352,17 +352,17 @@ export default {
           })
         }else {
           this.clients = clientOptions;
-          console.log(this.clients)
+
         }
       }
     },
     fetchVenue(){
       let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
       if(!venueOptions){
-        this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
+        this.$http.get('venueBase/',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             venueOptions = response.data;
-            console.log('venueOptions from http request',venueOptions);
+
             localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
           }
         })
@@ -375,8 +375,8 @@ export default {
         this.venues = venueOptions;
       }
       else {
-        let filteredVenue = venueOptions.filter(venue => this.criteria.company.clientIds.includes(venue.clientId));
-        console.log(filteredVenue);
+        let filteredVenue = venueOptions.filter(venueBase => this.criteria.company.clientIds.includes(venueBase.clientId));
+
         this.venues = filteredVenue;
       }
     },
@@ -401,7 +401,7 @@ export default {
 
     },
     getChildrenNodes(key, resolve){
-      this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
+      this.$http.get('evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
         if (response.status === 200) {
           resolve(response.data);
         } else resolve([]);

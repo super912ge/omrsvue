@@ -135,7 +135,7 @@
       },
       updateNote(val,index){
 
-        this.$http.post("http://localhost:8080/participantEvent/update",val,
+        this.$http.post("participantEvent/update",val,
           {headers:getHeader()}).then(response=> {
           if(response.status===201) {
 

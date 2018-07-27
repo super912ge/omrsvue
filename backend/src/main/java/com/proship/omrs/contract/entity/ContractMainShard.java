@@ -21,7 +21,7 @@ public class ContractMainShard extends MainShardEntityWithGig{
 	)
 	private Long id;
 
-	@JoinColumn(name="contractId")
+	//@JoinColumn(name="contractId")
 	@ManyToOne
 	@JsonIgnore
 	private Contract contract;
@@ -34,10 +34,6 @@ public class ContractMainShard extends MainShardEntityWithGig{
 
 	@Transient
     private Position rank;
-
-    @ManyToOne
-	@JoinColumn(name="gigId")
-    private Gig gig;
 
     @ManyToOne
     @JoinColumn(name = "payId")
@@ -88,16 +84,6 @@ public class ContractMainShard extends MainShardEntityWithGig{
 		this.position = position;
 	}
 
-
-	public Gig getGig() {
-		return gig;
-	}
-
-
-	public void setGig(Gig gig) {
-		this.gig = gig;
-	}
-
     public Position getRank() {
 
 	    this.rank = PositionMap.getPosition(position);
@@ -111,7 +97,7 @@ public class ContractMainShard extends MainShardEntityWithGig{
 
     @Override
 	public String toString() {
-		return "ContractShard [id=" + id + ", act=" + act + ", position=" + position + ", gig=" + gig
+		return "ContractShard [id=" + id + ", act=" + act + ", position=" + position + ", gig=" + super.getGig()
 				+ ", creator=" + super.getCreator() + ", validstarttime=" + super.getValidstarttime()+ ", validendtime="
                 + super.getValidendtime() + ", pay=" + pay.getId() + "]";
 	}

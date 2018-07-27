@@ -15,7 +15,7 @@ const mutations={
     state.savedCandidate.push({id, name});
   },
   'SET_SEARCH_RESULT'(state,{list}){
-    this.$http.post("http://localhost:8080/candidate/names",list,{header:getHeader}).then(
+    this.$http.post("candidate/names",list,{header:getHeader}).then(
       response=>{
         if(response.status===200){
           state.searchResult = response.data;

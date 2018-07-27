@@ -43,7 +43,7 @@ import {getHeader} from '../../../../env.js'
         if (!this.info.id) {
 
           if(JSON.stringify(this.info)!==this.jsonStr) {
-            this.$http.post("http://localhost:8080/info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
+            this.$http.post("info/create/" + this.candidateId, this.info, {headers: getHeader()}).then(
               res => {
                 if (res.status === 201) {
                   this.info.id = res.data.result;
@@ -54,7 +54,7 @@ import {getHeader} from '../../../../env.js'
               })
           }else this.confirmed = true;
         }else {
-          this.$http.post("http://localhost:8080/info/update",this.info,{headers:getHeader()}).then(
+          this.$http.post("info/update",this.info,{headers:getHeader()}).then(
             res=>{
               if(res.status===201){
                 this.info.id = res.data;
@@ -75,7 +75,7 @@ import {getHeader} from '../../../../env.js'
       deleteExtraInfo(){
 
         if(this.confirmed) {
-          this.$http.get("http://localhost:8080/info/delete/" + this.info.id, {headers: getHeader()}).then(
+          this.$http.get("info/delete/" + this.info.id, {headers: getHeader()}).then(
             res => {
               if (res.status === 200) this.deleted = true;
             });

@@ -4,16 +4,16 @@
 
     <el-col style="margin-top: 25px" :span="11" :offset="1">
       <el-row style="margin-top: 25px">
-        Username: <el-input placeholder="username" v-model="criteria.username" style="width: 50%" @change="handleChange"></el-input>
+        Username: <el-input size="mini" placeholder="username" v-model="criteria.username" style="width: 50%" @change="handleChange"></el-input>
       </el-row>
       <el-row style="margin-top: 25px">
-       Name: <el-input placeholder="name" v-model="criteria.name" style="width: 50%"@change="handleChange"></el-input>
+       Name: <el-input size="mini" placeholder="name" v-model="criteria.name" style="width: 50%"@change="handleChange"></el-input>
       </el-row>
       <el-row style="margin-top: 25px">
-        Email: <el-input placeholder="email" v-model="criteria.email" style="width: 50%"@change="handleChange"></el-input>
+        Email: <el-input size="mini" placeholder="email" v-model="criteria.email" style="width: 50%"@change="handleChange"></el-input>
       </el-row>
       <el-row style="margin-top: 25px">
-        Role: <el-select placeholder="role" v-model="criteria.role" style="width: 50%"@change="handleChange">
+        Role: <el-select size="mini" placeholder="role" v-model="criteria.role" style="width: 50%"@change="handleChange">
         <el-option
           v-for="item in roles"
           :key="item.id"

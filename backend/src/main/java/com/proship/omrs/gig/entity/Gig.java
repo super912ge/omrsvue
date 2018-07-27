@@ -2,6 +2,8 @@ package com.proship.omrs.gig.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proship.omrs.contract.entity.ContractMainShard;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -29,9 +31,10 @@ public class Gig {
     @JsonIgnore
     private Long uuid;
 
-    @OneToMany(mappedBy = "gig", fetch = FetchType.LAZY)
+    @OneToMany( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<ContractMainShard> contracts;
+    @Where(clause = "nexttransactiontime > now()")
+    private List<ContractMainShard> contractMainShards;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chairRequirementTagId")
@@ -111,23 +114,25 @@ public class Gig {
         this.children = children;
     }
 
-    public List<ContractMainShard> getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(List<ContractMainShard> contracts) {
-        this.contracts = contracts;
-    }
-
     public GigMainShard getCurrentShard() {
+
+       return currentShard;
+    }
+
+    public void setCurrentShard(){
         List<GigMainShard> currentValidShards = this.shards.stream()
                 .filter( s->s.getValidendtime()
                         .after(new Timestamp(System.currentTimeMillis()))).collect(Collectors.toList());
-        if (!currentValidShards.isEmpty())
-        return currentValidShards.get(0);
-        else return null;
+        this.currentShard = currentValidShards.isEmpty()? null : currentValidShards.get(0);
     }
 
+    public List<ContractMainShard> getContractMainShards() {
+        return contractMainShards;
+    }
+
+    public void setContractMainShards(List<ContractMainShard> contractMainShards) {
+        this.contractMainShards = contractMainShards;
+    }
 
     public void setCurrentShard(GigMainShard shard) {
         this.currentShard = shard;

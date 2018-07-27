@@ -5,7 +5,7 @@
     </div>
     <el-row>
       <el-col :span="18" style="margin-bottom: 15px">
-        <el-input
+        <el-input size="mini"
           type="textarea"
           :rows="3"
           placeholder="Please input"
@@ -67,7 +67,7 @@
       width="40%">
       <el-row>
       <el-col :span="18" style="margin-bottom: 15px">
-        <el-input
+        <el-input size="mini"
           type="textarea"
           :rows="3"
           placeholder="Please input"
@@ -184,7 +184,7 @@
         this.editNoteDialog = false;
       },
       save(){
-        this.$http.post("http://localhost:8080/participantEvent/create/"+this.candidateId,this.newNote,{headers:getHeader()})
+        this.$http.post("participantEvent/create/"+this.candidateId,this.newNote,{headers:getHeader()})
           .then(response=> {
           if(response.status===201) {
             this.$emit('noteAdded',response.data);
@@ -206,7 +206,7 @@
       },
 
       deleteNote(){
-        this.$http.get("http://localhost:8080/participantEvent/delete/"+this.events[this.deleteNoteIndex].id,
+        this.$http.get("participantEvent/delete/"+this.events[this.deleteNoteIndex].id,
           {headers:getHeader()}).then(response=> {
           if(response.status===200) {
             this.$emit('noteDeleted',this.deleteNoteIndex);

@@ -20,7 +20,7 @@
       label="Client">
     </el-table-column>
     <el-table-column
-      prop="venue.name"
+      prop="venueBase.name"
       label="Venue">
     </el-table-column>
     <el-table-column

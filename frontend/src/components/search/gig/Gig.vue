@@ -7,7 +7,7 @@
           <span class="demonstration">Gig</span>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-            <el-select v-model="criteria.type.gigTypeId"  @change="handleTypeChange"
+            <el-select size="mini" v-model="criteria.type.gigTypeId"  @change="handleTypeChange"
                        filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
               <el-option
                 v-for="item in gigTypes"
@@ -19,7 +19,7 @@
           </el-row>
           <el-row style="margin-top: 15px">
             <span class="demonstration" style="margin-left: 25px;font-size: 80%;">Gig Name</span>
-            <el-input placeholder="Gig Name" v-model="criteria.name"
+            <el-input size="mini" placeholder="Gig Name" v-model="criteria.name"
                       style="width: 45%; margin-left: 10px" @change="handleNameChange">
             </el-input>
           </el-row>
@@ -33,7 +33,7 @@
 
           <span class="demonstration"style="margin-left: 25px;font-size: 80%;">Requirement</span>
           <div style="margin-top: 5px">
-            <el-input
+            <el-input size="mini"
               style="margin-top: 10px;width: 50%; margin-left: 50px"
               placeholder="Filter keyword"
               v-model="criteria.filterText">
@@ -73,16 +73,16 @@
             <el-collapse-item title="Venue">
               <div style="margin: 15px 0;"></div>
               <el-checkbox-group v-model="criteria.type.venueIds" style="height: 200px; overflow-y:scroll">
-                <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
+                <el-checkbox v-for="venueBase in venues" :label="venueBase.venueId" :key="venueBase.venueId"
                              style="margin-left: 5px; width: 200px"
-                             @change="handleTypeChange">{{venue.name}}  ------  {{venue.clientCode}}
+                             @change="handleTypeChange">{{venueBase.name}}  ------  {{venueBase.clientCode}}
                 </el-checkbox>
               </el-checkbox-group>
             </el-collapse-item>
           </el-collapse>
           <div style="margin-top: 15px"></div>
           <span class="demonstration" style="margin-left: 25px; font-size: 80%">Room</span>
-          <el-select v-model="criteria.type.roomName"  @change="handleTypeChange"
+          <el-select size="mini" v-model="criteria.type.roomName"  @change="handleTypeChange"
                      filterable placeholder="Select" style="width: 200px;margin-left: 15px">
             <el-option
               v-for="item in rooms"
@@ -120,7 +120,7 @@
             <el-row style="margin-top: 10px">
               <span class="demonstration" style="margin-left: 84px; font-size: 80%">Gig Id</span>
 
-              <el-input v-model="criteria.proship.gigId" placeholder="Gig ID" class="shortInput"
+              <el-input size="mini" v-model="criteria.proship.gigId" placeholder="Gig ID" class="shortInput"
                         style="width: 37%; margin-left: 15px" @change="handleGigIdChange"></el-input>
             </el-row>
           </el-row>
@@ -131,7 +131,7 @@
           </el-row>
           <el-row style="margin-top: 10px">
             <span class="demonstration" style="margin-left: 25px; font-size: 80%">Account Manager</span>
-            <el-select v-model="criteria.proship.accountManager"  @change="handleAccountManagerChange"
+            <el-select size="mini" v-model="criteria.proship.accountManager"  @change="handleAccountManagerChange"
                        filterable placeholder="Select" style="width: 200px;margin-left: 15px">
               <el-option
                 v-for="item in systemUsers"
@@ -273,7 +273,7 @@
 
         if(this.criteria.name && this.criteria.name.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/gig/search/name/"+
+          this.$http.get("gig/search/name/"+
             this.criteria.name,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
@@ -286,7 +286,7 @@
       displayGig(pageNumber){
         if(!_.isNumber(pageNumber))pageNumber = 1;
 
-        this.$http.post("http://localhost:8080/gig/display",{ids: this.gigIdList, page:pageNumber-1,size:20},
+        this.$http.post("gig/display",{ids: this.gigIdList, page:pageNumber-1,size:20},
           {headers:getHeader()}).then(response=>{
           if(response.status === 200) {
             this.result.gigList = [];
@@ -306,7 +306,7 @@
       searchByAccountManager(){
         if(this.criteria.proship.accountManager){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/gig/search/accountManager/"+
+          this.$http.get("gig/search/accountManager/"+
             this.criteria.proship.accountManager,options,{headers:getHeader()}).then(response=>{
             if (response.status === 200){
               this.result.proshipResultList = response.data;
@@ -323,7 +323,7 @@
       searchById(){
         if(this.criteria.proship.gigId && this.criteria.proship.gigId.trim().length>0){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/gig/search/id/"+
+          this.$http.get("gig/search/id/"+
             this.criteria.proship.gigId,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
@@ -342,7 +342,7 @@
 
         if(this.criteria.proship.jobId){
           let options = { emulateJSON: true};
-          this.$http.get("http://localhost:8080/gig/search/jobId/"+
+          this.$http.get("gig/search/jobId/"+
             this.criteria.proship.jobId,options,{headers:getHeader()}).then(response=>{
 
             if (response.status === 200){
@@ -356,7 +356,7 @@
         _.debounce(this.searchByType,1000)();
       },
       searchByType(){
-        this.$http.post("http://localhost:8080/gig/search/type",
+        this.$http.post("gig/search/type",
           this.criteria.type, {headers:getHeader() }).then( response => {
           if (response.status === 200) {
             this.result.typeResultList = response.data;
@@ -370,7 +370,7 @@
       fetchGigType(){
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){
-          this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
+          this.$http.get('gigType/',{headers: getHeader()}).then(response=> {
 
             if (response.status === 200) {
               gigTypeOptions = response.data;
@@ -383,7 +383,7 @@
         }
       },
       fetchUser(){
-        this.$http.get('http://localhost:8080/user/all',{headers: getHeader()}).then(response=> {
+        this.$http.get('user/all',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             console.log(response.data);
             this.systemUsers = response.data;
@@ -395,7 +395,7 @@
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
           if(!clientOptions){
-            this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
+            this.$http.get('client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 this.clients = response.data;
                 localStorage.setItem('clientOptions',JSON.stringify(response.data))
@@ -409,7 +409,7 @@
       fetchVenue(){
         let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
         if(!venueOptions){
-          this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
+          this.$http.get('venuemainshard/',{headers: getHeader()}).then(response=> {
             if (response.status === 200) {
               venueOptions = response.data;
 
@@ -424,7 +424,7 @@
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.criteria.type.clientIds.includes(venue.clientId));
+          let filteredVenue = venueOptions.filter(venueBase => this.criteria.type.clientIds.includes(venueBase.clientId));
 
           this.venues = filteredVenue;
         }
@@ -450,7 +450,7 @@
 
       },
       getChildrenNodes(key, resolve){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
+        this.$http.get('evaluation/type/subtypes/'+key.data.id,{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             resolve(response.data);
           } else resolve([]);
@@ -462,7 +462,7 @@
       fetchRoom(){
         let roomOptions = JSON.parse(localStorage.getItem("roomOptions"));
         if(!roomOptions){
-          this.$http.get('http://localhost:8080/room/all',{headers: getHeader()}).then(response=> {
+          this.$http.get('room/all',{headers: getHeader()}).then(response=> {
             if (response.status === 200) {
               roomOptions = response.data;
               this.gigTypes = response.data;

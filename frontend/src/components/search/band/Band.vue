@@ -11,10 +11,10 @@
 
 
 
-            min: <el-input style="margin: 10px; width: 15%" v-model.number="criteria.band.size.min" placeholder="1" class="shortInput" @change="handleSizeChange"></el-input>
+            min: <el-input size="mini" style="margin: 10px; width: 15%" v-model.number="criteria.band.size.min" placeholder="1" class="shortInput" @change="handleSizeChange"></el-input>
 
 
-            max: <el-input v-model.number="criteria.band.size.max" placeholder="10" style="width: 15%" class="shortInput" @change="handleSizeChange"></el-input>
+            max: <el-input size="mini" v-model.number="criteria.band.size.max" placeholder="10" style="width: 15%" class="shortInput" @change="handleSizeChange"></el-input>
 
           </el-row>
 
@@ -22,7 +22,7 @@
           <el-row>
             <div style="margin-top: 15px;">
               <span class="demonstration"style="margin-left: 25px; font-size: 80%">Band Name</span>
-              <el-input placeholder="band Name" v-model="criteria.band.name"
+              <el-input size="mini" placeholder="band Name" v-model="criteria.band.name"
                         style="width: 45%; margin-left: 10px" @change="handleNameChange">
               </el-input>
             </div>
@@ -72,9 +72,9 @@
             <el-collapse-item title="Venue">
               <div style="margin: 15px 0;"></div>
               <el-checkbox-group v-model="criteria.experience.venueIds" style="height: 200px; overflow-y:scroll">
-                <el-checkbox v-for="venue in venues" :label="venue.venueId" :key="venue.venueId"
+                <el-checkbox v-for="venueBase in venues" :label="venueBase.venueId" :key="venueBase.venueId"
                              style="margin-left: 5px; width: 200px"
-                             @change="handleExperienceChange">{{venue.name}}  ------  {{venue.clientCode}}
+                             @change="handleExperienceChange">{{venueBase.name}}  ------  {{venueBase.clientCode}}
                 </el-checkbox>
               </el-checkbox-group>
             </el-collapse-item>
@@ -82,7 +82,7 @@
         </el-row>
         <el-row style="margin-top: 15px">
           <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
-          <el-select v-model="criteria.experience.gigTypeId"  @change="handleExperienceChange"
+          <el-select size="mini" v-model="criteria.experience.gigTypeId"  @change="handleExperienceChange"
                      filterable placeholder="Gig Type" style="width: 200px;margin-left: 15px">
             <el-option
               v-for="item in gigTypes"
@@ -196,7 +196,7 @@
       displayBand(pageNumber){
         if(!_.isNumber(pageNumber))pageNumber = 1;
         console.log(pageNumber);
-        this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
+        this.$http.post("band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
           {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
@@ -222,7 +222,7 @@
           && this.criteria.band.name.trim().length>0){
           this.criteria.band.name = this.criteria.band.name.replace(/^\s+|\s+$/g, '');
           let options = { emulateJSON: true};
-          this.$http.post("http://localhost:8080/band/search/name",
+          this.$http.post("band/search/name",
             this.criteria.band.name,{headers:getHeader()}).then(response=>{
             if (response.status ===200){
               this.result.nameResultList = response.data;
@@ -235,7 +235,7 @@
       },
       searchBySize(){
         let options = { emulateJSON: true};
-        this.$http.post("http://localhost:8080/band/search/size",
+        this.$http.post("band/search/size",
           this.criteria.band.size,{headers:getHeader()}).then(response=>{
           if (response.status ===200){
             this.result.sizeResultList = response.data;
@@ -248,7 +248,7 @@
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
           !_.isEmpty(this.criteria.experience.gigTypeId)){
-          this.$http.post("http://localhost:8080/band/search/gig",
+          this.$http.post("band/search/gig",
 
             this.criteria.experience, {headers:getHeader() }).then( response => {
 
@@ -266,7 +266,7 @@
 //        data.resultList.forEach(item => this.result.bandList.push(item));
 //        this.result.totalPage = data.totalPage * 10;
 //        this.result.showSearchResult = true;
-        this.$http.post("http://localhost:8080/band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
+        this.$http.post("band/display",{ids: this.bandIdList, page:pageNumber-1,size:20},
           {headers:getHeader()}).then(response=>{
           if(response.status===200) {
             this.result.bandList = [];
@@ -280,7 +280,7 @@
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
         if(!gigTypeOptions){
 
-          this.$http.get('http://localhost:8080/gigType/',{headers: getHeader()}).then(response=> {
+          this.$http.get('gigType/',{headers: getHeader()}).then(response=> {
 
             if (response.status === 200) {
               gigTypeOptions = response.data;
@@ -296,7 +296,7 @@
         if(! this.clients){
           let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
           if(!clientOptions){
-            this.$http.get('http://localhost:8080/client/',{headers: getHeader()}).then(response=> {
+            this.$http.get('client/',{headers: getHeader()}).then(response=> {
               if (response.status === 200) {
                 this.clients = response.data;
                 localStorage.setItem('clientOptions',JSON.stringify(response.data))
@@ -310,7 +310,7 @@
       fetchVenue(){
         let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
         if(!venueOptions){
-          this.$http.get('http://localhost:8080/venuemainshard/',{headers: getHeader()}).then(response=> {
+          this.$http.get('venuemainshard/',{headers: getHeader()}).then(response=> {
             if (response.status === 200) {
               venueOptions = response.data;
               console.log('venueOptions from http request',venueOptions);
@@ -323,7 +323,7 @@
           this.venues = venueOptions;
         }
         else {
-          let filteredVenue = venueOptions.filter(venue => this.criteria.experience.clientIds.includes(venue.clientId));
+          let filteredVenue = venueOptions.filter(venueBase => this.criteria.experience.clientIds.includes(venueBase.clientId));
           console.log(filteredVenue);
           this.venues = filteredVenue;
         }

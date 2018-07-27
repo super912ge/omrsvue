@@ -16,12 +16,14 @@ public class Client {
 
     @JsonIgnore
     private Long uuid  ;
+
     private String name ;
+
     private String code ;
+
     private Boolean active ;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Set<VenueMainShard> venues;
 
     public Long getId() {

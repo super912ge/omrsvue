@@ -1,5 +1,3 @@
-alter table system_user add column password VARCHAR(256);
-
 CREATE TABLE public.to_do_list
 (
   id bigint NOT NULL DEFAULT nextval('to_do_list_id_sequence'::regclass),
@@ -24,6 +22,3 @@ ALTER TABLE public.to_do_list
 GRANT ALL ON TABLE public.to_do_list TO postgres;
 -- GRANT SELECT ON TABLE public.to_do_list TO omrs;
 GRANT ALL ON TABLE public.to_do_list TO public;
-
-
-update participant_act set active = false where id = 2577

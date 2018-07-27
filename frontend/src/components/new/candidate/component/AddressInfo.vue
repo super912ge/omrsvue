@@ -64,7 +64,7 @@ import {getHeader} from "../../../../env.js"
         if(this.address.id){
 
           if(JSON.stringify(this.address)!==this.jsonStr) {
-            this.$http.post("http://localhost:8080/address/update", this.address, {headers: getHeader()}).then(
+            this.$http.post("address/update", this.address, {headers: getHeader()}).then(
               res => {
                 if (res.status === 201) {
                   this.address.id = res.data;
@@ -77,7 +77,7 @@ import {getHeader} from "../../../../env.js"
           }else this.confirmed = true;
         }
         else {
-          this.$http.post("http://localhost:8080/address/create/" + this.candidateId, this.address, {headers: getHeader()}).then(
+          this.$http.post("address/create/" + this.candidateId, this.address, {headers: getHeader()}).then(
             res => {
               if (res.status === 201) {
                 this.address.id = res.data;
@@ -94,7 +94,7 @@ import {getHeader} from "../../../../env.js"
       },
       deleteAddress(){
         if(this.address.id)
-        this.$http.get("http://localhost:8080/address/delete/" + this.address.id,  {headers: getHeader()}).then(
+        this.$http.get("address/delete/" + this.address.id,  {headers: getHeader()}).then(
           res => {
             if (res.status === 200) {
               this.deleted = true;

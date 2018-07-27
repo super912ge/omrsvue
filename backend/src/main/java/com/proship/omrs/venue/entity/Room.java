@@ -1,8 +1,9 @@
 package com.proship.omrs.venue.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 public class Room {
@@ -12,7 +13,10 @@ public class Room {
 
     private String name;
 
-    private Long venue;
+   @JoinColumn(name = "venue")
+    @ManyToOne(fetch = FetchType.LAZY)
+   @JsonIgnore
+    private VenueBase venue;
 
     public Long getId() {
         return id;
@@ -30,11 +34,11 @@ public class Room {
         this.name = name;
     }
 
-    public Long getVenue() {
+    public VenueBase getVenue() {
         return venue;
     }
 
-    public void setVenue(Long venue) {
+    public void setVenue(VenueBase venue) {
         this.venue = venue;
     }
 }

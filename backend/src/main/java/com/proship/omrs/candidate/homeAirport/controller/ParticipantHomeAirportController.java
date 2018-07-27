@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/homeAirport/")
+@RequestMapping("/home-airport/")
 @Api(description = "candidate's home airport API")
 public class ParticipantHomeAirportController {
 

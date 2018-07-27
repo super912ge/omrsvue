@@ -41,6 +41,7 @@ public class HibernateGigDao {
     @Autowired
     GigService gigService;
 
+    @Transactional
     public List<Long> findGigIdByConditions(GigSearchParam in){
 
         EntityManager em = entityManagerFactory.createEntityManager();

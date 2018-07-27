@@ -46,7 +46,7 @@
       confirm() {
         if (this.confirmedResidency.length === 0 && this.residency.length !== 0) {
           this.residency.sort();
-          this.$http.post("http://localhost:8080/" + this.type + "/create/" + this.candidateId, this.residency,
+          this.$http.post( this.type + "/create/" + this.candidateId, this.residency,
             {headers: getHeader()}).then(response => {
             if (response.status === 201) {
               this.confirmedResidency = response.data;
@@ -57,7 +57,7 @@
             }
           })
         } else if (this.residency.length === 0) {
-            this.$http.get("http://localhost:8080/" + this.type + "/delete/" + this.candidateId, {headers: getHeader()}).then(
+            this.$http.get(this.type + "/delete/" + this.candidateId, {headers: getHeader()}).then(
               res => {
                 if (res.status === 200) {
                   this.confirmedResidency = [];
@@ -68,7 +68,7 @@
           }
           else {
           if (this.jsonStr !== JSON.stringify(this.residency.sort())) {
-            this.$http.post("http://localhost:8080/" + this.type + "/update/" + this.candidateId, this.residency,
+            this.$http.post( this.type + "/update/" + this.candidateId, this.residency,
               {headers: getHeader()}).then(response => {
               if (response.status === 201) {
                 this.confirmedResidency = response.data;
@@ -90,7 +90,7 @@
       },
       deleteResidency(){
         if(this.confirmed) {
-          this.$http.get("http://localhost:8080/"+this.type+"/delete/" + this.candidateId, {headers: getHeader()}).then(
+          this.$http.get(this.type+"/delete/" + this.candidateId, {headers: getHeader()}).then(
             res => {
               if (res.status === 200) {
                 this.confirmedResidency = [];

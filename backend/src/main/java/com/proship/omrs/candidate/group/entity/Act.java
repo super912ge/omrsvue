@@ -14,8 +14,10 @@ public class Act {
 
     @Id
     private Long id;
+
     @JsonIgnore
     private Integer specialtyType;
+
     @JsonIgnore
     private Long uuid;
 

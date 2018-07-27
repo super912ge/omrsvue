@@ -1,30 +1,49 @@
 package com.proship.omrs.venue.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Where;
+import com.proship.omrs.client.entity.ClientMap;
+import org.hibernate.annotations.Subselect;
+import org.hibernate.annotations.Synchronize;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.Date;
+
 
 @Entity
+@Subselect("select v.id as id, m.name as name, m.clientId as clientId, m.type as type, m.validstarttime as validStartTime" +
+        "p.validstarttime as startDate, p.validendtime as endDate from venue v join venue_main_shard m" +
+        " on v.id = m.venue_id join venue_period_shard p on v.id = p.venue_id where m.validendtime > now() and " +
+        " m.nexttransactiontime > now() and p.nexttransactiontime > now()")
+
+@Synchronize({"venue","venue_main_shard","venue_period_shard"})
 public class Venue {
 
     @Id
     private Long id;
 
-    @JsonIgnore
-    private Integer specialtyType;
+    private String name;
 
-    @OneToOne
-    @JoinColumn(name = "venueId")
-    private VenueMainShard venueMainShard;
+    private String type;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "venue")
-    private Set<Room> rooms;
+    private Date startDate;
 
-    @OneToOne(mappedBy = "venue",fetch = FetchType.LAZY)
-    private VenuePeriodShard venuePeriodShard;
+    private Date endDate;
+
+    private Date validStartTime;
+
+    @Transient
+    private String clientCode;
+
+    private Long clientId;
+
+    public Date getValidStartTime() {
+        return validStartTime;
+    }
+
+    public void setValidStartTime(Date validStartTime) {
+        this.validStartTime = validStartTime;
+    }
 
     public Long getId() {
         return id;
@@ -34,35 +53,54 @@ public class Venue {
         this.id = id;
     }
 
-    public Integer getSpecialtyType() {
-        return specialtyType;
+    public String getName() {
+        return name;
     }
 
-    public void setSpecialtyType(Integer specialtyType) {
-        this.specialtyType = specialtyType;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public VenueMainShard getVenueMainShard() {
-        return venueMainShard;
+    public String getType() {
+        return type;
     }
 
-    public void setVenueMainShard(VenueMainShard venueMainShard) {
-        this.venueMainShard = venueMainShard;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Set<Room> getRooms() {
-        return rooms;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public VenuePeriodShard getVenuePeriodShard() {
-        return venuePeriodShard;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setVenuePeriodShard(VenuePeriodShard venuePeriodShard) {
-        this.venuePeriodShard = venuePeriodShard;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getClientCode() {
+
+        if (clientCode==null) setClientCode();
+
+        return clientCode;
+    }
+
+    private void setClientCode() {
+        this.clientCode = ClientMap.getClient(clientId).getCode();
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 }

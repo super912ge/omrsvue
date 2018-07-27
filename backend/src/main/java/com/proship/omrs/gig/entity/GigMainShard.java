@@ -7,9 +7,13 @@ import com.proship.omrs.gig.param.RoomSerializer;
 import com.proship.omrs.jsonviews.UserSerializer;
 import com.proship.omrs.user.entity.User;
 import com.proship.omrs.venue.entity.Room;
+import com.proship.omrs.venue.entity.VenueBase;
+import com.proship.omrs.venue.entity.VenueMainShard;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Where(clause = "nexttransactiontime > now()")
@@ -27,17 +31,29 @@ public class GigMainShard extends MainShardEntity{
     private Room room ;
 
     private Double minSalaryAmount;
+
     private String minSalaryCurrency;
+
     private Boolean minSalaryGross;
+
     private Integer minSalaryRecurrencePeriodNumerator;
+
     private Integer minSalaryRecurrencePeriodDenominator ;
+
     private String minSalaryRecurrenceUnit  ;
+
     private Double maxSalaryAmount;
-    private String maxSalaryCurrency  ;
+
+    private String maxSalaryCurrency;
+
     private Boolean maxSalaryGross ;
+
     private Integer maxSalaryRecurrencePeriodNumerator ;
+
     private Integer maxSalaryRecurrencePeriodDenominator ;
+
     private String maxSalaryRecurrenceUnit  ;
+
     private Boolean exclusive;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -72,6 +88,16 @@ public class GigMainShard extends MainShardEntity{
     }
 
     public Room getRoom() {
+
+      if (room.getVenue().getVenueMainShard().getValidstarttime().after(this.getValidendtime())){
+            VenueBase venue = room.getVenue();
+
+            List<VenueMainShard> venueMainShards = venue.getVenueMainShards().stream()
+                    .filter(i-> !i.getValidstarttime().after(this.getValidendtime()) &&
+                            !i.getValidendtime().before(this.getValidstarttime())).collect(Collectors.toList());
+            if (!venueMainShards.isEmpty()) venue.setVenueMainShard(venueMainShards.get(0));
+            room.setVenue(venue);
+        }
         return room;
     }
 
@@ -208,7 +234,9 @@ public class GigMainShard extends MainShardEntity{
     }
 
     public BandType getBandType() {
-        return GigTypeMap.getBandType(this.gigType);
+        if (bandType== null) setBandType(GigTypeMap.getBandType(this.gigType));
+
+        return bandType;
     }
 
     public void setBandType(BandType bandType) {

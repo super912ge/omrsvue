@@ -3,6 +3,7 @@ package com.proship.omrs.base.entity;
 import com.proship.omrs.gig.entity.Gig;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
@@ -10,7 +11,7 @@ import javax.persistence.OneToOne;
 public class MainShardEntityWithGig extends MainShardEntity {
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="gig_id")
     private Gig gig;
 

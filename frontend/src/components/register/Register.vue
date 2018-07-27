@@ -1,22 +1,22 @@
 <template>
     <el-form :model="registerForm" :rules="registerRule" ref="registerForm" label-width="120px" class="demo-ruleForm">
         <el-form-item label="Username" prop="username">
-            <el-input v-model="registerForm.username" auto-complete="off"></el-input>
+            <el-input size="mini" v-model="registerForm.username" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="Password" prop="pass">
-            <el-input type="password" v-model="registerForm.pass" auto-complete="off"></el-input>
+            <el-input size="mini" type="password" v-model="registerForm.pass" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="Confirm" prop="checkPass">
-            <el-input type="password" v-model="registerForm.checkPass" auto-complete="off"></el-input>
+            <el-input size="mini" type="password" v-model="registerForm.checkPass" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="First Name" prop="firstName">
-            <el-input v-model="registerForm.firstName" auto-complete="off"></el-input>
+            <el-input size="mini" v-model="registerForm.firstName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="Last Name" prop="lastName">
-            <el-input type="text" v-model="registerForm.lastName" auto-complete="off"></el-input>
+            <el-input size="mini" type="text" v-model="registerForm.lastName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="Email" prop="email">
-            <el-input placeholder="Please input" v-model="registerForm.email">
+            <el-input size="mini" placeholder="Please input" v-model="registerForm.email">
                 <template slot="append">@proship.com</template>
             </el-input>
         </el-form-item>

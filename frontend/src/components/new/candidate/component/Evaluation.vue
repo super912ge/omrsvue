@@ -304,7 +304,7 @@
         return lanRating[index];
       },
       handleInstrumentSelect(key){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+key,{headers: getHeader()}).then(response=> {
+        this.$http.get('evaluation/type/subtypes/'+key,{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             this.ratingTypes = response.data;
            this.displayRatings();
@@ -324,7 +324,7 @@
       },
 
       fetchInstrument(){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+2,{headers: getHeader()}).then(response=> {
+        this.$http.get('evaluation/type/subtypes/'+2,{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             this.instruments = response.data;
           }});
@@ -347,13 +347,13 @@
         } })
       },
       fetchLanguage(){
-        this.$http.get('http://localhost:8080/evaluation/type/subtypes/'+4,{headers: getHeader()}).then(response=> {
+        this.$http.get('evaluation/type/subtypes/'+4,{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             this.languageOptions = response.data;
           }});
       },
       fetchUsers(){
-        this.$http.get('http://localhost:8080/user/all',{headers: getHeader()}).then(response=> {
+        this.$http.get('user/all',{headers: getHeader()}).then(response=> {
           if (response.status === 200) {
             this.systemUsers = response.data;
           }});
