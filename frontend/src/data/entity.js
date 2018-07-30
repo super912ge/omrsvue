@@ -2,7 +2,8 @@ export default {
 
   venue: {
     name: 'venue',
-    url: 'venue'
+    url: 'venue',
+    parent: 'client'
   },
 
   client:{
@@ -12,7 +13,8 @@ export default {
 
   room:{
     name:'room',
-    url:'room'
+    url:'room',
+    parent: 'venue'
   },
 
   gig:{
@@ -105,10 +107,12 @@ export default {
   candidate:{
     name:'participant',
     url:'candidate',
+
     address:{
       name:'participantAddress',
       url:'address'
     },
+
     citizenship:{
       name:'participantCitizenship',
       url:'citizenship'

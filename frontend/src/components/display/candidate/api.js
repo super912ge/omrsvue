@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import participant from "./candidate.js"
-Vue.use(VueResource);
 export function fetchCandidate(id,cb) {
 
 

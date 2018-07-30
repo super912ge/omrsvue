@@ -158,7 +158,6 @@
         next(vm => vm.setData(err, candidate));
       });
 
-    //  next(vm=>vm.setData(null,candidate));
     },
     beforeRouteUpdate(to, from, next) {
       this.candidate = null;

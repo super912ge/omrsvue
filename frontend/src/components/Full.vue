@@ -2,13 +2,9 @@
 <div class="app">
 
 
-    <!--<AppHeader/>-->
-
   <el-row>
 
-
       <AppNav/>
-
 
 
     <el-col  :span="24">

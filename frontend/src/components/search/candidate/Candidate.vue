@@ -60,28 +60,7 @@
   <!--//Experience-->
   <el-row style="margin-top: 25px">
     <span class="demonstration">Experience</span>
-    <div style="margin: 15px 0;"></div>
-    <el-collapse style="width:60%  ;margin-left: 25px"  @item-click="fetchClient">
-      <el-collapse-item title="Client" style="font-size: large" >
-        <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="criteria.experience.clientIds" style="height: 200px; overflow-y: scroll;">
-          <el-checkbox v-for="client in clients" :label="client.id" :key="client.id"style="margin-left: 5px; width: 200px"
-                       @change="handleExperienceChange" >{{client.name}}</el-checkbox>
-        </el-checkbox-group>
-      </el-collapse-item>
-    </el-collapse>
-    <div style="margin-top: 15px"></div>
-      <el-collapse style="width: 60%;margin-left: 25px "  @item-click="fetchVenue">
-      <el-collapse-item title="Venue">
-        <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="criteria.experience.venueIds" style="height: 200px; overflow-y:scroll">
-          <el-checkbox v-for="venueBase in venues" :label="venueBase.venueId" :key="venueBase.venueId"
-                       style="margin-left: 5px; width: 200px"
-                       @change="handleExperienceChange">{{venueBase.name}}  ------  {{venueBase.clientCode}}
-          </el-checkbox>
-        </el-checkbox-group>
-      </el-collapse-item>
-    </el-collapse>
+
   </el-row>
   <el-row style="margin-top: 15px">
     <span class="demonstration" style="margin-left: 25px; font-size: 80%">Gig Type</span>
@@ -213,11 +192,7 @@
   export default {
 
     components: {
-      ElCol,
-      ElButton,
-      ElRow,
       Document,
-      ElTree,
       AppNav,
       DisplayCandidate},
     data() {
@@ -418,7 +393,6 @@
       },
       searchByLocation(){
 
-
         if(!_.isEmpty(this.criteria.location.citizenship)||!_.isEmpty(this.criteria.location.residency)){
           this.$http.post("http://localhost:8088/candidate/search/residencyAndCitizenship",
            this.criteria.location, {headers:getHeader() }).then( response => {
@@ -429,9 +403,11 @@
             })
         }
       },
+
       handleNameChange(){
         _.debounce(this.searchByName,500)();
       },
+
       searchByName(){
         if(this.criteria.candidateName.name && this.criteria.candidateName.searchType
           && this.criteria.candidateName.name.trim().length>0){
@@ -449,11 +425,11 @@
       handleExperienceChange(){
         _.debounce(this.searchByExperience,500)();
       },
+
       searchByExperience(){
         if(!_.isEmpty(this.criteria.experience.clientIds)||!_.isEmpty(this.criteria.experience.venueIds)||
         !_.isEmpty(this.criteria.experience.gigTypeId)||!_.isEmpty(this.criteria.experience.rank)){
           this.$http.post("http://localhost:8088/candidate/search/gig",
-
             this.criteria.experience, {headers:getHeader() }).then( response => {
             if (response.status === 200) {
               this.result.experienceResultList = response.data;
@@ -573,6 +549,7 @@
         };
         _.debounce(this.searchByEvaluation,1000)()
       },
+
       searchByEvaluation(evaluation){
         this.$http.post("http://localhost:8088/candidate/search/evaluation",
 
@@ -632,65 +609,37 @@
       },
       fetchGigType(){
         let gigTypeOptions = JSON.parse(localStorage.getItem("gigTypeOptions"));
+
         if(!gigTypeOptions){
 
           this.$http.get('http://localhost:8088/gigType/',{headers: getHeader()}).then(response=> {
 
             if (response.status === 200) {
+
               gigTypeOptions = response.data;
+
               this.gigTypes = response.data;
+
               localStorage.setItem('gigTypeOptions',JSON.stringify(response.data))
             }
           })
         }else {
+
           this.gigTypes = gigTypeOptions;
         }
       },
-      fetchClient(){
 
-        if(! this.clients){
-          let clientOptions = JSON.parse(localStorage.getItem("clientOptions"));
-          if(!clientOptions){
-            this.$http.get('http://localhost:8088/client/',{headers: getHeader()}).then(response=> {
-              if (response.status === 200) {
-                this.clients = response.data;
-                localStorage.setItem('clientOptions',JSON.stringify(response.data))
-              }
-            })
-          }else {
-            this.clients = clientOptions;
-
-          }
-        }
-      },
-      fetchVenue(){
-       let venueOptions = JSON.parse(localStorage.getItem("venueOptions"));
-          if(!venueOptions){
-            this.$http.get('http://localhost:8088/venuemainshard/',{headers: getHeader()}).then(response=> {
-              if (response.status === 200) {
-                venueOptions = response.data;
-                localStorage.setItem('venueOptions',JSON.stringify(venueOptions))
-              }
-            })
-          }
-
-
-
-        if(!this.criteria.experience.clientIds|| this.criteria.experience.clientIds.length===0) {
-          this.venues = venueOptions;
-        }
-        else {
-          let filteredVenue = venueOptions.filter(venueBase => this.criteria.experience.clientIds.includes(venueBase.clientId));
-          this.venues = filteredVenue;
-        }
-      },
       fetchCountry(){
         let countryOptions = JSON.parse(localStorage.getItem('countryOptions'));
 
         if (!countryOptions){
+
           this.$http.get('http://localhost:8088/country/',{headers:getHeader()}).then(response=>{
+
             if(response.status===200){
+
               localStorage.setItem('countryOptions', JSON.stringify(response.data));
+
               this.countries = response.data;
             }
           })
@@ -704,10 +653,12 @@
           if (response.status === 200) {
 
             visaTypeOptions = response.data;
+
             localStorage.setItem('visaTypeOptions',JSON.stringify(visaTypeOptions));
+
             this.visaType = visaTypeOptions;
           }
-        })
+        });
         else this.visaType = visaTypeOptions;
       },
       fetchMedicalType(){

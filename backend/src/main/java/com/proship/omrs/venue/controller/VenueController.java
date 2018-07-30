@@ -16,6 +16,8 @@ public class VenueController {
 
     @GetMapping("all")
     Collection getAll(){
+
+
         return VenueMap.getVenueMap().values();
     }
 

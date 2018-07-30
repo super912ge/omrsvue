@@ -20,10 +20,7 @@
               </template>
           </el-menu>
         </el-col>
-
-
         <el-col :span="2"  style="margin-top: 15px">
-
           <el-dropdown v-if="username" @command="handleCommand">
             <span id="username">
               {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -43,12 +40,7 @@
 </template>
 <script>
   import ls from 'localStorage'
-  import ElDropdown from "../../node_modules/element-ui/packages/dropdown/src/dropdown.vue";
-  import ElDropdownItem from "../../node_modules/element-ui/packages/dropdown/src/dropdown-item.vue";
     export default {
-      components: {
-        ElDropdownItem,
-        ElDropdown},
       data() {
             return {
                 text: 'logout'
@@ -70,7 +62,6 @@
         handleCommand(command) {
           console.log(command);
             if(command==='logout'){
-              console.log(command);
               ls.removeItem('userId');
               ls.removeItem('username');
               ls.removeItem('authUser');

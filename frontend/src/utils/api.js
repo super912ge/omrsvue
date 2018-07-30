@@ -3,8 +3,8 @@ import {getHeader} from "../env";
 
 class API {
 
-  constructor({ url }){
-    this.url = url? 'http//localhost:8080/api':url;
+  constructor(){
+    this.url = process.env.ROOT_API;
     this.endpoints = {}
   }
   /**
@@ -12,10 +12,12 @@ class API {
    * @param {A entity Object} entity
    */
   createEntity(entity) {
+
     this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity)
   }
 
   createEntities(arrayOfEntity) {
+
     arrayOfEntity.forEach(this.createEntity.bind(this))
   }
 
@@ -40,14 +42,23 @@ class API {
 
     endpoints.delete = ({ id }) => axios.get(`${resourceURL}/delete/${id}`,{ headers:getHeader()});
 
-    endpoints.search = (condition) => axios.post(`${resourceURL}/search`,condition,{headers:getHeader()});
-
-    endpoints.display = (ids) => axios.post(`${resourceURL}/display`,ids,{headers:getHeader()});
-
     return endpoints
 
   }
 
+  createAdvancedEndpoints(entity){
+
+    const resourceURL = `${this.url}/${url}`;
+
+    this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
+
+    this.endpoints[entity.name].search = (condition,url) => axios.post(`${resourceURL}/search${url}`,condition,{headers:getHeader()});
+
+    this.endpoints[entity.name].display = (ids) => axios.post(`${resourceURL}/display`,ids,{headers:getHeader()});
+  }
+
 }
 
-export default API
+ const api = new API();
+
+export default api

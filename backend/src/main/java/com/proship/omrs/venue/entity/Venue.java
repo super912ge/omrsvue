@@ -1,9 +1,9 @@
 package com.proship.omrs.venue.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proship.omrs.client.entity.ClientMap;
 import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Synchronize;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
@@ -11,11 +11,11 @@ import java.util.Date;
 
 
 @Entity
-@Subselect("select v.id as id, m.name as name, m.clientId as clientId, m.type as type, m.validstarttime as validStartTime" +
-        "p.validstarttime as startDate, p.validendtime as endDate from venue v join venue_main_shard m" +
+@Subselect("select v.id as id, m.name as name, m.client_id as client_id, m.type as type, " +
+        "m.validstarttime as valid_start_time, " +
+        "p.validstarttime as start_date, p.validendtime as end_date from venue v join venue_main_shard m " +
         " on v.id = m.venue_id join venue_period_shard p on v.id = p.venue_id where m.validendtime > now() and " +
         " m.nexttransactiontime > now() and p.nexttransactiontime > now()")
-
 @Synchronize({"venue","venue_main_shard","venue_period_shard"})
 public class Venue {
 
@@ -26,10 +26,13 @@ public class Venue {
 
     private String type;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date validStartTime;
 
     @Transient

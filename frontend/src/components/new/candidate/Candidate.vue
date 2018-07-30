@@ -138,9 +138,8 @@
   export default {
     components: {
       Document,
-      ElCol,
-      ElRow,
-      Essentials, Evaluation},
+      Essentials,
+      Evaluation},
     data(){
       return{
         profilePic: '',
@@ -185,7 +184,7 @@
       createCandidate(){
 
         if(!this.candidateCreated) {
-          this.$http.post("candidate/createByName",
+          this.$http.post("candidate/create-by-name",
             this.name, {headers: getHeader()}).then(response => {
             if (response.status === 201) {
               this.candidateCreated = true;

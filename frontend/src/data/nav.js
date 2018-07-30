@@ -78,7 +78,7 @@ export default {
                 },
                 {
                     title: 'To Do List',
-                    url: '/todolist'
+                    url: '/todo-list'
                 }
             ]
         },
@@ -92,11 +92,11 @@ export default {
                 },
                 {
                     title: 'Invoice Summary',
-                    url: '/invoicesummary'
+                    url: '/invoice-summary'
                 },
                 {
                     title: 'Revenue Report',
-                    url: '/revenuereport'
+                    url: '/revenue-report'
                 }
             ]
         },
@@ -127,7 +127,7 @@ export default {
         },
         {
             title: 'Incentive',
-            url: 'incentive'
+            url: '/incentive'
         }
     ]
 }
